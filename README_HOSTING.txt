@@ -1,1 +1,1 @@
-Upload all files and folders in this folder to the root of your GitHub repository. Keep the assets folder structure exactly as-is: assets/css/styles.css, assets/js/main.js, assets/images/. Cloudflare Pages will redeploy automatically after you commit changes.
+Upload all files and the entire assets folder to GitHub. Keep assets/css, assets/js, and assets/images exactly as included. Commit and push; Cloudflare Pages will redeploy automatically.
