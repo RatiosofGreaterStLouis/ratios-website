@@ -1,1 +1,0 @@
-RATIOS Version 2.0 official logo website package: official peacock logo, original layout style, multicultural language, enhanced gallery, forms, donation placeholders, animations, mobile design, service map, safety kit interaction, news/events, and sponsor placeholders.

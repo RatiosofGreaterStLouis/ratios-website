@@ -1,1 +1,0 @@
-RATIOS brand update: header tagline changed to "One of One" and homepage RATIOS acronym card moved below the hero photo so it no longer covers the image. Upload/replace the full site in GitHub, then commit and push.

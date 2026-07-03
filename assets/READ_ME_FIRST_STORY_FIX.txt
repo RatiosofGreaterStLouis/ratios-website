@@ -1,1 +1,0 @@
-Upload the contents of this ZIP directly into your ratios-website repository root. Replace existing files, commit, and push. This update changes index.html and about.html to mission-first wording and removes the bland overlay box.
