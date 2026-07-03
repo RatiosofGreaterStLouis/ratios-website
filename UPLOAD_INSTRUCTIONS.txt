@@ -1,0 +1,1 @@
+Extract this ZIP. Copy EVERYTHING inside this folder directly into Documents > GitHub > ratios-website. Replace existing files. Do not copy this folder into assets. Then commit and push in GitHub Desktop.
