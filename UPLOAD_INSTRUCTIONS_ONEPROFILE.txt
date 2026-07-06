@@ -1,0 +1,35 @@
+RATIOS OneProfile Root Upload Instructions
+
+This ZIP is built WITHOUT an extra update folder.
+
+1. Open your local repository folder:
+   C:\Users\Desirae\Documents\GitHub\ratios-website
+
+2. Extract this ZIP directly into that ratios-website folder.
+
+3. When Windows asks whether to replace files, choose Replace All.
+
+4. Confirm these items are in the root of ratios-website:
+   - oneprofile.html
+   - index.html
+   - about.html
+   - contact.html
+   - assets/css/oneprofile.css
+   - assets/js/oneprofile.js
+   - assets/images/oneprofile/oneprofile-lifepatch-concept.png
+
+5. Commit and push:
+   git add .
+   git commit -m "Add OneProfile page and navigation"
+   git push
+
+6. After Cloudflare deploys, visit:
+   https://ratiossaveslives.org/oneprofile.html
+
+What this update does:
+- Adds OneProfile to the navigation on every page.
+- Adds OneProfile to the footer.
+- Adds a homepage OneProfile Coming Soon section.
+- Adds a full OneProfile landing page.
+- Adds the concept mockup image, custom CSS, and small JavaScript animation.
+- Keeps the secure portal language as Coming Soon / waitlist only.
