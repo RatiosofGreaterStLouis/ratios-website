@@ -1,52 +1,25 @@
-RATIOS READY, SET, SAVE! — CORRECTED BRANDED PAGE
+READY, SET, SAVE! — MASCOT OVERLAP FIX
 
-This package replaces the full Ready, Set, Save! page with a clean, responsive,
-working page that fits the RATIOS brand.
+This update corrects the hero layout so the navy content panel no longer covers the peacock mascot.
 
-CORRECTIONS INCLUDED
-- Fixed the overlapping hero text and mascot.
-- Removed the AI-generated male instructor image you rejected.
-- Removed unsupported statistics and the unsupported “AHA-Based” claim.
-- Used only the class images from the design direction you approved.
-- Added a working mobile menu.
-- Connected every button to an actual destination:
-  • Request a Workshop → contact.html#contact-form
-  • Sponsor a Class / Sponsor Training → donate.html
-  • Explore Training → the training section on the same page
-  • View Upcoming Classes → news-events.html
-  • Navigation links → the correct website pages
-  • Email and phone → clickable contact links
-- Added descriptive alternative text for accessibility.
-- Improved spacing, alignment, mobile responsiveness, and brand consistency.
-- Included a full footer so the page no longer ends abruptly.
+WHAT CHANGED
+- Increased the mascot column width.
+- Kept the mascot fully contained inside its own panel.
+- Anchored the mascot to the bottom of the hero.
+- Prevented the image from being cropped or hidden behind the navy text area.
+- Preserved all working links, approved photos, navigation, and page content.
 
-FILES INCLUDED
-- ready-set-save.html
-- assets/images/rss-approved-mascot.jpg
-- assets/images/rss-approved-hero-class.jpg
-- assets/images/rss-approved-skills-class.jpg
-- assets/images/rss-approved-youth-cpr.jpg
-- assets/images/rss-approved-hands-on.jpg
-- assets/images/rss-approved-aed.jpg
-
-INSTALLATION
+UPLOAD
 1. Extract this ZIP.
-2. Open the extracted folder.
-3. Copy BOTH:
+2. Copy:
    - ready-set-save.html
    - assets folder
-4. Paste them directly into:
+3. Paste both directly into:
    C:\Users\Desirae\Documents\GitHub\ratios-website
-5. Choose “Replace the files in the destination.”
-6. Open GitHub Desktop.
-7. Confirm ready-set-save.html and the new rss-approved image files appear under Changes.
-8. Commit with:
-   Correct Ready Set Save page
-9. Click Push origin.
-10. Verify the newest deployment succeeds in the BLUE Cloudflare Pages project.
-11. Open:
+4. Choose “Replace the files in the destination.”
+5. Commit in GitHub Desktop with:
+   Fix mascot overlap
+6. Push origin.
+7. Verify the newest deployment in the BLUE Cloudflare Pages project.
+8. Open:
    https://ratiossaveslives.org/ready-set-save.html
-
-IMPORTANT
-Copy only ready-set-save.html and the assets folder.
-Do not paste the outer update folder into your repository.
