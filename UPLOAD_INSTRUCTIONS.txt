@@ -1,1 +1,18 @@
-Copy news-events.html into Documents > GitHub > ratios-website and choose Replace. Then commit and push in GitHub Desktop.
+THIS UPDATE IS ONLY ONE WEBSITE FILE.
+
+1. Open this extracted folder.
+2. Copy programs.html.
+3. Paste it directly into:
+   Documents > GitHub > ratios-website
+4. Choose Replace the file in the destination.
+5. Confirm that programs.html now shows today's modified date.
+6. In GitHub Desktop, confirm programs.html appears under Changes.
+7. Commit and Push origin.
+8. After Cloudflare deploys, open:
+   https://ratiossaveslives.org/programs.html
+9. Press Ctrl + F5.
+
+IMPORTANT:
+Do not paste the containing folder into ratios-website.
+Only paste the programs.html file itself.
+The styling is embedded inside the page, so no CSS file needs to be copied.
