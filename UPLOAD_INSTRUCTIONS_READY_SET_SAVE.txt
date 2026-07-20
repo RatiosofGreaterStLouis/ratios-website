@@ -1,0 +1,30 @@
+RATIOS READY, SET, SAVE! PAGE UPGRADE
+
+This ZIP contains:
+- ready-set-save.html
+- assets/images/ready-set-save-bls-class-collage.png
+
+INSTALLATION
+
+1. Extract this ZIP.
+2. Open the extracted folder.
+3. Copy BOTH:
+   - ready-set-save.html
+   - assets folder
+4. Paste them directly into:
+   Documents > GitHub > ratios-website
+5. Select "Replace the files in the destination" if Windows asks.
+6. Open GitHub Desktop.
+7. Confirm that these appear under Changes:
+   - ready-set-save.html
+   - assets/images/ready-set-save-bls-class-collage.png
+8. Commit with:
+   Upgrade Ready Set Save page
+9. Click Push origin.
+10. Wait for the successful Cloudflare Pages deployment.
+11. Visit:
+   https://ratiossaveslives.org/ready-set-save.html
+
+IMPORTANT
+- Do not paste the containing RATIOS_READY_SET_SAVE_PAGE_UPGRADE folder into the repository.
+- Copy the contents of the extracted folder directly into ratios-website.

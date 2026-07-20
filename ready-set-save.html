@@ -1,2 +1,227 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ready, Set, Save! | RATIOS</title><link rel="icon" href="assets/images/favicon-32.png"><link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;650;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/styles.css"></head><body><div class="topbar"><span>RATIOS • One of One</span><span>St. Louis, Missouri • Serving multicultural families, caregivers, schools & first responders</span></div>
-<nav class="navbar"><a class="brand" href="index.html"><img class="brand-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS One of One logo"><span class="brand-text"><strong>RATIOS</strong><small>One of One</small></span></a><button class="menu-toggle">Menu</button><div class="nav-links"><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile</a><a href="ready-set-save.html">Ready, Set, Save!</a><a href="shop.html">Shop</a><a href="volunteer.html">Volunteer</a><a href="news-events.html">News</a><a class="btn btn-donate" href="donate.html">Donate</a></div></nav><header class="page-hero"><div class="container"><span class="eyebrow">Ready, Set, Save!</span><h1>Safety education for families of every background.</h1><p>Ready, Set, Save! brings approachable safety education to children, teens, adults, families, caregivers, and community groups across multicultural communities.</p></div></header><section class="section"><div class="container split"><div><h2>Learn. Practice. Respond.</h2><p>Workshops can include basic emergency response, age-appropriate CPR/BLS awareness, when to call 911, how to identify danger, and how to help someone who may be lost, scared, or unable to communicate.</p><ul class="checklist"><li>School and youth group workshops</li><li>Family-friendly safety education</li><li>Community health events</li><li>Caregiver and volunteer training</li></ul><a class="btn btn-primary" href="contact.html">Request a Workshop</a></div><img src="assets/images/family-collage.png" alt="Multicultural families wearing RATIOS shirts" style="border-radius:28px;box-shadow:var(--shadow)"></div></section><section class="section section-tint"><div class="container"><h2>Workshop options</h2><div class="cards three"><div class="card"><h3>Kids Safety</h3><p>Simple emergency safety concepts in a fun, age-appropriate format.</p></div><div class="card"><h3>Family Preparedness</h3><p>Planning tools for home, school, and community emergencies.</p></div><div class="card"><h3>Community Response</h3><p>Awareness for volunteers, neighbors, and organizations.</p></div></div></div></section><footer class="footer"><div class="container footer-grid"><div><img class="footer-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS logo"><h3>RATIOS</h3><p>One of One. Serving families throughout the Greater St. Louis Region.</p><p class="small">Some website images are illustrative representations used for awareness, education, and outreach.</p></div><div><h4>Explore</h4><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile</a><a href="shop.html">Shop</a></div><div><h4>Get involved</h4><a href="donate.html">Donate</a><a href="volunteer.html">Volunteer</a><a href="resource-request.html">Request Resources</a><a href="contact.html">Contact</a></div><div><h4>Contact</h4><p>Greater St. Louis Region</p><p><strong>Email:</strong> <a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a></p><p><strong>Phone:</strong> <a href="tel:+13143256313">(314) 325-6313</a></p></div></div><div class="footer-bottom">© 2026 RATIOS. All rights reserved.</div></footer><script src="assets/js/main.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ready, Set, Save! | RATIOS</title>
+  <meta name="description" content="Ready, Set, Save! provides approachable CPR, BLS, AED, first-aid, and emergency preparedness education for families, caregivers, schools, and community groups.">
+  <link rel="icon" href="assets/images/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;650;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .rss-page *{box-sizing:border-box}
+    .rss-page{font-family:Inter,Arial,sans-serif;color:#071a38}
+    .rss-wrap{width:min(1180px,calc(100% - 42px));margin:auto}
+    .rss-hero{position:relative;overflow:hidden;padding:88px 0 78px;background:radial-gradient(circle at 88% 10%,rgba(32,159,155,.18),transparent 27%),radial-gradient(circle at 72% 90%,rgba(119,72,158,.12),transparent 31%),linear-gradient(135deg,#fff 0%,#eefafb 58%,#faf7fc 100%)}
+    .rss-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.95fr);gap:58px;align-items:center}
+    .rss-eyebrow{display:inline-flex;align-items:center;gap:10px;color:#158f91;font-size:.78rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
+    .rss-eyebrow:before{content:"";width:34px;height:3px;border-radius:99px;background:linear-gradient(90deg,#159c99,#7b4ba0)}
+    .rss-hero h1{margin:14px 0 20px;font-size:clamp(3.1rem,6vw,5.7rem);line-height:.96;letter-spacing:-.068em}
+    .rss-hero p{max-width:700px;margin:0 0 30px;color:#52657b;font-size:1.16rem;line-height:1.75;font-weight:600}
+    .rss-actions{display:flex;gap:14px;flex-wrap:wrap}
+    .rss-btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 22px;border-radius:999px;text-decoration:none;font-weight:900}
+    .rss-primary{color:#fff;background:linear-gradient(135deg,#118f92,#2c789d)}
+    .rss-gold{color:#071a38;background:#f3ba45}
+    .rss-light{color:#071a38;background:#fff;border:1px solid rgba(7,26,56,.1)}
+    .rss-hero-media{position:relative}
+    .rss-hero-media img{display:block;width:100%;border-radius:30px;box-shadow:0 30px 80px rgba(7,26,56,.18)}
+    .rss-image-badge{position:absolute;left:22px;bottom:22px;padding:12px 16px;border-radius:16px;background:rgba(7,26,56,.9);color:#fff;font-weight:900;box-shadow:0 12px 28px rgba(0,0,0,.18)}
+    .rss-intro{padding:94px 0;background:#fff}
+    .rss-split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:60px;align-items:center}
+    .rss-split h2,.rss-section-heading h2{margin:10px 0 16px;font-size:clamp(2.4rem,4.4vw,4.65rem);line-height:1.02;letter-spacing:-.055em}
+    .rss-split p,.rss-section-heading p{color:#627488;font-size:1.07rem;line-height:1.75;font-weight:600}
+    .rss-checks{display:grid;gap:12px;margin:26px 0 30px;padding:0;list-style:none}
+    .rss-checks li{position:relative;padding-left:32px;color:#31485f;font-weight:800}
+    .rss-checks li:before{content:"✓";position:absolute;left:0;top:-2px;width:22px;height:22px;display:grid;place-items:center;border-radius:50%;color:#fff;background:#1b9b99;font-size:.78rem}
+    .rss-photo-panel{position:relative}
+    .rss-photo-panel img{display:block;width:100%;border-radius:30px;box-shadow:0 24px 65px rgba(7,26,56,.14)}
+    .rss-photo-note{position:absolute;right:20px;bottom:20px;max-width:250px;padding:16px 18px;border-radius:18px;background:#fff;color:#071a38;font-weight:900;box-shadow:0 18px 45px rgba(7,26,56,.15)}
+    .rss-workshops{padding:94px 0 106px;background:radial-gradient(circle at 13% 7%,rgba(37,156,156,.09),transparent 24%),#f5fafc}
+    .rss-section-heading{max-width:800px;margin:0 auto 44px;text-align:center}
+    .rss-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+    .rss-card{--accent:#249c9c;position:relative;overflow:hidden;min-height:250px;padding:30px;border-radius:26px;border:1px solid rgba(7,26,56,.08);background:#fff;box-shadow:0 16px 40px rgba(7,26,56,.08);transition:.25s}
+    .rss-card:hover{transform:translateY(-6px);box-shadow:0 26px 58px rgba(7,26,56,.13)}
+    .rss-card:before{content:"";position:absolute;inset:0 0 auto;height:6px;background:linear-gradient(90deg,var(--accent),transparent 88%)}
+    .rss-card:nth-child(2){--accent:#f2b53f}.rss-card:nth-child(3){--accent:#784aa0}.rss-card:nth-child(4){--accent:#347fa5}.rss-card:nth-child(5){--accent:#e05e67}.rss-card:nth-child(6){--accent:#2b9a7e}
+    .rss-icon{width:56px;height:56px;display:grid;place-items:center;margin-bottom:22px;border-radius:18px;color:#fff;background:linear-gradient(145deg,var(--accent),#244f7a);font-weight:900}
+    .rss-card h3{margin:0 0 12px;font-size:1.28rem}
+    .rss-card p{margin:0;color:#66788c;line-height:1.68;font-weight:600}
+    .rss-gallery{padding:96px 0;background:#fff}
+    .rss-gallery-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:24px}
+    .rss-gallery-main,.rss-gallery-side{overflow:hidden;border-radius:28px}
+    .rss-gallery-main img,.rss-gallery-side img{display:block;width:100%;height:100%;object-fit:cover}
+    .rss-gallery-main{min-height:510px}
+    .rss-gallery-side{min-height:510px;position:relative}
+    .rss-gallery-copy{position:absolute;inset:auto 20px 20px;padding:22px;border-radius:20px;background:rgba(7,26,56,.88);color:#fff}
+    .rss-gallery-copy h3{margin:0 0 7px;font-size:1.45rem}
+    .rss-gallery-copy p{margin:0;color:#d8e6f3;line-height:1.6}
+    .rss-cta{padding:72px 0;color:#fff;background:radial-gradient(circle at 90% 0%,rgba(46,159,158,.30),transparent 30%),linear-gradient(125deg,#061124,#0a2447 55%,#281445)}
+    .rss-cta-grid{display:flex;justify-content:space-between;align-items:center;gap:36px}
+    .rss-cta h2{max-width:770px;margin:8px 0 12px;color:#fff;font-size:clamp(2rem,4vw,3.55rem);line-height:1.05;letter-spacing:-.045em}
+    .rss-cta p{max-width:720px;color:#d7e6f5;line-height:1.7;font-weight:600}
+    @media(max-width:980px){.rss-hero-grid,.rss-split,.rss-gallery-grid{grid-template-columns:1fr}.rss-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rss-cta-grid{display:block}.rss-cta .rss-actions{margin-top:26px}}
+    @media(max-width:660px){.rss-hero{padding:64px 0}.rss-hero h1{font-size:3rem}.rss-intro,.rss-workshops,.rss-gallery{padding:68px 0}.rss-card-grid{grid-template-columns:1fr}.rss-gallery-main,.rss-gallery-side{min-height:330px}}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span>RATIOS • One of One</span>
+    <span>St. Louis, Missouri • Serving multicultural families, caregivers, schools & first responders</span>
+  </div>
+
+  <nav class="navbar">
+    <a class="brand" href="index.html">
+      <img class="brand-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS One of One logo">
+      <span class="brand-text"><strong>RATIOS</strong><small>One of One</small></span>
+    </a>
+    <button class="menu-toggle">Menu</button>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="programs.html">Programs</a>
+      <a href="safety-kits.html">Safety Kits</a>
+      <a href="oneprofile.html">OneProfile™</a>
+      <a href="ready-set-save.html">Ready, Set, Save!</a>
+      <a href="shop.html">Shop</a>
+      <a href="volunteer.html">Volunteer</a>
+      <a href="news-events.html">News</a>
+      <a class="btn btn-donate" href="donate.html">Donate</a>
+    </div>
+  </nav>
+
+  <div class="rss-page">
+    <header class="rss-hero">
+      <div class="rss-wrap rss-hero-grid">
+        <div>
+          <span class="rss-eyebrow">Ready, Set, Save!</span>
+          <h1>Confidence to respond when every second matters.</h1>
+          <p>Ready, Set, Save! brings practical CPR, BLS, AED, first-aid, and emergency preparedness education to children, teens, adults, families, caregivers, schools, churches, and community groups.</p>
+          <div class="rss-actions">
+            <a class="rss-btn rss-primary" href="contact.html">Request a Workshop</a>
+            <a class="rss-btn rss-gold" href="donate.html">Sponsor a Class</a>
+            <a class="rss-btn rss-light" href="#workshops">Explore Training</a>
+          </div>
+        </div>
+        <div class="rss-hero-media">
+          <img src="assets/images/ready-set-save-bls-class-collage.png" alt="People participating in a Ready, Set, Save! CPR and BLS training class">
+          <div class="rss-image-badge">Learn. Practice. Respond.</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="rss-intro">
+        <div class="rss-wrap rss-split">
+          <div>
+            <span class="rss-eyebrow">Hands-on learning</span>
+            <h2>Skills people can use with confidence.</h2>
+            <p>Workshops combine demonstrations, hands-on practice, plain-language instruction, and realistic emergency scenarios so participants leave feeling more prepared—not overwhelmed.</p>
+            <ul class="rss-checks">
+              <li>Adult and child CPR practice</li>
+              <li>AED awareness and guided use</li>
+              <li>Age-appropriate youth safety education</li>
+              <li>Family and caregiver preparedness</li>
+              <li>Community, school, church, and workplace workshops</li>
+            </ul>
+            <a class="rss-btn rss-primary" href="contact.html">Request a Workshop</a>
+          </div>
+          <div class="rss-photo-panel">
+            <img src="assets/images/ready-set-save-bls-class-collage.png" alt="Diverse participants practicing CPR and AED skills during a BLS class">
+            <div class="rss-photo-note">Practical education. Supportive instruction. Real-life readiness.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="rss-workshops" id="workshops">
+        <div class="rss-wrap">
+          <div class="rss-section-heading">
+            <span class="rss-eyebrow">Workshop options</span>
+            <h2>Training designed for different ages and settings.</h2>
+            <p>Programs can be adapted for community groups, schools, caregivers, faith-based organizations, and family events.</p>
+          </div>
+          <div class="rss-card-grid">
+            <article class="rss-card"><div class="rss-icon">CPR</div><h3>Hands-Only CPR</h3><p>Simple, memorable instruction focused on recognizing cardiac arrest and beginning strong chest compressions.</p></article>
+            <article class="rss-card"><div class="rss-icon">AED</div><h3>AED Awareness</h3><p>Participants learn what an AED does, how to follow its prompts, and how it supports emergency response.</p></article>
+            <article class="rss-card"><div class="rss-icon">BLS</div><h3>Basic Life Support</h3><p>Structured education for healthcare learners, caregivers, staff, and community members seeking deeper skills.</p></article>
+            <article class="rss-card"><div class="rss-icon">KIDS</div><h3>Kids Safety</h3><p>Age-appropriate emergency concepts, calling for help, recognizing danger, and building confidence without fear.</p></article>
+            <article class="rss-card"><div class="rss-icon">FA</div><h3>First Aid Basics</h3><p>Practical guidance for common injuries, bleeding, choking, and what to do while professional help is on the way.</p></article>
+            <article class="rss-card"><div class="rss-icon">FAM</div><h3>Family Preparedness</h3><p>Planning tools for home, school, community events, emergency contacts, medications, and communication needs.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="rss-gallery">
+        <div class="rss-wrap">
+          <div class="rss-section-heading">
+            <span class="rss-eyebrow">Inside the classroom</span>
+            <h2>Training that is active, welcoming, and practical.</h2>
+          </div>
+          <div class="rss-gallery-grid">
+            <div class="rss-gallery-main">
+              <img src="assets/images/ready-set-save-bls-class-collage.png" alt="CPR students practicing compressions on training manikins">
+            </div>
+            <div class="rss-gallery-side">
+              <img src="assets/images/ready-set-save-bls-class-collage.png" alt="BLS instructor teaching CPR and AED skills">
+              <div class="rss-gallery-copy">
+                <h3>Building confident lifesavers.</h3>
+                <p>Participants practice, ask questions, and leave with clear next steps they can remember in an emergency.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="rss-cta">
+        <div class="rss-wrap rss-cta-grid">
+          <div>
+            <span class="rss-eyebrow" style="color:#f4bd47">Bring training to your community</span>
+            <h2>Ready to schedule a Ready, Set, Save! workshop?</h2>
+            <p>Contact RATIOS to discuss your audience, location, class goals, and available workshop options.</p>
+          </div>
+          <div class="rss-actions">
+            <a class="rss-btn rss-gold" href="contact.html">Request a Workshop</a>
+            <a class="rss-btn rss-light" href="donate.html">Sponsor Training</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <img class="footer-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS logo">
+        <h3>RATIOS</h3>
+        <p>One of One. Serving families throughout the Greater St. Louis Region.</p>
+        <p class="small">Every Person. Every Ability. Every Community.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="about.html">About</a>
+        <a href="programs.html">Programs</a>
+        <a href="safety-kits.html">Safety Kits</a>
+        <a href="oneprofile.html">OneProfile™</a>
+        <a href="shop.html">Shop</a>
+      </div>
+      <div>
+        <h4>Get involved</h4>
+        <a href="donate.html">Donate</a>
+        <a href="volunteer.html">Volunteer</a>
+        <a href="resource-request.html">Request Resources</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>Greater St. Louis Region</p>
+        <p><strong>Email:</strong> <a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+13143256313">(314) 325-6313</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 RATIOS. All rights reserved.</div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
