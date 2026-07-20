@@ -1,18 +1,36 @@
-THIS UPDATE IS ONLY ONE WEBSITE FILE.
+READY, SET, SAVE! — EASY WEBSITE UPDATE
 
-1. Open this extracted folder.
-2. Copy programs.html.
-3. Paste it directly into:
-   Documents > GitHub > ratios-website
-4. Choose Replace the file in the destination.
-5. Confirm that programs.html now shows today's modified date.
-6. In GitHub Desktop, confirm programs.html appears under Changes.
-7. Commit and Push origin.
-8. After Cloudflare deploys, open:
-   https://ratiossaveslives.org/programs.html
-9. Press Ctrl + F5.
+This ZIP mirrors the part of your website that needs to change.
 
-IMPORTANT:
-Do not paste the containing folder into ratios-website.
-Only paste the programs.html file itself.
-The styling is embedded inside the page, so no CSS file needs to be copied.
+Inside you will find:
+- ready-set-save.html
+- assets/images/ready-set-save-peacock-mascot.png
+- assets/images/ready-set-save-confidence.jpg
+- assets/images/ready-set-save-skills.jpg
+- assets/images/ready-set-save-active.jpg
+- assets/images/ready-set-save-practical.jpg
+
+HOW TO INSTALL
+
+1. Download and extract the ZIP.
+2. Open the extracted folder.
+3. Select:
+   - ready-set-save.html
+   - assets
+4. Copy both items.
+5. Paste them directly into:
+   C:\Users\Desirae\Documents\GitHub\ratios-website
+6. When Windows asks, choose:
+   Replace the files in the destination
+7. Open GitHub Desktop.
+8. Confirm the updated HTML and image files appear under Changes.
+9. Commit with:
+   Update Ready Set Save design
+10. Click Push origin.
+11. Check the BLUE Cloudflare Pages project for a successful deployment.
+12. Open:
+   https://ratiossaveslives.org/ready-set-save.html
+
+IMPORTANT
+Do not copy the outer update folder into your website.
+Copy only ready-set-save.html and the assets folder.
