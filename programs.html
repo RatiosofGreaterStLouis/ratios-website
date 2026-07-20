@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Explore RATIOS programs supporting preparedness, identification, education, advocacy, and safer communities.">
 <title>Programs | RATIOS</title>
 <link rel="icon" href="assets/images/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
@@ -10,7 +11,56 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;650;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
-<link rel="stylesheet" href="assets/css/programs-polish.css">
+<style>
+.programs-page *{box-sizing:border-box}
+.programs-page{font-family:Inter,Arial,sans-serif;color:#071a38}
+.programs-page .wrap{width:min(1180px,calc(100% - 42px));margin:auto}
+.programs-hero{position:relative;overflow:hidden;padding:88px 0 82px;background:radial-gradient(circle at 85% 15%,rgba(37,156,156,.18),transparent 27%),radial-gradient(circle at 72% 85%,rgba(120,74,160,.12),transparent 31%),linear-gradient(135deg,#fff 0%,#f3fbfc 55%,#f9f6fc 100%);border-bottom:1px solid rgba(8,33,65,.08)}
+.programs-hero-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:60px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:#168e91;font-size:.78rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow:before{content:"";width:34px;height:3px;border-radius:20px;background:linear-gradient(90deg,#159c99,#7a4ba0)}
+.programs-hero h1{max-width:820px;margin:14px 0 22px;font-size:clamp(3rem,6vw,5.55rem);line-height:.97;letter-spacing:-.065em}
+.programs-hero p{max-width:760px;margin:0 0 30px;color:#52657b;font-size:1.17rem;line-height:1.75;font-weight:600}
+.hero-art{position:relative;min-height:360px;display:grid;place-items:center}
+.hero-art:before,.hero-art:after{content:"";position:absolute;border-radius:50%}
+.hero-art:before{width:290px;height:290px;right:0;top:0;background:linear-gradient(135deg,rgba(24,151,150,.32),rgba(54,131,176,.10))}
+.hero-art:after{width:210px;height:210px;left:0;bottom:0;background:linear-gradient(135deg,rgba(246,184,63,.29),rgba(117,64,151,.17))}
+.hero-art img{position:relative;z-index:2;width:min(325px,82%);padding:18px;border-radius:32px;background:#fff;box-shadow:0 30px 80px rgba(7,26,56,.17)}
+.button-row{display:flex;gap:14px;flex-wrap:wrap}
+.programs-page .cta-btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 22px;border-radius:999px;text-decoration:none;font-weight:900}
+.cta-primary{color:#fff;background:linear-gradient(135deg,#118f92,#2c789d)}
+.cta-gold{color:#071a38;background:#f3ba45}
+.cta-light{color:#071a38;background:#fff}
+.pillars{padding:92px 0;background:#fff}
+.section-intro{max-width:780px;margin-bottom:42px}
+.section-intro.center{text-align:center;margin-left:auto;margin-right:auto}
+.section-intro h2{margin:10px 0 14px;font-size:clamp(2.4rem,4.5vw,4.7rem);line-height:1.02;letter-spacing:-.055em}
+.section-intro p{margin:0;color:#64768a;font-size:1.08rem;line-height:1.75;font-weight:600}
+.pillar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.pillar-card{--accent:#259b9d;position:relative;overflow:hidden;min-height:300px;padding:34px;border-radius:29px;border:1px solid rgba(8,33,65,.09);background:linear-gradient(145deg,#fff,#fbfdff);box-shadow:0 18px 50px rgba(7,26,56,.08);transition:.25s}
+.pillar-card:hover{transform:translateY(-6px);box-shadow:0 28px 70px rgba(7,26,56,.14)}
+.pillar-card:before{content:"";position:absolute;left:0;right:0;top:0;height:7px;background:linear-gradient(90deg,var(--accent),transparent 88%)}
+.pillar-card:after{content:"";position:absolute;width:180px;height:180px;right:-75px;bottom:-85px;border-radius:50%;background:var(--accent);opacity:.08}
+.pillar-teal{--accent:#249c9c}.pillar-gold{--accent:#f2b53f}.pillar-purple{--accent:#784aa0}.pillar-blue{--accent:#347fa5}
+.icon-box{width:62px;height:62px;display:grid;place-items:center;margin-bottom:28px;border-radius:20px;color:var(--accent);background:#f6fbfc;border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);font-size:1.6rem;font-weight:900}
+.pillar-no{position:absolute;top:34px;right:34px;color:var(--accent);opacity:.43;font-weight:900;letter-spacing:.14em}
+.pillar-card h3{margin:0 0 13px;font-size:1.65rem;letter-spacing:-.03em}
+.pillar-card p{margin:0 0 23px;color:#607287;font-size:1.01rem;line-height:1.7;font-weight:600}
+.pillar-card a{position:relative;z-index:2;color:var(--accent);font-weight:900;text-decoration:none}
+.services{padding:94px 0 108px;background:radial-gradient(circle at 15% 10%,rgba(44,152,156,.08),transparent 25%),#f5fafc}
+.service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:21px}
+.service-card{display:flex;align-items:flex-start;gap:18px;min-height:215px;padding:27px;border-radius:24px;border:1px solid rgba(8,33,65,.08);background:#fff;box-shadow:0 14px 35px rgba(7,26,56,.07);transition:.25s}
+.service-card:hover{transform:translateY(-5px);box-shadow:0 23px 55px rgba(7,26,56,.12)}
+.service-mark{flex:0 0 52px;width:52px;height:52px;display:grid;place-items:center;border-radius:17px;color:#fff;background:linear-gradient(145deg,#139d9a,#385f9b 60%,#75479d);font-size:.8rem;font-weight:900}
+.service-card h3{margin:2px 0 10px;font-size:1.23rem}
+.service-card p{margin:0;color:#66788c;line-height:1.65;font-weight:600}
+.final-cta{padding:70px 0;color:#fff;background:radial-gradient(circle at 90% 0%,rgba(46,159,158,.30),transparent 30%),linear-gradient(125deg,#061124,#0a2447 55%,#281445)}
+.final-cta-grid{display:flex;align-items:center;justify-content:space-between;gap:36px}
+.final-cta h2{max-width:760px;margin:8px 0 12px;color:#fff;font-size:clamp(2rem,4vw,3.5rem);line-height:1.05;letter-spacing:-.045em}
+.final-cta p{max-width:700px;color:#d7e6f5;line-height:1.7;font-weight:600}
+@media(max-width:980px){.programs-hero-grid{grid-template-columns:1fr}.hero-art{min-height:260px}.hero-art img{width:min(240px,65%)}.service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.final-cta-grid{display:block}.final-cta .button-row{margin-top:26px}}
+@media(max-width:680px){.programs-hero{padding:64px 0}.programs-hero h1{font-size:3rem}.hero-art{display:none}.pillars,.services{padding:68px 0}.pillar-grid,.service-grid{grid-template-columns:1fr}.pillar-card{min-height:auto;padding:28px}.section-intro h2{font-size:2.65rem}}
+</style>
 </head>
 <body>
 <div class="topbar"><span>RATIOS • One of One</span><span>St. Louis, Missouri • Serving families, caregivers, schools & first responders</span></div>
@@ -18,24 +68,43 @@
 <a class="brand" href="index.html"><img class="brand-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS One of One logo"><span class="brand-text"><strong>RATIOS</strong><small>One of One</small></span></a>
 <button class="menu-toggle" aria-label="Open navigation">Menu</button>
 <div class="nav-links">
-<a href="about.html">About</a><a class="active" href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile™</a><a href="ready-set-save.html">Ready, Set, Save!</a><a href="shop.html">Shop</a><a href="volunteer.html">Volunteer</a><a href="news-events.html">News</a><a class="btn btn-donate" href="donate.html">Donate</a>
+<a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile™</a><a href="ready-set-save.html">Ready, Set, Save!</a><a href="shop.html">Shop</a><a href="volunteer.html">Volunteer</a><a href="news-events.html">News</a><a class="btn btn-donate" href="donate.html">Donate</a>
 </div>
 </nav>
+
+<div class="programs-page">
 <header class="programs-hero">
-<div class="container programs-hero-grid">
-<div><span class="eyebrow">RATIOS Programs</span><h1>Practical support before, during, and after an emergency.</h1><p>Our programs help families organize critical information, prepare for emergencies, access identification tools, and connect with safer, more informed communities.</p><div class="button-row"><a class="btn btn-primary" href="resource-request.html">Request Resources</a><a class="btn btn-gold" href="donate.html">Support the Mission</a></div></div>
-<div class="programs-hero-art" aria-hidden="true"><div class="hero-orb hero-orb-one"></div><div class="hero-orb hero-orb-two"></div><img src="assets/images/ratios-official-logo.png" alt=""></div>
+<div class="wrap programs-hero-grid">
+<div>
+<span class="eyebrow">RATIOS Programs</span>
+<h1>Practical support before, during, and after an emergency.</h1>
+<p>Our programs help families organize critical information, prepare for emergencies, access identification tools, and connect with safer, more informed communities.</p>
+<div class="button-row"><a class="cta-btn cta-primary" href="resource-request.html">Request Resources</a><a class="cta-btn cta-gold" href="donate.html">Support the Mission</a></div>
+</div>
+<div class="hero-art"><img src="assets/images/ratios-official-logo.png" alt="RATIOS logo"></div>
 </div>
 </header>
+
 <main>
-<section class="programs-pillars"><div class="container"><div class="programs-heading"><span class="eyebrow">How we help</span><h2>Practical support with dignity at the center.</h2><p>Each area of support is designed to be useful, respectful, and flexible enough to meet real families where they are.</p></div>
+<section class="pillars">
+<div class="wrap">
+<div class="section-intro">
+<span class="eyebrow">How we help</span>
+<h2>Practical support with dignity at the center.</h2>
+<p>Each area of support is designed to be useful, respectful, and flexible enough to meet real families where they are.</p>
+</div>
 <div class="pillar-grid">
-<article class="pillar-card pillar-teal"><div class="pillar-icon">✓</div><span class="pillar-number">01</span><h3>Preparedness</h3><p>Helping families plan before emergencies happen with checklists, profiles, current photos, and clear next steps.</p><a href="safety-kits.html">Explore safety resources <span>→</span></a></article>
-<article class="pillar-card pillar-gold"><div class="pillar-icon">♥</div><span class="pillar-number">02</span><h3>Support</h3><p>Connecting caregivers with practical tools, resource guidance, and options that respect individual comfort and needs.</p><a href="resource-request.html">Request assistance <span>→</span></a></article>
-<article class="pillar-card pillar-purple"><div class="pillar-icon">◆</div><span class="pillar-number">03</span><h3>Education</h3><p>Equipping families, schools, community groups, and first responders with knowledge that builds confidence.</p><a href="ready-set-save.html">View education programs <span>→</span></a></article>
-<article class="pillar-card pillar-blue"><div class="pillar-icon">●</div><span class="pillar-number">04</span><h3>Advocacy</h3><p>Promoting dignity, inclusion, recognition, and safer community responses for every person and every ability.</p><a href="about.html">Learn about our mission <span>→</span></a></article>
-</div></div></section>
-<section class="programs-services"><div class="container"><div class="programs-heading centered"><span class="eyebrow">Programs & initiatives</span><h2>Support designed for real-life situations.</h2></div>
+<article class="pillar-card pillar-teal"><div class="icon-box">✓</div><span class="pillar-no">01</span><h3>Preparedness</h3><p>Helping families plan before emergencies happen with checklists, profiles, current photos, and clear next steps.</p><a href="safety-kits.html">Explore safety resources →</a></article>
+<article class="pillar-card pillar-gold"><div class="icon-box">♥</div><span class="pillar-no">02</span><h3>Support</h3><p>Connecting caregivers with practical tools, resource guidance, and options that respect individual comfort and needs.</p><a href="resource-request.html">Request assistance →</a></article>
+<article class="pillar-card pillar-purple"><div class="icon-box">◆</div><span class="pillar-no">03</span><h3>Education</h3><p>Equipping families, schools, community groups, and first responders with knowledge that builds confidence.</p><a href="ready-set-save.html">View education programs →</a></article>
+<article class="pillar-card pillar-blue"><div class="icon-box">●</div><span class="pillar-no">04</span><h3>Advocacy</h3><p>Promoting dignity, inclusion, recognition, and safer community responses for every person and every ability.</p><a href="about.html">Learn about our mission →</a></article>
+</div>
+</div>
+</section>
+
+<section class="services">
+<div class="wrap">
+<div class="section-intro center"><span class="eyebrow">Programs & initiatives</span><h2>Support designed for real-life situations.</h2></div>
 <div class="service-grid">
 <article class="service-card"><span class="service-mark">ID</span><div><h3>Identification & Safety Kits</h3><p>Emergency ID cards, caregiver forms, current-photo templates, communication details, and family planning tools.</p></div></article>
 <article class="service-card"><span class="service-mark">QR</span><div><h3>OneProfile™</h3><p>A developing secure profile concept designed to connect QR and NFC products with essential emergency information.</p></div></article>
@@ -43,9 +112,28 @@
 <article class="service-card"><span class="service-mark">FR</span><div><h3>First Responder Outreach</h3><p>Education that supports calm, informed, and person-centered interactions during emergencies.</p></div></article>
 <article class="service-card"><span class="service-mark">SP</span><div><h3>School Partnerships</h3><p>Awareness resources, family communication tools, safety education, and community resource tables.</p></div></article>
 <article class="service-card"><span class="service-mark">RS</span><div><h3>Ready, Set, Save!</h3><p>Approachable CPR, emergency response, and safety learning for children, families, caregivers, and community groups.</p></div></article>
-</div></div></section>
-<section class="programs-cta"><div class="container programs-cta-inner"><div><span class="eyebrow">Bring RATIOS to your community</span><h2>Need resources, a presentation, or a community partnership?</h2><p>Tell us about your family, school, organization, church, agency, or upcoming event.</p></div><div class="button-row"><a class="btn btn-gold" href="resource-request.html">Request Resources</a><a class="btn btn-light" href="contact.html">Contact RATIOS</a></div></div></section>
+</div>
+</div>
+</section>
+
+<section class="final-cta">
+<div class="wrap final-cta-grid">
+<div><span class="eyebrow" style="color:#f4bd47">Bring RATIOS to your community</span><h2>Need resources, a presentation, or a community partnership?</h2><p>Tell us about your family, school, organization, church, agency, or upcoming event.</p></div>
+<div class="button-row"><a class="cta-btn cta-gold" href="resource-request.html">Request Resources</a><a class="cta-btn cta-light" href="contact.html">Contact RATIOS</a></div>
+</div>
+</section>
 </main>
-<footer class="footer"><div class="container footer-grid"><div><img class="footer-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS logo"><h3>RATIOS</h3><p>One of One. Serving families throughout the Greater St. Louis Region.</p><p class="small">Every Person. Every Ability. Every Community.</p></div><div><h4>Explore</h4><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile™</a><a href="shop.html">Shop</a></div><div><h4>Get involved</h4><a href="donate.html">Donate</a><a href="volunteer.html">Volunteer</a><a href="resource-request.html">Request Resources</a><a href="contact.html">Contact</a></div><div><h4>Contact</h4><p>Greater St. Louis Region</p><p><strong>Email:</strong> <a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a></p><p><strong>Phone:</strong> <a href="tel:+13143256313">(314) 325-6313</a></p></div></div><div class="footer-bottom">© 2026 RATIOS. All rights reserved.</div></footer>
+</div>
+
+<footer class="footer">
+<div class="container footer-grid">
+<div><img class="footer-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS logo"><h3>RATIOS</h3><p>One of One. Serving families throughout the Greater St. Louis Region.</p><p class="small">Every Person. Every Ability. Every Community.</p></div>
+<div><h4>Explore</h4><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile™</a><a href="shop.html">Shop</a></div>
+<div><h4>Get involved</h4><a href="donate.html">Donate</a><a href="volunteer.html">Volunteer</a><a href="resource-request.html">Request Resources</a><a href="contact.html">Contact</a></div>
+<div><h4>Contact</h4><p>Greater St. Louis Region</p><p><strong>Email:</strong> <a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a></p><p><strong>Phone:</strong> <a href="tel:+13143256313">(314) 325-6313</a></p></div>
+</div>
+<div class="footer-bottom">© 2026 RATIOS. All rights reserved.</div>
+</footer>
 <script src="assets/js/main.js"></script>
-</body></html>
+</body>
+</html>
