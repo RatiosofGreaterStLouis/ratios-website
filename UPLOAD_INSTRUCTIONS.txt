@@ -1,30 +1,52 @@
-READY, SET, SAVE! — EXACT REFERENCE REBUILD
+RATIOS READY, SET, SAVE! — CORRECTED BRANDED PAGE
 
-This package rebuilds the page to closely match the screenshot you approved.
+This package replaces the full Ready, Set, Save! page with a clean, responsive,
+working page that fits the RATIOS brand.
 
-WHAT IS DIFFERENT
-- The page is now compact and full-width like the reference.
-- The header, hero, skills, training, learning strip, and statistics footer follow the reference proportions.
-- Approved imagery is cropped directly from the reference screenshot so the page visually matches it.
-- The old oversized white spacing and narrow centered sections are removed.
-- The page remains responsive for tablets and phones.
+CORRECTIONS INCLUDED
+- Fixed the overlapping hero text and mascot.
+- Removed the AI-generated male instructor image you rejected.
+- Removed unsupported statistics and the unsupported “AHA-Based” claim.
+- Used only the class images from the design direction you approved.
+- Added a working mobile menu.
+- Connected every button to an actual destination:
+  • Request a Workshop → contact.html#contact-form
+  • Sponsor a Class / Sponsor Training → donate.html
+  • Explore Training → the training section on the same page
+  • View Upcoming Classes → news-events.html
+  • Navigation links → the correct website pages
+  • Email and phone → clickable contact links
+- Added descriptive alternative text for accessibility.
+- Improved spacing, alignment, mobile responsiveness, and brand consistency.
+- Included a full footer so the page no longer ends abruptly.
+
+FILES INCLUDED
+- ready-set-save.html
+- assets/images/rss-approved-mascot.jpg
+- assets/images/rss-approved-hero-class.jpg
+- assets/images/rss-approved-skills-class.jpg
+- assets/images/rss-approved-youth-cpr.jpg
+- assets/images/rss-approved-hands-on.jpg
+- assets/images/rss-approved-aed.jpg
 
 INSTALLATION
-1. Extract the ZIP.
-2. Copy:
+1. Extract this ZIP.
+2. Open the extracted folder.
+3. Copy BOTH:
    - ready-set-save.html
    - assets folder
-3. Paste both directly into:
+4. Paste them directly into:
    C:\Users\Desirae\Documents\GitHub\ratios-website
-4. Select “Replace the files in the destination.”
-5. In GitHub Desktop, confirm ready-set-save.html and the new rss-*.jpg/png files appear under Changes.
-6. Commit with:
-   Rebuild Ready Set Save to approved design
-7. Push origin.
-8. Verify deployment in the BLUE Cloudflare Pages project.
-9. Visit:
+5. Choose “Replace the files in the destination.”
+6. Open GitHub Desktop.
+7. Confirm ready-set-save.html and the new rss-approved image files appear under Changes.
+8. Commit with:
+   Correct Ready Set Save page
+9. Click Push origin.
+10. Verify the newest deployment succeeds in the BLUE Cloudflare Pages project.
+11. Open:
    https://ratiossaveslives.org/ready-set-save.html
 
 IMPORTANT
-Copy only ready-set-save.html and assets into the repository.
-Do not copy the outer package folder.
+Copy only ready-set-save.html and the assets folder.
+Do not paste the outer update folder into your repository.
