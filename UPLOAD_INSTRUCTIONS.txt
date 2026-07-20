@@ -1,25 +1,32 @@
-READY, SET, SAVE! — MASCOT OVERLAP FIX
+RATIOS READY, SET, SAVE! — PREMIUM REBUILD
 
-This update corrects the hero layout so the navy content panel no longer covers the peacock mascot.
+This version changes the entire page structure so it no longer stretches awkwardly across very wide screens.
 
-WHAT CHANGED
-- Increased the mascot column width.
-- Kept the mascot fully contained inside its own panel.
-- Anchored the mascot to the bottom of the hero.
-- Prevented the image from being cropped or hidden behind the navy text area.
-- Preserved all working links, approved photos, navigation, and page content.
+FIXES INCLUDED
+- Added a centered maximum-width layout so text and images remain readable.
+- Rebuilt the hero into three balanced columns: mascot, message, and class photo.
+- Removed huge empty areas and tiny text.
+- Converted the training section into three polished cards.
+- Rebuilt the learning section into a readable 2-row card grid.
+- Added a complete call-to-action section and footer.
+- Preserved the approved photos.
+- Preserved working links and the responsive mobile menu.
+- Removed unsupported statistics and unsupported claims.
 
 UPLOAD
 1. Extract this ZIP.
 2. Copy:
    - ready-set-save.html
    - assets folder
-3. Paste both directly into:
+3. Paste both into:
    C:\Users\Desirae\Documents\GitHub\ratios-website
 4. Choose “Replace the files in the destination.”
-5. Commit in GitHub Desktop with:
-   Fix mascot overlap
-6. Push origin.
-7. Verify the newest deployment in the BLUE Cloudflare Pages project.
-8. Open:
+5. In GitHub Desktop, confirm the HTML file and approved images appear under Changes.
+6. Commit with:
+   Premium Ready Set Save rebuild
+7. Push origin.
+8. Confirm success in the BLUE Cloudflare Pages project.
+9. Visit:
    https://ratiossaveslives.org/ready-set-save.html
+
+Copy only ready-set-save.html and the assets folder. Do not copy the outer package folder.
