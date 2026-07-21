@@ -1,346 +1,51 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Ready, Set, Save! | RATIOS</title>
-  <meta name="description" content="Ready, Set, Save! provides practical CPR, AED, first-aid, youth safety, caregiver support, and emergency-preparedness education for families and communities.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --navy:#061a3d;
-      --navy2:#0c2f66;
-      --teal:#10a6ad;
-      --gold:#f4b83d;
-      --purple:#7040a0;
-      --rose:#c34776;
-      --orange:#dd7b2f;
-      --ink:#081a38;
-      --muted:#607287;
-      --line:#dfe7ef;
-      --soft:#f5f9fc;
-      --white:#ffffff;
-      --shadow:0 18px 50px rgba(7,26,56,.12);
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;background:var(--white);color:var(--ink);font-family:Inter,Arial,sans-serif}
-    img{display:block;max-width:100%}
-    a{text-decoration:none;color:inherit}
-    button{font:inherit}
-    .container{width:min(1180px,calc(100% - 40px));margin-inline:auto}
-
-    .utility{
-      min-height:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;
-      padding:5px 22px;color:#fff;background:#03142f;font-size:.72rem;font-weight:700
-    }
-
-    .header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 6px 20px rgba(7,26,56,.05)}
-    .nav{min-height:78px;display:grid;grid-template-columns:240px 1fr auto;gap:22px;align-items:center;padding:10px 22px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand-mark{width:50px;height:50px;display:grid;place-items:center;border-radius:50%;color:#fff;background:var(--navy);font-weight:900}
-    .brand-copy strong{display:block;font-size:1.05rem}
-    .brand-copy span{display:block;margin-top:3px;color:var(--teal);font-size:.68rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
-    .links{display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
-    .links a{font-size:.83rem;font-weight:800}
-    .links a:hover,.links a[aria-current="page"]{color:var(--teal)}
-    .nav-actions{display:flex;align-items:center;gap:10px}
-    .menu{display:none;border:0;border-radius:10px;padding:10px 13px;color:#fff;background:var(--navy);font-weight:800;cursor:pointer}
-
-    .button-row{display:flex;flex-wrap:wrap;gap:12px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 20px;border-radius:12px;font-size:.88rem;font-weight:900;transition:.2s}
-    .btn:hover{transform:translateY(-2px)}
-    .btn-gold{color:var(--ink);background:var(--gold);box-shadow:0 12px 28px rgba(244,184,61,.24)}
-    .btn-navy{color:#fff;background:var(--navy)}
-    .btn-teal{color:#fff;background:var(--teal)}
-    .btn-outline{color:#fff;border:2px solid rgba(255,255,255,.8)}
-
-    /* HERO */
-    .hero{padding:58px 0 68px;background:
-      radial-gradient(circle at 18% 20%,rgba(16,166,173,.18),transparent 28%),
-      linear-gradient(135deg,#061a3d,#0a2f67 62%,#111a43)}
-    .hero-grid{display:grid;grid-template-columns:280px minmax(0,.95fr) minmax(420px,1.05fr);gap:38px;align-items:center}
-    .mascot-wrap{min-height:470px;display:flex;align-items:flex-end;justify-content:center}
-    .mascot-wrap img{width:100%;max-height:460px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 18px 22px rgba(0,0,0,.3))}
-    .hero-copy{color:#fff}
-    .eyebrow{display:inline-block;margin-bottom:14px;color:#69d8d4;font-size:.74rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
-    .hero h1{margin:0 0 18px;font-size:clamp(3.2rem,5.2vw,5.6rem);line-height:.94;letter-spacing:-.055em}
-    .hero h1 em{color:var(--gold);font-family:"Playfair Display",Georgia,serif}
-    .hero p{margin:0 0 28px;color:#e2ebf5;font-size:1.03rem;line-height:1.68;font-weight:600}
-    .hero-photo{overflow:hidden;border-radius:28px;box-shadow:0 24px 60px rgba(0,0,0,.25)}
-    .hero-photo img{width:100%;height:430px;object-fit:cover}
-
-    /* SKILLS */
-    .intro{padding:86px 0;background:#fff}
-    .intro-grid{display:grid;grid-template-columns:minmax(0,.86fr) minmax(420px,1.14fr);gap:56px;align-items:center}
-    .section-kicker{display:inline-block;margin-bottom:10px;color:var(--teal);font-size:.74rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
-    .title{margin:0 0 16px;font-size:clamp(2.7rem,4.4vw,4.7rem);line-height:1;letter-spacing:-.05em}
-    .title em{color:var(--teal);font-family:"Playfair Display",Georgia,serif}
-    .copy{margin:0;color:var(--muted);font-size:1.04rem;line-height:1.72;font-weight:600}
-    .checks{display:grid;gap:11px;margin:24px 0 28px;padding:0;list-style:none}
-    .checks li{position:relative;padding-left:30px;color:#29415b;font-weight:800}
-    .checks li::before{content:"✓";position:absolute;left:0;top:-1px;width:20px;height:20px;display:grid;place-items:center;border-radius:50%;color:#fff;background:var(--teal);font-size:.72rem}
-    .photo-card{overflow:hidden;border-radius:28px;box-shadow:var(--shadow)}
-    .photo-card img{width:100%;height:430px;object-fit:cover}
-
-    /* TRAINING */
-    .training{padding:82px 0;background:linear-gradient(180deg,#eef7fb,#fff)}
-    .center{max-width:860px;margin:0 auto 38px;text-align:center}
-    .training-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-    .training-card{overflow:hidden;border-radius:24px;background:#fff;border:1px solid rgba(7,26,56,.08);box-shadow:0 16px 42px rgba(7,26,56,.09)}
-    .training-card img{width:100%;height:230px;object-fit:cover}
-    .training-content{padding:24px}
-    .training-icon{width:42px;height:42px;display:grid;place-items:center;margin-bottom:16px;border-radius:50%;color:#fff;background:var(--teal);font-size:.65rem;font-weight:900}
-    .training-card:nth-child(2) .training-icon{background:var(--purple)}
-    .training-card:nth-child(3) .training-icon{background:var(--rose)}
-    .training-card h3{margin:0 0 10px;font-size:1.25rem}
-    .training-card p{margin:0;color:var(--muted);line-height:1.62;font-weight:600}
-
-    /* LEARN */
-    .learn{padding:78px 0;background:#fff}
-    .learn-panel{padding:32px;border-radius:28px;background:var(--soft);border:1px solid var(--line)}
-    .learn-panel h2{margin:0 0 26px;text-align:center;font-size:2.2rem}
-    .learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .learn-card{min-height:145px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;padding:20px;border-radius:20px;background:#fff;box-shadow:0 10px 28px rgba(7,26,56,.07)}
-    .learn-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:50%;color:#fff;background:var(--navy2);font-size:.7rem;font-weight:900}
-    .learn-card:nth-child(2) .learn-icon{background:var(--purple)}
-    .learn-card:nth-child(3) .learn-icon{background:#118c95}
-    .learn-card:nth-child(4) .learn-icon{background:var(--orange)}
-    .learn-card:nth-child(5) .learn-icon{background:#dda915}
-    .learn-card:nth-child(6) .learn-icon{background:var(--rose)}
-    .learn-card h3{margin:0 0 5px;font-size:.95rem;text-transform:uppercase}
-    .learn-card p{margin:0;color:var(--muted);font-size:.86rem;line-height:1.45;font-weight:600}
-
-    /* CTA + FOOTER */
-    .cta{padding:64px 0;color:#fff;background:linear-gradient(125deg,#061a3d,#0b2f67 60%,#281244)}
-    .cta-grid{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
-    .cta h2{margin:0 0 10px;color:#fff;font-size:clamp(2.2rem,4vw,3.9rem);line-height:1}
-    .cta p{margin:0;color:#d7e3f0;line-height:1.6;font-weight:600}
-    .footer{padding:38px 0;background:#03142f;color:#d4dfeb}
-    .footer-grid{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:34px}
-    .footer h3,.footer h4{margin:0 0 12px;color:#fff}
-    .footer p,.footer a{display:block;margin:0 0 8px;color:#c4d0dd;font-size:.84rem;line-height:1.45}
-    .footer a:hover{color:var(--gold)}
-
-    @media(max-width:1100px){
-      .nav{grid-template-columns:1fr auto}
-      .menu{display:inline-flex}
-      .links{display:none;grid-column:1/-1;justify-content:flex-start;padding:14px 0}
-      .links.open{display:flex}
-      .hero-grid{grid-template-columns:220px 1fr}
-      .hero-photo{grid-column:1/-1}
-      .hero-photo img{height:360px}
-      .intro-grid{grid-template-columns:1fr}
-      .training-grid{grid-template-columns:1fr 1fr}
-      .learn-grid{grid-template-columns:1fr 1fr}
-    }
-
-    @media(max-width:720px){
-      .utility{display:none}
-      .nav{padding:10px 16px}
-      .hero{padding:42px 0 50px}
-      .hero-grid{grid-template-columns:1fr}
-      .mascot-wrap{min-height:330px}
-      .mascot-wrap img{max-height:330px}
-      .hero h1{font-size:3.2rem}
-      .hero-photo img,.photo-card img{height:280px}
-      .intro{padding:64px 0}
-      .training{padding:64px 0}
-      .training-grid,.learn-grid{grid-template-columns:1fr}
-      .cta-grid,.footer-grid{grid-template-columns:1fr}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ready, Set, Save! | RATIOS</title>
+<meta name="description" content="Ready, Set, Save! provides practical CPR, AED, first-aid, youth safety, caregiver support, and emergency-preparedness education.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#041a3e;--navy2:#0a2f67;--teal:#0ba6ad;--gold:#f5b83c;--ink:#071a38;--muted:#607287;--line:#e1e8ef;--soft:#f8fbfd}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,sans-serif;background:#fff;color:var(--ink)}img{display:block;width:100%}a{text-decoration:none;color:inherit}button{font:inherit}.container{width:min(1180px,calc(100% - 40px));margin:auto}
+.header{min-height:78px;display:grid;grid-template-columns:260px 1fr auto;align-items:center;gap:24px;padding:10px 28px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;color:#fff;background:var(--navy);font-weight:900}.brand-copy strong{display:block;font-size:1.05rem}.brand-copy span{display:block;margin-top:3px;color:var(--teal);font-size:.67rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.nav-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}.nav-links a{font-size:.83rem;font-weight:800}.nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--teal)}.nav-actions{display:flex;align-items:center;gap:10px}.menu{display:none;border:0;border-radius:10px;padding:10px 13px;color:#fff;background:var(--navy);font-weight:800;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:10px;font-size:.86rem;font-weight:900;transition:.2s}.btn:hover{transform:translateY(-2px)}.btn-gold{background:var(--gold);color:var(--ink);box-shadow:0 12px 25px rgba(245,184,60,.22)}.btn-outline{border:2px solid rgba(255,255,255,.8);color:#fff}.btn-teal{background:var(--teal);color:#fff}.btn-navy{background:var(--navy);color:#fff}.button-row{display:flex;gap:12px;flex-wrap:wrap}
+.hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#031634,#08265a 66%,#0a2f67);color:#fff}.hero::after{content:"";position:absolute;right:-8%;bottom:-115px;width:58%;height:220px;border-radius:50% 50% 0 0;background:#0c8091;opacity:.82;transform:rotate(-2deg);pointer-events:none}
+.hero-grid{position:relative;z-index:2;min-height:520px;display:grid;grid-template-columns:250px minmax(0,.9fr) minmax(430px,1.15fr);gap:38px;align-items:center;padding:38px 0 46px}
+.mascot{align-self:end;display:flex;justify-content:center;align-items:flex-end;min-height:450px}.mascot img{width:100%;max-height:440px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 16px 20px rgba(0,0,0,.32))}
+.eyebrow{display:inline-block;margin-bottom:12px;color:#68d7d4;font-size:.72rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.hero h1{margin:0 0 18px;font-size:clamp(3.1rem,5vw,5.45rem);line-height:.95;letter-spacing:-.05em}.hero h1 em{color:var(--gold);font-family:"Playfair Display",Georgia,serif}.hero p{margin:0 0 26px;color:#e6edf6;font-size:1rem;line-height:1.68;font-weight:600}
+.hero-photo{overflow:hidden;border-radius:0 0 48% 48%/0 0 18% 18%;box-shadow:0 22px 55px rgba(0,0,0,.24);position:relative;z-index:2}.hero-photo img{height:430px;object-fit:cover}
+.skills{padding:64px 0 72px}.skills-grid{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:54px;align-items:center}
+.section-kicker{display:inline-block;margin-bottom:10px;color:var(--teal);font-size:.72rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.title{margin:0 0 16px;font-size:clamp(2.55rem,4vw,4.5rem);line-height:1;letter-spacing:-.045em}.title em{color:var(--teal);font-family:"Playfair Display",Georgia,serif}.copy{margin:0;color:var(--muted);font-size:1rem;line-height:1.68;font-weight:600}
+.checks{display:grid;gap:10px;margin:22px 0 26px;padding:0;list-style:none}.checks li{position:relative;padding-left:28px;color:#29415b;font-size:.91rem;font-weight:800}.checks li::before{content:"✓";position:absolute;left:0;top:-1px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:#fff;font-size:.7rem}
+.photo-mosaic{display:grid;grid-template-columns:1.25fr .78fr .78fr;grid-template-rows:190px 145px;gap:8px}.photo-mosaic figure{margin:0;overflow:hidden;border-radius:12px;box-shadow:0 10px 28px rgba(7,26,56,.1)}.photo-mosaic img{height:100%;object-fit:cover}.photo-mosaic .large{grid-row:1/3}.photo-mosaic .wide{grid-column:2/4}
+.training{padding:74px 0;background:linear-gradient(180deg,#f2f9fc,#fff)}.center{max-width:860px;margin:0 auto 36px;text-align:center}.training-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.training-card{overflow:hidden;border-radius:24px;background:#fff;border:1px solid rgba(7,26,56,.08);box-shadow:0 16px 40px rgba(7,26,56,.09)}.training-card img{height:220px;object-fit:cover}.training-card div{padding:22px}.training-card h3{margin:0 0 9px;font-size:1.2rem}.training-card p{margin:0;color:var(--muted);line-height:1.6;font-weight:600}
+.learn{padding:72px 0}.learn-panel{padding:30px;border-radius:26px;background:var(--soft);border:1px solid var(--line)}.learn-panel h2{margin:0 0 24px;text-align:center;font-size:2rem}.learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.learn-card{min-height:130px;display:grid;grid-template-columns:46px 1fr;gap:13px;align-items:center;padding:18px;border-radius:18px;background:#fff;box-shadow:0 9px 24px rgba(7,26,56,.07)}.learn-icon{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--navy2);color:#fff;font-size:.68rem;font-weight:900}.learn-card h3{margin:0 0 4px;font-size:.92rem;text-transform:uppercase}.learn-card p{margin:0;color:var(--muted);font-size:.84rem;line-height:1.4;font-weight:600}
+.cta{padding:58px 0;background:linear-gradient(125deg,#061a3d,#0a2f67 60%,#281244);color:#fff}.cta-grid{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}.cta h2{margin:0 0 8px;font-size:clamp(2.2rem,3.7vw,3.7rem)}.cta p{margin:0;color:#d7e3ef;line-height:1.55;font-weight:600}
+.footer{padding:36px 0;background:#03142f;color:#d3deea}.footer-grid{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:32px}.footer h3,.footer h4{margin:0 0 11px;color:#fff}.footer p,.footer a{display:block;margin:0 0 8px;color:#c4d0dd;font-size:.83rem;line-height:1.45}
+@media(max-width:1080px){.header{grid-template-columns:1fr auto}.menu{display:inline-flex}.nav-links{display:none;grid-column:1/-1;justify-content:flex-start;padding:14px 0}.nav-links.open{display:flex}.hero-grid{grid-template-columns:210px 1fr}.hero-photo{grid-column:1/-1}.skills-grid{grid-template-columns:1fr}.training-grid{grid-template-columns:1fr 1fr}.learn-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.header{padding:10px 16px}.hero-grid{grid-template-columns:1fr}.mascot{min-height:300px}.mascot img{max-height:300px}.hero h1{font-size:3.15rem}.hero-photo img{height:290px}.photo-mosaic{grid-template-columns:1fr;grid-template-rows:none}.photo-mosaic .large,.photo-mosaic .wide{grid-column:auto;grid-row:auto}.photo-mosaic figure{height:230px}.training-grid,.learn-grid{grid-template-columns:1fr}.cta-grid,.footer-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-  <div class="utility">
-    <span>RATIOS • One of One</span>
-    <span>Greater St. Louis • Families, caregivers, schools and community partners</span>
-  </div>
-
-  <header class="header">
-    <div class="nav">
-      <a class="brand" href="index.html" aria-label="Return to the RATIOS homepage">
-        <div class="brand-mark">♥</div>
-        <div class="brand-copy">
-          <strong>Ready, Set, Save!</strong>
-          <span>A RATIOS Program</span>
-        </div>
-      </a>
-
-      <nav class="links" id="main-navigation" aria-label="Main navigation">
-        <a href="about.html">About</a>
-        <a href="programs.html">Programs</a>
-        <a href="safety-kits.html">Safety Kits</a>
-        <a href="oneprofile.html">OneProfile™</a>
-        <a href="ready-set-save.html" aria-current="page">Ready, Set, Save!</a>
-        <a href="volunteer.html">Volunteer</a>
-        <a href="news-events.html">News</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-
-      <div class="nav-actions">
-        <button class="menu" type="button" aria-expanded="false" aria-controls="main-navigation">Menu</button>
-        <a class="btn btn-gold" href="donate.html">Donate</a>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="mascot-wrap">
-          <img src="assets/images/ready-set-save-peacock.png" alt="Ready, Set, Save! peacock mascot">
-        </div>
-
-        <div class="hero-copy">
-          <span class="eyebrow">Ready, Set, Save! • A RATIOS Program</span>
-          <h1>Confidence to respond when every second <em>matters.</em></h1>
-          <p>Practical CPR, AED, first-aid, youth safety, caregiver support, and emergency-preparedness education for families, schools, churches, workplaces, and community groups.</p>
-          <div class="button-row">
-            <a class="btn btn-gold" href="contact.html#contact-form">Request a Workshop</a>
-            <a class="btn btn-outline" href="donate.html">Sponsor a Class</a>
-            <a class="btn btn-teal" href="#training">Explore Training</a>
-          </div>
-        </div>
-
-        <div class="hero-photo">
-          <img src="assets/images/ready-set-save-hero-class.jpg" alt="Instructor leading a hands-on CPR class">
-        </div>
-      </div>
-    </section>
-
-    <section class="intro">
-      <div class="container intro-grid">
-        <div>
-          <span class="section-kicker">Hands-on learning</span>
-          <h2 class="title">Skills people can use with <em>confidence.</em></h2>
-          <p class="copy">Participants learn through demonstrations, plain-language instruction, and supported hands-on practice.</p>
-          <ul class="checks">
-            <li>Adult and child CPR practice</li>
-            <li>AED awareness and guided use</li>
-            <li>Age-appropriate youth safety education</li>
-            <li>Family and caregiver preparedness</li>
-            <li>Community and workplace training</li>
-          </ul>
-          <a class="btn btn-navy" href="news-events.html">View Upcoming Classes</a>
-        </div>
-
-        <div class="photo-card">
-          <img src="assets/images/ready-set-save-skills-class.jpg" alt="Instructor teaching compressions, airway, and breathing">
-        </div>
-      </div>
-    </section>
-
-    <section class="training" id="training">
-      <div class="container">
-        <div class="center">
-          <span class="section-kicker">Inside the classroom</span>
-          <h2 class="title">Training that is <em>active, welcoming, and practical.</em></h2>
-          <p class="copy">Learning experiences are adapted for the age, audience, setting, and goals of each group.</p>
-        </div>
-
-        <div class="training-grid">
-          <article class="training-card">
-            <img src="assets/images/ready-set-save-youth-cpr.jpg" alt="Youth participant learning infant CPR">
-            <div class="training-content">
-              <div class="training-icon">ALL</div>
-              <h3>For all ages</h3>
-              <p>Age-appropriate instruction makes emergency skills easier to understand and remember.</p>
-            </div>
-          </article>
-
-          <article class="training-card">
-            <img src="assets/images/ready-set-save-hands-on.jpg" alt="Participants practicing CPR on training manikins">
-            <div class="training-content">
-              <div class="training-icon">DO</div>
-              <h3>Hands-on learning</h3>
-              <p>Participants practice the steps with demonstrations, coaching, and training equipment.</p>
-            </div>
-          </article>
-
-          <article class="training-card">
-            <img src="assets/images/ready-set-save-aed.jpg" alt="Participants practicing AED use">
-            <div class="training-content">
-              <div class="training-icon">REAL</div>
-              <h3>Prepared for real life</h3>
-              <p>Practical scenarios build the confidence to respond calmly and seek professional help.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="learn">
-      <div class="container">
-        <div class="learn-panel">
-          <h2>What You’ll Learn</h2>
-          <div class="learn-grid">
-            <article class="learn-card"><div class="learn-icon">CPR</div><div><h3>CPR</h3><p>Hands-on practice for different ages.</p></div></article>
-            <article class="learn-card"><div class="learn-icon">AED</div><div><h3>AED Use</h3><p>How an AED supports emergency response.</p></div></article>
-            <article class="learn-card"><div class="learn-icon">FA</div><div><h3>First Aid</h3><p>Basic steps for common emergencies.</p></div></article>
-            <article class="learn-card"><div class="learn-icon">EP</div><div><h3>Preparedness</h3><p>Planning for home, school, and community settings.</p></div></article>
-            <article class="learn-card"><div class="learn-icon">YS</div><div><h3>Youth Safety</h3><p>Approachable education without creating fear.</p></div></article>
-            <article class="learn-card"><div class="learn-icon">CS</div><div><h3>Caregiver Support</h3><p>Practical tools and resources for families.</p></div></article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta">
-      <div class="container cta-grid">
-        <div>
-          <h2>Let’s save lives together.</h2>
-          <p>Tell us about your school, family, church, workplace, agency, or community organization.</p>
-        </div>
-        <div class="button-row">
-          <a class="btn btn-gold" href="contact.html#contact-form">Request a Workshop</a>
-          <a class="btn btn-teal" href="donate.html">Sponsor Training</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div>
-        <h3>Ready, Set, Save!</h3>
-        <p>A practical safety-education program of RATIOS.</p>
-        <p>Every Person. Every Ability. Every Community.</p>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <a href="about.html">About RATIOS</a>
-        <a href="programs.html">Programs</a>
-        <a href="safety-kits.html">Safety Kits</a>
-        <a href="oneprofile.html">OneProfile™</a>
-      </div>
-      <div>
-        <h4>Get Involved</h4>
-        <a href="volunteer.html">Volunteer</a>
-        <a href="donate.html">Donate</a>
-        <a href="news-events.html">News & Events</a>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a>
-        <a href="tel:+13143256313">(314) 325-6313</a>
-        <a href="contact.html#contact-form">Request a Workshop</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    const menu = document.querySelector('.menu');
-    const links = document.querySelector('.links');
-    if (menu && links) {
-      menu.addEventListener('click', () => {
-        const open = links.classList.toggle('open');
-        menu.setAttribute('aria-expanded', String(open));
-      });
-    }
-  </script>
+<header class="header">
+  <a class="brand" href="index.html"><div class="brand-mark">♥</div><div class="brand-copy"><strong>Ready, Set, Save!</strong><span>A RATIOS Program</span></div></a>
+  <nav class="nav-links" id="main-navigation"><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile™</a><a href="ready-set-save.html" aria-current="page">Ready, Set, Save!</a><a href="volunteer.html">Volunteer</a><a href="news-events.html">News</a><a href="contact.html">Contact</a></nav>
+  <div class="nav-actions"><button class="menu" type="button" aria-expanded="false" aria-controls="main-navigation">Menu</button><a class="btn btn-gold" href="donate.html">Donate</a></div>
+</header>
+<main>
+<section class="hero"><div class="container hero-grid"><div class="mascot"><img src="assets/images/rss-peacock.png" alt="Ready, Set, Save! peacock mascot"></div><div><span class="eyebrow">Practical skills. Real confidence. Real impact.</span><h1>Confidence to respond when every second <em>matters.</em></h1><p>Practical CPR, AED, first-aid, youth safety, caregiver support, and emergency-preparedness education for families, schools, churches, workplaces, and community groups.</p><div class="button-row"><a class="btn btn-gold" href="contact.html#contact-form">Request a Workshop</a><a class="btn btn-outline" href="donate.html">Sponsor a Class</a><a class="btn btn-teal" href="#training">Explore Training</a></div></div><div class="hero-photo"><img src="assets/images/rss-hero-class.jpg" alt="Hands-on CPR class"></div></div></section>
+<section class="skills"><div class="container skills-grid"><div><span class="section-kicker">Hands-on learning</span><h2 class="title">Skills people can use with <em>confidence.</em></h2><p class="copy">Participants learn through demonstrations, plain-language instruction, and supported hands-on practice.</p><ul class="checks"><li>Adult and child CPR practice</li><li>AED awareness and guided use</li><li>Age-appropriate youth safety education</li><li>Family and caregiver preparedness</li><li>Community and workplace training</li></ul><a class="btn btn-navy" href="news-events.html">View Upcoming Classes</a></div><div class="photo-mosaic"><figure class="large"><img src="assets/images/rss-classroom.jpg" alt="Instructor teaching a CPR class"></figure><figure class="wide"><img src="assets/images/rss-aed.jpg" alt="AED training equipment in use"></figure><figure><img src="assets/images/rss-hands-on.jpg" alt="Participants practicing CPR"></figure><figure><img src="assets/images/rss-youth-cpr.jpg" alt="Youth learning first-aid and CPR skills"></figure></div></div></section>
+<section class="training" id="training"><div class="container"><div class="center"><span class="section-kicker">Inside the classroom</span><h2 class="title">Training that is <em>active, welcoming, and practical.</em></h2><p class="copy">Programs can be adapted for different ages, settings, and community needs.</p></div><div class="training-grid"><article class="training-card"><img src="assets/images/rss-youth-cpr.jpg" alt="Youth CPR instruction"><div><h3>For all ages</h3><p>Age-appropriate instruction makes emergency skills easier to understand and remember.</p></div></article><article class="training-card"><img src="assets/images/rss-hands-on.jpg" alt="Hands-on CPR training"><div><h3>Hands-on learning</h3><p>Participants practice with guidance, demonstrations, and training equipment.</p></div></article><article class="training-card"><img src="assets/images/rss-aed.jpg" alt="AED training"><div><h3>Prepared for real life</h3><p>Practical scenarios build confidence to respond calmly and seek professional help.</p></div></article></div></div></section>
+<section class="learn"><div class="container"><div class="learn-panel"><h2>What You’ll Learn</h2><div class="learn-grid"><article class="learn-card"><div class="learn-icon">CPR</div><div><h3>CPR</h3><p>Hands-on practice for different ages.</p></div></article><article class="learn-card"><div class="learn-icon">AED</div><div><h3>AED Use</h3><p>How an AED supports emergency response.</p></div></article><article class="learn-card"><div class="learn-icon">FA</div><div><h3>First Aid</h3><p>Basic steps for common emergencies.</p></div></article><article class="learn-card"><div class="learn-icon">EP</div><div><h3>Preparedness</h3><p>Planning for home, school, and community settings.</p></div></article><article class="learn-card"><div class="learn-icon">YS</div><div><h3>Youth Safety</h3><p>Approachable education without creating fear.</p></div></article><article class="learn-card"><div class="learn-icon">CS</div><div><h3>Caregiver Support</h3><p>Practical tools and resources for families.</p></div></article></div></div></div></section>
+<section class="cta"><div class="container cta-grid"><div><h2>Let’s save lives together.</h2><p>Bring practical lifesaving education to your school, church, workplace, agency, or community organization.</p></div><div class="button-row"><a class="btn btn-gold" href="contact.html#contact-form">Request a Workshop</a><a class="btn btn-teal" href="donate.html">Sponsor Training</a></div></div></section>
+</main>
+<footer class="footer"><div class="container footer-grid"><div><h3>Ready, Set, Save!</h3><p>A practical safety-education program of RATIOS.</p><p>Every Person. Every Ability. Every Community.</p></div><div><h4>Explore</h4><a href="about.html">About RATIOS</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile™</a></div><div><h4>Get Involved</h4><a href="volunteer.html">Volunteer</a><a href="donate.html">Donate</a><a href="news-events.html">News & Events</a></div><div><h4>Contact</h4><a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a><a href="tel:+13143256313">(314) 325-6313</a><a href="contact.html#contact-form">Request a Workshop</a></div></div></footer>
+<script>const menu=document.querySelector('.menu'),links=document.querySelector('.nav-links');if(menu&&links){menu.addEventListener('click',()=>{const open=links.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));});}</script>
 </body>
 </html>
