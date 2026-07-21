@@ -1,26 +1,29 @@
-READY, SET, SAVE! — NO AI PEOPLE / BROKEN IMAGE FIX
+READY, SET, SAVE! — MASCOT IMAGE PATH FIX
 
-This package removes every AI-looking person image and every missing photo reference.
+This ZIP corrects only the missing peacock mascot.
 
-WHAT CHANGED
-- Restored the approved peacock mascot using the actual transparent PNG.
-- Removed all BLS photos containing AI-generated people.
-- Removed all broken/missing image references.
-- Replaced photo areas with polished CPR, AED, first-aid, youth-safety, family-preparedness, and caregiver-support illustrations.
-- Kept the full working navigation, mobile menu, buttons, CTA, and footer.
-- All content is self-contained except for the included mascot PNG and Google fonts.
+WHY THIS FIX IS MORE RELIABLE
+- Adds the mascot under the shorter filename: assets/images/rss-peacock.png
+- Updates the webpage to use that exact path.
+- Includes the original mascot filename as a backup.
+- Adds an automatic fallback if the primary image path does not load.
+- Adds a cache-busting version so Cloudflare and the browser request the new file.
 
-UPLOAD
+UPLOAD STEPS
 1. Extract this ZIP.
-2. Copy:
+2. Copy BOTH:
    - ready-set-save.html
    - assets folder
 3. Paste them directly into:
    C:\Users\Desirae\Documents\GitHub\ratios-website
 4. Choose “Replace the files in the destination.”
-5. Commit in GitHub Desktop:
-   Remove AI photos and fix Ready Set Save images
-6. Push origin.
-7. Verify the newest deployment succeeds in the BLUE Cloudflare Pages project.
-8. Open:
+5. Open GitHub Desktop and confirm these appear under Changes:
+   - ready-set-save.html
+   - assets/images/rss-peacock.png
+   - assets/images/ready-set-save-peacock-new.png
+6. Commit with:
+   Fix Ready Set Save mascot path
+7. Click Push origin.
+8. Confirm the BLUE Cloudflare Pages deployment succeeds.
+9. Open:
    https://ratiossaveslives.org/ready-set-save.html
