@@ -1,43 +1,26 @@
-RATIOS READY, SET, SAVE! — FINAL FIXED PAGE
+READY, SET, SAVE! — NO AI PEOPLE / BROKEN IMAGE FIX
 
-This package is a complete working replacement. It contains no placeholder boxes.
+This package removes every AI-looking person image and every missing photo reference.
 
-WHAT IS INCLUDED
-- Full responsive Ready, Set, Save! page
-- Peacock mascot standing alone on the navy background
-- BLS training photo in the hero
-- Skills section with approved class photo
-- Three training cards with BLS/AED photos
-- What You'll Learn cards
-- Working navigation and mobile menu
-- Working buttons and contact links
-- Complete call-to-action and footer
+WHAT CHANGED
+- Restored the approved peacock mascot using the actual transparent PNG.
+- Removed all BLS photos containing AI-generated people.
+- Removed all broken/missing image references.
+- Replaced photo areas with polished CPR, AED, first-aid, youth-safety, family-preparedness, and caregiver-support illustrations.
+- Kept the full working navigation, mobile menu, buttons, CTA, and footer.
+- All content is self-contained except for the included mascot PNG and Google fonts.
 
-FILES
-- ready-set-save.html
-- assets/images/ready-set-save-peacock.png
-- assets/images/ready-set-save-hero-class.jpg
-- assets/images/ready-set-save-skills-class.jpg
-- assets/images/ready-set-save-youth-cpr.jpg
-- assets/images/ready-set-save-hands-on.jpg
-- assets/images/ready-set-save-aed.jpg
-
-UPLOAD STEPS
+UPLOAD
 1. Extract this ZIP.
-2. Copy BOTH:
+2. Copy:
    - ready-set-save.html
    - assets folder
-3. Paste both directly into:
+3. Paste them directly into:
    C:\Users\Desirae\Documents\GitHub\ratios-website
 4. Choose “Replace the files in the destination.”
-5. Open GitHub Desktop.
-6. Commit with:
-   Final Ready Set Save page fix
-7. Click Push origin.
-8. Verify the newest deployment succeeds in the BLUE Cloudflare Pages project.
-9. Open:
+5. Commit in GitHub Desktop:
+   Remove AI photos and fix Ready Set Save images
+6. Push origin.
+7. Verify the newest deployment succeeds in the BLUE Cloudflare Pages project.
+8. Open:
    https://ratiossaveslives.org/ready-set-save.html
-
-IMPORTANT
-Copy only ready-set-save.html and the assets folder.
-Do not copy the outer package folder into the repository.
