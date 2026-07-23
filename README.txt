@@ -1,12 +1,13 @@
-Ratios Donation Section
+Replace the text:
+'Stripe/Zeffy donation links can be connected here when your account is ready.'
 
-Files:
-- donate-section.html
-- donate-section.css
+with the new donation section in donation-page-update.html.
 
-Instructions:
-1. Copy the HTML into your homepage above the footer.
-2. Link the CSS or merge it into your site's stylesheet.
-3. Replace images/family-hero.jpg with your preferred background image.
-4. The Donate button already links to:
+Donation Link:
 https://www.zeffy.com/en-US/donation-form/protect-every-journey
+
+Zelle:
+RATIOS OF GREATER ST. LOUIS
+
+Cash App:
+$RatiosStl
