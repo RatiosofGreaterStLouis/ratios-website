@@ -1,0 +1,14 @@
+THIS IS A DIRECT REPLACEMENT FOR THE DONATIONS TAB.
+
+Replace these items in the ROOT of your ratios-website repository:
+1. donate.html
+2. the assets folder
+
+Important:
+- Do not place the ZIP itself inside the website folder.
+- Extract it first, then copy donate.html and assets into ratios-website.
+- Approve Replace/Merge when Windows asks.
+- Commit and push donate.html plus the new/updated assets files to GitHub.
+- Refresh the live page with Ctrl+F5 after deployment.
+
+The removed sentence is not present in this version.
