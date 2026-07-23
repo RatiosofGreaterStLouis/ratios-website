@@ -1,0 +1,50 @@
+
+.protect-journey{
+background:url('images/family-hero.jpg') center/cover no-repeat;
+padding:100px 20px;
+position:relative;
+color:#fff;
+font-family:Montserrat,Arial,sans-serif;
+}
+.protect-journey .overlay{
+background:rgba(8,33,71,.75);
+padding:70px 30px;
+border-radius:16px;
+max-width:1100px;
+margin:auto;
+}
+.protect-journey h2{
+font-size:3rem;
+margin-bottom:20px;
+font-family:Georgia,serif;
+}
+.protect-journey h3{
+margin-top:35px;
+font-size:2rem;
+color:#f2c94c;
+}
+.protect-journey p{
+font-size:1.15rem;
+line-height:1.8;
+max-width:800px;
+}
+.donate-btn{
+display:inline-block;
+margin-top:25px;
+padding:18px 36px;
+background:#f2c94c;
+color:#082147;
+text-decoration:none;
+font-weight:700;
+border-radius:8px;
+transition:.3s;
+}
+.donate-btn:hover{
+background:#fff;
+}
+.tagline{
+margin-top:30px;
+font-size:1.2rem;
+font-weight:bold;
+letter-spacing:1px;
+}
