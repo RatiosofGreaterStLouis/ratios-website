@@ -331,3 +331,7 @@ img[src*="cashapp-ratiosstl-qr"]{
     min-height:0;
   }
 }
+
+/* spacing hotfix */
+.campaign-actions{margin-bottom:56px!important;}
+.mission-story-card,.why-it-matters,.payment-heading{margin-top:40px!important;}
