@@ -1,0 +1,18 @@
+RATIOS DONATION PAGE FIX
+
+This package fixes the oversized Zelle QR code and keeps all payment QR codes responsive.
+
+Important:
+1. Extract this ZIP.
+2. Upload/replace the files in your GitHub repository.
+3. Do not upload an assets.zip file into the repository.
+4. Commit changes to the main branch.
+5. Wait for Cloudflare Pages to show a successful deployment.
+6. Refresh https://ratiossaveslives.org/donate.html with Ctrl + F5.
+
+Updated:
+- donate.html
+- assets/css/styles.css (when present)
+
+Removed:
+- assets.zip, because Cloudflare Pages rejects files larger than 25 MiB.
