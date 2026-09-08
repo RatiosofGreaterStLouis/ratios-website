@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Enroll in OneProfile™ | RATIOS</title>
+  <meta name="description" content="Enroll in RATIOS OneProfile™, a person-centered safety profile program for families and caregivers.">
+  <link rel="icon" href="assets/images/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;650;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/oneprofile.css">
+  <link rel="stylesheet" href="assets/css/oneprofile-enroll.css">
+</head>
+<body>
+<div class="topbar"><span>RATIOS • One of One</span><span>Every Person. Every Ability. Every Community.</span></div>
+<nav class="navbar">
+  <a class="brand" href="index.html"><img class="brand-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS One of One logo"><span class="brand-text"><strong>RATIOS</strong><small>One of One</small></span></a>
+  <button class="menu-toggle">Menu</button>
+  <div class="nav-links"><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile</a><a href="ready-set-save.html">Ready, Set, Save!</a><a href="shop.html">Shop</a><a href="volunteer.html">Volunteer</a><a href="news-events.html">News</a><a class="btn btn-donate" href="donate.html">Donate</a></div>
+</nav>
+<main>
+  <section class="ope-hero">
+    <div class="container ope-hero-grid">
+      <div>
+        <p class="op-kicker">OneProfile™ Enrollment</p>
+        <h1>Start your OneProfile™ enrollment.</h1>
+        <p>Complete this short first-step enrollment for your family or loved one. We intentionally collect only basic program information here. Detailed emergency and health information will be added later through the secure caregiver profile.</p>
+        <div class="ope-trust"><span>✓ No Social Security numbers</span><span>✓ No insurance information</span><span>✓ No medical records on this form</span></div>
+      </div>
+      <div class="ope-side-card">
+        <h2>What happens next?</h2>
+        <ol>
+          <li>Submit this enrollment form.</li>
+          <li>Receive a confirmation email from RATIOS.</li>
+          <li>Keep your OneProfile™ enrollment ID for your records.</li>
+          <li>We will contact you as caregiver profile tools become available.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="ope-section">
+    <div class="container ope-form-wrap">
+      <form id="oneprofileEnrollmentForm" class="ope-form" novalidate>
+        <div class="ope-form-heading">
+          <p class="op-section-label">Enrollment form</p>
+          <h2>Tell us how to reach you.</h2>
+          <p>Fields marked <strong>*</strong> are required.</p>
+        </div>
+
+        <div id="formAlert" class="ope-alert" role="alert" aria-live="polite" hidden></div>
+
+        <fieldset>
+          <legend>Caregiver / enrolling adult</legend>
+          <div class="ope-grid-2">
+            <label>First name *<input type="text" name="caregiver_first_name" autocomplete="given-name" maxlength="80" required></label>
+            <label>Last name *<input type="text" name="caregiver_last_name" autocomplete="family-name" maxlength="80" required></label>
+            <label>Email address *<input type="email" name="caregiver_email" autocomplete="email" maxlength="160" required></label>
+            <label>Phone number *<input type="tel" name="caregiver_phone" autocomplete="tel" maxlength="30" required></label>
+            <label>Relationship to participant *
+              <select name="relationship" required>
+                <option value="">Select one</option>
+                <option>Parent</option><option>Guardian</option><option>Spouse/Partner</option><option>Sibling</option><option>Other family member</option><option>Professional caregiver</option><option>Self</option><option>Other</option>
+              </select>
+            </label>
+            <label>Preferred contact method *
+              <select name="preferred_contact" required>
+                <option value="">Select one</option><option>Email</option><option>Phone call</option><option>Text message</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Participant</legend>
+          <div class="ope-grid-2">
+            <label>Participant first name *<input type="text" name="participant_first_name" maxlength="80" required></label>
+            <label>Participant age range *
+              <select name="participant_age_range" required>
+                <option value="">Select one</option><option>0–5</option><option>6–12</option><option>13–17</option><option>18–24</option><option>25–44</option><option>45–64</option><option>65+</option>
+              </select>
+            </label>
+            <label>City *<input type="text" name="city" autocomplete="address-level2" maxlength="100" required></label>
+            <label>State *<input type="text" name="state" autocomplete="address-level1" maxlength="60" value="Missouri" required></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>OneProfile™ interests</legend>
+          <div class="ope-check-grid">
+            <label class="ope-check"><input type="checkbox" name="interests" value="Digital emergency profile"><span>Digital emergency profile</span></label>
+            <label class="ope-check"><input type="checkbox" name="interests" value="QR safety card"><span>QR safety card</span></label>
+            <label class="ope-check"><input type="checkbox" name="interests" value="NFC tag"><span>NFC tag</span></label>
+            <label class="ope-check"><input type="checkbox" name="interests" value="LifePatch"><span>LifePatch™</span></label>
+            <label class="ope-check"><input type="checkbox" name="interests" value="Emergency profile sheet"><span>Emergency profile sheet</span></label>
+            <label class="ope-check"><input type="checkbox" name="interests" value="Not sure yet"><span>Not sure yet</span></label>
+          </div>
+          <label class="ope-full">Anything else you'd like RATIOS to know? <span class="ope-optional">(optional — please do not enter detailed medical information here)</span>
+            <textarea name="notes" rows="4" maxlength="700"></textarea>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Consent</legend>
+          <label class="ope-check ope-consent"><input type="checkbox" name="program_consent" value="yes" required><span>I confirm that I am authorized to submit this enrollment information and I agree that RATIOS may use it to administer OneProfile™ enrollment and contact me about the program. *</span></label>
+          <label class="ope-check ope-consent"><input type="checkbox" name="email_consent" value="yes" required><span>I agree to receive enrollment, safety-program, and OneProfile™ service communications at the email address provided. *</span></label>
+          <p class="ope-privacy-note">This initial form is not intended for detailed diagnoses, medications, medical records, Social Security numbers, insurance information, or other highly sensitive records. Questions? Email <a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a>.</p>
+        </fieldset>
+
+        <div class="ope-hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <input type="hidden" name="form_version" value="1.0">
+
+        <button id="submitEnrollment" class="op-btn primary ope-submit" type="submit">Submit OneProfile™ Enrollment</button>
+        <p class="ope-submit-note">Please submit only once. A confirmation will appear after your enrollment is received.</p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="footer"><div class="container footer-grid"><div><img class="footer-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS logo"><h3>RATIOS</h3><p>One of One. Serving families throughout the Greater St. Louis Region.</p></div><div><h4>Explore</h4><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile</a></div><div><h4>Get involved</h4><a href="donate.html">Donate</a><a href="volunteer.html">Volunteer</a><a href="contact.html">Contact</a></div><div><h4>Contact</h4><p>Greater St. Louis Region</p><p><strong>Email:</strong> <a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a></p><p><strong>Phone:</strong> <a href="tel:+13143256313">(314) 325-6313</a></p></div></div><div class="footer-bottom">© 2026 RATIOS. All rights reserved.</div></footer>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/oneprofile-enroll.js"></script>
+</body></html>
