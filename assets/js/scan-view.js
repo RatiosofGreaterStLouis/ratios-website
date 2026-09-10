@@ -84,7 +84,49 @@
     grid.appendChild(heading);
   }
 
+  function makeQuickContactButton(name, phone) {
 
+  if (!hasValue(phone)) {
+    return null;
+  }
+
+  const wrapper = document.createElement('div');
+
+  wrapper.style.gridColumn = '1 / -1';
+  wrapper.style.margin = '4px 0 8px';
+
+  const button = document.createElement('a');
+
+  button.href = `tel:${cleanPhone(phone)}`;
+
+  button.textContent =
+    hasValue(name)
+      ? `Contact caregiver · ${name}`
+      : 'Contact caregiver';
+
+  button.style.display = 'flex';
+  button.style.alignItems = 'center';
+  button.style.justifyContent = 'center';
+
+  button.style.width = '100%';
+  button.style.minHeight = '56px';
+
+  button.style.padding = '14px 18px';
+
+  button.style.background = '#07172e';
+  button.style.color = '#ffffff';
+
+  button.style.borderRadius = '999px';
+
+  button.style.fontWeight = '800';
+  button.style.fontSize = '1.05rem';
+  button.style.textDecoration = 'none';
+  button.style.textAlign = 'center';
+
+  wrapper.appendChild(button);
+
+  return wrapper;
+}
   function makePhoneCard(
     title,
     name,
@@ -239,7 +281,15 @@
       grid.appendChild(card);
 
     }
+     const quickContact =
+  makeQuickContactButton(
+    p.emergency_contact_name,
+    p.emergency_contact_phone
+  );
 
+if (quickContact) {
+  grid.appendChild(quickContact);
+}
 
     /* =========================================
        SAFETY
