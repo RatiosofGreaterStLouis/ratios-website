@@ -1,29 +1,173 @@
 (async () => {
   const loading = document.getElementById('portalLoading');
   const content = document.getElementById('portalContent');
+  const previewButton = document.querySelector('.opc-preview-button');
+
   const safe = (v) => String(v ?? '');
+
   try {
-    const r = await fetch('/api/caregiver-session', { credentials:'same-origin' });
-    if (!r.ok) { location.replace('caregiver-login.html'); return; }
+
+    /* -----------------------------------------
+       Load caregiver session + dashboard data
+       ----------------------------------------- */
+
+    const r = await fetch('/api/caregiver-session', {
+      credentials: 'same-origin'
+    });
+
+    if (!r.ok) {
+      location.replace('caregiver-login.html');
+      return;
+    }
+
     const data = await r.json();
-    if (!data.authenticated) { location.replace('caregiver-login.html'); return; }
+
+    if (!data.authenticated) {
+      location.replace('caregiver-login.html');
+      return;
+    }
+
     const e = data.enrollment;
     const p = data.profile || {};
-    document.getElementById('caregiverName').textContent = safe(e.caregiver_first_name);
-    document.getElementById('participantName').textContent = safe(e.participant_first_name);
-    document.getElementById('participantInitial').textContent = safe(e.participant_first_name).slice(0,1).toUpperCase() || '1';
-    document.getElementById('enrollmentId').textContent = safe(e.enrollment_id);
-    document.getElementById('ageRange').textContent = safe(e.participant_age_range);
-    document.getElementById('relationship').textContent = safe(e.relationship);
-    document.getElementById('location').textContent = `${safe(e.city)}, ${safe(e.state)}`;
-    document.getElementById('preferredContact').textContent = safe(e.preferred_contact);
-    const status = p.profile_status === 'complete' ? 'Complete' : p.profile_status === 'in_progress' ? 'In progress' : 'Setup needed';
-    document.getElementById('profileStatus').textContent = status;
-    loading.hidden = true; content.hidden = false;
-  } catch (_) { location.replace('caregiver-login.html'); }
 
-  document.getElementById('logoutButton').addEventListener('click', async () => {
-    const b = document.getElementById('logoutButton'); b.disabled = true;
-    try { await fetch('/api/caregiver-logout', { method:'POST', credentials:'same-origin' }); } finally { location.replace('caregiver-login.html'); }
-  });
+    document.getElementById('caregiverName').textContent =
+      safe(e.caregiver_first_name);
+
+    document.getElementById('participantName').textContent =
+      safe(e.participant_first_name);
+
+    document.getElementById('participantInitial').textContent =
+      safe(e.participant_first_name).slice(0, 1).toUpperCase() || '1';
+
+    document.getElementById('enrollmentId').textContent =
+      safe(e.enrollment_id);
+
+    document.getElementById('ageRange').textContent =
+      safe(e.participant_age_range);
+
+    document.getElementById('relationship').textContent =
+      safe(e.relationship);
+
+    document.getElementById('location').textContent =
+      `${safe(e.city)}, ${safe(e.state)}`;
+
+    document.getElementById('preferredContact').textContent =
+      safe(e.preferred_contact);
+
+    const status =
+      p.profile_status === 'complete'
+        ? 'Complete'
+        : p.profile_status === 'in_progress'
+        ? 'In progress'
+        : 'Setup needed';
+
+    document.getElementById('profileStatus').textContent = status;
+
+
+    /* -----------------------------------------
+       Find an active OneProfile identifier
+       ----------------------------------------- */
+
+    if (previewButton) {
+
+      try {
+
+        const identifierResponse = await fetch(
+          '/api/caregiver-identifiers',
+          {
+            credentials: 'same-origin'
+          }
+        );
+
+        if (identifierResponse.ok) {
+
+          const identifierData = await identifierResponse.json();
+
+          const identifiers = identifierData.identifiers || [];
+
+          const activeIdentifier = identifiers.find(
+            item => item.status === 'active'
+          );
+
+          if (activeIdentifier) {
+
+            const scanUrl =
+              `/scan.html?code=${encodeURIComponent(
+                activeIdentifier.identifier_token
+              )}`;
+
+            previewButton.href = scanUrl;
+
+            /*
+             Opens the responder preview in a new tab
+             so the caregiver dashboard stays open.
+            */
+            previewButton.target = '_blank';
+            previewButton.rel = 'noopener';
+
+          } else {
+
+            /*
+             No active identifier yet.
+             Send caregiver to Identifier Management.
+            */
+            previewButton.href = 'identifier-manager.html';
+
+          }
+
+        }
+
+      } catch (_) {
+
+        /*
+         If identifier lookup fails, leave the
+         Identifier Manager fallback in place.
+        */
+        previewButton.href = 'identifier-manager.html';
+
+      }
+
+    }
+
+
+    /* Show dashboard after protected data loads */
+
+    loading.hidden = true;
+    content.hidden = false;
+
+
+  } catch (_) {
+
+    location.replace('caregiver-login.html');
+
+  }
+
+
+  /* -----------------------------------------
+     Sign out
+     ----------------------------------------- */
+
+  document
+    .getElementById('logoutButton')
+    .addEventListener('click', async () => {
+
+      const b = document.getElementById('logoutButton');
+
+      b.disabled = true;
+
+      try {
+
+        await fetch('/api/caregiver-logout', {
+          method: 'POST',
+          credentials: 'same-origin'
+        });
+
+      } finally {
+
+        location.replace('caregiver-login.html');
+
+      }
+
+    });
+
 })();
