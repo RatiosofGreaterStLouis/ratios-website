@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
+  <title>OneProfile™ Record | RATIOS Admin</title>
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile-portal.css"
+  >
+</head>
+
+<body style="display:none;">
+
+  <main class="op-shell">
+
+    <section
+      class="op-card"
+      style="
+        max-width:1050px;
+        margin:40px auto;
+      "
+    >
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          gap:20px;
+          flex-wrap:wrap;
+          margin-bottom:28px;
+        "
+      >
+
+        <div>
+
+          <p class="op-eyebrow">
+            RATIOS STAFF PORTAL
+          </p>
+
+          <h1 style="margin-bottom:8px;">
+            OneProfile™ Record
+          </h1>
+
+          <p style="margin:0;">
+            Authorized staff view
+          </p>
+
+        </div>
+
+
+        <a
+          href="admin-dashboard.html"
+          class="op-button op-secondary"
+        >
+          ← Back to directory
+        </a>
+
+      </div>
+
+
+      <div id="loadingState">
+        <p>Loading OneProfile™ record…</p>
+      </div>
+
+
+      <div
+        id="profileRecord"
+        hidden
+      >
+
+        <section
+          style="
+            border:1px solid #d8e3ea;
+            border-radius:18px;
+            padding:24px;
+            margin-bottom:18px;
+          "
+        >
+
+          <p class="op-eyebrow">
+            PARTICIPANT
+          </p>
+
+          <h2
+            id="participantName"
+            style="margin-bottom:6px;"
+          >
+            —
+          </h2>
+
+          <div
+            id="enrollmentId"
+            style="
+              font-weight:800;
+              margin-bottom:12px;
+            "
+          >
+            —
+          </div>
+
+          <div id="participantDetails"></div>
+
+        </section>
+
+
+        <section
+          style="
+            display:grid;
+            grid-template-columns:
+              repeat(auto-fit,minmax(260px,1fr));
+            gap:18px;
+            margin-bottom:18px;
+          "
+        >
+
+          <article
+            style="
+              border:1px solid #d8e3ea;
+              border-radius:18px;
+              padding:22px;
+            "
+          >
+
+            <p class="op-eyebrow">
+              CAREGIVER
+            </p>
+
+            <div id="caregiverDetails">
+              —
+            </div>
+
+          </article>
+
+
+          <article
+            style="
+              border:1px solid #d8e3ea;
+              border-radius:18px;
+              padding:22px;
+            "
+          >
+
+            <p class="op-eyebrow">
+              PROFILE STATUS
+            </p>
+
+            <div id="profileStatus">
+              —
+            </div>
+
+          </article>
+
+        </section>
+
+
+        <section
+          style="
+            border:1px solid #d8e3ea;
+            border-radius:18px;
+            padding:22px;
+            margin-bottom:18px;
+          "
+        >
+
+          <p class="op-eyebrow">
+            IDENTIFIERS & ACTIVITY
+          </p>
+
+          <div id="identifierSummary">
+            —
+          </div>
+
+        </section>
+
+
+        <section
+          style="
+            border:1px solid #d8e3ea;
+            border-radius:18px;
+            padding:22px;
+          "
+        >
+
+          <p class="op-eyebrow">
+            STAFF ACTIONS
+          </p>
+
+          <p style="margin-bottom:0;">
+            Administrative actions will appear
+            here after audit logging is enabled.
+          </p>
+
+        </section>
+
+      </div>
+
+
+      <div
+        id="errorState"
+        hidden
+        style="
+          border:1px solid #b91c1c;
+          border-radius:18px;
+          padding:22px;
+        "
+      >
+
+        <strong>
+          Unable to load this OneProfile™ record.
+        </strong>
+
+        <p
+          id="errorMessage"
+          style="margin-bottom:0;"
+        >
+          Please return to the directory and try again.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="assets/js/admin-profile.js"></script>
+
+</body>
+
+</html>

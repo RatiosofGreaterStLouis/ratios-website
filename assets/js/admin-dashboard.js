@@ -118,8 +118,11 @@ const logoutButton =
             : 'Emergency sharing OFF';
 
         return `
-          <article
-            style="
+  <article
+    onclick="location.href='admin-profile.html?id=${encodeURIComponent(profile.enrollment_id)}'"
+    style="
+      cursor:pointer;
+            
               border:1px solid #d8e3ea;
               border-radius:18px;
               padding:20px;
