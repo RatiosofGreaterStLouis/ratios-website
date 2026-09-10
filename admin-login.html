@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
+  <title>RATIOS Admin | OneProfile™</title>
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile-portal.css"
+  >
+</head>
+
+<body>
+
+  <main class="op-shell">
+
+    <section class="op-card">
+
+      <div style="text-align:center; margin-bottom:24px;">
+
+        <img
+          src="assets/images/ratios-official-logo.png"
+          alt="RATIOS"
+          style="
+            width:90px;
+            height:auto;
+            margin-bottom:14px;
+          "
+        >
+
+        <p class="op-eyebrow">
+          RATIOS STAFF ACCESS
+        </p>
+
+        <h1>
+          OneProfile™ Admin
+        </h1>
+
+        <p>
+          Secure access for authorized RATIOS staff.
+        </p>
+
+      </div>
+
+
+      <div id="requestStep">
+
+        <label for="email">
+          Staff email address
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          placeholder="name@ratiossaveslives.org"
+        >
+
+        <button
+          id="sendCode"
+          type="button"
+          class="op-button op-primary"
+          style="width:100%; margin-top:18px;"
+        >
+          Send secure login code
+        </button>
+
+      </div>
+
+
+      <div
+        id="verifyStep"
+        hidden
+        style="margin-top:20px;"
+      >
+
+        <label for="code">
+          Enter your 6-digit login code
+        </label>
+
+        <input
+          id="code"
+          type="text"
+          inputmode="numeric"
+          autocomplete="one-time-code"
+          maxlength="6"
+          placeholder="000000"
+        >
+
+        <button
+          id="verifyCode"
+          type="button"
+          class="op-button op-primary"
+          style="width:100%; margin-top:18px;"
+        >
+          Sign in to Admin
+        </button>
+
+      </div>
+
+
+      <p
+        id="message"
+        style="
+          margin-top:18px;
+          text-align:center;
+          font-weight:700;
+        "
+      ></p>
+
+
+      <div
+        style="
+          margin-top:26px;
+          padding-top:20px;
+          border-top:1px solid #d8e3ea;
+          text-align:center;
+          font-size:.9rem;
+        "
+      >
+        <strong>Restricted system</strong>
+
+        <p style="margin-bottom:0;">
+          Access is limited to authorized RATIOS personnel.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>
