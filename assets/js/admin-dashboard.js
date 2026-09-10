@@ -18,6 +18,9 @@
   const profileSearch =
     document.getElementById('profileSearch');
 
+const logoutButton =
+  document.getElementById('logout');
+
   const page =
     document.body;
 
@@ -367,7 +370,55 @@
     );
   }
 
+if (logoutButton) {
 
+  logoutButton.addEventListener(
+    'click',
+    async () => {
+
+      logoutButton.disabled = true;
+      logoutButton.textContent =
+        'Signing out…';
+
+      try {
+
+        const response =
+          await fetch('/api/admin-logout', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+        if (!response.ok) {
+          throw new Error(
+            'Unable to sign out.'
+          );
+        }
+
+        location.replace(
+          'admin-login.html'
+        );
+
+      } catch (error) {
+
+        console.error(
+          'Admin logout error:',
+          error
+        );
+
+        logoutButton.disabled = false;
+        logoutButton.textContent =
+          'Sign out';
+
+        alert(
+          'Unable to sign out. Please try again.'
+        );
+      }
+    }
+  );
+}
   loadAdminDashboard();
 
 })();
