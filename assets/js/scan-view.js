@@ -258,17 +258,68 @@
 
     if (hasValue(p.safety_risk_level)) {
 
-      const card = makeCard(
-        'Wandering / elopement risk',
-        p.safety_risk_level,
-        {
-          urgent: true
-        }
-      );
+  const riskCard = document.createElement('div');
 
-      grid.appendChild(card);
+  riskCard.className = 'em-card';
+  riskCard.style.border = '2px solid #d97706';
+  riskCard.style.background = '#fffaf0';
 
-    }
+  const heading = document.createElement('span');
+  heading.textContent = 'Wandering / elopement risk';
+
+  const riskBadge = document.createElement('strong');
+
+  const riskValue =
+    String(p.safety_risk_level).trim();
+
+  riskBadge.textContent = riskValue;
+
+  riskBadge.style.display = 'inline-flex';
+  riskBadge.style.alignItems = 'center';
+  riskBadge.style.justifyContent = 'center';
+  riskBadge.style.width = 'fit-content';
+  riskBadge.style.marginTop = '8px';
+  riskBadge.style.padding = '8px 14px';
+  riskBadge.style.borderRadius = '999px';
+  riskBadge.style.fontWeight = '800';
+  riskBadge.style.fontSize = '1rem';
+
+  const normalizedRisk =
+    riskValue.toLowerCase();
+
+  if (normalizedRisk.includes('high')) {
+
+    riskBadge.style.background = '#b91c1c';
+    riskBadge.style.color = '#ffffff';
+
+  } else if (
+    normalizedRisk.includes('moderate') ||
+    normalizedRisk.includes('medium')
+  ) {
+
+    riskBadge.style.background = '#f59e0b';
+    riskBadge.style.color = '#07172e';
+
+  } else if (normalizedRisk.includes('low')) {
+
+    riskBadge.style.background = '#15803d';
+    riskBadge.style.color = '#ffffff';
+
+  } else {
+
+    riskBadge.style.background = '#e5e7eb';
+    riskBadge.style.color = '#07172e';
+
+  }
+
+  riskCard.append(
+    heading,
+    riskBadge
+  );
+
+  grid.appendChild(riskCard);
+
+}
 
 
     if (hasValue(p.safe_approach)) {
