@@ -1,7 +1,6 @@
 (() => {
 
-  const page =
-    document.body;
+  const page = document.body;
 
   const loadingState =
     document.getElementById('loadingState');
@@ -32,6 +31,9 @@
 
   const identifierSummary =
     document.getElementById('identifierSummary');
+
+  const staffActions =
+    document.getElementById('staffActions');
 
 
   let currentEnrollmentId = '';
@@ -87,6 +89,22 @@
   }
 
 
+  function formatAuditAction(value) {
+
+    const labels = {
+      identifier_deactivated:
+        'Identifier deactivated',
+
+      identifier_reactivated:
+        'Identifier reactivated'
+    };
+
+    return labels[value] ||
+      String(value || 'Administrative action')
+        .replace(/_/g, ' ');
+  }
+
+
   function showError(message) {
 
     loadingState.hidden = true;
@@ -98,6 +116,147 @@
       'Please return to the directory and try again.';
 
     page.style.display = '';
+  }
+
+
+  function renderAuditLog(entries) {
+
+    if (!staffActions) {
+      return;
+    }
+
+
+    const rows =
+      Array.isArray(entries)
+        ? entries
+        : [];
+
+
+    if (!rows.length) {
+
+      staffActions.innerHTML = `
+        <p style="margin-bottom:0;">
+          No administrative actions have
+          been recorded for this enrollment.
+        </p>
+      `;
+
+      return;
+    }
+
+
+    staffActions.innerHTML =
+      rows.map(entry => {
+
+        let details = {};
+
+        if (entry.details) {
+
+          try {
+            details =
+              JSON.parse(entry.details);
+          } catch {
+            details = {};
+          }
+        }
+
+
+        const action =
+          formatAuditAction(
+            entry.action
+          );
+
+
+        const identifierLabel =
+          details.label ||
+          (
+            entry.identifier_id
+              ? `Identifier #${entry.identifier_id}`
+              : 'OneProfile™ record'
+          );
+
+
+        const productType =
+          details.product_type
+            ? formatProductType(
+                details.product_type
+              )
+            : '';
+
+
+        return `
+          <div
+            style="
+              border-top:1px solid #d8e3ea;
+              padding:16px 0;
+            "
+          >
+
+            <div>
+              <strong>
+                ${escapeHtml(action)}
+              </strong>
+            </div>
+
+            <div>
+              Identifier:
+              <strong>
+                ${escapeHtml(identifierLabel)}
+              </strong>
+            </div>
+
+            ${
+              productType
+                ? `
+                  <div>
+                    Type:
+                    <strong>
+                      ${escapeHtml(productType)}
+                    </strong>
+                  </div>
+                `
+                : ''
+            }
+
+            ${
+              entry.identifier_id
+                ? `
+                  <div>
+                    Identifier ID:
+                    <strong>
+                      ${escapeHtml(
+                        entry.identifier_id
+                      )}
+                    </strong>
+                  </div>
+                `
+                : ''
+            }
+
+            <div>
+              Staff:
+              <strong>
+                ${escapeHtml(
+                  entry.staff_email ||
+                  'Authorized RATIOS staff'
+                )}
+              </strong>
+            </div>
+
+            <div>
+              Date:
+              <strong>
+                ${escapeHtml(
+                  formatDate(
+                    entry.created_at
+                  )
+                )}
+              </strong>
+            </div>
+
+          </div>
+        `;
+      }).join('');
   }
 
 
@@ -132,15 +291,22 @@
           {
             method: 'POST',
             credentials: 'same-origin',
+
             headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
+              'Content-Type':
+                'application/json',
+
+              'Accept':
+                'application/json'
             },
+
             body: JSON.stringify({
               enrollment_id:
                 currentEnrollmentId,
+
               identifier_id:
                 Number(identifierId),
+
               status:
                 newStatus
             })
@@ -165,7 +331,10 @@
       }
 
 
-      if (!response.ok || !data.ok) {
+      if (
+        !response.ok ||
+        !data.ok
+      ) {
 
         throw new Error(
           data.error ||
@@ -246,6 +415,7 @@
         ? identifiers
         : [];
 
+
     const activeCount =
       rows.filter(
         item =>
@@ -253,14 +423,20 @@
             .toLowerCase() === 'active'
       ).length;
 
+
     const totalScans =
       rows.reduce(
         (sum, item) =>
-          sum + Number(item.scan_count || 0),
+          sum +
+          Number(
+            item.scan_count || 0
+          ),
         0
       );
 
+
     let latestScan = null;
+
 
     for (const item of rows) {
 
@@ -268,39 +444,52 @@
         continue;
       }
 
+
       const current =
         new Date(
           String(item.last_scanned_at)
             .replace(' ', 'T') + 'Z'
         );
 
+
       if (
-        !Number.isNaN(current.getTime()) &&
+        !Number.isNaN(
+          current.getTime()
+        ) &&
         (
           !latestScan ||
           current > latestScan
         )
       ) {
-        latestScan = current;
+
+        latestScan =
+          current;
       }
     }
 
 
     let html = `
       <div style="margin-bottom:18px;">
+
         <div>
           Active identifiers:
-          <strong>${activeCount}</strong>
+          <strong>
+            ${activeCount}
+          </strong>
         </div>
 
         <div>
           Total identifiers:
-          <strong>${rows.length}</strong>
+          <strong>
+            ${rows.length}
+          </strong>
         </div>
 
         <div>
           Total scans:
-          <strong>${totalScans}</strong>
+          <strong>
+            ${totalScans}
+          </strong>
         </div>
 
         <div>
@@ -315,6 +504,7 @@
             }
           </strong>
         </div>
+
       </div>
     `;
 
@@ -328,139 +518,146 @@
         </p>
       `;
 
-      identifierSummary.innerHTML = html;
+
+      identifierSummary.innerHTML =
+        html;
 
       return;
     }
 
 
-    html += rows.map(item => {
+    html +=
+      rows.map(item => {
 
-      const status =
-        String(
-          item.status || 'unknown'
-        )
-          .trim()
-          .toLowerCase();
-
-
-      const isActive =
-        status === 'active';
+        const status =
+          String(
+            item.status || 'unknown'
+          )
+            .trim()
+            .toLowerCase();
 
 
-      const newStatus =
-        isActive
-          ? 'inactive'
-          : 'active';
+        const isActive =
+          status === 'active';
 
 
-      const buttonText =
-        isActive
-          ? 'Deactivate identifier'
-          : 'Reactivate identifier';
+        const newStatus =
+          isActive
+            ? 'inactive'
+            : 'active';
 
 
-      const label =
-        item.label ||
-        formatProductType(
-          item.product_type
-        );
+        const buttonText =
+          isActive
+            ? 'Deactivate identifier'
+            : 'Reactivate identifier';
 
 
-      return `
-        <div
-          style="
-            border-top:1px solid #d8e3ea;
-            padding:16px 0;
-          "
-        >
+        const label =
+          item.label ||
+          formatProductType(
+            item.product_type
+          );
 
-          <div>
-            <strong>
-              ${escapeHtml(label)}
-            </strong>
-          </div>
 
-          <div>
-            Type:
-            <strong>
-              ${escapeHtml(
-                formatProductType(
-                  item.product_type
-                )
-              )}
-            </strong>
-          </div>
-
-          <div>
-            Status:
-            <strong>
-              ${escapeHtml(status)}
-            </strong>
-          </div>
-
-          <div>
-            Identifier ID:
-            <strong>
-              ${escapeHtml(item.id)}
-            </strong>
-          </div>
-
-          <div>
-            Scans:
-            <strong>
-              ${Number(
-                item.scan_count || 0
-              )}
-            </strong>
-          </div>
-
-          <div>
-            Last scanned:
-            <strong>
-              ${escapeHtml(
-                item.last_scanned_at
-                  ? formatDate(
-                      item.last_scanned_at
-                    )
-                  : 'No scans yet'
-              )}
-            </strong>
-          </div>
-
-          <div>
-            Issued:
-            <strong>
-              ${escapeHtml(
-                formatDate(
-                  item.created_at
-                )
-              )}
-            </strong>
-          </div>
-
+        return `
           <div
             style="
-              margin-top:12px;
+              border-top:1px solid #d8e3ea;
+              padding:16px 0;
             "
           >
-            <button
-              type="button"
-              data-identifier-action
-              data-identifier-id="${escapeHtml(item.id)}"
-              data-new-status="${escapeHtml(newStatus)}"
-              data-label="${escapeHtml(label)}"
+
+            <div>
+              <strong>
+                ${escapeHtml(label)}
+              </strong>
+            </div>
+
+            <div>
+              Type:
+              <strong>
+                ${escapeHtml(
+                  formatProductType(
+                    item.product_type
+                  )
+                )}
+              </strong>
+            </div>
+
+            <div>
+              Status:
+              <strong>
+                ${escapeHtml(status)}
+              </strong>
+            </div>
+
+            <div>
+              Identifier ID:
+              <strong>
+                ${escapeHtml(item.id)}
+              </strong>
+            </div>
+
+            <div>
+              Scans:
+              <strong>
+                ${Number(
+                  item.scan_count || 0
+                )}
+              </strong>
+            </div>
+
+            <div>
+              Last scanned:
+              <strong>
+                ${escapeHtml(
+                  item.last_scanned_at
+                    ? formatDate(
+                        item.last_scanned_at
+                      )
+                    : 'No scans yet'
+                )}
+              </strong>
+            </div>
+
+            <div>
+              Issued:
+              <strong>
+                ${escapeHtml(
+                  formatDate(
+                    item.created_at
+                  )
+                )}
+              </strong>
+            </div>
+
+            <div
+              style="
+                margin-top:12px;
+              "
             >
-              ${escapeHtml(buttonText)}
-            </button>
+
+              <button
+                type="button"
+                data-identifier-action
+                data-identifier-id="${escapeHtml(item.id)}"
+                data-new-status="${escapeHtml(newStatus)}"
+                data-label="${escapeHtml(label)}"
+              >
+                ${escapeHtml(buttonText)}
+              </button>
+
+            </div>
+
           </div>
-
-        </div>
-      `;
-    }).join('');
+        `;
+      }).join('');
 
 
-    identifierSummary.innerHTML = html;
+    identifierSummary.innerHTML =
+      html;
+
 
     bindIdentifierButtons();
   }
@@ -474,6 +671,7 @@
         new URLSearchParams(
           window.location.search
         );
+
 
       const enrollmentId =
         String(
@@ -506,9 +704,12 @@
           '/api/admin-session',
           {
             method: 'GET',
-            credentials: 'same-origin',
+            credentials:
+              'same-origin',
+
             headers: {
-              'Accept': 'application/json'
+              'Accept':
+                'application/json'
             }
           }
         );
@@ -536,9 +737,12 @@
           `/api/admin-profile-detail?id=${encodeURIComponent(enrollmentId)}`,
           {
             method: 'GET',
-            credentials: 'same-origin',
+            credentials:
+              'same-origin',
+
             headers: {
-              'Accept': 'application/json'
+              'Accept':
+                'application/json'
             }
           }
         );
@@ -561,7 +765,9 @@
       }
 
 
-      if (response.status === 404) {
+      if (
+        response.status === 404
+      ) {
 
         showError(
           'This OneProfile™ enrollment could not be found.'
@@ -707,7 +913,11 @@
         <div>
           Emergency sharing:
           <strong>
-            ${sharingOn ? 'ON' : 'OFF'}
+            ${
+              sharingOn
+                ? 'ON'
+                : 'OFF'
+            }
           </strong>
         </div>
 
@@ -731,11 +941,22 @@
       );
 
 
-      loadingState.hidden = true;
-      errorState.hidden = true;
-      profileRecord.hidden = false;
+      renderAuditLog(
+        data.audit_log
+      );
 
-      page.style.display = '';
+
+      loadingState.hidden =
+        true;
+
+      errorState.hidden =
+        true;
+
+      profileRecord.hidden =
+        false;
+
+      page.style.display =
+        '';
 
 
     } catch (error) {
