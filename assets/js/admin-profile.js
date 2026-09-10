@@ -34,6 +34,9 @@
     document.getElementById('identifierSummary');
 
 
+  let currentEnrollmentId = '';
+
+
   function escapeHtml(value) {
 
     return String(value ?? '')
@@ -95,6 +98,144 @@
       'Please return to the directory and try again.';
 
     page.style.display = '';
+  }
+
+
+  async function changeIdentifierStatus(
+    identifierId,
+    newStatus,
+    label
+  ) {
+
+    const actionWord =
+      newStatus === 'active'
+        ? 'reactivate'
+        : 'deactivate';
+
+
+    const confirmed =
+      window.confirm(
+        `Are you sure you want to ${actionWord} "${label}"?`
+      );
+
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          '/api/admin-identifier-status',
+          {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              enrollment_id:
+                currentEnrollmentId,
+              identifier_id:
+                Number(identifierId),
+              status:
+                newStatus
+            })
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        response.status === 401 ||
+        !data.authenticated
+      ) {
+
+        location.replace(
+          'admin-login.html'
+        );
+
+        return;
+      }
+
+
+      if (!response.ok || !data.ok) {
+
+        throw new Error(
+          data.error ||
+          'Unable to update this identifier.'
+        );
+      }
+
+
+      await loadProfile();
+
+
+    } catch (error) {
+
+      console.error(
+        'Admin identifier update error:',
+        error
+      );
+
+
+      window.alert(
+        error.message ||
+        'Unable to update this identifier. Please try again.'
+      );
+    }
+  }
+
+
+  function bindIdentifierButtons() {
+
+    const buttons =
+      document.querySelectorAll(
+        '[data-identifier-action]'
+      );
+
+
+    buttons.forEach(button => {
+
+      button.addEventListener(
+        'click',
+        async () => {
+
+          const identifierId =
+            button.dataset.identifierId;
+
+          const newStatus =
+            button.dataset.newStatus;
+
+          const label =
+            button.dataset.label ||
+            'this identifier';
+
+
+          button.disabled = true;
+
+
+          try {
+
+            await changeIdentifierStatus(
+              identifierId,
+              newStatus,
+              label
+            );
+
+          } finally {
+
+            button.disabled = false;
+          }
+        }
+      );
+    });
   }
 
 
@@ -196,7 +337,35 @@
     html += rows.map(item => {
 
       const status =
-        String(item.status || 'unknown');
+        String(
+          item.status || 'unknown'
+        )
+          .trim()
+          .toLowerCase();
+
+
+      const isActive =
+        status === 'active';
+
+
+      const newStatus =
+        isActive
+          ? 'inactive'
+          : 'active';
+
+
+      const buttonText =
+        isActive
+          ? 'Deactivate identifier'
+          : 'Reactivate identifier';
+
+
+      const label =
+        item.label ||
+        formatProductType(
+          item.product_type
+        );
+
 
       return `
         <div
@@ -208,12 +377,7 @@
 
           <div>
             <strong>
-              ${escapeHtml(
-                item.label ||
-                formatProductType(
-                  item.product_type
-                )
-              )}
+              ${escapeHtml(label)}
             </strong>
           </div>
 
@@ -275,12 +439,30 @@
             </strong>
           </div>
 
+          <div
+            style="
+              margin-top:12px;
+            "
+          >
+            <button
+              type="button"
+              data-identifier-action
+              data-identifier-id="${escapeHtml(item.id)}"
+              data-new-status="${escapeHtml(newStatus)}"
+              data-label="${escapeHtml(label)}"
+            >
+              ${escapeHtml(buttonText)}
+            </button>
+          </div>
+
         </div>
       `;
     }).join('');
 
 
     identifierSummary.innerHTML = html;
+
+    bindIdentifierButtons();
   }
 
 
@@ -313,6 +495,10 @@
 
         return;
       }
+
+
+      currentEnrollmentId =
+        enrollmentId;
 
 
       const sessionResponse =
