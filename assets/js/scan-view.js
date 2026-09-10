@@ -1,1 +1,440 @@
-(async()=>{const labels={communication_method:'Communication method',communication_notes:'Communication instructions',sensory_triggers:'Sensory triggers',calming_supports:'What helps me feel safe/calm',touch_preference:'Touch preference',safety_risk_level:'Wandering / elopement risk',known_destinations:'Places I may try to go',safe_approach:'Safest way to approach or redirect me',emergency_contact_name:'Primary emergency contact',emergency_contact_relationship:'Relationship',emergency_contact_phone:'Primary phone',alternate_contact_name:'Alternate emergency contact',alternate_contact_phone:'Alternate phone',responder_notes:'What a responder should know first'};const code=new URLSearchParams(location.search).get('code')||'';try{const r=await fetch(`/api/identifier-profile?code=${encodeURIComponent(code)}`);const d=await r.json();document.getElementById('loading').hidden=true;if(!r.ok||!d.profile){document.getElementById('error').hidden=false;return}const p=d.profile;document.getElementById('displayName').textContent=p.preferred_name||'OneProfile™';const grid=document.getElementById('profileGrid');for(const [k,l] of Object.entries(labels)){if(!p[k])continue;const card=document.createElement('div');card.className='em-card';const s=document.createElement('span');s.textContent=l;const strong=document.createElement('strong');strong.textContent=p[k];card.append(s,strong);grid.append(card)}document.getElementById('content').hidden=false}catch{document.getElementById('loading').hidden=true;document.getElementById('error').hidden=false}})();
+(async () => {
+
+  const code =
+    new URLSearchParams(location.search).get('code') || '';
+
+  const loading = document.getElementById('loading');
+  const error = document.getElementById('error');
+  const content = document.getElementById('content');
+  const grid = document.getElementById('profileGrid');
+
+
+  /* -----------------------------------------
+     Helpers
+     ----------------------------------------- */
+
+  function hasValue(value) {
+    return value !== null &&
+           value !== undefined &&
+           String(value).trim() !== '';
+  }
+
+
+  function cleanPhone(phone) {
+    return String(phone || '').replace(/[^\d+]/g, '');
+  }
+
+
+  function formatPhone(phone) {
+
+    const digits =
+      String(phone || '').replace(/\D/g, '');
+
+    if (digits.length === 10) {
+      return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
+    }
+
+    if (digits.length === 11 && digits.startsWith('1')) {
+      return `(${digits.slice(1,4)}) ${digits.slice(4,7)}-${digits.slice(7)}`;
+    }
+
+    return String(phone || '');
+  }
+
+
+  function makeCard(label, value, options = {}) {
+
+    if (!hasValue(value)) return null;
+
+    const card = document.createElement('div');
+    card.className = 'em-card';
+
+    if (options.fullWidth) {
+      card.style.gridColumn = '1 / -1';
+    }
+
+    if (options.urgent) {
+      card.style.border = '2px solid #d97706';
+      card.style.background = '#fffaf0';
+    }
+
+    const heading = document.createElement('span');
+    heading.textContent = label;
+
+    const strong = document.createElement('strong');
+    strong.textContent = value;
+
+    card.append(heading, strong);
+
+    return card;
+  }
+
+
+  function addSectionTitle(text) {
+
+    const heading = document.createElement('h2');
+
+    heading.textContent = text;
+
+    heading.style.gridColumn = '1 / -1';
+    heading.style.margin = '24px 0 4px';
+    heading.style.color = '#07172e';
+    heading.style.fontSize = '1.25rem';
+
+    grid.appendChild(heading);
+  }
+
+
+  function makePhoneCard(
+    title,
+    name,
+    relationship,
+    phone
+  ) {
+
+    if (
+      !hasValue(name) &&
+      !hasValue(relationship) &&
+      !hasValue(phone)
+    ) {
+      return null;
+    }
+
+    const card = document.createElement('div');
+
+    card.className = 'em-card';
+
+    card.style.gridColumn = '1 / -1';
+    card.style.padding = '22px';
+
+    const label = document.createElement('span');
+
+    label.textContent = title;
+
+    card.appendChild(label);
+
+
+    if (hasValue(name)) {
+
+      const contactName =
+        document.createElement('strong');
+
+      contactName.textContent = name;
+
+      contactName.style.fontSize = '1.35rem';
+
+      card.appendChild(contactName);
+
+    }
+
+
+    if (hasValue(relationship)) {
+
+      const rel =
+        document.createElement('p');
+
+      rel.textContent = relationship;
+
+      rel.style.margin = '4px 0 14px';
+      rel.style.color = '#526174';
+
+      card.appendChild(rel);
+
+    }
+
+
+    if (hasValue(phone)) {
+
+      const callButton =
+        document.createElement('a');
+
+      callButton.href =
+        `tel:${cleanPhone(phone)}`;
+
+      callButton.textContent =
+        hasValue(name)
+          ? `Call ${name} · ${formatPhone(phone)}`
+          : `Call ${formatPhone(phone)}`;
+
+      callButton.style.display = 'flex';
+      callButton.style.alignItems = 'center';
+      callButton.style.justifyContent = 'center';
+
+      callButton.style.width = '100%';
+      callButton.style.minHeight = '54px';
+
+      callButton.style.marginTop = '10px';
+      callButton.style.padding = '12px 18px';
+
+      callButton.style.background = '#07172e';
+      callButton.style.color = '#ffffff';
+
+      callButton.style.borderRadius = '999px';
+
+      callButton.style.fontWeight = '800';
+      callButton.style.textDecoration = 'none';
+      callButton.style.textAlign = 'center';
+
+      card.appendChild(callButton);
+
+    }
+
+    return card;
+  }
+
+
+  /* -----------------------------------------
+     Load emergency profile
+     ----------------------------------------- */
+
+  try {
+
+    const response = await fetch(
+      `/api/identifier-profile?code=${encodeURIComponent(code)}`
+    );
+
+    const data = await response.json();
+
+    loading.hidden = true;
+
+
+    if (!response.ok || !data.profile) {
+
+      error.hidden = false;
+
+      return;
+
+    }
+
+
+    const p = data.profile;
+
+
+    document.getElementById('displayName').textContent =
+      p.preferred_name || 'OneProfile™';
+
+
+    /*
+     Clear anything already in the profile area
+    */
+
+    grid.innerHTML = '';
+
+
+    /* =========================================
+       RESPONDER PRIORITY
+       ========================================= */
+
+    if (hasValue(p.responder_notes)) {
+
+      const card = makeCard(
+        'What you should know first',
+        p.responder_notes,
+        {
+          fullWidth: true,
+          urgent: true
+        }
+      );
+
+      grid.appendChild(card);
+
+    }
+
+
+    /* =========================================
+       SAFETY
+       ========================================= */
+
+    if (
+      hasValue(p.safety_risk_level) ||
+      hasValue(p.safe_approach) ||
+      hasValue(p.known_destinations)
+    ) {
+
+      addSectionTitle('Safety & wandering information');
+
+    }
+
+
+    if (hasValue(p.safety_risk_level)) {
+
+      const card = makeCard(
+        'Wandering / elopement risk',
+        p.safety_risk_level,
+        {
+          urgent: true
+        }
+      );
+
+      grid.appendChild(card);
+
+    }
+
+
+    if (hasValue(p.safe_approach)) {
+
+      grid.appendChild(
+        makeCard(
+          'Safest way to approach or redirect me',
+          p.safe_approach
+        )
+      );
+
+    }
+
+
+    if (hasValue(p.known_destinations)) {
+
+      grid.appendChild(
+        makeCard(
+          'Places I may try to go',
+          p.known_destinations
+        )
+      );
+
+    }
+
+
+    /* =========================================
+       COMMUNICATION + SUPPORT
+       ========================================= */
+
+    if (
+      hasValue(p.communication_method) ||
+      hasValue(p.communication_notes) ||
+      hasValue(p.touch_preference) ||
+      hasValue(p.sensory_triggers) ||
+      hasValue(p.calming_supports)
+    ) {
+
+      addSectionTitle('Communication & support');
+
+    }
+
+
+    if (hasValue(p.communication_method)) {
+
+      grid.appendChild(
+        makeCard(
+          'Communication method',
+          p.communication_method
+        )
+      );
+
+    }
+
+
+    if (hasValue(p.communication_notes)) {
+
+      grid.appendChild(
+        makeCard(
+          'Communication instructions',
+          p.communication_notes
+        )
+      );
+
+    }
+
+
+    if (hasValue(p.touch_preference)) {
+
+      grid.appendChild(
+        makeCard(
+          'Touch preference',
+          p.touch_preference
+        )
+      );
+
+    }
+
+
+    if (hasValue(p.sensory_triggers)) {
+
+      grid.appendChild(
+        makeCard(
+          'Sensory triggers',
+          p.sensory_triggers
+        )
+      );
+
+    }
+
+
+    if (hasValue(p.calming_supports)) {
+
+      grid.appendChild(
+        makeCard(
+          'What helps me feel safe / calm',
+          p.calming_supports
+        )
+      );
+
+    }
+
+
+    /* =========================================
+       EMERGENCY CONTACTS
+       ========================================= */
+
+    const hasPrimary =
+      hasValue(p.emergency_contact_name) ||
+      hasValue(p.emergency_contact_relationship) ||
+      hasValue(p.emergency_contact_phone);
+
+    const hasAlternate =
+      hasValue(p.alternate_contact_name) ||
+      hasValue(p.alternate_contact_phone);
+
+
+    if (hasPrimary || hasAlternate) {
+
+      addSectionTitle('Emergency contacts');
+
+    }
+
+
+    if (hasPrimary) {
+
+      const primaryCard =
+        makePhoneCard(
+          'Primary emergency contact',
+          p.emergency_contact_name,
+          p.emergency_contact_relationship,
+          p.emergency_contact_phone
+        );
+
+      if (primaryCard) {
+        grid.appendChild(primaryCard);
+      }
+
+    }
+
+
+    if (hasAlternate) {
+
+      const alternateCard =
+        makePhoneCard(
+          'Alternate emergency contact',
+          p.alternate_contact_name,
+          '',
+          p.alternate_contact_phone
+        );
+
+      if (alternateCard) {
+        grid.appendChild(alternateCard);
+      }
+
+    }
+
+
+    content.hidden = false;
+
+
+  } catch (err) {
+
+    loading.hidden = true;
+    error.hidden = false;
+
+  }
+
+})();
