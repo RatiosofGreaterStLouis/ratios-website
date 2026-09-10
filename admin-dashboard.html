@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
+  <title>OneProfile™ Admin Dashboard | RATIOS</title>
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile-portal.css"
+  >
+</head>
+
+<body style="display:none;">
+
+  <main class="op-shell">
+
+    <section
+      class="op-card"
+      style="
+        max-width:1050px;
+        margin:40px auto;
+      "
+    >
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          gap:20px;
+          flex-wrap:wrap;
+          margin-bottom:30px;
+        "
+      >
+
+        <div>
+
+          <p class="op-eyebrow">
+            RATIOS STAFF PORTAL
+          </p>
+
+          <h1 style="margin-bottom:8px;">
+            OneProfile™ Admin
+          </h1>
+
+          <p style="margin:0;">
+            Manage OneProfile™ enrollments,
+            identifiers, and program activity.
+          </p>
+
+        </div>
+
+
+        <div style="text-align:right;">
+
+          <p
+            id="staffEmail"
+            style="
+              margin:0 0 10px;
+              font-weight:700;
+            "
+          >
+            Authorized staff
+          </p>
+
+          <button
+            id="logout"
+            type="button"
+            class="op-button op-secondary"
+          >
+            Sign out
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <section
+        style="
+          display:grid;
+          grid-template-columns:
+            repeat(auto-fit,minmax(180px,1fr));
+          gap:16px;
+          margin-bottom:28px;
+        "
+      >
+
+        <div
+          style="
+            border:1px solid #d8e3ea;
+            border-radius:18px;
+            padding:20px;
+          "
+        >
+          <span
+            style="
+              display:block;
+              font-size:.85rem;
+              font-weight:800;
+              text-transform:uppercase;
+            "
+          >
+            Enrolled Profiles
+          </span>
+
+          <strong
+            id="totalProfiles"
+            style="font-size:2rem;"
+          >
+            —
+          </strong>
+        </div>
+
+
+        <div
+          style="
+            border:1px solid #d8e3ea;
+            border-radius:18px;
+            padding:20px;
+          "
+        >
+          <span
+            style="
+              display:block;
+              font-size:.85rem;
+              font-weight:800;
+              text-transform:uppercase;
+            "
+          >
+            Active Identifiers
+          </span>
+
+          <strong
+            id="activeIdentifiers"
+            style="font-size:2rem;"
+          >
+            —
+          </strong>
+        </div>
+
+
+        <div
+          style="
+            border:1px solid #d8e3ea;
+            border-radius:18px;
+            padding:20px;
+          "
+        >
+          <span
+            style="
+              display:block;
+              font-size:.85rem;
+              font-weight:800;
+              text-transform:uppercase;
+            "
+          >
+            Total Scans
+          </span>
+
+          <strong
+            id="totalScans"
+            style="font-size:2rem;"
+          >
+            —
+          </strong>
+        </div>
+
+      </section>
+
+
+      <section
+        style="
+          border-top:1px solid #d8e3ea;
+          padding-top:26px;
+        "
+      >
+
+        <div
+          style="
+            display:flex;
+            justify-content:space-between;
+            align-items:end;
+            gap:18px;
+            flex-wrap:wrap;
+            margin-bottom:20px;
+          "
+        >
+
+          <div>
+
+            <p class="op-eyebrow">
+              ONEPROFILE™ DIRECTORY
+            </p>
+
+            <h2 style="margin-bottom:4px;">
+              Enrolled Profiles
+            </h2>
+
+            <p style="margin:0;">
+              Search by participant,
+              caregiver, or enrollment ID.
+            </p>
+
+          </div>
+
+
+          <input
+            id="profileSearch"
+            type="search"
+            placeholder="Search profiles…"
+            style="
+              min-width:280px;
+              max-width:380px;
+            "
+          >
+
+        </div>
+
+
+        <div
+          id="profileList"
+          style="
+            display:grid;
+            gap:14px;
+          "
+        >
+
+          <p>
+            Loading OneProfile™ enrollments…
+          </p>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+
+  <script src="assets/js/admin-dashboard.js"></script>
+
+</body>
+
+</html>
