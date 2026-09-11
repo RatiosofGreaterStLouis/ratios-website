@@ -63,8 +63,12 @@
   const issuedScanLink =
     document.getElementById('issuedScanLink');
 
+  const downloadIssuedQr =
+    document.getElementById('downloadIssuedQr');
+
 
   let currentEnrollmentId = '';
+  let currentIssuedIdentifier = null;
 
 
   function escapeHtml(value) {
@@ -136,6 +140,16 @@
   }
 
 
+  function safeFileName(value) {
+
+    return String(value || 'OneProfile-QR')
+      .trim()
+      .replace(/[^\w\-]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 70) || 'OneProfile-QR';
+  }
+
+
   function showError(message) {
 
     loadingState.hidden = true;
@@ -177,6 +191,18 @@
     const displayLabel =
       item.label ||
       productName;
+
+
+    currentIssuedIdentifier = {
+      id:
+        item.id,
+
+      label:
+        displayLabel,
+
+      scanUrl:
+        data.scan_url
+    };
 
 
     issuedIdentifierDetails.innerHTML = `
@@ -256,6 +282,88 @@
 
     issuedIdentifierResult.hidden =
       false;
+  }
+
+
+  function downloadQr() {
+
+    if (
+      !currentIssuedIdentifier ||
+      !issuedQrCode
+    ) {
+
+      window.alert(
+        'No newly issued QR is available to download.'
+      );
+
+      return;
+    }
+
+
+    const image =
+      issuedQrCode.querySelector('img');
+
+
+    const canvas =
+      issuedQrCode.querySelector('canvas');
+
+
+    let imageUrl = '';
+
+
+    if (
+      image &&
+      image.src
+    ) {
+
+      imageUrl =
+        image.src;
+
+    } else if (canvas) {
+
+      imageUrl =
+        canvas.toDataURL(
+          'image/png'
+        );
+    }
+
+
+    if (!imageUrl) {
+
+      window.alert(
+        'The QR image is not ready yet. Please try again.'
+      );
+
+      return;
+    }
+
+
+    const fileName =
+      `${safeFileName(
+        currentIssuedIdentifier.label
+      )}-ID-${currentIssuedIdentifier.id}-QR.png`;
+
+
+    const link =
+      document.createElement('a');
+
+
+    link.href =
+      imageUrl;
+
+    link.download =
+      fileName;
+
+
+    document.body.appendChild(
+      link
+    );
+
+
+    link.click();
+
+
+    link.remove();
   }
 
 
@@ -457,6 +565,10 @@
 
     issueIdentifierMessage.textContent =
       'Issuing identifier…';
+
+
+    currentIssuedIdentifier =
+      null;
 
 
     if (issuedIdentifierResult) {
@@ -1283,6 +1395,15 @@
 
         await issueIdentifier();
       }
+    );
+  }
+
+
+  if (downloadIssuedQr) {
+
+    downloadIssuedQr.addEventListener(
+      'click',
+      downloadQr
     );
   }
 
