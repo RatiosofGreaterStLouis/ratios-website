@@ -42,7 +42,7 @@ export async function onRequestPost(context) {
 
 
     const now =
-      Date.now();
+      Math.floor(Date.now() / 1000);
 
 
     const session =
