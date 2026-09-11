@@ -88,22 +88,6 @@
   }
 
 
-  function addSectionTitle(text) {
-
-    const heading =
-      document.createElement('h2');
-
-    heading.textContent = text;
-    heading.style.gridColumn = '1 / -1';
-    heading.style.margin = '24px 0 4px';
-    heading.style.color = '#07172e';
-    heading.style.fontSize = '1.25rem';
-
-    grid.appendChild(heading);
-
-  }
-
-
   function makeQuickContactButton(
     name,
     phone
@@ -202,27 +186,22 @@
   function makeAtAGlance(profile) {
 
     const items = [
-
       {
         label: 'Communication',
         value: profile.communication_method
       },
-
       {
         label: 'Safest approach',
         value: profile.safe_approach
       },
-
       {
         label: 'Touch',
         value: profile.touch_preference
       },
-
       {
         label: 'Sensory triggers',
         value: profile.sensory_triggers
       }
-
     ].filter(
       item => hasValue(item.value)
     );
@@ -324,11 +303,15 @@
       normalizedRisk.includes('assessing') ||
       normalizedRisk.includes('not assessed')
     ) {
+
       riskBadge.textContent =
         'Risk level not specified';
+
     } else {
+
       riskBadge.textContent =
         riskValue;
+
     }
 
     riskBadge.style.display = 'inline-flex';
@@ -481,11 +464,116 @@
 
     if (destinations) {
 
-      destinations.style.margin =
-        '0';
+      destinations.style.margin = '0';
 
       sectionGrid.appendChild(
         destinations
+      );
+
+    }
+
+    wrapper.append(
+      eyebrow,
+      title,
+      intro,
+      sectionGrid
+    );
+
+    return wrapper;
+
+  }
+
+
+  function makeSupportSection(profile) {
+
+    const hasSupportInfo =
+      hasValue(profile.communication_notes) ||
+      hasValue(profile.calming_supports);
+
+    if (!hasSupportInfo) {
+      return null;
+    }
+
+    const wrapper =
+      document.createElement('section');
+
+    wrapper.style.gridColumn = '1 / -1';
+    wrapper.style.margin = '24px 0 4px';
+    wrapper.style.padding = '20px';
+    wrapper.style.border = '1px solid #cfe3ea';
+    wrapper.style.borderRadius = '18px';
+    wrapper.style.background = '#f4fafc';
+
+    const eyebrow =
+      document.createElement('div');
+
+    eyebrow.textContent =
+      'SUPPORT INFORMATION';
+
+    eyebrow.style.marginBottom = '6px';
+    eyebrow.style.color = '#14869a';
+    eyebrow.style.fontSize = '.75rem';
+    eyebrow.style.fontWeight = '900';
+    eyebrow.style.letterSpacing = '.1em';
+
+    const title =
+      document.createElement('h2');
+
+    title.textContent =
+      'Communication & support';
+
+    title.style.margin = '0 0 8px';
+    title.style.color = '#07172e';
+    title.style.fontSize = '1.2rem';
+
+    const intro =
+      document.createElement('p');
+
+    intro.textContent =
+      'These caregiver-provided details may help support communication, reduce distress, and create a calmer interaction.';
+
+    intro.style.margin = '0 0 16px';
+    intro.style.color = '#526174';
+    intro.style.lineHeight = '1.5';
+
+    const sectionGrid =
+      document.createElement('div');
+
+    sectionGrid.style.display = 'grid';
+    sectionGrid.style.gridTemplateColumns =
+      'repeat(auto-fit, minmax(250px, 1fr))';
+    sectionGrid.style.gap = '12px';
+
+    const communicationInstructions =
+      makeCard(
+        'Communication instructions',
+        profile.communication_notes
+      );
+
+    if (communicationInstructions) {
+
+      communicationInstructions.style.margin =
+        '0';
+
+      sectionGrid.appendChild(
+        communicationInstructions
+      );
+
+    }
+
+    const calmingSupports =
+      makeCard(
+        'What helps me feel safe / calm',
+        profile.calming_supports
+      );
+
+    if (calmingSupports) {
+
+      calmingSupports.style.margin =
+        '0';
+
+      sectionGrid.appendChild(
+        calmingSupports
       );
 
     }
@@ -583,7 +671,9 @@
       callButton.style.textDecoration = 'none';
       callButton.style.textAlign = 'center';
 
-      card.appendChild(callButton);
+      card.appendChild(
+        callButton
+      );
 
     }
 
@@ -780,6 +870,8 @@
     grid.innerHTML = '';
 
 
+    /* RESPONDER PRIORITY */
+
     if (
       hasValue(
         p.responder_notes
@@ -812,6 +904,8 @@
     }
 
 
+    /* AT A GLANCE */
+
     const atAGlance =
       makeAtAGlance(p);
 
@@ -819,6 +913,8 @@
       grid.appendChild(atAGlance);
     }
 
+
+    /* SAFETY */
 
     const safetySection =
       makeSafetySection(p);
@@ -828,50 +924,17 @@
     }
 
 
-    const hasCommunicationDetails =
-      hasValue(p.communication_notes) ||
-      hasValue(p.calming_supports);
+    /* COMMUNICATION + SUPPORT */
 
-    if (hasCommunicationDetails) {
+    const supportSection =
+      makeSupportSection(p);
 
-      addSectionTitle(
-        'Communication & support'
-      );
-
+    if (supportSection) {
+      grid.appendChild(supportSection);
     }
 
 
-    if (
-      hasValue(
-        p.communication_notes
-      )
-    ) {
-
-      grid.appendChild(
-        makeCard(
-          'Communication instructions',
-          p.communication_notes
-        )
-      );
-
-    }
-
-
-    if (
-      hasValue(
-        p.calming_supports
-      )
-    ) {
-
-      grid.appendChild(
-        makeCard(
-          'What helps me feel safe / calm',
-          p.calming_supports
-        )
-      );
-
-    }
-
+    /* RESPONDER ACTIONS */
 
     const responderActions =
       makeResponderActions(p);
@@ -880,6 +943,8 @@
       responderActions
     );
 
+
+    /* EMERGENCY CONTACTS */
 
     const hasPrimary =
       hasValue(p.emergency_contact_name) ||
@@ -895,8 +960,26 @@
       hasAlternate
     ) {
 
-      addSectionTitle(
-        'Emergency contacts'
+      const contactHeading =
+        document.createElement('h2');
+
+      contactHeading.textContent =
+        'Emergency contacts';
+
+      contactHeading.style.gridColumn =
+        '1 / -1';
+
+      contactHeading.style.margin =
+        '24px 0 4px';
+
+      contactHeading.style.color =
+        '#07172e';
+
+      contactHeading.style.fontSize =
+        '1.25rem';
+
+      grid.appendChild(
+        contactHeading
       );
 
     }
