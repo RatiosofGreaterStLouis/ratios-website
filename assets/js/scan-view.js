@@ -495,11 +495,6 @@
         'OneProfile™';
 
 
-    /*
-     Clear anything already in
-     the profile area.
-    */
-
     grid.innerHTML = '';
 
 
@@ -586,12 +581,6 @@
       riskCard.className =
         'em-card';
 
-      riskCard.style.border =
-        '2px solid #d97706';
-
-      riskCard.style.background =
-        '#fffaf0';
-
 
       const heading =
         document.createElement('span');
@@ -607,6 +596,10 @@
         String(
           p.safety_risk_level
         ).trim();
+
+      const normalizedRisk =
+        riskValue.toLowerCase();
+
 
       riskBadge.textContent =
         riskValue;
@@ -639,15 +632,17 @@
         '1rem';
 
 
-      const normalizedRisk =
-        riskValue.toLowerCase();
-
+      /* HIGH RISK */
 
       if (
-        normalizedRisk.includes(
-          'high'
-        )
+        normalizedRisk.includes('high')
       ) {
+
+        riskCard.style.border =
+          '2px solid #b91c1c';
+
+        riskCard.style.background =
+          '#fff1f2';
 
         riskBadge.style.background =
           '#b91c1c';
@@ -655,14 +650,19 @@
         riskBadge.style.color =
           '#ffffff';
 
+
+      /* MODERATE / MEDIUM RISK */
+
       } else if (
-        normalizedRisk.includes(
-          'moderate'
-        ) ||
-        normalizedRisk.includes(
-          'medium'
-        )
+        normalizedRisk.includes('moderate') ||
+        normalizedRisk.includes('medium')
       ) {
+
+        riskCard.style.border =
+          '2px solid #d97706';
+
+        riskCard.style.background =
+          '#fffaf0';
 
         riskBadge.style.background =
           '#f59e0b';
@@ -670,11 +670,18 @@
         riskBadge.style.color =
           '#07172e';
 
+
+      /* LOW RISK */
+
       } else if (
-        normalizedRisk.includes(
-          'low'
-        )
+        normalizedRisk.includes('low')
       ) {
+
+        riskCard.style.border =
+          '2px solid #15803d';
+
+        riskCard.style.background =
+          '#f0fdf4';
 
         riskBadge.style.background =
           '#15803d';
@@ -682,13 +689,44 @@
         riskBadge.style.color =
           '#ffffff';
 
+
+      /* UNKNOWN / STILL ASSESSING */
+
+      } else if (
+        normalizedRisk.includes('unknown') ||
+        normalizedRisk.includes('assessing') ||
+        normalizedRisk.includes('not assessed')
+      ) {
+
+        riskCard.style.border =
+          '1px solid #cbd5e1';
+
+        riskCard.style.background =
+          '#f8fafc';
+
+        riskBadge.style.background =
+          '#e2e8f0';
+
+        riskBadge.style.color =
+          '#334155';
+
+
+      /* OTHER / UNEXPECTED VALUE */
+
       } else {
+
+        riskCard.style.border =
+          '1px solid #d8e0e8';
+
+        riskCard.style.background =
+          '#f8fafc';
 
         riskBadge.style.background =
           '#e5e7eb';
 
         riskBadge.style.color =
           '#07172e';
+
       }
 
 
