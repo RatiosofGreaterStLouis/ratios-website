@@ -1,1 +1,449 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Emergency Sharing | OneProfile™ | RATIOS</title><link rel="stylesheet" href="assets/css/styles.css"><link rel="stylesheet" href="assets/css/oneprofile-profile.css"><link rel="stylesheet" href="assets/css/emergency-view.css"></head><body><nav class="ev-nav"><a href="index.html"><img src="assets/images/ratios-official-logo.png" alt="RATIOS"><strong>RATIOS<br><small>ONE OF ONE</small></strong></a><a href="caregiver-dashboard.html">Dashboard</a></nav><main class="ev-shell"><p class="ev-eyebrow">CAREGIVER SHARING CONTROLS</p><h1>Emergency Profile Sharing</h1><p class="ev-lead">Choose exactly what a responder may see after scanning this OneProfile™. Everything else stays private.</p><section class="ev-card"><div class="ev-state"><div><strong id="stateTitle">Emergency profile OFF</strong><p id="stateText">No public emergency profile is available.</p></div><label class="switch"><input id="enabled" type="checkbox"><span></span></label></div><h2>Information responders may see</h2><div id="fields" class="ev-checks"></div><button id="save" class="ev-primary">Save sharing settings</button><p id="message" class="ev-message"></p></section><section id="linkCard" class="ev-card" hidden><p class="ev-eyebrow">LIFEPATCH™ / QR DESTINATION</p><h2>Your emergency link</h2><p>This is the link your future QR code or NFC tag can open. Anyone with this exact link can see only the fields you selected above while sharing is ON.</p><div class="ev-linkrow"><input id="publicUrl" readonly><button id="copy">Copy link</button></div><a id="preview" class="ev-secondary" target="_blank" rel="noopener">Preview emergency view</a></section></main><script src="assets/js/emergency-sharing.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
+  <title>
+    Emergency Sharing | OneProfile™ | RATIOS
+  </title>
+
+  <link
+    rel="icon"
+    href="assets/images/favicon-32.png"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/styles.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile-portal.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile-profile.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/emergency-view.css"
+  >
+
+
+  <style>
+
+    .esh-shell {
+      max-width:1100px;
+      margin:0 auto;
+      padding:48px 28px 70px;
+    }
+
+    .esh-head {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:24px;
+      margin-bottom:24px;
+    }
+
+    .esh-brand {
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .esh-logo {
+      width:82px;
+      height:82px;
+      object-fit:contain;
+      padding:7px;
+      box-sizing:border-box;
+      border:1px solid #dfe9f2;
+      border-radius:18px;
+      background:#ffffff;
+      box-shadow:0 8px 20px rgba(7,23,46,.08);
+    }
+
+    .esh-head h1 {
+      margin:0;
+      color:#07172e;
+      font-size:clamp(2.2rem,5vw,4rem);
+      line-height:1.05;
+    }
+
+    .esh-lead {
+      margin:10px 0 0;
+      max-width:760px;
+      color:#526980;
+      line-height:1.65;
+    }
+
+    .esh-card {
+      margin-top:22px;
+      padding:26px;
+      border:1px solid #dfe9f2;
+      border-radius:22px;
+      background:#ffffff;
+      box-shadow:0 8px 24px rgba(7,23,46,.04);
+    }
+
+    .esh-state {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:22px;
+      padding:20px;
+      border:1px solid #d9e7ef;
+      border-radius:18px;
+      background:#f8fbfd;
+    }
+
+    .esh-state strong {
+      display:block;
+      color:#07172e;
+      font-size:1.1rem;
+    }
+
+    .esh-state p {
+      margin:5px 0 0;
+      color:#617388;
+    }
+
+    .esh-card h2 {
+      margin:24px 0 8px;
+      color:#07172e;
+    }
+
+    .esh-helper {
+      margin:0 0 18px;
+      color:#617388;
+      line-height:1.6;
+    }
+
+    #fields.ev-checks {
+      display:grid;
+      gap:10px;
+      margin:18px 0 22px;
+    }
+
+    #fields.ev-checks label {
+      border:1px solid #e4edf3;
+      border-radius:14px;
+      background:#f8fbfd;
+    }
+
+    .esh-primary {
+      min-height:52px;
+      padding:13px 24px;
+      border:0;
+      border-radius:999px;
+      background:#07172e;
+      color:#ffffff;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .esh-linkrow {
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+
+    .esh-linkrow input {
+      flex:1 1 520px;
+      min-width:0;
+      box-sizing:border-box;
+    }
+
+    .esh-linkrow button {
+      min-height:46px;
+      padding:10px 18px;
+      border:2px solid #07172e;
+      border-radius:999px;
+      background:#ffffff;
+      color:#07172e;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .esh-preview {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      margin-top:16px;
+      padding:11px 22px;
+      border-radius:999px;
+      background:#f7b83b;
+      color:#07172e;
+      text-decoration:none;
+      font-weight:800;
+    }
+
+    .esh-note {
+      margin-top:24px;
+      padding:18px 20px;
+      border:1px solid #d9e7ef;
+      border-radius:18px;
+      background:#f8fbfd;
+      color:#29405a;
+      line-height:1.6;
+    }
+
+    .esh-footer {
+      margin-top:26px;
+      text-align:center;
+      color:#617388;
+      font-size:.9rem;
+    }
+
+    @media (max-width:800px) {
+
+      .esh-shell {
+        padding-left:16px;
+        padding-right:16px;
+      }
+
+      .esh-head {
+        flex-direction:column;
+      }
+
+      .esh-head .opc-button {
+        width:100%;
+        justify-content:center;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body class="opc-body">
+
+
+  <main class="esh-shell">
+
+
+    <div class="esh-head">
+
+
+      <div class="esh-brand">
+
+        <img
+          class="esh-logo"
+          src="assets/images/ratios-official-logo.png"
+          alt="RATIOS"
+        >
+
+        <div>
+
+          <p class="opc-eyebrow">
+            CAREGIVER SHARING CONTROLS
+          </p>
+
+          <h1>
+            Emergency Profile Sharing
+          </h1>
+
+          <p class="esh-lead">
+            Choose exactly what a responder may see after
+            scanning this OneProfile™. Private caregiver
+            information stays protected unless you choose
+            to share specific emergency fields.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <a
+        class="opc-button opc-secondary"
+        href="caregiver-dashboard.html"
+      >
+        Back to dashboard
+      </a>
+
+    </div>
+
+
+
+    <section class="esh-card">
+
+
+      <div class="esh-state">
+
+        <div>
+
+          <strong id="stateTitle">
+            Emergency profile OFF
+          </strong>
+
+          <p id="stateText">
+            No public emergency profile is available.
+          </p>
+
+        </div>
+
+
+        <label
+          class="switch"
+          aria-label="Enable emergency profile sharing"
+        >
+
+          <input
+            id="enabled"
+            type="checkbox"
+          >
+
+          <span></span>
+
+        </label>
+
+      </div>
+
+
+
+      <h2>
+        Information responders may see
+      </h2>
+
+      <p class="esh-helper">
+        Select only the information that would be useful
+        during an emergency or community safety interaction.
+        Unselected caregiver information remains private.
+      </p>
+
+
+      <div
+        id="fields"
+        class="ev-checks"
+      ></div>
+
+
+      <button
+        id="save"
+        class="esh-primary"
+        type="button"
+      >
+        Save sharing settings
+      </button>
+
+
+      <p
+        id="message"
+        class="ev-message"
+      ></p>
+
+
+    </section>
+
+
+
+    <section
+      id="linkCard"
+      class="esh-card"
+      hidden
+    >
+
+
+      <p class="opc-eyebrow">
+        LIFEPATCH™ / QR DESTINATION
+      </p>
+
+      <h2>
+        Emergency profile link
+      </h2>
+
+      <p class="esh-helper">
+        This is the secure responder-facing destination
+        connected to the participant's OneProfile™ identifier.
+        Anyone with this exact link can see only the fields
+        you selected while emergency sharing is turned on.
+      </p>
+
+
+      <div class="esh-linkrow">
+
+        <input
+          id="publicUrl"
+          readonly
+        >
+
+        <button
+          id="copy"
+          type="button"
+        >
+          Copy link
+        </button>
+
+      </div>
+
+
+      <a
+        id="preview"
+        class="esh-preview"
+        target="_blank"
+        rel="noopener"
+      >
+        Preview emergency view
+      </a>
+
+
+    </section>
+
+
+
+    <div class="esh-note">
+
+      <strong>
+        Caregiver controlled:
+      </strong>
+
+      Turning emergency sharing on does not make the
+      entire private profile public. Only the emergency
+      fields you specifically select are shown in the
+      responder-facing view.
+
+    </div>
+
+
+    <div class="esh-footer">
+      OneProfile™ by RATIOS • Recognized. Protected. Connected.
+    </div>
+
+
+  </main>
+
+
+  <script src="assets/js/emergency-sharing.js"></script>
+
+
+</body>
+
+</html>
