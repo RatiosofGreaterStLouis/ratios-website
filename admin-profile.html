@@ -200,7 +200,7 @@
           </p>
 
           <p>
-            Issue a new OneProfile™ identifier
+            Create a new OneProfile™ identifier
             for this participant.
           </p>
 
@@ -317,35 +317,96 @@
           >
 
             <p class="op-eyebrow">
-              NEW IDENTIFIER READY
+              IDENTIFIER QR READY
             </p>
 
-            <div id="issuedIdentifierDetails"></div>
 
             <div
-              id="issuedQrCode"
               style="
-                margin:18px 0;
+                display:grid;
+                grid-template-columns:
+                  minmax(220px,auto) 1fr;
+                gap:28px;
+                align-items:start;
+                margin-top:14px;
               "
-            ></div>
-
-            <a
-              id="issuedScanLink"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
             >
-              Open emergency scan page
-            </a>
 
-            <br><br>
+              <div>
 
-            <button
-              id="downloadIssuedQr"
-              type="button"
-            >
-              Download QR
-            </button>
+                <div
+                  id="issuedQrCode"
+                  style="
+                    margin-bottom:14px;
+                  "
+                ></div>
+
+
+                <button
+                  id="downloadIssuedQr"
+                  type="button"
+                >
+                  Download QR PNG
+                </button>
+
+              </div>
+
+
+              <div>
+
+                <div id="issuedIdentifierDetails"></div>
+
+
+                <div
+                  style="
+                    margin-top:18px;
+                    padding:16px;
+                    border:1px solid #d8e3ea;
+                    border-radius:12px;
+                  "
+                >
+
+                  <strong>
+                    Staff production note
+                  </strong>
+
+                  <p
+                    style="
+                      margin-top:8px;
+                      margin-bottom:8px;
+                    "
+                  >
+                    Match this QR to the identifier
+                    type and label shown above before
+                    printing, engraving, or applying it
+                    to a physical RATIOS product.
+                  </p>
+
+                  <p style="margin:0;">
+                    Verify the QR by scanning it before
+                    the LifePatch™, LifeBand™, LifeCard™,
+                    or LifeTag™ is distributed.
+                  </p>
+
+                </div>
+
+
+                <div style="margin-top:18px;">
+
+                  <a
+                    id="issuedScanLink"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Open emergency scan page
+                  </a>
+
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
 
