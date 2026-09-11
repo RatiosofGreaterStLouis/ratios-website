@@ -1,6 +1,7 @@
 (() => {
 
-  const page = document.body;
+  const page =
+    document.body;
 
   const loadingState =
     document.getElementById('loadingState');
@@ -34,6 +35,21 @@
 
   const staffActions =
     document.getElementById('staffActions');
+
+  const issueIdentifierForm =
+    document.getElementById('issueIdentifierForm');
+
+  const identifierType =
+    document.getElementById('identifierType');
+
+  const identifierLabel =
+    document.getElementById('identifierLabel');
+
+  const issueIdentifierButton =
+    document.getElementById('issueIdentifierButton');
+
+  const issueIdentifierMessage =
+    document.getElementById('issueIdentifierMessage');
 
 
   let currentEnrollmentId = '';
@@ -96,7 +112,10 @@
         'Identifier deactivated',
 
       identifier_reactivated:
-        'Identifier reactivated'
+        'Identifier reactivated',
+
+      identifier_issued:
+        'Identifier issued'
     };
 
     return labels[value] ||
@@ -153,9 +172,14 @@
         if (entry.details) {
 
           try {
+
             details =
-              JSON.parse(entry.details);
+              JSON.parse(
+                entry.details
+              );
+
           } catch {
+
             details = {};
           }
         }
@@ -257,6 +281,153 @@
           </div>
         `;
       }).join('');
+  }
+
+
+  async function issueIdentifier() {
+
+    const productType =
+      String(
+        identifierType?.value || ''
+      )
+        .trim()
+        .toLowerCase();
+
+
+    const label =
+      String(
+        identifierLabel?.value || ''
+      )
+        .trim();
+
+
+    if (!productType) {
+
+      issueIdentifierMessage.textContent =
+        'Please select an identifier type.';
+
+      return;
+    }
+
+
+    const productName =
+      formatProductType(
+        productType
+      );
+
+
+    const displayLabel =
+      label || productName;
+
+
+    const confirmed =
+      window.confirm(
+        `Issue a new ${productName} labeled "${displayLabel}" for this participant?`
+      );
+
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    issueIdentifierButton.disabled =
+      true;
+
+    issueIdentifierMessage.textContent =
+      'Issuing identifier…';
+
+
+    try {
+
+      const response =
+        await fetch(
+          '/api/admin-issue-identifier',
+          {
+            method: 'POST',
+            credentials: 'same-origin',
+
+            headers: {
+              'Content-Type':
+                'application/json',
+
+              'Accept':
+                'application/json'
+            },
+
+            body: JSON.stringify({
+              enrollment_id:
+                currentEnrollmentId,
+
+              product_type:
+                productType,
+
+              label:
+                label
+            })
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        response.status === 401 ||
+        !data.authenticated
+      ) {
+
+        location.replace(
+          'admin-login.html'
+        );
+
+        return;
+      }
+
+
+      if (
+        !response.ok ||
+        !data.ok
+      ) {
+
+        throw new Error(
+          data.error ||
+          'Unable to issue this identifier.'
+        );
+      }
+
+
+      identifierType.value =
+        '';
+
+      identifierLabel.value =
+        '';
+
+      issueIdentifierMessage.textContent =
+        'Identifier issued successfully.';
+
+
+      await loadProfile();
+
+
+    } catch (error) {
+
+      console.error(
+        'Admin issue identifier error:',
+        error
+      );
+
+
+      issueIdentifierMessage.textContent =
+        error.message ||
+        'Unable to issue this identifier. Please try again.';
+
+    } finally {
+
+      issueIdentifierButton.disabled =
+        false;
+    }
   }
 
 
@@ -971,6 +1142,20 @@
         'Unable to load this OneProfile™ record. Please try again.'
       );
     }
+  }
+
+
+  if (issueIdentifierForm) {
+
+    issueIdentifierForm.addEventListener(
+      'submit',
+      async event => {
+
+        event.preventDefault();
+
+        await issueIdentifier();
+      }
+    );
   }
 
 

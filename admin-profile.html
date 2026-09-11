@@ -61,7 +61,6 @@
 
         </div>
 
-
         <a
           href="admin-dashboard.html"
           class="op-button op-secondary"
@@ -183,6 +182,128 @@
           <div id="identifierSummary">
             —
           </div>
+
+        </section>
+
+
+        <section
+          style="
+            border:1px solid #d8e3ea;
+            border-radius:18px;
+            padding:22px;
+            margin-bottom:18px;
+          "
+        >
+
+          <p class="op-eyebrow">
+            ISSUE NEW IDENTIFIER
+          </p>
+
+          <p>
+            Issue a new OneProfile™ identifier
+            for this participant.
+          </p>
+
+
+          <form id="issueIdentifierForm">
+
+            <div
+              style="
+                display:grid;
+                grid-template-columns:
+                  repeat(auto-fit,minmax(240px,1fr));
+                gap:16px;
+                margin-bottom:16px;
+              "
+            >
+
+              <div>
+
+                <label for="identifierType">
+                  <strong>
+                    Identifier type
+                  </strong>
+                </label>
+
+                <select
+                  id="identifierType"
+                  required
+                  style="
+                    width:100%;
+                    margin-top:6px;
+                  "
+                >
+
+                  <option value="">
+                    Select identifier type
+                  </option>
+
+                  <option value="digital_qr">
+                    Digital QR
+                  </option>
+
+                  <option value="lifepatch">
+                    LifePatch™
+                  </option>
+
+                  <option value="lifeband">
+                    LifeBand™
+                  </option>
+
+                  <option value="lifecard">
+                    LifeCard™
+                  </option>
+
+                  <option value="lifetag">
+                    LifeTag™
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div>
+
+                <label for="identifierLabel">
+                  <strong>
+                    Identifier label
+                  </strong>
+                </label>
+
+                <input
+                  id="identifierLabel"
+                  type="text"
+                  maxlength="80"
+                  placeholder="Example: School backpack LifeTag"
+                  style="
+                    width:100%;
+                    margin-top:6px;
+                  "
+                >
+
+              </div>
+
+            </div>
+
+
+            <button
+              id="issueIdentifierButton"
+              type="submit"
+            >
+              Issue identifier
+            </button>
+
+
+            <div
+              id="issueIdentifierMessage"
+              style="
+                margin-top:12px;
+                font-weight:700;
+              "
+            ></div>
+
+          </form>
 
         </section>
 
