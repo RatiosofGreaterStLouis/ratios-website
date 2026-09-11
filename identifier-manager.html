@@ -1,4 +1,438 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>OneProfile IDs | RATIOS</title><link rel="stylesheet" href="assets/css/styles.css"><link rel="stylesheet" href="assets/css/emergency-view.css"><link rel="stylesheet" href="assets/css/identifier-manager.css"></head><body><nav class="ev-nav"><a href="index.html"><img src="assets/images/ratios-official-logo.png" alt="RATIOS"><strong>RATIOS<br><small>ONE OF ONE</small></strong></a><a href="caregiver-dashboard.html">Dashboard</a></nav><main class="ev-shell"><p class="ev-eyebrow">ONEPROFILE™ IDENTIFIERS</p><h1>LifePatch™ & QR Management</h1><p class="ev-lead">Create stable scan destinations for this OneProfile™. The scan code stays the same while the caregiver can update the approved emergency information behind it.</p><section id="sharingNote" class="id-note"></section><section class="ev-card"><h2>Create an identifier</h2><p>For the pilot, use <strong>Digital QR</strong>. Physical LifePatch™, LifeBand™, LifeCard™, and LifeTag™ assignments can use the same system when RATIOS issues those items.</p><div class="id-form"><label>Identifier type<select id="productType"><option value="digital_qr">Digital QR</option><option value="lifepatch">LifePatch™</option><option value="lifeband">LifeBand™</option><option value="lifecard">LifeCard™</option><option value="lifetag">LifeTag™</option></select></label><label>Label (optional)<input id="label" maxlength="80" placeholder="Example: Backpack card"></label></div><button id="create" class="ev-primary">Create scan destination</button><p id="message" class="ev-message"></p></section><section class="ev-card"><div class="id-heading"><div><p class="ev-eyebrow">ASSIGNED IDENTIFIERS</p><h2>Your scan destinations</h2></div></div><div id="identifierList" class="id-list"><p>Loading…</p></div></section></main><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="assets/js/identifier-manager.js"></script>
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
+  <title>
+    LifePatch™ & QR Management | OneProfile™ | RATIOS
+  </title>
+
+  <link
+    rel="icon"
+    href="assets/images/favicon-32.png"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/styles.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile-portal.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/emergency-view.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/identifier-manager.css"
+  >
+
+
+  <style>
+
+    .idm-shell {
+      max-width:1100px;
+      margin:0 auto;
+      padding:48px 28px 70px;
+    }
+
+    .idm-head {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:24px;
+      margin-bottom:24px;
+    }
+
+    .idm-brand {
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .idm-logo {
+      width:82px;
+      height:82px;
+      object-fit:contain;
+      padding:7px;
+      box-sizing:border-box;
+      border:1px solid #dfe9f2;
+      border-radius:18px;
+      background:#ffffff;
+      box-shadow:0 8px 20px rgba(7,23,46,.08);
+    }
+
+    .idm-head h1 {
+      margin:0;
+      color:#07172e;
+      font-size:clamp(2.2rem,5vw,4rem);
+      line-height:1.05;
+    }
+
+    .idm-lead {
+      margin:10px 0 0;
+      max-width:760px;
+      color:#526980;
+      line-height:1.65;
+    }
+
+    .idm-card {
+      margin-top:22px;
+      padding:26px;
+      border:1px solid #dfe9f2;
+      border-radius:22px;
+      background:#ffffff;
+      box-shadow:0 8px 24px rgba(7,23,46,.04);
+    }
+
+    .idm-card h2 {
+      margin:0 0 8px;
+      color:#07172e;
+    }
+
+    .idm-helper {
+      margin:0 0 18px;
+      color:#617388;
+      line-height:1.6;
+    }
+
+    .idm-form {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .idm-form label {
+      display:block;
+      color:#07172e;
+      font-weight:700;
+    }
+
+    .idm-form select,
+    .idm-form input {
+      width:100%;
+      box-sizing:border-box;
+      margin-top:8px;
+    }
+
+    .idm-primary {
+      min-height:52px;
+      margin-top:20px;
+      padding:13px 24px;
+      border:0;
+      border-radius:999px;
+      background:#07172e;
+      color:#ffffff;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .idm-note-wrap {
+      margin-top:22px;
+    }
+
+    #sharingNote.id-note {
+      border-radius:18px;
+    }
+
+    .idm-heading {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:18px;
+    }
+
+    .idm-footer-note {
+      margin-top:24px;
+      padding:18px 20px;
+      border:1px solid #d9e7ef;
+      border-radius:18px;
+      background:#f8fbfd;
+      color:#29405a;
+      line-height:1.6;
+    }
+
+    .idm-footer {
+      margin-top:26px;
+      text-align:center;
+      color:#617388;
+      font-size:.9rem;
+    }
+
+    @media (max-width:800px) {
+
+      .idm-shell {
+        padding-left:16px;
+        padding-right:16px;
+      }
+
+      .idm-head {
+        flex-direction:column;
+      }
+
+      .idm-form {
+        grid-template-columns:1fr;
+      }
+
+      .idm-head .opc-button {
+        width:100%;
+        justify-content:center;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body class="opc-body">
+
+
+  <main class="idm-shell">
+
+
+    <div class="idm-head">
+
+
+      <div class="idm-brand">
+
+        <img
+          class="idm-logo"
+          src="assets/images/ratios-official-logo.png"
+          alt="RATIOS"
+        >
+
+        <div>
+
+          <p class="opc-eyebrow">
+            ONEPROFILE™ IDENTIFIERS
+          </p>
+
+          <h1>
+            LifePatch™ &amp; QR Management
+          </h1>
+
+          <p class="idm-lead">
+            Manage the scan destinations connected to this
+            OneProfile™. The QR or LifePatch™ can stay the
+            same while caregiver-approved emergency information
+            is updated behind it.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <a
+        class="opc-button opc-secondary"
+        href="caregiver-dashboard.html"
+      >
+        Back to dashboard
+      </a>
+
+    </div>
+
+
+
+    <div class="idm-note-wrap">
+
+      <section
+        id="sharingNote"
+        class="id-note"
+      ></section>
+
+    </div>
+
+
+
+    <section class="idm-card">
+
+
+      <p class="opc-eyebrow">
+        CREATE IDENTIFIER
+      </p>
+
+      <h2>
+        Create a scan destination
+      </h2>
+
+      <p class="idm-helper">
+        For the current pilot, use
+        <strong>Digital QR</strong>.
+        Physical LifePatch™, LifeBand™, LifeCard™, and
+        LifeTag™ identifiers can use this same system when
+        they are issued by RATIOS.
+      </p>
+
+
+      <div class="idm-form">
+
+
+        <label>
+
+          Identifier type
+
+          <select id="productType">
+
+            <option value="digital_qr">
+              Digital QR
+            </option>
+
+            <option value="lifepatch">
+              LifePatch™
+            </option>
+
+            <option value="lifeband">
+              LifeBand™
+            </option>
+
+            <option value="lifecard">
+              LifeCard™
+            </option>
+
+            <option value="lifetag">
+              LifeTag™
+            </option>
+
+          </select>
+
+        </label>
+
+
+        <label>
+
+          Label
+          <span style="font-weight:400;">
+            (optional)
+          </span>
+
+          <input
+            id="label"
+            maxlength="80"
+            placeholder="Example: Backpack card"
+          >
+
+        </label>
+
+
+      </div>
+
+
+      <button
+        id="create"
+        class="idm-primary"
+        type="button"
+      >
+        Create scan destination
+      </button>
+
+
+      <p
+        id="message"
+        class="ev-message"
+      ></p>
+
+
+    </section>
+
+
+
+    <section class="idm-card">
+
+
+      <div class="idm-heading">
+
+        <div>
+
+          <p class="opc-eyebrow">
+            ASSIGNED IDENTIFIERS
+          </p>
+
+          <h2>
+            Your scan destinations
+          </h2>
+
+          <p class="idm-helper">
+            View the identifiers already assigned to this
+            OneProfile™, preview their QR codes, and manage
+            whether they remain active.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="identifierList"
+        class="id-list"
+      >
+        <p>
+          Loading…
+        </p>
+      </div>
+
+
+    </section>
+
+
+
+    <div class="idm-footer-note">
+
+      <strong>
+        Stable identifier design:
+      </strong>
+
+      Updating the caregiver-approved emergency profile does
+      not require creating a new QR destination. An active
+      identifier continues opening the current responder-facing
+      OneProfile™ information.
+
+    </div>
+
+
+    <div class="idm-footer">
+      OneProfile™ by RATIOS • Recognized. Protected. Connected.
+    </div>
+
+
+  </main>
+
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+  ></script>
+
+  <script src="assets/js/identifier-manager.js"></script>
+
+
 </body>
+
 </html>
