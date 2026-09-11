@@ -26,25 +26,17 @@
       }
     );
 
-
     if (!sessionResponse.ok) {
-
       location.replace('caregiver-login.html');
-
       return;
     }
-
 
     const data = await sessionResponse.json();
 
-
     if (!data.authenticated) {
-
       location.replace('caregiver-login.html');
-
       return;
     }
-
 
     const e = data.enrollment;
     const p = data.profile || {};
@@ -57,38 +49,30 @@
     document.getElementById('caregiverName').textContent =
       safe(e.caregiver_first_name);
 
-
     document.getElementById('participantName').textContent =
       safe(e.participant_first_name);
-
 
     document.getElementById('participantInitial').textContent =
       safe(e.participant_first_name)
         .slice(0, 1)
         .toUpperCase() || '1';
 
-
     document.getElementById('enrollmentId').textContent =
       safe(e.enrollment_id);
-
 
     document.getElementById('ageRange').textContent =
       safe(e.participant_age_range);
 
-
     document.getElementById('relationship').textContent =
       safe(e.relationship);
-
 
     document.getElementById('location').textContent =
       [safe(e.city), safe(e.state)]
         .filter(Boolean)
         .join(', ');
 
-
     document.getElementById('preferredContact').textContent =
       safe(e.preferred_contact);
-
 
 
     /* -----------------------------------------
@@ -96,7 +80,6 @@
        ----------------------------------------- */
 
     let details = {};
-
 
     try {
 
@@ -106,7 +89,6 @@
           credentials: 'same-origin'
         }
       );
-
 
       if (profileResponse.ok) {
 
@@ -123,13 +105,11 @@
     }
 
 
-
     /* -----------------------------------------
        Load active identifiers
        ----------------------------------------- */
 
     let activeIdentifier = null;
-
 
     try {
 
@@ -140,7 +120,6 @@
         }
       );
 
-
       if (identifierResponse.ok) {
 
         const identifierData =
@@ -148,7 +127,6 @@
 
         const identifiers =
           identifierData.identifiers || [];
-
 
         activeIdentifier =
           identifiers.find(
@@ -162,15 +140,8 @@
     }
 
 
-
     /* -----------------------------------------
        Emergency readiness calculation
-
-       These are the essential items needed
-       for an emergency-ready OneProfile™.
-
-       Optional support fields can still be
-       added later without preventing readiness.
        ----------------------------------------- */
 
     const readinessItems = [
@@ -193,20 +164,16 @@
 
     ];
 
-
     const completedItems =
       readinessItems.filter(Boolean).length;
 
-
     const totalItems =
       readinessItems.length;
-
 
     const readinessPercent =
       Math.round(
         (completedItems / totalItems) * 100
       );
-
 
 
     /* -----------------------------------------
@@ -227,18 +194,14 @@
 
       hasValue(details.emergency_contact_phone);
 
-
     const sharingEnabled =
       Number(p.public_profile_enabled) === 1;
-
 
     const identifierReady =
       Boolean(activeIdentifier);
 
-
     let status =
       'Setup needed';
-
 
     if (
       requiredProfileComplete &&
@@ -253,11 +216,36 @@
       status = 'In progress';
     }
 
-
     document.getElementById(
       'profileStatus'
     ).textContent = status;
 
+
+    /* -----------------------------------------
+       Dynamic status message
+       ----------------------------------------- */
+
+    const statusMessage =
+      document.getElementById('profileStatusMessage');
+
+    if (statusMessage) {
+
+      if (status === 'Emergency ready') {
+
+        statusMessage.textContent =
+          'This OneProfile™ is ready for emergency use. Keep safety information, emergency contacts, sharing settings, and identifiers current.';
+
+      } else if (status === 'In progress') {
+
+        statusMessage.textContent =
+          'Your OneProfile™ is being built. Complete the remaining emergency information, enable sharing, and make sure an active identifier is assigned.';
+
+      } else {
+
+        statusMessage.textContent =
+          'Start building the private OneProfile™ safety record. Emergency information is only shared publicly when you choose to enable sharing.';
+      }
+    }
 
 
     /* -----------------------------------------
@@ -297,7 +285,6 @@
     }
 
 
-
     /* -----------------------------------------
        Preview emergency profile
        ----------------------------------------- */
@@ -311,15 +298,8 @@
             activeIdentifier.identifier_token
           )}`;
 
-
         previewButton.href =
           scanUrl;
-
-
-        /*
-         Keep the caregiver dashboard open while
-         previewing the responder-facing profile.
-        */
 
         previewButton.target =
           '_blank';
@@ -327,13 +307,7 @@
         previewButton.rel =
           'noopener';
 
-
       } else {
-
-        /*
-         An emergency scan preview requires an
-         active identifier.
-        */
 
         previewButton.href =
           'identifier-manager.html';
@@ -349,13 +323,11 @@
     }
 
 
-
     /* -----------------------------------------
        Show protected dashboard
        ----------------------------------------- */
 
     loading.hidden = true;
-
     content.hidden = false;
 
 
@@ -365,7 +337,6 @@
       'caregiver-login.html'
     );
   }
-
 
 
   /* -----------------------------------------
@@ -383,9 +354,7 @@
             'logoutButton'
           );
 
-
         b.disabled = true;
-
 
         try {
 
