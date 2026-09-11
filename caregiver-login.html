@@ -1,1 +1,327 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Caregiver Sign In | OneProfile™ | RATIOS</title><link rel="icon" href="assets/images/favicon-32.png"><link rel="stylesheet" href="assets/css/styles.css"><link rel="stylesheet" href="assets/css/oneprofile.css"><link rel="stylesheet" href="assets/css/oneprofile-portal.css"></head><body class="opc-body"><div class="topbar"><span>RATIOS • One of One</span><span>Every Person. Every Ability. Every Community.</span></div><nav class="navbar"><a class="brand" href="index.html"><img class="brand-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS logo"><span class="brand-text"><strong>RATIOS</strong><small>One of One</small></span></a><button class="menu-toggle">Menu</button><div class="nav-links"><a href="oneprofile.html">OneProfile</a><a href="oneprofile-enroll.html">Enroll</a><a href="contact.html">Contact</a></div></nav><main class="opc-shell"><section class="opc-wrap"><div class="opc-card opc-login"><p class="opc-eyebrow">OneProfile™ Caregiver Portal</p><h1>Sign in securely.</h1><p class="opc-lead">Use the email address from your OneProfile™ enrollment and your enrollment ID. We’ll email you a one-time 6-digit code—no password to remember.</p><div id="portalAlert" class="opc-alert" hidden></div><div id="loginStep"><form id="portalLoginForm" class="opc-form"><label>Email address<input id="portalEmail" type="email" autocomplete="email" required></label><label>Enrollment ID<input id="portalEnrollmentId" type="text" autocomplete="off" placeholder="RAT-OP-XXXXXXXX" maxlength="15" required></label><div class="opc-actions"><button class="opc-button opc-primary" type="submit">Email me a sign-in code</button><a class="opc-button opc-text-btn" href="oneprofile-enroll.html">Need to enroll?</a></div></form></div><div id="verifyStep" hidden><form id="portalVerifyForm" class="opc-form"><label>6-digit sign-in code<input id="portalCode" class="opc-code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required></label><div class="opc-actions"><button class="opc-button opc-primary" type="submit">Sign in to my portal</button><button id="portalBack" class="opc-button opc-text-btn" type="button">Use different information</button></div></form></div><div class="opc-note"><strong>Privacy note:</strong> This portal currently displays basic enrollment information only. RATIOS is intentionally separating private caregiver information from any future public emergency-view profile.</div></div></section></main><footer class="footer"><div class="footer-bottom">© 2026 RATIOS. OneProfile™ • Recognized. Protected. Connected.</div></footer><script src="assets/js/main.js"></script><script src="assets/js/caregiver-login.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
+  <title>Caregiver Sign In | OneProfile™ | RATIOS</title>
+
+  <link
+    rel="icon"
+    href="assets/images/favicon-32.png"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/styles.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile-portal.css"
+  >
+</head>
+
+
+<body class="opc-body">
+
+  <main class="opc-shell">
+
+    <section class="opc-wrap">
+
+      <div
+        class="opc-card opc-login"
+        style="
+          text-align:center;
+          max-width:680px;
+        "
+      >
+
+        <img
+          src="assets/images/ratios-official-logo.png"
+          alt="RATIOS"
+          style="
+            width:80px;
+            height:auto;
+            margin:0 auto 18px;
+            display:block;
+            border:1px solid #dfe9f2;
+            border-radius:18px;
+            padding:10px;
+            background:#ffffff;
+            box-shadow:0 8px 22px rgba(7,23,46,.08);
+          "
+        >
+
+
+        <p class="opc-eyebrow">
+          ONEPROFILE™ CAREGIVER PORTAL
+        </p>
+
+
+        <h1 style="margin-bottom:14px;">
+          Welcome back.
+        </h1>
+
+
+        <p
+          class="opc-lead"
+          style="
+            max-width:540px;
+            margin-left:auto;
+            margin-right:auto;
+          "
+        >
+          Securely access and manage your participant's
+          OneProfile™ emergency safety information,
+          sharing settings, and identifiers.
+        </p>
+
+
+        <div
+          id="portalAlert"
+          class="opc-alert"
+          hidden
+          style="
+            text-align:left;
+            margin-top:22px;
+          "
+        ></div>
+
+
+        <div
+          id="loginStep"
+          style="
+            margin-top:28px;
+            padding:24px;
+            border:1px solid #dfe9f2;
+            border-radius:20px;
+            background:#ffffff;
+            text-align:left;
+          "
+        >
+
+          <form
+            id="portalLoginForm"
+            class="opc-form"
+            style="margin-top:0;"
+          >
+
+            <label>
+              Email address
+
+              <input
+                id="portalEmail"
+                type="email"
+                autocomplete="email"
+                placeholder="caregiver@example.com"
+                required
+              >
+            </label>
+
+
+            <label>
+              Enrollment ID
+
+              <input
+                id="portalEnrollmentId"
+                type="text"
+                autocomplete="off"
+                placeholder="RAT-OP-XXXXXXXX"
+                maxlength="15"
+                required
+              >
+            </label>
+
+
+            <button
+              class="opc-button opc-secondary"
+              type="submit"
+              style="
+                width:100%;
+                margin-top:4px;
+              "
+            >
+              Send secure sign-in code
+            </button>
+
+          </form>
+
+        </div>
+
+
+        <div
+          id="verifyStep"
+          hidden
+          style="
+            margin-top:28px;
+            padding:24px;
+            border:1px solid #dfe9f2;
+            border-radius:20px;
+            background:#ffffff;
+            text-align:left;
+          "
+        >
+
+          <p
+            class="opc-eyebrow"
+            style="margin-bottom:8px;"
+          >
+            VERIFY YOUR EMAIL
+          </p>
+
+          <h2 style="margin-bottom:8px;">
+            Enter your 6-digit code
+          </h2>
+
+          <p
+            class="opc-small"
+            style="margin-top:0;"
+          >
+            We sent a temporary sign-in code to the
+            email address associated with this
+            OneProfile™ enrollment.
+          </p>
+
+
+          <form
+            id="portalVerifyForm"
+            class="opc-form"
+          >
+
+            <label>
+              6-digit sign-in code
+
+              <input
+                id="portalCode"
+                class="opc-code"
+                type="text"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                pattern="[0-9]{6}"
+                maxlength="6"
+                placeholder="000000"
+                required
+              >
+            </label>
+
+
+            <button
+              class="opc-button opc-secondary"
+              type="submit"
+              style="width:100%;"
+            >
+              Sign in to my portal
+            </button>
+
+
+            <button
+              id="portalBack"
+              class="opc-button opc-text-btn"
+              type="button"
+              style="
+                width:100%;
+                margin-top:2px;
+              "
+            >
+              ← Use different information
+            </button>
+
+          </form>
+
+        </div>
+
+
+        <div
+          style="
+            margin-top:20px;
+            padding:18px;
+            border:1px solid #dfe9f2;
+            border-radius:18px;
+            background:#f8fbfd;
+          "
+        >
+
+          <strong>
+            Secure caregiver access
+          </strong>
+
+          <p
+            class="opc-small"
+            style="
+              margin-top:6px;
+              margin-bottom:0;
+            "
+          >
+            OneProfile™ uses temporary email verification
+            codes instead of passwords. Never share your
+            sign-in code with anyone.
+          </p>
+
+        </div>
+
+
+        <div
+          style="
+            margin-top:22px;
+            padding-top:20px;
+            border-top:1px solid #dfe9f2;
+          "
+        >
+
+          <p
+            class="opc-small"
+            style="margin:0 0 10px;"
+          >
+            Don't have a OneProfile™ yet?
+          </p>
+
+          <a
+            class="opc-button opc-primary"
+            href="oneprofile-enroll.html"
+          >
+            Enroll in OneProfile™
+          </a>
+
+        </div>
+
+
+        <p
+          class="opc-small"
+          style="
+            margin-top:22px;
+            margin-bottom:0;
+          "
+        >
+          OneProfile™ by RATIOS<br>
+          Recognized. Protected. Connected.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/caregiver-login.js"></script>
+
+</body>
+
+</html>
