@@ -434,6 +434,10 @@ export async function onRequestPost({
     }
 
 
+    const scanUrl =
+      `${new URL(request.url).origin}/scan.html?code=${encodeURIComponent(identifierToken)}`;
+
+
     return json(
       {
         authenticated: true,
@@ -454,7 +458,10 @@ export async function onRequestPost({
 
           status:
             'active'
-        }
+        },
+
+        scan_url:
+          scanUrl
       },
       201
     );

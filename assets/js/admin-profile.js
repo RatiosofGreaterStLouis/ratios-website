@@ -51,6 +51,18 @@
   const issueIdentifierMessage =
     document.getElementById('issueIdentifierMessage');
 
+  const issuedIdentifierResult =
+    document.getElementById('issuedIdentifierResult');
+
+  const issuedIdentifierDetails =
+    document.getElementById('issuedIdentifierDetails');
+
+  const issuedQrCode =
+    document.getElementById('issuedQrCode');
+
+  const issuedScanLink =
+    document.getElementById('issuedScanLink');
+
 
   let currentEnrollmentId = '';
 
@@ -135,6 +147,115 @@
       'Please return to the directory and try again.';
 
     page.style.display = '';
+  }
+
+
+  function renderIssuedIdentifier(data) {
+
+    if (
+      !issuedIdentifierResult ||
+      !issuedIdentifierDetails ||
+      !issuedQrCode ||
+      !issuedScanLink ||
+      !data?.identifier ||
+      !data?.scan_url
+    ) {
+      return;
+    }
+
+
+    const item =
+      data.identifier;
+
+
+    const productName =
+      formatProductType(
+        item.product_type
+      );
+
+
+    const displayLabel =
+      item.label ||
+      productName;
+
+
+    issuedIdentifierDetails.innerHTML = `
+      <div>
+        <strong>
+          ${escapeHtml(displayLabel)}
+        </strong>
+      </div>
+
+      <div>
+        Type:
+        <strong>
+          ${escapeHtml(productName)}
+        </strong>
+      </div>
+
+      <div>
+        Identifier ID:
+        <strong>
+          ${escapeHtml(item.id)}
+        </strong>
+      </div>
+
+      <div>
+        Status:
+        <strong>
+          Active
+        </strong>
+      </div>
+
+      <p style="margin-bottom:0;">
+        This QR code opens the participant's
+        emergency OneProfile™ scan page.
+      </p>
+    `;
+
+
+    issuedQrCode.innerHTML =
+      '';
+
+
+    if (
+      typeof QRCode !== 'undefined'
+    ) {
+
+      new QRCode(
+        issuedQrCode,
+        {
+          text:
+            data.scan_url,
+
+          width:
+            220,
+
+          height:
+            220,
+
+          correctLevel:
+            QRCode.CorrectLevel.H
+        }
+      );
+
+    } else {
+
+      issuedQrCode.innerHTML = `
+        <p>
+          QR preview is temporarily unavailable.
+          The scan link below is still active.
+        </p>
+      `;
+    }
+
+
+    issuedScanLink.href =
+      data.scan_url;
+
+
+    issuedIdentifierResult.hidden =
+      false;
   }
 
 
@@ -338,6 +459,12 @@
       'Issuing identifier…';
 
 
+    if (issuedIdentifierResult) {
+      issuedIdentifierResult.hidden =
+        true;
+    }
+
+
     try {
 
       const response =
@@ -406,6 +533,11 @@
 
       issueIdentifierMessage.textContent =
         'Identifier issued successfully.';
+
+
+      renderIssuedIdentifier(
+        data
+      );
 
 
       await loadProfile();
@@ -803,11 +935,7 @@
               </strong>
             </div>
 
-            <div
-              style="
-                margin-top:12px;
-              "
-            >
+            <div style="margin-top:12px;">
 
               <button
                 type="button"

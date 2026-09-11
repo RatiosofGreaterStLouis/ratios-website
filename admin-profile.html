@@ -305,6 +305,41 @@
 
           </form>
 
+
+          <div
+            id="issuedIdentifierResult"
+            hidden
+            style="
+              margin-top:20px;
+              border-top:1px solid #d8e3ea;
+              padding-top:20px;
+            "
+          >
+
+            <p class="op-eyebrow">
+              NEW IDENTIFIER READY
+            </p>
+
+            <div id="issuedIdentifierDetails"></div>
+
+            <div
+              id="issuedQrCode"
+              style="
+                margin:18px 0;
+              "
+            ></div>
+
+            <a
+              id="issuedScanLink"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open emergency scan page
+            </a>
+
+          </div>
+
         </section>
 
 
@@ -356,6 +391,10 @@
 
   </main>
 
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+  ></script>
 
   <script src="assets/js/admin-profile.js"></script>
 
