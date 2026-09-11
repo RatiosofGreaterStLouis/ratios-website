@@ -164,7 +164,27 @@
   }
 
 
-  function renderIssuedIdentifier(data) {
+  function setQrHeading(text) {
+
+    if (!issuedIdentifierResult) {
+      return;
+    }
+
+    const heading =
+      issuedIdentifierResult.querySelector(
+        '.op-eyebrow'
+      );
+
+    if (heading) {
+      heading.textContent = text;
+    }
+  }
+
+
+  function renderIdentifierQr(
+    data,
+    isNewIdentifier = false
+  ) {
 
     if (
       !issuedIdentifierResult ||
@@ -205,6 +225,13 @@
     };
 
 
+    setQrHeading(
+      isNewIdentifier
+        ? 'NEW IDENTIFIER READY'
+        : 'IDENTIFIER QR READY'
+    );
+
+
     issuedIdentifierDetails.innerHTML = `
       <div>
         <strong>
@@ -229,7 +256,9 @@
       <div>
         Status:
         <strong>
-          Active
+          ${escapeHtml(
+            item.status || 'active'
+          )}
         </strong>
       </div>
 
@@ -293,38 +322,53 @@
     ) {
 
       window.alert(
-        'No newly issued QR is available to download.'
+        'No QR code is currently available to download.'
       );
 
       return;
     }
 
 
-    const image =
-      issuedQrCode.querySelector('img');
-
-
     const canvas =
-      issuedQrCode.querySelector('canvas');
+      issuedQrCode.querySelector(
+        'canvas'
+      );
+
+
+    const image =
+      issuedQrCode.querySelector(
+        'img'
+      );
 
 
     let imageUrl = '';
 
 
+    if (canvas) {
+
+      try {
+
+        imageUrl =
+          canvas.toDataURL(
+            'image/png'
+          );
+
+      } catch {
+
+        imageUrl = '';
+      }
+
+    }
+
+
     if (
+      !imageUrl &&
       image &&
       image.src
     ) {
 
       imageUrl =
         image.src;
-
-    } else if (canvas) {
-
-      imageUrl =
-        canvas.toDataURL(
-          'image/png'
-        );
     }
 
 
@@ -364,6 +408,98 @@
 
 
     link.remove();
+  }
+
+
+  async function openExistingIdentifierQr(
+    identifierId
+  ) {
+
+    try {
+
+      const response =
+        await fetch(
+          '/api/admin-identifier-scan-url',
+          {
+            method: 'POST',
+
+            credentials:
+              'same-origin',
+
+            headers: {
+              'Content-Type':
+                'application/json',
+
+              'Accept':
+                'application/json'
+            },
+
+            body: JSON.stringify({
+              enrollment_id:
+                currentEnrollmentId,
+
+              identifier_id:
+                Number(identifierId)
+            })
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        response.status === 401 ||
+        !data.authenticated
+      ) {
+
+        location.replace(
+          'admin-login.html'
+        );
+
+        return;
+      }
+
+
+      if (
+        !response.ok ||
+        !data.ok
+      ) {
+
+        throw new Error(
+          data.error ||
+          'Unable to access this identifier QR code.'
+        );
+      }
+
+
+      renderIdentifierQr(
+        data,
+        false
+      );
+
+
+      issuedIdentifierResult
+        ?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+
+
+    } catch (error) {
+
+      console.error(
+        'Admin identifier QR error:',
+        error
+      );
+
+
+      window.alert(
+        error.message ||
+        'Unable to access this QR code. Please try again.'
+      );
+    }
   }
 
 
@@ -572,6 +708,7 @@
 
 
     if (issuedIdentifierResult) {
+
       issuedIdentifierResult.hidden =
         true;
     }
@@ -584,7 +721,9 @@
           '/api/admin-issue-identifier',
           {
             method: 'POST',
-            credentials: 'same-origin',
+
+            credentials:
+              'same-origin',
 
             headers: {
               'Content-Type':
@@ -647,8 +786,9 @@
         'Identifier issued successfully.';
 
 
-      renderIssuedIdentifier(
-        data
+      renderIdentifierQr(
+        data,
+        true
       );
 
 
@@ -705,7 +845,9 @@
           '/api/admin-identifier-status',
           {
             method: 'POST',
-            credentials: 'same-origin',
+
+            credentials:
+              'same-origin',
 
             headers: {
               'Content-Type':
@@ -758,6 +900,22 @@
       }
 
 
+      if (
+        currentIssuedIdentifier &&
+        Number(
+          currentIssuedIdentifier.id
+        ) === Number(identifierId) &&
+        newStatus !== 'active'
+      ) {
+
+        currentIssuedIdentifier =
+          null;
+
+        issuedIdentifierResult.hidden =
+          true;
+      }
+
+
       await loadProfile();
 
 
@@ -779,13 +937,13 @@
 
   function bindIdentifierButtons() {
 
-    const buttons =
+    const statusButtons =
       document.querySelectorAll(
         '[data-identifier-action]'
       );
 
 
-    buttons.forEach(button => {
+    statusButtons.forEach(button => {
 
       button.addEventListener(
         'click',
@@ -802,7 +960,8 @@
             'this identifier';
 
 
-          button.disabled = true;
+          button.disabled =
+            true;
 
 
           try {
@@ -815,7 +974,54 @@
 
           } finally {
 
-            button.disabled = false;
+            button.disabled =
+              false;
+          }
+        }
+      );
+    });
+
+
+    const qrButtons =
+      document.querySelectorAll(
+        '[data-identifier-qr]'
+      );
+
+
+    qrButtons.forEach(button => {
+
+      button.addEventListener(
+        'click',
+        async () => {
+
+          const identifierId =
+            button.dataset.identifierId;
+
+
+          button.disabled =
+            true;
+
+          const originalText =
+            button.textContent;
+
+
+          button.textContent =
+            'Loading QR…';
+
+
+          try {
+
+            await openExistingIdentifierQr(
+              identifierId
+            );
+
+          } finally {
+
+            button.disabled =
+              false;
+
+            button.textContent =
+              originalText;
           }
         }
       );
@@ -860,25 +1066,32 @@
       }
 
 
-      const current =
+      const raw =
+        String(
+          item.last_scanned_at
+        );
+
+
+      const date =
         new Date(
-          String(item.last_scanned_at)
-            .replace(' ', 'T') + 'Z'
+          raw.includes('T')
+            ? raw
+            : raw.replace(' ', 'T') + 'Z'
         );
 
 
       if (
         !Number.isNaN(
-          current.getTime()
+          date.getTime()
         ) &&
         (
           !latestScan ||
-          current > latestScan
+          date > latestScan
         )
       ) {
 
         latestScan =
-          current;
+          date;
       }
     }
 
@@ -1047,7 +1260,28 @@
               </strong>
             </div>
 
-            <div style="margin-top:12px;">
+            <div
+              style="
+                margin-top:12px;
+                display:flex;
+                gap:10px;
+                flex-wrap:wrap;
+              "
+            >
+
+              ${
+                isActive
+                  ? `
+                    <button
+                      type="button"
+                      data-identifier-qr
+                      data-identifier-id="${escapeHtml(item.id)}"
+                    >
+                      View / Download QR
+                    </button>
+                  `
+                  : ''
+              }
 
               <button
                 type="button"
@@ -1115,6 +1349,7 @@
           '/api/admin-session',
           {
             method: 'GET',
+
             credentials:
               'same-origin',
 
@@ -1148,6 +1383,7 @@
           `/api/admin-profile-detail?id=${encodeURIComponent(enrollmentId)}`,
           {
             method: 'GET',
+
             credentials:
               'same-origin',
 
