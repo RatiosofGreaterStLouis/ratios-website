@@ -1,12 +1,12 @@
 (async () => {
 
-  const code =
-    new URLSearchParams(location.search).get('code') || '';
+  const id =
+    new URLSearchParams(location.search).get('id') || '';
 
   const loading = document.getElementById('loading');
-  const error = document.getElementById('error');
-  const content = document.getElementById('content');
-  const grid = document.getElementById('profileGrid');
+  const unavailable = document.getElementById('unavailable');
+  const profile = document.getElementById('profile');
+  const cards = document.getElementById('cards');
 
 
   /* -----------------------------------------
@@ -81,52 +81,55 @@
     heading.style.color = '#07172e';
     heading.style.fontSize = '1.25rem';
 
-    grid.appendChild(heading);
+    cards.appendChild(heading);
   }
+
 
   function makeQuickContactButton(name, phone) {
 
-  if (!hasValue(phone)) {
-    return null;
+    if (!hasValue(phone)) {
+      return null;
+    }
+
+    const wrapper = document.createElement('div');
+
+    wrapper.style.gridColumn = '1 / -1';
+    wrapper.style.margin = '4px 0 8px';
+
+    const button = document.createElement('a');
+
+    button.href = `tel:${cleanPhone(phone)}`;
+
+    button.textContent =
+      hasValue(name)
+        ? `Contact caregiver · ${name}`
+        : 'Contact caregiver';
+
+    button.style.display = 'flex';
+    button.style.alignItems = 'center';
+    button.style.justifyContent = 'center';
+
+    button.style.width = '100%';
+    button.style.minHeight = '56px';
+
+    button.style.padding = '14px 18px';
+
+    button.style.background = '#07172e';
+    button.style.color = '#ffffff';
+
+    button.style.borderRadius = '999px';
+
+    button.style.fontWeight = '800';
+    button.style.fontSize = '1.05rem';
+    button.style.textDecoration = 'none';
+    button.style.textAlign = 'center';
+
+    wrapper.appendChild(button);
+
+    return wrapper;
   }
 
-  const wrapper = document.createElement('div');
 
-  wrapper.style.gridColumn = '1 / -1';
-  wrapper.style.margin = '4px 0 8px';
-
-  const button = document.createElement('a');
-
-  button.href = `tel:${cleanPhone(phone)}`;
-
-  button.textContent =
-    hasValue(name)
-      ? `Contact caregiver · ${name}`
-      : 'Contact caregiver';
-
-  button.style.display = 'flex';
-  button.style.alignItems = 'center';
-  button.style.justifyContent = 'center';
-
-  button.style.width = '100%';
-  button.style.minHeight = '56px';
-
-  button.style.padding = '14px 18px';
-
-  button.style.background = '#07172e';
-  button.style.color = '#ffffff';
-
-  button.style.borderRadius = '999px';
-
-  button.style.fontWeight = '800';
-  button.style.fontSize = '1.05rem';
-  button.style.textDecoration = 'none';
-  button.style.textAlign = 'center';
-
-  wrapper.appendChild(button);
-
-  return wrapper;
-}
   function makePhoneCard(
     title,
     name,
@@ -166,7 +169,6 @@
       contactName.style.fontSize = '1.35rem';
 
       card.appendChild(contactName);
-
     }
 
 
@@ -181,7 +183,6 @@
       rel.style.color = '#526174';
 
       card.appendChild(rel);
-
     }
 
 
@@ -218,7 +219,6 @@
       callButton.style.textAlign = 'center';
 
       card.appendChild(callButton);
-
     }
 
     return card;
@@ -226,41 +226,33 @@
 
 
   /* -----------------------------------------
-     Load emergency profile
+     Load caregiver preview profile
      ----------------------------------------- */
 
   try {
 
     const response = await fetch(
-      `/api/identifier-profile?code=${encodeURIComponent(code)}`
+      `/api/emergency-profile?id=${encodeURIComponent(id)}`
     );
+
+    if (!response.ok) {
+      throw new Error();
+    }
 
     const data = await response.json();
 
-    loading.hidden = true;
-
-
-    if (!response.ok || !data.profile) {
-
-      error.hidden = false;
-
-      return;
-
+    if (!data.profile) {
+      throw new Error();
     }
-
 
     const p = data.profile;
 
+    loading.hidden = true;
 
-    document.getElementById('displayName').textContent =
+    document.getElementById('name').textContent =
       p.preferred_name || 'OneProfile™';
 
-
-    /*
-     Clear anything already in the profile area
-    */
-
-    grid.innerHTML = '';
+    cards.innerHTML = '';
 
 
     /* =========================================
@@ -278,18 +270,20 @@
         }
       );
 
-      grid.appendChild(card);
-
+      cards.appendChild(card);
     }
-     const quickContact =
-  makeQuickContactButton(
-    p.emergency_contact_name,
-    p.emergency_contact_phone
-  );
 
-if (quickContact) {
-  grid.appendChild(quickContact);
-}
+
+    const quickContact =
+      makeQuickContactButton(
+        p.emergency_contact_name,
+        p.emergency_contact_phone
+      );
+
+    if (quickContact) {
+      cards.appendChild(quickContact);
+    }
+
 
     /* =========================================
        SAFETY
@@ -302,97 +296,92 @@ if (quickContact) {
     ) {
 
       addSectionTitle('Safety & wandering information');
-
     }
 
 
     if (hasValue(p.safety_risk_level)) {
 
-  const riskCard = document.createElement('div');
+      const riskCard = document.createElement('div');
 
-  riskCard.className = 'em-card';
-  riskCard.style.border = '2px solid #d97706';
-  riskCard.style.background = '#fffaf0';
+      riskCard.className = 'em-card';
+      riskCard.style.border = '2px solid #d97706';
+      riskCard.style.background = '#fffaf0';
 
-  const heading = document.createElement('span');
-  heading.textContent = 'Wandering / elopement risk';
+      const heading = document.createElement('span');
+      heading.textContent = 'Wandering / elopement risk';
 
-  const riskBadge = document.createElement('strong');
+      const riskBadge = document.createElement('strong');
 
-  const riskValue =
-    String(p.safety_risk_level).trim();
+      const riskValue =
+        String(p.safety_risk_level).trim();
 
-  riskBadge.textContent = riskValue;
+      riskBadge.textContent = riskValue;
 
-  riskBadge.style.display = 'inline-flex';
-  riskBadge.style.alignItems = 'center';
-  riskBadge.style.justifyContent = 'center';
-  riskBadge.style.width = 'fit-content';
-  riskBadge.style.marginTop = '8px';
-  riskBadge.style.padding = '8px 14px';
-  riskBadge.style.borderRadius = '999px';
-  riskBadge.style.fontWeight = '800';
-  riskBadge.style.fontSize = '1rem';
+      riskBadge.style.display = 'inline-flex';
+      riskBadge.style.alignItems = 'center';
+      riskBadge.style.justifyContent = 'center';
+      riskBadge.style.width = 'fit-content';
+      riskBadge.style.marginTop = '8px';
+      riskBadge.style.padding = '8px 14px';
+      riskBadge.style.borderRadius = '999px';
+      riskBadge.style.fontWeight = '800';
+      riskBadge.style.fontSize = '1rem';
 
-  const normalizedRisk =
-    riskValue.toLowerCase();
+      const normalizedRisk =
+        riskValue.toLowerCase();
 
-  if (normalizedRisk.includes('high')) {
+      if (normalizedRisk.includes('high')) {
 
-    riskBadge.style.background = '#b91c1c';
-    riskBadge.style.color = '#ffffff';
+        riskBadge.style.background = '#b91c1c';
+        riskBadge.style.color = '#ffffff';
 
-  } else if (
-    normalizedRisk.includes('moderate') ||
-    normalizedRisk.includes('medium')
-  ) {
+      } else if (
+        normalizedRisk.includes('moderate') ||
+        normalizedRisk.includes('medium')
+      ) {
 
-    riskBadge.style.background = '#f59e0b';
-    riskBadge.style.color = '#07172e';
+        riskBadge.style.background = '#f59e0b';
+        riskBadge.style.color = '#07172e';
 
-  } else if (normalizedRisk.includes('low')) {
+      } else if (normalizedRisk.includes('low')) {
 
-    riskBadge.style.background = '#15803d';
-    riskBadge.style.color = '#ffffff';
+        riskBadge.style.background = '#15803d';
+        riskBadge.style.color = '#ffffff';
 
-  } else {
+      } else {
 
-    riskBadge.style.background = '#e5e7eb';
-    riskBadge.style.color = '#07172e';
+        riskBadge.style.background = '#e5e7eb';
+        riskBadge.style.color = '#07172e';
+      }
 
-  }
+      riskCard.append(
+        heading,
+        riskBadge
+      );
 
-  riskCard.append(
-    heading,
-    riskBadge
-  );
-
-  grid.appendChild(riskCard);
-
-}
+      cards.appendChild(riskCard);
+    }
 
 
     if (hasValue(p.safe_approach)) {
 
-      grid.appendChild(
+      cards.appendChild(
         makeCard(
           'Safest way to approach or redirect me',
           p.safe_approach
         )
       );
-
     }
 
 
     if (hasValue(p.known_destinations)) {
 
-      grid.appendChild(
+      cards.appendChild(
         makeCard(
           'Places I may try to go',
           p.known_destinations
         )
       );
-
     }
 
 
@@ -409,67 +398,61 @@ if (quickContact) {
     ) {
 
       addSectionTitle('Communication & support');
-
     }
 
 
     if (hasValue(p.communication_method)) {
 
-      grid.appendChild(
+      cards.appendChild(
         makeCard(
           'Communication method',
           p.communication_method
         )
       );
-
     }
 
 
     if (hasValue(p.communication_notes)) {
 
-      grid.appendChild(
+      cards.appendChild(
         makeCard(
           'Communication instructions',
           p.communication_notes
         )
       );
-
     }
 
 
     if (hasValue(p.touch_preference)) {
 
-      grid.appendChild(
+      cards.appendChild(
         makeCard(
           'Touch preference',
           p.touch_preference
         )
       );
-
     }
 
 
     if (hasValue(p.sensory_triggers)) {
 
-      grid.appendChild(
+      cards.appendChild(
         makeCard(
           'Sensory triggers',
           p.sensory_triggers
         )
       );
-
     }
 
 
     if (hasValue(p.calming_supports)) {
 
-      grid.appendChild(
+      cards.appendChild(
         makeCard(
           'What helps me feel safe / calm',
           p.calming_supports
         )
       );
-
     }
 
 
@@ -490,7 +473,6 @@ if (quickContact) {
     if (hasPrimary || hasAlternate) {
 
       addSectionTitle('Emergency contacts');
-
     }
 
 
@@ -505,9 +487,8 @@ if (quickContact) {
         );
 
       if (primaryCard) {
-        grid.appendChild(primaryCard);
+        cards.appendChild(primaryCard);
       }
-
     }
 
 
@@ -522,20 +503,18 @@ if (quickContact) {
         );
 
       if (alternateCard) {
-        grid.appendChild(alternateCard);
+        cards.appendChild(alternateCard);
       }
-
     }
 
 
-    content.hidden = false;
+    profile.hidden = false;
 
 
   } catch (err) {
 
     loading.hidden = true;
-    error.hidden = false;
-
+    unavailable.hidden = false;
   }
 
 })();
