@@ -39,37 +39,73 @@
           display:flex;
           justify-content:space-between;
           align-items:center;
-          gap:20px;
+          gap:24px;
           flex-wrap:wrap;
           margin-bottom:30px;
         "
       >
 
-        <div>
+        <div
+          style="
+            display:flex;
+            align-items:center;
+            gap:18px;
+            flex-wrap:wrap;
+          "
+        >
 
-          <p class="op-eyebrow">
-            RATIOS STAFF PORTAL
-          </p>
+          <img
+            src="assets/images/ratios-official-logo.png"
+            alt="RATIOS"
+            style="
+              width:82px;
+              height:82px;
+              object-fit:contain;
+              border-radius:18px;
+              background:#ffffff;
+              padding:6px;
+              box-sizing:border-box;
+              border:1px solid #dfe9f2;
+              box-shadow:0 8px 20px rgba(7,23,46,.08);
+            "
+          >
 
-          <h1 style="margin-bottom:8px;">
-            OneProfile™ Admin
-          </h1>
+          <div>
 
-          <p style="margin:0;">
-            Manage OneProfile™ enrollments,
-            identifiers, and program activity.
-          </p>
+            <p class="op-eyebrow">
+              RATIOS STAFF PORTAL
+            </p>
+
+            <h1 style="margin-bottom:8px;">
+              OneProfile™ Admin
+            </h1>
+
+            <p style="margin:0;">
+              Manage OneProfile™ enrollments,
+              identifiers, and program activity.
+            </p>
+
+          </div>
 
         </div>
 
 
-        <div style="text-align:right;">
+        <div
+          style="
+            text-align:right;
+            display:flex;
+            flex-direction:column;
+            align-items:flex-end;
+            gap:10px;
+          "
+        >
 
           <p
             id="staffEmail"
             style="
-              margin:0 0 10px;
-              font-weight:700;
+              margin:0;
+              font-weight:800;
+              color:#10243a;
             "
           >
             Authorized staff
@@ -92,25 +128,26 @@
         style="
           display:grid;
           grid-template-columns:
-            repeat(auto-fit,minmax(180px,1fr));
+            repeat(auto-fit,minmax(200px,1fr));
           gap:16px;
-          margin-bottom:28px;
+          margin-bottom:30px;
         "
       >
 
         <div
           style="
-            border:1px solid #d8e3ea;
+            border:1px solid #dfe9f2;
             border-radius:18px;
-            padding:20px;
+            padding:22px;
+            background:#ffffff;
           "
         >
+
           <span
+            class="op-eyebrow"
             style="
               display:block;
-              font-size:.85rem;
-              font-weight:800;
-              text-transform:uppercase;
+              margin-bottom:8px;
             "
           >
             Enrolled Profiles
@@ -118,26 +155,33 @@
 
           <strong
             id="totalProfiles"
-            style="font-size:2rem;"
+            style="
+              display:block;
+              font-size:2.35rem;
+              line-height:1;
+              color:#07172e;
+            "
           >
             —
           </strong>
+
         </div>
 
 
         <div
           style="
-            border:1px solid #d8e3ea;
+            border:1px solid #dfe9f2;
             border-radius:18px;
-            padding:20px;
+            padding:22px;
+            background:#ffffff;
           "
         >
+
           <span
+            class="op-eyebrow"
             style="
               display:block;
-              font-size:.85rem;
-              font-weight:800;
-              text-transform:uppercase;
+              margin-bottom:8px;
             "
           >
             Active Identifiers
@@ -145,26 +189,33 @@
 
           <strong
             id="activeIdentifiers"
-            style="font-size:2rem;"
+            style="
+              display:block;
+              font-size:2.35rem;
+              line-height:1;
+              color:#07172e;
+            "
           >
             —
           </strong>
+
         </div>
 
 
         <div
           style="
-            border:1px solid #d8e3ea;
+            border:1px solid #dfe9f2;
             border-radius:18px;
-            padding:20px;
+            padding:22px;
+            background:#ffffff;
           "
         >
+
           <span
+            class="op-eyebrow"
             style="
               display:block;
-              font-size:.85rem;
-              font-weight:800;
-              text-transform:uppercase;
+              margin-bottom:8px;
             "
           >
             Total Scans
@@ -172,10 +223,16 @@
 
           <strong
             id="totalScans"
-            style="font-size:2rem;"
+            style="
+              display:block;
+              font-size:2.35rem;
+              line-height:1;
+              color:#07172e;
+            "
           >
             —
           </strong>
+
         </div>
 
       </section>
@@ -183,8 +240,10 @@
 
       <section
         style="
-          border-top:1px solid #d8e3ea;
-          padding-top:26px;
+          border:1px solid #dfe9f2;
+          border-radius:20px;
+          padding:24px;
+          background:#ffffff;
         "
       >
 
@@ -195,7 +254,7 @@
             align-items:end;
             gap:18px;
             flex-wrap:wrap;
-            margin-bottom:20px;
+            margin-bottom:22px;
           "
         >
 
@@ -205,11 +264,21 @@
               ONEPROFILE™ DIRECTORY
             </p>
 
-            <h2 style="margin-bottom:4px;">
+            <h2
+              style="
+                margin-top:0;
+                margin-bottom:5px;
+              "
+            >
               Enrolled Profiles
             </h2>
 
-            <p style="margin:0;">
+            <p
+              style="
+                margin:0;
+                color:#607486;
+              "
+            >
               Search by participant,
               caregiver, or enrollment ID.
             </p>
@@ -217,15 +286,35 @@
           </div>
 
 
-          <input
-            id="profileSearch"
-            type="search"
-            placeholder="Search profiles…"
+          <div
             style="
               min-width:280px;
               max-width:380px;
+              width:100%;
             "
           >
+
+            <label
+              for="profileSearch"
+              style="
+                display:block;
+                margin-bottom:6px;
+                font-weight:800;
+              "
+            >
+              Search directory
+            </label>
+
+            <input
+              id="profileSearch"
+              type="search"
+              placeholder="Search profiles…"
+              style="
+                width:100%;
+              "
+            >
+
+          </div>
 
         </div>
 
