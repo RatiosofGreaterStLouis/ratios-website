@@ -1,1 +1,343 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Emergency Safety Profile | OneProfile™</title><link rel="stylesheet" href="assets/css/emergency-view.css"></head><body class="public-emergency"><header class="em-head"><img src="assets/images/ratios-official-logo.png" alt="RATIOS"><div><strong>OneProfile™ Emergency Safety Profile</strong><small>Recognized. Protected. Connected.</small></div></header><main class="em-shell"><div class="em-alert"><strong>This individual may need assistance.</strong><span>Please review this caregiver-approved information before approaching or communicating.</span></div><div id="loading">Loading safety profile…</div><section id="profile" hidden><h1 id="name">OneProfile™</h1><div id="cards" class="em-grid"></div><div class="em-callout">If there is immediate danger or a medical emergency, contact emergency services.</div></section><section id="unavailable" class="ev-card" hidden><h1>Profile unavailable</h1><p>This emergency profile is not currently shared. Contact emergency services if immediate help is needed.</p></section></main><script src="assets/js/emergency-view.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
+  <title>
+    Emergency Safety Profile | OneProfile™ | RATIOS
+  </title>
+
+  <link
+    rel="icon"
+    href="assets/images/favicon-32.png"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/emergency-view.css"
+  >
+
+  <style>
+
+    body.public-emergency {
+      margin:0;
+      background:
+        linear-gradient(
+          135deg,
+          #f9f7ef 0%,
+          #eef8fb 52%,
+          #f4f9fb 100%
+        );
+      color:#07172e;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+
+    .emergency-shell {
+      max-width:920px;
+      margin:0 auto;
+      padding:26px 18px 48px;
+    }
+
+    .emergency-brand {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:18px;
+      padding:16px 18px;
+      border:1px solid #dfe9f2;
+      border-radius:20px;
+      background:#ffffff;
+      box-shadow:0 8px 24px rgba(7,23,46,.06);
+    }
+
+    .emergency-brand img {
+      width:64px;
+      height:64px;
+      object-fit:contain;
+      flex:0 0 auto;
+      padding:5px;
+      box-sizing:border-box;
+      border:1px solid #e4edf3;
+      border-radius:14px;
+      background:#ffffff;
+    }
+
+    .emergency-brand-copy {
+      min-width:0;
+    }
+
+    .emergency-eyebrow {
+      margin:0 0 3px;
+      color:#14859c;
+      font-size:.72rem;
+      font-weight:800;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+
+    .emergency-brand-title {
+      margin:0;
+      color:#07172e;
+      font-size:1.25rem;
+      line-height:1.25;
+      font-weight:900;
+    }
+
+    .emergency-brand-sub {
+      display:block;
+      margin-top:3px;
+      color:#617388;
+      font-size:.88rem;
+    }
+
+    .emergency-alert {
+      margin-bottom:20px;
+      padding:20px 22px;
+      border:2px solid #f3b638;
+      border-radius:20px;
+      background:#fff8e8;
+      color:#07172e;
+    }
+
+    .emergency-alert strong {
+      display:block;
+      margin-bottom:6px;
+      font-size:1.1rem;
+    }
+
+    .emergency-alert span {
+      display:block;
+      color:#344a60;
+      line-height:1.55;
+    }
+
+    .emergency-loading,
+    .emergency-unavailable {
+      padding:28px;
+      border:1px solid #dfe9f2;
+      border-radius:22px;
+      background:#ffffff;
+      box-shadow:0 8px 24px rgba(7,23,46,.05);
+    }
+
+    .emergency-profile {
+      padding:28px;
+      border:1px solid #dfe9f2;
+      border-radius:24px;
+      background:#ffffff;
+      box-shadow:0 10px 30px rgba(7,23,46,.06);
+    }
+
+    .emergency-profile-label {
+      margin:0 0 5px;
+      color:#14859c;
+      font-size:.74rem;
+      font-weight:800;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    #name {
+      margin:0 0 22px;
+      color:#07172e;
+      font-size:clamp(2.2rem,8vw,4rem);
+      line-height:1;
+    }
+
+    #cards.em-grid {
+      display:grid;
+      gap:14px;
+    }
+
+    .emergency-callout {
+      margin-top:22px;
+      padding:18px 20px;
+      border-radius:18px;
+      background:#07172e;
+      color:#ffffff;
+      line-height:1.55;
+    }
+
+    .emergency-disclaimer {
+      margin-top:18px;
+      text-align:center;
+      color:#66798b;
+      font-size:.82rem;
+      line-height:1.45;
+    }
+
+    @media (max-width:600px) {
+
+      .emergency-shell {
+        padding:14px 12px 32px;
+      }
+
+      .emergency-brand {
+        align-items:flex-start;
+        padding:14px;
+      }
+
+      .emergency-brand img {
+        width:56px;
+        height:56px;
+      }
+
+      .emergency-profile {
+        padding:20px 16px;
+      }
+
+      .emergency-alert {
+        padding:17px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body class="public-emergency">
+
+
+  <main class="emergency-shell">
+
+
+    <header class="emergency-brand">
+
+      <img
+        src="assets/images/ratios-official-logo.png"
+        alt="RATIOS"
+      >
+
+      <div class="emergency-brand-copy">
+
+        <p class="emergency-eyebrow">
+          OneProfile™ by RATIOS
+        </p>
+
+        <p class="emergency-brand-title">
+          Emergency Safety Profile
+        </p>
+
+        <span class="emergency-brand-sub">
+          Recognized. Protected. Connected.
+        </span>
+
+      </div>
+
+    </header>
+
+
+
+    <div class="emergency-alert">
+
+      <strong>
+        Please approach with care.
+      </strong>
+
+      <span>
+        This person has a caregiver-approved OneProfile™
+        with information that may help you communicate,
+        provide support, and assist with safe reunification.
+      </span>
+
+    </div>
+
+
+
+    <div
+      id="loading"
+      class="emergency-loading"
+    >
+      Loading caregiver-approved emergency safety information…
+    </div>
+
+
+
+    <section
+      id="profile"
+      class="emergency-profile"
+      hidden
+    >
+
+
+      <p class="emergency-profile-label">
+        CAREGIVER-APPROVED EMERGENCY PROFILE
+      </p>
+
+
+      <h1 id="name">
+        OneProfile™
+      </h1>
+
+
+      <div
+        id="cards"
+        class="em-grid"
+      ></div>
+
+
+      <div class="emergency-callout">
+
+        <strong>
+          Immediate danger or medical emergency?
+        </strong>
+
+        Contact emergency services.
+
+      </div>
+
+
+    </section>
+
+
+
+    <section
+      id="unavailable"
+      class="emergency-unavailable"
+      hidden
+    >
+
+      <h1>
+        Profile unavailable
+      </h1>
+
+      <p>
+        This emergency profile is not currently shared.
+        Contact emergency services if immediate help is needed.
+      </p>
+
+    </section>
+
+
+
+    <p class="emergency-disclaimer">
+      OneProfile™ displays only emergency information
+      approved for sharing by the participant's caregiver.
+      This page is intended to support communication,
+      safety, and reunification.
+    </p>
+
+
+  </main>
+
+
+  <script src="assets/js/emergency-view.js"></script>
+
+
+</body>
+
+</html>
