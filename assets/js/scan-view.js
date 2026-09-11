@@ -133,17 +133,12 @@
     button.style.display = 'flex';
     button.style.alignItems = 'center';
     button.style.justifyContent = 'center';
-
     button.style.width = '100%';
     button.style.minHeight = '56px';
-
     button.style.padding = '14px 18px';
-
     button.style.background = '#07172e';
     button.style.color = '#ffffff';
-
     button.style.borderRadius = '999px';
-
     button.style.fontWeight = '800';
     button.style.fontSize = '1.05rem';
     button.style.textDecoration = 'none';
@@ -239,66 +234,38 @@
     wrapper.style.gridColumn = '1 / -1';
     wrapper.style.margin = '12px 0 4px';
     wrapper.style.padding = '20px';
-
-    wrapper.style.border =
-      '1px solid #cfe3ea';
-
-    wrapper.style.borderRadius =
-      '18px';
-
-    wrapper.style.background =
-      '#f4fafc';
+    wrapper.style.border = '1px solid #cfe3ea';
+    wrapper.style.borderRadius = '18px';
+    wrapper.style.background = '#f4fafc';
 
 
     const eyebrow =
       document.createElement('div');
 
-    eyebrow.textContent =
-      'AT A GLANCE';
-
-    eyebrow.style.marginBottom =
-      '6px';
-
-    eyebrow.style.color =
-      '#14869a';
-
-    eyebrow.style.fontSize =
-      '.75rem';
-
-    eyebrow.style.fontWeight =
-      '900';
-
-    eyebrow.style.letterSpacing =
-      '.1em';
+    eyebrow.textContent = 'AT A GLANCE';
+    eyebrow.style.marginBottom = '6px';
+    eyebrow.style.color = '#14869a';
+    eyebrow.style.fontSize = '.75rem';
+    eyebrow.style.fontWeight = '900';
+    eyebrow.style.letterSpacing = '.1em';
 
 
     const title =
       document.createElement('h2');
 
-    title.textContent =
-      'How to interact safely';
-
-    title.style.margin =
-      '0 0 14px';
-
-    title.style.color =
-      '#07172e';
-
-    title.style.fontSize =
-      '1.2rem';
+    title.textContent = 'How to interact safely';
+    title.style.margin = '0 0 14px';
+    title.style.color = '#07172e';
+    title.style.fontSize = '1.2rem';
 
 
     const itemGrid =
       document.createElement('div');
 
-    itemGrid.style.display =
-      'grid';
-
+    itemGrid.style.display = 'grid';
     itemGrid.style.gridTemplateColumns =
       'repeat(auto-fit, minmax(210px, 1fr))';
-
-    itemGrid.style.gap =
-      '10px';
+    itemGrid.style.gap = '10px';
 
 
     items.forEach(item => {
@@ -345,7 +312,6 @@
       document.createElement('div');
 
     card.className = 'em-card';
-
     card.style.gridColumn = '1 / -1';
     card.style.padding = '22px';
 
@@ -362,16 +328,10 @@
       const contactName =
         document.createElement('strong');
 
-      contactName.textContent =
-        name;
+      contactName.textContent = name;
+      contactName.style.fontSize = '1.35rem';
 
-      contactName.style.fontSize =
-        '1.35rem';
-
-      card.appendChild(
-        contactName
-      );
-
+      card.appendChild(contactName);
     }
 
 
@@ -380,17 +340,11 @@
       const rel =
         document.createElement('p');
 
-      rel.textContent =
-        relationship;
-
-      rel.style.margin =
-        '4px 0 14px';
-
-      rel.style.color =
-        '#526174';
+      rel.textContent = relationship;
+      rel.style.margin = '4px 0 14px';
+      rel.style.color = '#526174';
 
       card.appendChild(rel);
-
     }
 
 
@@ -407,49 +361,21 @@
           ? `Call ${name} · ${formatPhone(phone)}`
           : `Call ${formatPhone(phone)}`;
 
-      callButton.style.display =
-        'flex';
+      callButton.style.display = 'flex';
+      callButton.style.alignItems = 'center';
+      callButton.style.justifyContent = 'center';
+      callButton.style.width = '100%';
+      callButton.style.minHeight = '54px';
+      callButton.style.marginTop = '10px';
+      callButton.style.padding = '12px 18px';
+      callButton.style.background = '#07172e';
+      callButton.style.color = '#ffffff';
+      callButton.style.borderRadius = '999px';
+      callButton.style.fontWeight = '800';
+      callButton.style.textDecoration = 'none';
+      callButton.style.textAlign = 'center';
 
-      callButton.style.alignItems =
-        'center';
-
-      callButton.style.justifyContent =
-        'center';
-
-      callButton.style.width =
-        '100%';
-
-      callButton.style.minHeight =
-        '54px';
-
-      callButton.style.marginTop =
-        '10px';
-
-      callButton.style.padding =
-        '12px 18px';
-
-      callButton.style.background =
-        '#07172e';
-
-      callButton.style.color =
-        '#ffffff';
-
-      callButton.style.borderRadius =
-        '999px';
-
-      callButton.style.fontWeight =
-        '800';
-
-      callButton.style.textDecoration =
-        'none';
-
-      callButton.style.textAlign =
-        'center';
-
-      card.appendChild(
-        callButton
-      );
-
+      card.appendChild(callButton);
     }
 
     return card;
@@ -479,7 +405,6 @@
     ) {
 
       error.hidden = false;
-
       return;
     }
 
@@ -519,7 +444,6 @@
         );
 
       grid.appendChild(card);
-
     }
 
 
@@ -531,9 +455,7 @@
 
 
     if (quickContact) {
-      grid.appendChild(
-        quickContact
-      );
+      grid.appendChild(quickContact);
     }
 
 
@@ -546,9 +468,7 @@
 
 
     if (atAGlance) {
-      grid.appendChild(
-        atAGlance
-      );
+      grid.appendChild(atAGlance);
     }
 
 
@@ -565,7 +485,6 @@
       addSectionTitle(
         'Safety & wandering information'
       );
-
     }
 
 
@@ -578,8 +497,7 @@
       const riskCard =
         document.createElement('div');
 
-      riskCard.className =
-        'em-card';
+      riskCard.className = 'em-card';
 
 
       const heading =
@@ -592,44 +510,46 @@
       const riskBadge =
         document.createElement('strong');
 
+
       const riskValue =
         String(
           p.safety_risk_level
         ).trim();
 
+
       const normalizedRisk =
         riskValue.toLowerCase();
 
 
-      riskBadge.textContent =
-        riskValue;
+      /* -----------------------------------------
+         Responder-facing risk wording
+         ----------------------------------------- */
 
-      riskBadge.style.display =
-        'inline-flex';
+      if (
+        normalizedRisk.includes('unknown') ||
+        normalizedRisk.includes('assessing') ||
+        normalizedRisk.includes('not assessed')
+      ) {
 
-      riskBadge.style.alignItems =
-        'center';
+        riskBadge.textContent =
+          'Risk level not specified';
 
-      riskBadge.style.justifyContent =
-        'center';
+      } else {
 
-      riskBadge.style.width =
-        'fit-content';
+        riskBadge.textContent =
+          riskValue;
+      }
 
-      riskBadge.style.marginTop =
-        '8px';
 
-      riskBadge.style.padding =
-        '8px 14px';
-
-      riskBadge.style.borderRadius =
-        '999px';
-
-      riskBadge.style.fontWeight =
-        '800';
-
-      riskBadge.style.fontSize =
-        '1rem';
+      riskBadge.style.display = 'inline-flex';
+      riskBadge.style.alignItems = 'center';
+      riskBadge.style.justifyContent = 'center';
+      riskBadge.style.width = 'fit-content';
+      riskBadge.style.marginTop = '8px';
+      riskBadge.style.padding = '8px 14px';
+      riskBadge.style.borderRadius = '999px';
+      riskBadge.style.fontWeight = '800';
+      riskBadge.style.fontSize = '1rem';
 
 
       /* HIGH RISK */
@@ -690,7 +610,7 @@
           '#ffffff';
 
 
-      /* UNKNOWN / STILL ASSESSING */
+      /* UNKNOWN / NOT SPECIFIED */
 
       } else if (
         normalizedRisk.includes('unknown') ||
@@ -726,7 +646,6 @@
 
         riskBadge.style.color =
           '#07172e';
-
       }
 
 
@@ -735,10 +654,7 @@
         riskBadge
       );
 
-      grid.appendChild(
-        riskCard
-      );
-
+      grid.appendChild(riskCard);
     }
 
 
@@ -754,7 +670,6 @@
           p.safe_approach
         )
       );
-
     }
 
 
@@ -770,7 +685,6 @@
           p.known_destinations
         )
       );
-
     }
 
 
@@ -789,7 +703,6 @@
       addSectionTitle(
         'Communication & support'
       );
-
     }
 
 
@@ -805,7 +718,6 @@
           p.communication_method
         )
       );
-
     }
 
 
@@ -821,7 +733,6 @@
           p.communication_notes
         )
       );
-
     }
 
 
@@ -837,7 +748,6 @@
           p.touch_preference
         )
       );
-
     }
 
 
@@ -853,7 +763,6 @@
           p.sensory_triggers
         )
       );
-
     }
 
 
@@ -869,7 +778,6 @@
           p.calming_supports
         )
       );
-
     }
 
 
@@ -906,7 +814,6 @@
       addSectionTitle(
         'Emergency contacts'
       );
-
     }
 
 
@@ -921,13 +828,8 @@
         );
 
       if (primaryCard) {
-
-        grid.appendChild(
-          primaryCard
-        );
-
+        grid.appendChild(primaryCard);
       }
-
     }
 
 
@@ -942,13 +844,8 @@
         );
 
       if (alternateCard) {
-
-        grid.appendChild(
-          alternateCard
-        );
-
+        grid.appendChild(alternateCard);
       }
-
     }
 
 
@@ -963,7 +860,6 @@
 
     error.hidden =
       false;
-
   }
 
 })();
