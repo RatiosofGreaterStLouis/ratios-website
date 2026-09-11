@@ -32,7 +32,7 @@
   <style>
 
     body.public-emergency {
-      margin:0;
+      margin: 0;
       background:
         linear-gradient(
           135deg,
@@ -40,171 +40,176 @@
           #eef8fb 52%,
           #f4f9fb 100%
         );
-      color:#07172e;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color: #07172e;
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
     }
 
     .emergency-shell {
-      max-width:920px;
-      margin:0 auto;
-      padding:26px 18px 48px;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 26px 18px 48px;
     }
 
     .emergency-brand {
-      display:flex;
-      align-items:center;
-      gap:14px;
-      margin-bottom:18px;
-      padding:16px 18px;
-      border:1px solid #dfe9f2;
-      border-radius:20px;
-      background:#ffffff;
-      box-shadow:0 8px 24px rgba(7,23,46,.06);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding: 16px 18px;
+      border: 1px solid #dfe9f2;
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow:
+        0 8px 24px rgba(7, 23, 46, .06);
     }
 
     .emergency-brand img {
-      width:64px;
-      height:64px;
-      object-fit:contain;
-      flex:0 0 auto;
-      padding:5px;
-      box-sizing:border-box;
-      border:1px solid #e4edf3;
-      border-radius:14px;
-      background:#ffffff;
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      flex: 0 0 auto;
+      padding: 5px;
+      box-sizing: border-box;
+      border: 1px solid #e4edf3;
+      border-radius: 14px;
+      background: #ffffff;
     }
 
     .emergency-brand-copy {
-      min-width:0;
+      min-width: 0;
     }
 
     .emergency-eyebrow {
-      margin:0 0 3px;
-      color:#14859c;
-      font-size:.72rem;
-      font-weight:800;
-      letter-spacing:.16em;
-      text-transform:uppercase;
+      margin: 0 0 3px;
+      color: #14859c;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
     }
 
     .emergency-brand-title {
-      margin:0;
-      color:#07172e;
-      font-size:1.25rem;
-      line-height:1.25;
-      font-weight:900;
+      margin: 0;
+      color: #07172e;
+      font-size: 1.25rem;
+      line-height: 1.25;
+      font-weight: 900;
     }
 
     .emergency-brand-sub {
-      display:block;
-      margin-top:3px;
-      color:#617388;
-      font-size:.88rem;
+      display: block;
+      margin-top: 3px;
+      color: #617388;
+      font-size: .88rem;
     }
 
     .emergency-loading,
     .emergency-error {
-      padding:28px;
-      border:1px solid #dfe9f2;
-      border-radius:22px;
-      background:#ffffff;
-      box-shadow:0 8px 24px rgba(7,23,46,.05);
+      padding: 28px;
+      border: 1px solid #dfe9f2;
+      border-radius: 22px;
+      background: #ffffff;
+      box-shadow:
+        0 8px 24px rgba(7, 23, 46, .05);
     }
 
     .emergency-error h1 {
-      margin-top:0;
-      color:#07172e;
+      margin-top: 0;
+      color: #07172e;
     }
 
     .emergency-alert {
-      margin-bottom:20px;
-      padding:20px 22px;
-      border:2px solid #f3b638;
-      border-radius:20px;
-      background:#fff8e8;
-      color:#07172e;
+      margin-bottom: 20px;
+      padding: 20px 22px;
+      border: 2px solid #f3b638;
+      border-radius: 20px;
+      background: #fff8e8;
+      color: #07172e;
     }
 
     .emergency-alert strong {
-      display:block;
-      margin-bottom:6px;
-      font-size:1.1rem;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.1rem;
     }
 
     .emergency-alert span {
-      display:block;
-      color:#344a60;
-      line-height:1.55;
+      display: block;
+      color: #344a60;
+      line-height: 1.55;
     }
 
     .emergency-profile {
-      padding:28px;
-      border:1px solid #dfe9f2;
-      border-radius:24px;
-      background:#ffffff;
-      box-shadow:0 10px 30px rgba(7,23,46,.06);
+      padding: 28px;
+      border: 1px solid #dfe9f2;
+      border-radius: 24px;
+      background: #ffffff;
+      box-shadow:
+        0 10px 30px rgba(7, 23, 46, .06);
     }
 
     .emergency-profile-label {
-      margin:0 0 5px;
-      color:#14859c;
-      font-size:.74rem;
-      font-weight:800;
-      letter-spacing:.14em;
-      text-transform:uppercase;
+      margin: 0 0 5px;
+      color: #14859c;
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
     }
 
     #displayName {
-      margin:0 0 22px;
-      color:#07172e;
-      font-size:clamp(2.2rem,8vw,4rem);
-      line-height:1;
+      margin: 0 0 22px;
+      color: #07172e;
+      font-size: clamp(2.2rem, 8vw, 4rem);
+      line-height: 1;
     }
 
     #profileGrid.em-grid {
-      display:grid;
-      gap:14px;
+      display: grid;
+      gap: 14px;
     }
 
     .emergency-callout {
-      margin-top:22px;
-      padding:18px 20px;
-      border-radius:18px;
-      background:#07172e;
-      color:#ffffff;
-      line-height:1.55;
+      margin-top: 22px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: #07172e;
+      color: #ffffff;
+      line-height: 1.55;
     }
 
-    .emergency-disclaimer {
-      margin-top:18px;
-      text-align:center;
-      color:#66798b;
-      font-size:.82rem;
-      line-height:1.45;
+    .emergency-callout strong {
+      display: block;
+      margin-bottom: 5px;
     }
 
-    @media (max-width:600px) {
+    @media (max-width: 600px) {
 
       .emergency-shell {
-        padding:14px 12px 32px;
+        padding: 14px 12px 32px;
       }
 
       .emergency-brand {
-        align-items:flex-start;
-        padding:14px;
+        align-items: flex-start;
+        padding: 14px;
       }
 
       .emergency-brand img {
-        width:56px;
-        height:56px;
+        width: 56px;
+        height: 56px;
       }
 
       .emergency-profile {
-        padding:20px 16px;
+        padding: 20px 16px;
       }
 
       .emergency-alert {
-        padding:17px;
+        padding: 17px;
       }
 
     }
@@ -246,14 +251,12 @@
     </header>
 
 
-
     <div
       id="loading"
       class="emergency-loading"
     >
       Loading caregiver-approved emergency safety information…
     </div>
-
 
 
     <div
@@ -273,14 +276,16 @@
       </p>
 
       <div class="emergency-callout">
+
         <strong>
           Immediate danger or medical emergency?
         </strong>
+
         Contact emergency services.
+
       </div>
 
     </div>
-
 
 
     <section
@@ -289,20 +294,20 @@
     >
 
 
-     <div class="emergency-alert">
+      <div class="emergency-alert">
 
-  <strong>
-    If you found or are assisting this person:
-  </strong>
+        <strong>
+          If you found or are assisting this person:
+        </strong>
 
-  <span>
-    Review the information below before approaching,
-    touching, redirecting, or transporting them.
-    This caregiver-approved OneProfile™ is designed
-    to support safe communication and reunification.
-  </span>
+        <span>
+          Review the information below before approaching,
+          touching, redirecting, or transporting them.
+          This caregiver-approved OneProfile™ is designed
+          to support safe communication and reunification.
+        </span>
 
-</div>
+      </div>
 
 
       <div class="emergency-profile">
@@ -327,24 +332,19 @@
         <div class="emergency-callout">
 
           <strong>
-            Immediate danger or medical emergency?
+            About this emergency profile
           </strong>
 
-          Contact emergency services.
+          This OneProfile™ displays only emergency
+          information approved for sharing by the
+          participant's caregiver. It is intended to
+          support safer communication, assistance,
+          and reunification.
 
         </div>
 
 
       </div>
-
-
-
-      <p class="emergency-disclaimer">
-        OneProfile™ displays only emergency information
-        approved for sharing by the participant's caregiver.
-        This page is intended to support communication,
-        safety, and reunification.
-      </p>
 
 
     </section>
