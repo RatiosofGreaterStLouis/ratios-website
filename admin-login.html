@@ -26,17 +26,35 @@
 
   <main class="op-shell">
 
-    <section class="op-card">
+    <section
+      class="op-card"
+      style="
+        max-width:620px;
+        margin:40px auto;
+      "
+    >
 
-      <div style="text-align:center; margin-bottom:24px;">
+      <div
+        style="
+          text-align:center;
+          margin-bottom:30px;
+        "
+      >
 
         <img
           src="assets/images/ratios-official-logo.png"
           alt="RATIOS"
           style="
-            width:90px;
-            height:auto;
-            margin-bottom:14px;
+            width:96px;
+            height:96px;
+            object-fit:contain;
+            border-radius:20px;
+            background:#ffffff;
+            padding:7px;
+            box-sizing:border-box;
+            border:1px solid #dfe9f2;
+            box-shadow:0 10px 24px rgba(7,23,46,.09);
+            margin-bottom:16px;
           "
         >
 
@@ -44,103 +62,175 @@
           RATIOS STAFF ACCESS
         </p>
 
-        <h1>
+        <h1 style="margin-bottom:10px;">
           OneProfile™ Admin
         </h1>
 
-        <p>
+        <p
+          style="
+            margin:0 auto;
+            max-width:460px;
+            color:#607486;
+            line-height:1.6;
+          "
+        >
           Secure access for authorized RATIOS staff.
+          Enter your approved staff email to receive
+          a one-time login code.
         </p>
 
       </div>
 
 
-      <div id="requestStep">
-
-        <label for="email">
-          Staff email address
-        </label>
-
-        <input
-          id="email"
-          type="email"
-          autocomplete="email"
-          placeholder="name@ratiossaveslives.org"
-        >
-
-        <button
-          id="sendCode"
-          type="button"
-          class="op-button op-primary"
-          style="width:100%; margin-top:18px;"
-        >
-          Send secure login code
-        </button>
-
-      </div>
-
-
       <div
-        id="verifyStep"
-        hidden
-        style="margin-top:20px;"
+        style="
+          border:1px solid #dfe9f2;
+          border-radius:20px;
+          padding:24px;
+          background:#ffffff;
+        "
       >
 
-        <label for="code">
-          Enter your 6-digit login code
-        </label>
+        <div id="requestStep">
 
-        <input
-          id="code"
-          type="text"
-          inputmode="numeric"
-          autocomplete="one-time-code"
-          maxlength="6"
-          placeholder="000000"
+          <label
+            for="email"
+            style="
+              display:block;
+              margin-bottom:7px;
+              font-weight:800;
+            "
+          >
+            Staff email address
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            autocomplete="email"
+            placeholder="name@ratiossaveslives.org"
+            style="width:100%;"
+          >
+
+          <button
+            id="sendCode"
+            type="button"
+            class="op-button op-primary"
+            style="
+              width:100%;
+              margin-top:18px;
+            "
+          >
+            Send secure login code
+          </button>
+
+        </div>
+
+
+        <div
+          id="verifyStep"
+          hidden
+          style="margin-top:4px;"
         >
 
-        <button
-          id="verifyCode"
-          type="button"
-          class="op-button op-primary"
-          style="width:100%; margin-top:18px;"
-        >
-          Sign in to Admin
-        </button>
+          <p
+            class="op-eyebrow"
+            style="margin-bottom:12px;"
+          >
+            VERIFY YOUR ACCESS
+          </p>
+
+          <label
+            for="code"
+            style="
+              display:block;
+              margin-bottom:7px;
+              font-weight:800;
+            "
+          >
+            Enter your 6-digit login code
+          </label>
+
+          <input
+            id="code"
+            type="text"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            maxlength="6"
+            placeholder="000000"
+            style="
+              width:100%;
+              text-align:center;
+              letter-spacing:.24em;
+              font-size:1.35rem;
+              font-weight:900;
+            "
+          >
+
+          <button
+            id="verifyCode"
+            type="button"
+            class="op-button op-primary"
+            style="
+              width:100%;
+              margin-top:18px;
+            "
+          >
+            Sign in to Admin
+          </button>
+
+        </div>
+
+
+        <p
+          id="message"
+          style="
+            margin-top:18px;
+            margin-bottom:0;
+            text-align:center;
+            font-weight:800;
+            line-height:1.5;
+          "
+        ></p>
 
       </div>
 
 
-      <p
-        id="message"
-        style="
-          margin-top:18px;
-          text-align:center;
-          font-weight:700;
-        "
-      ></p>
-
-
       <div
         style="
-          margin-top:26px;
-          padding-top:20px;
-          border-top:1px solid #d8e3ea;
+          margin-top:22px;
+          padding:18px;
+          border-radius:16px;
+          background:#f8fbfd;
+          border:1px solid #dfe9f2;
           text-align:center;
+          color:#607486;
           font-size:.9rem;
+          line-height:1.55;
         "
       >
-        <strong>Restricted system</strong>
 
-        <p style="margin-bottom:0;">
-          Access is limited to authorized RATIOS personnel.
-        </p>
+        <strong
+          style="
+            display:block;
+            color:#07172e;
+            margin-bottom:5px;
+          "
+        >
+          Restricted system
+        </strong>
+
+        Access is limited to authorized RATIOS personnel.
+        Login codes are temporary and should not be shared.
+
       </div>
 
     </section>
 
   </main>
-<script src="assets/js/admin-login.js"></script>
+
+  <script src="assets/js/admin-login.js"></script>
+
 </body>
 
 </html>
