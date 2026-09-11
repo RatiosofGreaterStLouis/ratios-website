@@ -34,7 +34,10 @@
       return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
     }
 
-    if (digits.length === 11 && digits.startsWith('1')) {
+    if (
+      digits.length === 11 &&
+      digits.startsWith('1')
+    ) {
       return `(${digits.slice(1,4)}) ${digits.slice(4,7)}-${digits.slice(7)}`;
     }
 
@@ -42,11 +45,19 @@
   }
 
 
-  function makeCard(label, value, options = {}) {
+  function makeCard(
+    label,
+    value,
+    options = {}
+  ) {
 
-    if (!hasValue(value)) return null;
+    if (!hasValue(value)) {
+      return null;
+    }
 
-    const card = document.createElement('div');
+    const card =
+      document.createElement('div');
+
     card.className = 'em-card';
 
     if (options.fullWidth) {
@@ -58,13 +69,20 @@
       card.style.background = '#fffaf0';
     }
 
-    const heading = document.createElement('span');
+    const heading =
+      document.createElement('span');
+
     heading.textContent = label;
 
-    const strong = document.createElement('strong');
+    const strong =
+      document.createElement('strong');
+
     strong.textContent = value;
 
-    card.append(heading, strong);
+    card.append(
+      heading,
+      strong
+    );
 
     return card;
   }
@@ -72,7 +90,8 @@
 
   function addSectionTitle(text) {
 
-    const heading = document.createElement('h2');
+    const heading =
+      document.createElement('h2');
 
     heading.textContent = text;
 
@@ -84,49 +103,229 @@
     grid.appendChild(heading);
   }
 
-  function makeQuickContactButton(name, phone) {
 
-  if (!hasValue(phone)) {
-    return null;
+  function makeQuickContactButton(
+    name,
+    phone
+  ) {
+
+    if (!hasValue(phone)) {
+      return null;
+    }
+
+    const wrapper =
+      document.createElement('div');
+
+    wrapper.style.gridColumn = '1 / -1';
+    wrapper.style.margin = '4px 0 8px';
+
+    const button =
+      document.createElement('a');
+
+    button.href =
+      `tel:${cleanPhone(phone)}`;
+
+    button.textContent =
+      hasValue(name)
+        ? `Contact caregiver · ${name}`
+        : 'Contact caregiver';
+
+    button.style.display = 'flex';
+    button.style.alignItems = 'center';
+    button.style.justifyContent = 'center';
+
+    button.style.width = '100%';
+    button.style.minHeight = '56px';
+
+    button.style.padding = '14px 18px';
+
+    button.style.background = '#07172e';
+    button.style.color = '#ffffff';
+
+    button.style.borderRadius = '999px';
+
+    button.style.fontWeight = '800';
+    button.style.fontSize = '1.05rem';
+    button.style.textDecoration = 'none';
+    button.style.textAlign = 'center';
+
+    wrapper.appendChild(button);
+
+    return wrapper;
   }
 
-  const wrapper = document.createElement('div');
 
-  wrapper.style.gridColumn = '1 / -1';
-  wrapper.style.margin = '4px 0 8px';
+  function makeGlanceItem(
+    label,
+    value
+  ) {
 
-  const button = document.createElement('a');
+    if (!hasValue(value)) {
+      return null;
+    }
 
-  button.href = `tel:${cleanPhone(phone)}`;
+    const item =
+      document.createElement('div');
 
-  button.textContent =
-    hasValue(name)
-      ? `Contact caregiver · ${name}`
-      : 'Contact caregiver';
+    item.style.padding = '14px 16px';
+    item.style.border = '1px solid #d8e5ec';
+    item.style.borderRadius = '14px';
+    item.style.background = '#ffffff';
 
-  button.style.display = 'flex';
-  button.style.alignItems = 'center';
-  button.style.justifyContent = 'center';
+    const labelElement =
+      document.createElement('span');
 
-  button.style.width = '100%';
-  button.style.minHeight = '56px';
+    labelElement.textContent = label;
 
-  button.style.padding = '14px 18px';
+    labelElement.style.display = 'block';
+    labelElement.style.marginBottom = '5px';
+    labelElement.style.color = '#14869a';
+    labelElement.style.fontSize = '.72rem';
+    labelElement.style.fontWeight = '900';
+    labelElement.style.letterSpacing = '.08em';
+    labelElement.style.textTransform = 'uppercase';
 
-  button.style.background = '#07172e';
-  button.style.color = '#ffffff';
+    const valueElement =
+      document.createElement('strong');
 
-  button.style.borderRadius = '999px';
+    valueElement.textContent = value;
 
-  button.style.fontWeight = '800';
-  button.style.fontSize = '1.05rem';
-  button.style.textDecoration = 'none';
-  button.style.textAlign = 'center';
+    valueElement.style.display = 'block';
+    valueElement.style.color = '#07172e';
+    valueElement.style.fontSize = '1rem';
+    valueElement.style.lineHeight = '1.4';
 
-  wrapper.appendChild(button);
+    item.append(
+      labelElement,
+      valueElement
+    );
 
-  return wrapper;
-}
+    return item;
+  }
+
+
+  function makeAtAGlance(profile) {
+
+    const items = [
+      {
+        label: 'Communication',
+        value: profile.communication_method
+      },
+      {
+        label: 'Safest approach',
+        value: profile.safe_approach
+      },
+      {
+        label: 'Touch',
+        value: profile.touch_preference
+      },
+      {
+        label: 'Sensory triggers',
+        value: profile.sensory_triggers
+      }
+    ].filter(
+      item => hasValue(item.value)
+    );
+
+
+    if (!items.length) {
+      return null;
+    }
+
+
+    const wrapper =
+      document.createElement('section');
+
+    wrapper.style.gridColumn = '1 / -1';
+    wrapper.style.margin = '12px 0 4px';
+    wrapper.style.padding = '20px';
+
+    wrapper.style.border =
+      '1px solid #cfe3ea';
+
+    wrapper.style.borderRadius =
+      '18px';
+
+    wrapper.style.background =
+      '#f4fafc';
+
+
+    const eyebrow =
+      document.createElement('div');
+
+    eyebrow.textContent =
+      'AT A GLANCE';
+
+    eyebrow.style.marginBottom =
+      '6px';
+
+    eyebrow.style.color =
+      '#14869a';
+
+    eyebrow.style.fontSize =
+      '.75rem';
+
+    eyebrow.style.fontWeight =
+      '900';
+
+    eyebrow.style.letterSpacing =
+      '.1em';
+
+
+    const title =
+      document.createElement('h2');
+
+    title.textContent =
+      'How to interact safely';
+
+    title.style.margin =
+      '0 0 14px';
+
+    title.style.color =
+      '#07172e';
+
+    title.style.fontSize =
+      '1.2rem';
+
+
+    const itemGrid =
+      document.createElement('div');
+
+    itemGrid.style.display =
+      'grid';
+
+    itemGrid.style.gridTemplateColumns =
+      'repeat(auto-fit, minmax(210px, 1fr))';
+
+    itemGrid.style.gap =
+      '10px';
+
+
+    items.forEach(item => {
+
+      const glanceItem =
+        makeGlanceItem(
+          item.label,
+          item.value
+        );
+
+      if (glanceItem) {
+        itemGrid.appendChild(glanceItem);
+      }
+
+    });
+
+
+    wrapper.append(
+      eyebrow,
+      title,
+      itemGrid
+    );
+
+    return wrapper;
+  }
+
+
   function makePhoneCard(
     title,
     name,
@@ -142,14 +341,16 @@
       return null;
     }
 
-    const card = document.createElement('div');
+    const card =
+      document.createElement('div');
 
     card.className = 'em-card';
 
     card.style.gridColumn = '1 / -1';
     card.style.padding = '22px';
 
-    const label = document.createElement('span');
+    const label =
+      document.createElement('span');
 
     label.textContent = title;
 
@@ -161,11 +362,15 @@
       const contactName =
         document.createElement('strong');
 
-      contactName.textContent = name;
+      contactName.textContent =
+        name;
 
-      contactName.style.fontSize = '1.35rem';
+      contactName.style.fontSize =
+        '1.35rem';
 
-      card.appendChild(contactName);
+      card.appendChild(
+        contactName
+      );
 
     }
 
@@ -175,10 +380,14 @@
       const rel =
         document.createElement('p');
 
-      rel.textContent = relationship;
+      rel.textContent =
+        relationship;
 
-      rel.style.margin = '4px 0 14px';
-      rel.style.color = '#526174';
+      rel.style.margin =
+        '4px 0 14px';
+
+      rel.style.color =
+        '#526174';
 
       card.appendChild(rel);
 
@@ -198,26 +407,48 @@
           ? `Call ${name} · ${formatPhone(phone)}`
           : `Call ${formatPhone(phone)}`;
 
-      callButton.style.display = 'flex';
-      callButton.style.alignItems = 'center';
-      callButton.style.justifyContent = 'center';
+      callButton.style.display =
+        'flex';
 
-      callButton.style.width = '100%';
-      callButton.style.minHeight = '54px';
+      callButton.style.alignItems =
+        'center';
 
-      callButton.style.marginTop = '10px';
-      callButton.style.padding = '12px 18px';
+      callButton.style.justifyContent =
+        'center';
 
-      callButton.style.background = '#07172e';
-      callButton.style.color = '#ffffff';
+      callButton.style.width =
+        '100%';
 
-      callButton.style.borderRadius = '999px';
+      callButton.style.minHeight =
+        '54px';
 
-      callButton.style.fontWeight = '800';
-      callButton.style.textDecoration = 'none';
-      callButton.style.textAlign = 'center';
+      callButton.style.marginTop =
+        '10px';
 
-      card.appendChild(callButton);
+      callButton.style.padding =
+        '12px 18px';
+
+      callButton.style.background =
+        '#07172e';
+
+      callButton.style.color =
+        '#ffffff';
+
+      callButton.style.borderRadius =
+        '999px';
+
+      callButton.style.fontWeight =
+        '800';
+
+      callButton.style.textDecoration =
+        'none';
+
+      callButton.style.textAlign =
+        'center';
+
+      card.appendChild(
+        callButton
+      );
 
     }
 
@@ -231,33 +462,42 @@
 
   try {
 
-    const response = await fetch(
-      `/api/identifier-profile?code=${encodeURIComponent(code)}`
-    );
+    const response =
+      await fetch(
+        `/api/identifier-profile?code=${encodeURIComponent(code)}`
+      );
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
     loading.hidden = true;
 
 
-    if (!response.ok || !data.profile) {
+    if (
+      !response.ok ||
+      !data.profile
+    ) {
 
       error.hidden = false;
 
       return;
-
     }
 
 
-    const p = data.profile;
+    const p =
+      data.profile;
 
 
-    document.getElementById('displayName').textContent =
-      p.preferred_name || 'OneProfile™';
+    document
+      .getElementById('displayName')
+      .textContent =
+        p.preferred_name ||
+        'OneProfile™';
 
 
     /*
-     Clear anything already in the profile area
+     Clear anything already in
+     the profile area.
     */
 
     grid.innerHTML = '';
@@ -267,29 +507,55 @@
        RESPONDER PRIORITY
        ========================================= */
 
-    if (hasValue(p.responder_notes)) {
+    if (
+      hasValue(
+        p.responder_notes
+      )
+    ) {
 
-      const card = makeCard(
-        'What you should know first',
-        p.responder_notes,
-        {
-          fullWidth: true,
-          urgent: true
-        }
-      );
+      const card =
+        makeCard(
+          'What you should know first',
+          p.responder_notes,
+          {
+            fullWidth: true,
+            urgent: true
+          }
+        );
 
       grid.appendChild(card);
 
     }
-     const quickContact =
-  makeQuickContactButton(
-    p.emergency_contact_name,
-    p.emergency_contact_phone
-  );
 
-if (quickContact) {
-  grid.appendChild(quickContact);
-}
+
+    const quickContact =
+      makeQuickContactButton(
+        p.emergency_contact_name,
+        p.emergency_contact_phone
+      );
+
+
+    if (quickContact) {
+      grid.appendChild(
+        quickContact
+      );
+    }
+
+
+    /* =========================================
+       AT A GLANCE
+       ========================================= */
+
+    const atAGlance =
+      makeAtAGlance(p);
+
+
+    if (atAGlance) {
+      grid.appendChild(
+        atAGlance
+      );
+    }
+
 
     /* =========================================
        SAFETY
@@ -301,78 +567,148 @@ if (quickContact) {
       hasValue(p.known_destinations)
     ) {
 
-      addSectionTitle('Safety & wandering information');
+      addSectionTitle(
+        'Safety & wandering information'
+      );
 
     }
 
 
-    if (hasValue(p.safety_risk_level)) {
+    if (
+      hasValue(
+        p.safety_risk_level
+      )
+    ) {
 
-  const riskCard = document.createElement('div');
+      const riskCard =
+        document.createElement('div');
 
-  riskCard.className = 'em-card';
-  riskCard.style.border = '2px solid #d97706';
-  riskCard.style.background = '#fffaf0';
+      riskCard.className =
+        'em-card';
 
-  const heading = document.createElement('span');
-  heading.textContent = 'Wandering / elopement risk';
+      riskCard.style.border =
+        '2px solid #d97706';
 
-  const riskBadge = document.createElement('strong');
-
-  const riskValue =
-    String(p.safety_risk_level).trim();
-
-  riskBadge.textContent = riskValue;
-
-  riskBadge.style.display = 'inline-flex';
-  riskBadge.style.alignItems = 'center';
-  riskBadge.style.justifyContent = 'center';
-  riskBadge.style.width = 'fit-content';
-  riskBadge.style.marginTop = '8px';
-  riskBadge.style.padding = '8px 14px';
-  riskBadge.style.borderRadius = '999px';
-  riskBadge.style.fontWeight = '800';
-  riskBadge.style.fontSize = '1rem';
-
-  const normalizedRisk =
-    riskValue.toLowerCase();
-
-  if (normalizedRisk.includes('high')) {
-
-    riskBadge.style.background = '#b91c1c';
-    riskBadge.style.color = '#ffffff';
-
-  } else if (
-    normalizedRisk.includes('moderate') ||
-    normalizedRisk.includes('medium')
-  ) {
-
-    riskBadge.style.background = '#f59e0b';
-    riskBadge.style.color = '#07172e';
-
-  } else if (normalizedRisk.includes('low')) {
-
-    riskBadge.style.background = '#15803d';
-    riskBadge.style.color = '#ffffff';
-
-  } else {
-
-    riskBadge.style.background = '#e5e7eb';
-    riskBadge.style.color = '#07172e';
-
-  }
-
-  riskCard.append(
-    heading,
-    riskBadge
-  );
-
-  grid.appendChild(riskCard);
-
-}
+      riskCard.style.background =
+        '#fffaf0';
 
 
-    if (hasValue(p.safe_approach)) {
+      const heading =
+        document.createElement('span');
+
+      heading.textContent =
+        'Wandering / elopement risk';
+
+
+      const riskBadge =
+        document.createElement('strong');
+
+      const riskValue =
+        String(
+          p.safety_risk_level
+        ).trim();
+
+      riskBadge.textContent =
+        riskValue;
+
+      riskBadge.style.display =
+        'inline-flex';
+
+      riskBadge.style.alignItems =
+        'center';
+
+      riskBadge.style.justifyContent =
+        'center';
+
+      riskBadge.style.width =
+        'fit-content';
+
+      riskBadge.style.marginTop =
+        '8px';
+
+      riskBadge.style.padding =
+        '8px 14px';
+
+      riskBadge.style.borderRadius =
+        '999px';
+
+      riskBadge.style.fontWeight =
+        '800';
+
+      riskBadge.style.fontSize =
+        '1rem';
+
+
+      const normalizedRisk =
+        riskValue.toLowerCase();
+
+
+      if (
+        normalizedRisk.includes(
+          'high'
+        )
+      ) {
+
+        riskBadge.style.background =
+          '#b91c1c';
+
+        riskBadge.style.color =
+          '#ffffff';
+
+      } else if (
+        normalizedRisk.includes(
+          'moderate'
+        ) ||
+        normalizedRisk.includes(
+          'medium'
+        )
+      ) {
+
+        riskBadge.style.background =
+          '#f59e0b';
+
+        riskBadge.style.color =
+          '#07172e';
+
+      } else if (
+        normalizedRisk.includes(
+          'low'
+        )
+      ) {
+
+        riskBadge.style.background =
+          '#15803d';
+
+        riskBadge.style.color =
+          '#ffffff';
+
+      } else {
+
+        riskBadge.style.background =
+          '#e5e7eb';
+
+        riskBadge.style.color =
+          '#07172e';
+      }
+
+
+      riskCard.append(
+        heading,
+        riskBadge
+      );
+
+      grid.appendChild(
+        riskCard
+      );
+
+    }
+
+
+    if (
+      hasValue(
+        p.safe_approach
+      )
+    ) {
 
       grid.appendChild(
         makeCard(
@@ -384,7 +720,11 @@ if (quickContact) {
     }
 
 
-    if (hasValue(p.known_destinations)) {
+    if (
+      hasValue(
+        p.known_destinations
+      )
+    ) {
 
       grid.appendChild(
         makeCard(
@@ -408,12 +748,18 @@ if (quickContact) {
       hasValue(p.calming_supports)
     ) {
 
-      addSectionTitle('Communication & support');
+      addSectionTitle(
+        'Communication & support'
+      );
 
     }
 
 
-    if (hasValue(p.communication_method)) {
+    if (
+      hasValue(
+        p.communication_method
+      )
+    ) {
 
       grid.appendChild(
         makeCard(
@@ -425,7 +771,11 @@ if (quickContact) {
     }
 
 
-    if (hasValue(p.communication_notes)) {
+    if (
+      hasValue(
+        p.communication_notes
+      )
+    ) {
 
       grid.appendChild(
         makeCard(
@@ -437,7 +787,11 @@ if (quickContact) {
     }
 
 
-    if (hasValue(p.touch_preference)) {
+    if (
+      hasValue(
+        p.touch_preference
+      )
+    ) {
 
       grid.appendChild(
         makeCard(
@@ -449,7 +803,11 @@ if (quickContact) {
     }
 
 
-    if (hasValue(p.sensory_triggers)) {
+    if (
+      hasValue(
+        p.sensory_triggers
+      )
+    ) {
 
       grid.appendChild(
         makeCard(
@@ -461,7 +819,11 @@ if (quickContact) {
     }
 
 
-    if (hasValue(p.calming_supports)) {
+    if (
+      hasValue(
+        p.calming_supports
+      )
+    ) {
 
       grid.appendChild(
         makeCard(
@@ -478,18 +840,34 @@ if (quickContact) {
        ========================================= */
 
     const hasPrimary =
-      hasValue(p.emergency_contact_name) ||
-      hasValue(p.emergency_contact_relationship) ||
-      hasValue(p.emergency_contact_phone);
+      hasValue(
+        p.emergency_contact_name
+      ) ||
+      hasValue(
+        p.emergency_contact_relationship
+      ) ||
+      hasValue(
+        p.emergency_contact_phone
+      );
+
 
     const hasAlternate =
-      hasValue(p.alternate_contact_name) ||
-      hasValue(p.alternate_contact_phone);
+      hasValue(
+        p.alternate_contact_name
+      ) ||
+      hasValue(
+        p.alternate_contact_phone
+      );
 
 
-    if (hasPrimary || hasAlternate) {
+    if (
+      hasPrimary ||
+      hasAlternate
+    ) {
 
-      addSectionTitle('Emergency contacts');
+      addSectionTitle(
+        'Emergency contacts'
+      );
 
     }
 
@@ -505,7 +883,11 @@ if (quickContact) {
         );
 
       if (primaryCard) {
-        grid.appendChild(primaryCard);
+
+        grid.appendChild(
+          primaryCard
+        );
+
       }
 
     }
@@ -522,19 +904,27 @@ if (quickContact) {
         );
 
       if (alternateCard) {
-        grid.appendChild(alternateCard);
+
+        grid.appendChild(
+          alternateCard
+        );
+
       }
 
     }
 
 
-    content.hidden = false;
+    content.hidden =
+      false;
 
 
   } catch (err) {
 
-    loading.hidden = true;
-    error.hidden = false;
+    loading.hidden =
+      true;
+
+    error.hidden =
+      false;
 
   }
 
