@@ -1,434 +1,513 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
 
-<title>Caregiver Dashboard | OneProfile™ | RATIOS</title>
+  <meta charset="utf-8">
 
-<link rel="icon" href="assets/images/favicon-32.png">
-<link rel="stylesheet" href="assets/css/styles.css">
-<link rel="stylesheet" href="assets/css/oneprofile.css">
-<link rel="stylesheet" href="assets/css/oneprofile-portal.css">
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
 
-<style>
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
 
-/* ==================================================
-   OneProfile Caregiver Dashboard Visual Refresh
-   ================================================== */
+  <title>
+    Caregiver Dashboard | OneProfile™ | RATIOS
+  </title>
 
-.opc-shell {
-    padding-left: 28px;
-    padding-right: 28px;
-}
+  <link
+    rel="icon"
+    href="assets/images/favicon-32.png"
+  >
 
-.opc-wrap {
-    max-width: 1320px;
-    margin: 0 auto;
-}
+  <link
+    rel="stylesheet"
+    href="assets/css/styles.css"
+  >
 
-/* Main two-column dashboard */
-.opc-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(360px, .9fr);
-    gap: 24px;
-    align-items: stretch;
-}
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile.css"
+  >
 
-/* Make both dashboard cards feel balanced */
-.opc-panel {
-    height: 100%;
-    box-sizing: border-box;
-}
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile-portal.css"
+  >
 
-/* Action button group */
-.opc-actions-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
-}
 
-/* All three buttons */
-.opc-actions-stack .opc-button {
-    width: 100%;
-    min-height: 52px;
+  <style>
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin: 0;
-    padding: 13px 22px;
-
-    border-radius: 999px;
-    box-sizing: border-box;
-
-    text-align: center;
-    text-decoration: none;
-
-    font-weight: 800;
-}
-
-/* Edit private profile */
-.opc-actions-stack .opc-primary {
-    background: #f7b83b;
-    color: #07172e;
-    border: 2px solid #f7b83b;
-}
-
-/* Emergency sharing */
-.opc-actions-stack .opc-secondary {
-    background: #07172e;
-    color: #ffffff;
-    border: 2px solid #07172e;
-}
-
-/* Preview emergency profile */
-.opc-actions-stack .opc-preview-button {
-    background: #ffffff;
-    color: #07172e;
-    border: 2px solid #07172e;
-}
-
-/* Small hover effect */
-.opc-actions-stack .opc-button:hover,
-.opc-actions-stack .opc-button:focus-visible {
-    transform: translateY(-1px);
-}
-
-/* Give security notice some breathing room */
-.opc-note {
-    margin-top: 24px;
-}
-
-/* Mobile / tablet */
-@media (max-width: 900px) {
+    /* ==================================================
+       OneProfile™ Caregiver Dashboard
+       ================================================== */
 
     .opc-shell {
-        padding-left: 16px;
-        padding-right: 16px;
+      padding-left:28px;
+      padding-right:28px;
+    }
+
+    .opc-wrap {
+      max-width:1320px;
+      margin:0 auto;
+    }
+
+    .opc-dashboard-brand {
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .opc-dashboard-logo {
+      width:82px;
+      height:82px;
+      object-fit:contain;
+      padding:7px;
+      box-sizing:border-box;
+      border:1px solid #dfe9f2;
+      border-radius:18px;
+      background:#ffffff;
+      box-shadow:0 8px 20px rgba(7,23,46,.08);
     }
 
     .opc-grid {
-        grid-template-columns: 1fr;
+      display:grid;
+      grid-template-columns:
+        minmax(0,1.35fr)
+        minmax(360px,.9fr);
+      gap:24px;
+      align-items:stretch;
     }
 
-}
+    .opc-panel {
+      height:100%;
+      box-sizing:border-box;
+    }
 
-</style>
+    .opc-actions-stack {
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .opc-actions-stack .opc-button {
+      width:100%;
+      min-height:52px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      margin:0;
+      padding:13px 22px;
+
+      border-radius:999px;
+      box-sizing:border-box;
+
+      text-align:center;
+      text-decoration:none;
+
+      font-weight:800;
+    }
+
+    .opc-actions-stack .opc-primary {
+      background:#f7b83b;
+      color:#07172e;
+      border:2px solid #f7b83b;
+    }
+
+    .opc-actions-stack .opc-secondary {
+      background:#07172e;
+      color:#ffffff;
+      border:2px solid #07172e;
+    }
+
+    .opc-actions-stack .opc-preview-button {
+      background:#ffffff;
+      color:#07172e;
+      border:2px solid #07172e;
+    }
+
+    .opc-actions-stack .opc-button:hover,
+    .opc-actions-stack .opc-button:focus-visible {
+      transform:translateY(-1px);
+    }
+
+    .opc-status-card {
+      margin-top:18px;
+      padding:16px;
+      border:1px solid #dfe9f2;
+      border-radius:16px;
+      background:#f8fbfd;
+    }
+
+    .opc-status-card strong {
+      color:#07172e;
+    }
+
+    .opc-note {
+      margin-top:24px;
+    }
+
+    @media (max-width:900px) {
+
+      .opc-shell {
+        padding-left:16px;
+        padding-right:16px;
+      }
+
+      .opc-grid {
+        grid-template-columns:1fr;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 
 <body class="opc-body">
 
-<div class="topbar">
-    <span>RATIOS • One of One</span>
-    <span>OneProfile™ Caregiver Portal</span>
-</div>
+
+  <main class="opc-shell">
 
 
-<nav class="navbar">
-
-    <a class="brand" href="index.html">
-
-        <img
-            class="brand-logo"
-            src="assets/images/ratios-official-logo.png"
-            alt="RATIOS logo"
-        >
-
-        <span class="brand-text">
-            <strong>RATIOS</strong>
-            <small>One of One</small>
-        </span>
-
-    </a>
-
-    <div class="nav-links">
-        <a href="oneprofile.html">OneProfile</a>
-        <a href="contact.html">Help</a>
+    <div
+      id="portalLoading"
+      class="opc-loading"
+    >
+      Loading your secure OneProfile™ portal…
     </div>
 
-</nav>
+
+    <section
+      id="portalContent"
+      class="opc-wrap"
+      hidden
+    >
 
 
-<main class="opc-shell">
+      <!-- Dashboard heading -->
 
-<div
-    id="portalLoading"
-    class="opc-loading"
->
-    Loading your secure OneProfile™ portal…
-</div>
+      <div class="opc-dashboard-head">
 
 
-<section
-    id="portalContent"
-    class="opc-wrap"
-    hidden
->
+        <div class="opc-dashboard-brand">
 
-<!-- Dashboard heading -->
 
-<div class="opc-dashboard-head">
+          <img
+            class="opc-dashboard-logo"
+            src="assets/images/ratios-official-logo.png"
+            alt="RATIOS"
+          >
 
-    <div>
 
-        <p class="opc-eyebrow">
-            Caregiver Portal
-        </p>
+          <div>
 
-        <h1
-            style="
+            <p class="opc-eyebrow">
+              ONEPROFILE™ CAREGIVER PORTAL
+            </p>
+
+            <h1
+              style="
                 margin:0;
                 color:#07172e;
-                font-size:clamp(2.2rem,5vw,4rem)
-            "
-        >
-            Welcome,
-            <span id="caregiverName"></span>.
-        </h1>
+                font-size:clamp(2.2rem,5vw,4rem);
+              "
+            >
+              Welcome,
+              <span id="caregiverName"></span>.
+            </h1>
 
-        <p class="opc-lead">
-            Manage the OneProfile™ enrollment connected to your family.
-        </p>
+            <p class="opc-lead">
+              Manage your participant's OneProfile™
+              emergency safety profile, sharing,
+              and identifiers.
+            </p>
 
-    </div>
+          </div>
+
+        </div>
 
 
-    <div class="opc-top-actions">
+        <div class="opc-top-actions">
 
-        <button
+          <button
             id="logoutButton"
             class="opc-button opc-secondary"
             type="button"
-        >
+          >
             Sign out
-        </button>
-
-    </div>
-
-</div>
-
-
-
-<!-- Main dashboard cards -->
-
-<div class="opc-grid">
-
-
-<!-- Participant card -->
-
-<article class="opc-panel">
-
-    <div class="opc-participant">
-
-        <div
-            id="participantInitial"
-            class="opc-avatar"
-        >
-            1
-        </div>
-
-
-        <div>
-
-            <p class="opc-eyebrow">
-                Participant
-            </p>
-
-            <h2
-                id="participantName"
-                style="margin:0"
-            ></h2>
-
-            <p>
-                <span
-                    id="enrollmentId"
-                    class="opc-id-pill"
-                ></span>
-            </p>
+          </button>
 
         </div>
 
-    </div>
+      </div>
 
 
 
-    <div class="opc-status">
+      <!-- Main dashboard cards -->
 
-        <span class="opc-status-dot"></span>
+      <div class="opc-grid">
 
-        <div>
 
-            <strong>
-                Profile status:
-                <span id="profileStatus">
-                    Setup needed
-                </span>
-            </strong>
+        <!-- Participant card -->
 
-            <div class="opc-small">
-                Your initial enrollment is complete.
-                Your private profile builder is ready.
-                Public emergency sharing remains off by default.
+        <article class="opc-panel">
+
+
+          <div class="opc-participant">
+
+            <div
+              id="participantInitial"
+              class="opc-avatar"
+            >
+              1
             </div>
 
-        </div>
 
-    </div>
+            <div>
 
+              <p class="opc-eyebrow">
+                PARTICIPANT
+              </p>
 
+              <h2
+                id="participantName"
+                style="margin:0"
+              ></h2>
 
-    <div class="opc-progress">
-        <span></span>
-    </div>
+              <p>
+                <span
+                  id="enrollmentId"
+                  class="opc-id-pill"
+                ></span>
+              </p>
 
+            </div>
 
-
-    <div class="opc-meta">
-
-        <div>
-            <span>Age range</span>
-            <strong id="ageRange"></strong>
-        </div>
-
-        <div>
-            <span>Your relationship</span>
-            <strong id="relationship"></strong>
-        </div>
-
-        <div>
-            <span>Location</span>
-            <strong id="location"></strong>
-        </div>
-
-        <div>
-            <span>Preferred contact</span>
-            <strong id="preferredContact"></strong>
-        </div>
-
-    </div>
-
-</article>
+          </div>
 
 
 
-<!-- OneProfile actions card -->
+          <div class="opc-status">
 
-<aside class="opc-panel">
+            <span class="opc-status-dot"></span>
 
-    <p class="opc-eyebrow">
-        Next in OneProfile™
-    </p>
+            <div>
 
-    <h3>
-        Build the emergency profile.
-    </h3>
+              <strong>
+                Profile status:
+                <span id="profileStatus">
+                  Setup needed
+                </span>
+              </strong>
 
-    <p class="opc-small">
-        We’re building this in protected layers so the future
-        QR/NFC emergency view never automatically exposes
-        everything a caregiver enters.
-    </p>
+              <div class="opc-small">
+                Your private OneProfile™ builder is
+                available now. Emergency information
+                is only shared publicly when you choose
+                to enable sharing.
+              </div>
 
+            </div>
 
-
-    <ul class="opc-feature-list">
-
-        <li>✓ Caregiver sign-in</li>
-
-        <li>✓ Enrollment dashboard</li>
-
-        <li>✓ Private profile builder</li>
-
-        <li>✓ Emergency contacts</li>
-
-        <li>✓ Communication &amp; sensory support</li>
-
-        <li>✓ Safety / wandering information</li>
-
-        <li>✓ Emergency sharing controls</li>
-
-    </ul>
+          </div>
 
 
 
-    <!-- Dashboard actions -->
-
-    <div class="opc-actions-stack">
-
-    <a
-        class="opc-button opc-primary"
-        href="caregiver-profile.html"
-    >
-        Edit private profile
-    </a>
-
-    <a
-        class="opc-button opc-secondary"
-        href="emergency-sharing.html"
-    >
-        Emergency sharing
-    </a>
-
-    <a
-        class="opc-button opc-preview-button"
-        href="identifier-manager.html"
-    >
-        Preview emergency profile
-    </a>
-
-    <a
-        class="opc-button opc-preview-button"
-        href="identifier-manager.html"
-    >
-        Manage LifePatch™ &amp; QR
-    </a>
-
-</div>
-
-</aside>
-
-
-</div>
+          <div class="opc-progress">
+            <span></span>
+          </div>
 
 
 
-<!-- Security notice -->
+          <div class="opc-meta">
 
-<div class="opc-note">
+            <div>
+              <span>Age range</span>
+              <strong id="ageRange"></strong>
+            </div>
 
-    <strong>Security design:</strong>
+            <div>
+              <span>Your relationship</span>
+              <strong id="relationship"></strong>
+            </div>
 
-    This dashboard is protected by a short-lived
-    one-time email code and an HttpOnly secure session cookie.
-    Detailed health information is not being collected in this release.
+            <div>
+              <span>Location</span>
+              <strong id="location"></strong>
+            </div>
 
-</div>
+            <div>
+              <span>Preferred contact</span>
+              <strong id="preferredContact"></strong>
+            </div>
 
-
-</section>
-
-</main>
-
-
-
-<footer class="footer">
-
-    <div class="footer-bottom">
-
-        © 2026 RATIOS.
-        OneProfile™ • Recognized. Protected. Connected.
-
-    </div>
-
-</footer>
+          </div>
 
 
-<script src="assets/js/caregiver-dashboard.js"></script>
+          <div class="opc-status-card">
+
+            <strong>
+              Your OneProfile™ is caregiver controlled.
+            </strong>
+
+            <p
+              class="opc-small"
+              style="
+                margin-top:6px;
+                margin-bottom:0;
+              "
+            >
+              You decide what emergency responders can
+              see. Private caregiver information is kept
+              separate from the public emergency view.
+            </p>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- OneProfile actions card -->
+
+        <aside class="opc-panel">
+
+
+          <p class="opc-eyebrow">
+            MANAGE ONEPROFILE™
+          </p>
+
+          <h3 style="margin-bottom:8px;">
+            Keep the emergency profile ready.
+          </h3>
+
+          <p class="opc-small">
+            Review the participant's safety information,
+            choose what can be shared in an emergency,
+            and manage the QR identifiers connected to
+            this OneProfile™.
+          </p>
+
+
+
+          <ul class="opc-feature-list">
+
+            <li>
+              ✓ Private caregiver profile
+            </li>
+
+            <li>
+              ✓ Emergency contacts
+            </li>
+
+            <li>
+              ✓ Communication &amp; sensory support
+            </li>
+
+            <li>
+              ✓ Safety / wandering information
+            </li>
+
+            <li>
+              ✓ Caregiver-controlled emergency sharing
+            </li>
+
+            <li>
+              ✓ LifePatch™ &amp; QR identifier management
+            </li>
+
+          </ul>
+
+
+
+          <!-- Dashboard actions -->
+
+          <div class="opc-actions-stack">
+
+            <a
+              class="opc-button opc-primary"
+              href="caregiver-profile.html"
+            >
+              Edit private profile
+            </a>
+
+            <a
+              class="opc-button opc-secondary"
+              href="emergency-sharing.html"
+            >
+              Emergency sharing
+            </a>
+
+            <a
+              class="opc-button opc-preview-button"
+              href="identifier-manager.html"
+            >
+              Preview emergency profile
+            </a>
+
+            <a
+              class="opc-button opc-preview-button"
+              href="identifier-manager.html"
+            >
+              Manage LifePatch™ &amp; QR
+            </a>
+
+          </div>
+
+        </aside>
+
+
+      </div>
+
+
+
+      <!-- Security notice -->
+
+      <div class="opc-note">
+
+        <strong>
+          Secure caregiver access:
+        </strong>
+
+        This dashboard uses a temporary email
+        verification code and an HttpOnly secure
+        session cookie. OneProfile™ is designed to
+        separate private caregiver information from
+        the responder-facing emergency profile.
+
+      </div>
+
+
+      <p
+        class="opc-small"
+        style="
+          text-align:center;
+          margin-top:24px;
+          margin-bottom:0;
+        "
+      >
+        OneProfile™ by RATIOS
+        • Recognized. Protected. Connected.
+      </p>
+
+
+    </section>
+
+  </main>
+
+
+  <script src="assets/js/caregiver-dashboard.js"></script>
 
 </body>
+
 </html>
