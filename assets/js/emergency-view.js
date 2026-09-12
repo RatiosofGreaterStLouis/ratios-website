@@ -3,10 +3,17 @@
   const id =
     new URLSearchParams(location.search).get('id') || '';
 
-  const loading = document.getElementById('loading');
-  const unavailable = document.getElementById('unavailable');
-  const profile = document.getElementById('profile');
-  const cards = document.getElementById('cards');
+  const loading =
+    document.getElementById('loading');
+
+  const unavailable =
+    document.getElementById('unavailable');
+
+  const profile =
+    document.getElementById('profile');
+
+  const cards =
+    document.getElementById('cards');
 
 
   function hasValue(value) {
@@ -14,6 +21,17 @@
     return value !== null &&
            value !== undefined &&
            String(value).trim() !== '';
+
+  }
+
+
+  function hasItems(value) {
+
+    return (
+      value &&
+      Array.isArray(value.items) &&
+      value.items.length > 0
+    );
 
   }
 
@@ -52,6 +70,130 @@
   }
 
 
+  function makeSectionShell(
+    eyebrowText,
+    titleText,
+    introText = ''
+  ) {
+
+    const wrapper =
+      document.createElement('section');
+
+    wrapper.style.gridColumn =
+      '1 / -1';
+
+    wrapper.style.margin =
+      '24px 0 4px';
+
+    wrapper.style.padding =
+      '20px';
+
+    wrapper.style.border =
+      '1px solid #d7e2ea';
+
+    wrapper.style.borderRadius =
+      '18px';
+
+    wrapper.style.background =
+      '#f8fafc';
+
+
+    const eyebrow =
+      document.createElement('div');
+
+    eyebrow.textContent =
+      eyebrowText;
+
+    eyebrow.style.marginBottom =
+      '6px';
+
+    eyebrow.style.color =
+      '#14869a';
+
+    eyebrow.style.fontSize =
+      '.75rem';
+
+    eyebrow.style.fontWeight =
+      '900';
+
+    eyebrow.style.letterSpacing =
+      '.1em';
+
+
+    const title =
+      document.createElement('h2');
+
+    title.textContent =
+      titleText;
+
+    title.style.margin =
+      introText
+        ? '0 0 8px'
+        : '0 0 16px';
+
+    title.style.color =
+      '#07172e';
+
+    title.style.fontSize =
+      '1.2rem';
+
+
+    wrapper.append(
+      eyebrow,
+      title
+    );
+
+
+    if (introText) {
+
+      const intro =
+        document.createElement('p');
+
+      intro.textContent =
+        introText;
+
+      intro.style.margin =
+        '0 0 16px';
+
+      intro.style.color =
+        '#526174';
+
+      intro.style.lineHeight =
+        '1.5';
+
+
+      wrapper.appendChild(
+        intro
+      );
+
+    }
+
+
+    return wrapper;
+
+  }
+
+
+  function makeGrid() {
+
+    const grid =
+      document.createElement('div');
+
+    grid.style.display =
+      'grid';
+
+    grid.style.gridTemplateColumns =
+      'repeat(auto-fit, minmax(230px, 1fr))';
+
+    grid.style.gap =
+      '12px';
+
+
+    return grid;
+
+  }
+
+
   function makeCard(
     label,
     value,
@@ -61,6 +203,7 @@
     if (!hasValue(value)) {
       return null;
     }
+
 
     const card =
       document.createElement('div');
@@ -196,6 +339,427 @@
   }
 
 
+  function makePrimaryPhotoSection(photo) {
+
+    if (
+      !photo ||
+      !hasValue(photo.url)
+    ) {
+
+      return null;
+
+    }
+
+
+    const wrapper =
+      makeSectionShell(
+        'IDENTIFICATION',
+        'Participant identification photo',
+        'Use this caregiver-approved photo to help confirm the participant’s identity.'
+      );
+
+
+    wrapper.style.background =
+      '#f4fafc';
+
+    wrapper.style.border =
+      '1px solid #cfe3ea';
+
+
+    const photoWrap =
+      document.createElement('div');
+
+    photoWrap.style.display =
+      'flex';
+
+    photoWrap.style.flexDirection =
+      'column';
+
+    photoWrap.style.alignItems =
+      'center';
+
+    photoWrap.style.gap =
+      '10px';
+
+
+    const image =
+      document.createElement('img');
+
+    image.src =
+      photo.url;
+
+    image.alt =
+      'Participant identification photo';
+
+    image.loading =
+      'eager';
+
+    image.style.width =
+      '100%';
+
+    image.style.maxWidth =
+      '420px';
+
+    image.style.maxHeight =
+      '480px';
+
+    image.style.objectFit =
+      'cover';
+
+    image.style.borderRadius =
+      '20px';
+
+    image.style.border =
+      '1px solid #d6e4ea';
+
+    image.style.background =
+      '#ffffff';
+
+
+    photoWrap.appendChild(
+      image
+    );
+
+
+    if (
+      hasValue(photo.caption)
+    ) {
+
+      const caption =
+        document.createElement('p');
+
+      caption.textContent =
+        photo.caption;
+
+      caption.style.margin =
+        '0';
+
+      caption.style.color =
+        '#526174';
+
+      caption.style.fontSize =
+        '.9rem';
+
+      caption.style.textAlign =
+        'center';
+
+
+      photoWrap.appendChild(
+        caption
+      );
+
+    }
+
+
+    wrapper.appendChild(
+      photoWrap
+    );
+
+
+    return wrapper;
+
+  }
+
+
+  function makeAdditionalPhotosSection(photos) {
+
+    if (
+      !Array.isArray(photos) ||
+      !photos.length
+    ) {
+
+      return null;
+
+    }
+
+
+    const wrapper =
+      makeSectionShell(
+        'ADDITIONAL IDENTIFICATION',
+        'Additional identifying photos',
+        'These optional caregiver-approved photos may help responders recognize the participant from different views.'
+      );
+
+
+    const grid =
+      document.createElement('div');
+
+    grid.style.display =
+      'grid';
+
+    grid.style.gridTemplateColumns =
+      'repeat(auto-fit, minmax(180px, 1fr))';
+
+    grid.style.gap =
+      '12px';
+
+
+    photos.forEach((photo) => {
+
+      if (
+        !photo ||
+        !hasValue(photo.url)
+      ) {
+        return;
+      }
+
+
+      const item =
+        document.createElement('div');
+
+      item.style.border =
+        '1px solid #dbe5ec';
+
+      item.style.borderRadius =
+        '16px';
+
+      item.style.padding =
+        '10px';
+
+      item.style.background =
+        '#ffffff';
+
+
+      const image =
+        document.createElement('img');
+
+      image.src =
+        photo.url;
+
+      image.alt =
+        'Additional participant identification photo';
+
+      image.loading =
+        'lazy';
+
+      image.style.display =
+        'block';
+
+      image.style.width =
+        '100%';
+
+      image.style.aspectRatio =
+        '4 / 3';
+
+      image.style.objectFit =
+        'cover';
+
+      image.style.borderRadius =
+        '12px';
+
+
+      item.appendChild(
+        image
+      );
+
+
+      if (
+        hasValue(photo.caption)
+      ) {
+
+        const caption =
+          document.createElement('p');
+
+        caption.textContent =
+          photo.caption;
+
+        caption.style.margin =
+          '8px 2px 2px';
+
+        caption.style.color =
+          '#526174';
+
+        caption.style.fontSize =
+          '.85rem';
+
+        caption.style.lineHeight =
+          '1.4';
+
+
+        item.appendChild(
+          caption
+        );
+
+      }
+
+
+      grid.appendChild(
+        item
+      );
+
+    });
+
+
+    if (!grid.children.length) {
+      return null;
+    }
+
+
+    wrapper.appendChild(
+      grid
+    );
+
+
+    return wrapper;
+
+  }
+
+
+  function heightText(inches) {
+
+    const total =
+      Number(inches);
+
+    if (
+      !Number.isFinite(total) ||
+      total <= 0
+    ) {
+
+      return '';
+
+    }
+
+
+    const feet =
+      Math.floor(total / 12);
+
+    const remaining =
+      total % 12;
+
+
+    return `${feet} ft ${remaining} in`;
+
+  }
+
+
+  function makePhysicalDescriptionSection(data) {
+
+    if (!data) {
+      return null;
+    }
+
+
+    const values = [
+
+      [
+        'Height',
+        heightText(
+          data.height_inches
+        )
+      ],
+
+      [
+        'Approx. weight',
+        data.approximate_weight_lbs
+          ? `${data.approximate_weight_lbs} lb`
+          : ''
+      ],
+
+      [
+        'Build',
+        data.build_description
+      ],
+
+      [
+        'Complexion',
+        data.complexion
+      ],
+
+      [
+        'Hair color',
+        data.hair_color
+      ],
+
+      [
+        'Hair style',
+        data.hair_style
+      ],
+
+      [
+        'Eye color',
+        data.eye_color
+      ],
+
+      [
+        'Glasses',
+        data.wears_glasses
+          ? 'Yes'
+          : ''
+      ],
+
+      [
+        'Mobility / assistive aids',
+        data.mobility_aids
+      ],
+
+      [
+        'Identifying features',
+        data.identifying_features
+      ],
+
+      [
+        'Additional description',
+        data.description_notes
+      ]
+
+    ].filter(
+      ([, value]) =>
+        hasValue(value)
+    );
+
+
+    if (!values.length) {
+      return null;
+    }
+
+
+    const wrapper =
+      makeSectionShell(
+        'IDENTIFYING DESCRIPTION',
+        'Physical description',
+        'Caregiver-approved identifying details that may help confirm identity or locate the participant.'
+      );
+
+
+    const grid =
+      makeGrid();
+
+
+    values.forEach(
+      ([label, value]) => {
+
+        const card =
+          makeCard(
+            label,
+            value
+          );
+
+
+        if (card) {
+
+          card.style.margin =
+            '0';
+
+          grid.appendChild(
+            card
+          );
+
+        }
+
+      }
+    );
+
+
+    wrapper.appendChild(
+      grid
+    );
+
+
+    return wrapper;
+
+  }
+
+
   function makeGlanceItem(
     label,
     value
@@ -305,7 +869,8 @@
       }
 
     ].filter(
-      item => hasValue(item.value)
+      item =>
+        hasValue(item.value)
     );
 
 
@@ -375,16 +940,7 @@
 
 
     const itemGrid =
-      document.createElement('div');
-
-    itemGrid.style.display =
-      'grid';
-
-    itemGrid.style.gridTemplateColumns =
-      'repeat(auto-fit, minmax(210px, 1fr))';
-
-    itemGrid.style.gap =
-      '10px';
+      makeGrid();
 
 
     items.forEach(item => {
@@ -552,25 +1108,6 @@
         '#ffffff';
 
 
-    } else if (
-      normalizedRisk.includes('unknown') ||
-      normalizedRisk.includes('assessing') ||
-      normalizedRisk.includes('not assessed')
-    ) {
-
-      riskCard.style.border =
-        '1px solid #cbd5e1';
-
-      riskCard.style.background =
-        '#f8fafc';
-
-      riskBadge.style.background =
-        '#e2e8f0';
-
-      riskBadge.style.color =
-        '#334155';
-
-
     } else {
 
       riskCard.style.border =
@@ -612,92 +1149,15 @@
 
 
     const wrapper =
-      document.createElement('section');
-
-    wrapper.style.gridColumn =
-      '1 / -1';
-
-    wrapper.style.margin =
-      '24px 0 4px';
-
-    wrapper.style.padding =
-      '20px';
-
-    wrapper.style.border =
-      '1px solid #d7e2ea';
-
-    wrapper.style.borderRadius =
-      '18px';
-
-    wrapper.style.background =
-      '#f8fafc';
-
-
-    const eyebrow =
-      document.createElement('div');
-
-    eyebrow.textContent =
-      'SAFETY INFORMATION';
-
-    eyebrow.style.marginBottom =
-      '6px';
-
-    eyebrow.style.color =
-      '#14869a';
-
-    eyebrow.style.fontSize =
-      '.75rem';
-
-    eyebrow.style.fontWeight =
-      '900';
-
-    eyebrow.style.letterSpacing =
-      '.1em';
-
-
-    const title =
-      document.createElement('h2');
-
-    title.textContent =
-      'Safety & wandering information';
-
-    title.style.margin =
-      '0 0 8px';
-
-    title.style.color =
-      '#07172e';
-
-    title.style.fontSize =
-      '1.2rem';
-
-
-    const intro =
-      document.createElement('p');
-
-    intro.textContent =
-      'Use this information to help reduce distress, support safe redirection, and assist with reunification.';
-
-    intro.style.margin =
-      '0 0 16px';
-
-    intro.style.color =
-      '#526174';
-
-    intro.style.lineHeight =
-      '1.5';
+      makeSectionShell(
+        'SAFETY INFORMATION',
+        'Safety & wandering information',
+        'Use this information to help reduce distress, support safe redirection, and assist with reunification.'
+      );
 
 
     const sectionGrid =
-      document.createElement('div');
-
-    sectionGrid.style.display =
-      'grid';
-
-    sectionGrid.style.gridTemplateColumns =
-      'repeat(auto-fit, minmax(250px, 1fr))';
-
-    sectionGrid.style.gap =
-      '12px';
+      makeGrid();
 
 
     const riskCard =
@@ -737,10 +1197,7 @@
     }
 
 
-    wrapper.append(
-      eyebrow,
-      title,
-      intro,
+    wrapper.appendChild(
       sectionGrid
     );
 
@@ -763,92 +1220,22 @@
 
 
     const wrapper =
-      document.createElement('section');
+      makeSectionShell(
+        'SUPPORT INFORMATION',
+        'Communication & support',
+        'These caregiver-provided details may help support communication, reduce distress, and create a calmer interaction.'
+      );
 
-    wrapper.style.gridColumn =
-      '1 / -1';
-
-    wrapper.style.margin =
-      '24px 0 4px';
-
-    wrapper.style.padding =
-      '20px';
 
     wrapper.style.border =
       '1px solid #cfe3ea';
-
-    wrapper.style.borderRadius =
-      '18px';
 
     wrapper.style.background =
       '#f4fafc';
 
 
-    const eyebrow =
-      document.createElement('div');
-
-    eyebrow.textContent =
-      'SUPPORT INFORMATION';
-
-    eyebrow.style.marginBottom =
-      '6px';
-
-    eyebrow.style.color =
-      '#14869a';
-
-    eyebrow.style.fontSize =
-      '.75rem';
-
-    eyebrow.style.fontWeight =
-      '900';
-
-    eyebrow.style.letterSpacing =
-      '.1em';
-
-
-    const title =
-      document.createElement('h2');
-
-    title.textContent =
-      'Communication & support';
-
-    title.style.margin =
-      '0 0 8px';
-
-    title.style.color =
-      '#07172e';
-
-    title.style.fontSize =
-      '1.2rem';
-
-
-    const intro =
-      document.createElement('p');
-
-    intro.textContent =
-      'These caregiver-provided details may help support communication, reduce distress, and create a calmer interaction.';
-
-    intro.style.margin =
-      '0 0 16px';
-
-    intro.style.color =
-      '#526174';
-
-    intro.style.lineHeight =
-      '1.5';
-
-
     const sectionGrid =
-      document.createElement('div');
-
-    sectionGrid.style.display =
-      'grid';
-
-    sectionGrid.style.gridTemplateColumns =
-      'repeat(auto-fit, minmax(250px, 1fr))';
-
-    sectionGrid.style.gap =
-      '12px';
+      makeGrid();
 
 
     const communicationInstructions =
@@ -889,11 +1276,486 @@
     }
 
 
-    wrapper.append(
-      eyebrow,
-      title,
-      intro,
+    wrapper.appendChild(
       sectionGrid
+    );
+
+
+    return wrapper;
+
+  }
+
+
+  function makeListItemCard(
+    title,
+    lines = []
+  ) {
+
+    const card =
+      document.createElement('div');
+
+    card.className =
+      'em-card';
+
+    card.style.margin =
+      '0';
+
+
+    const heading =
+      document.createElement('strong');
+
+    heading.textContent =
+      title;
+
+    heading.style.fontSize =
+      '1.05rem';
+
+    heading.style.marginBottom =
+      '8px';
+
+
+    card.appendChild(
+      heading
+    );
+
+
+    lines
+      .filter(
+        line =>
+          hasValue(line)
+      )
+      .forEach(line => {
+
+        const p =
+          document.createElement('p');
+
+        p.textContent =
+          line;
+
+        p.style.margin =
+          '4px 0';
+
+        p.style.color =
+          '#526174';
+
+        p.style.lineHeight =
+          '1.45';
+
+
+        card.appendChild(
+          p
+        );
+
+      });
+
+
+    return card;
+
+  }
+
+
+  function makeDiagnosesSection(data) {
+
+    if (!data) {
+      return null;
+    }
+
+
+    if (
+      !data.none_known &&
+      !hasItems(data)
+    ) {
+
+      return null;
+
+    }
+
+
+    const wrapper =
+      makeSectionShell(
+        'MEDICAL INFORMATION',
+        'Diagnoses & conditions',
+        'Only diagnoses the caregiver chose to share appear here.'
+      );
+
+
+    if (data.none_known) {
+
+      const noneCard =
+        makeCard(
+          'Diagnoses',
+          'No known diagnoses reported'
+        );
+
+
+      if (noneCard) {
+
+        noneCard.style.margin =
+          '0';
+
+        wrapper.appendChild(
+          noneCard
+        );
+
+      }
+
+
+      return wrapper;
+
+    }
+
+
+    const grid =
+      makeGrid();
+
+
+    data.items.forEach(item => {
+
+      if (
+        !hasValue(
+          item.diagnosis_name
+        )
+      ) {
+        return;
+      }
+
+
+      const card =
+        makeListItemCard(
+          item.diagnosis_name,
+          [
+            item.diagnosis_notes
+          ]
+        );
+
+
+      grid.appendChild(
+        card
+      );
+
+    });
+
+
+    if (!grid.children.length) {
+      return null;
+    }
+
+
+    wrapper.appendChild(
+      grid
+    );
+
+
+    return wrapper;
+
+  }
+
+
+  function makeMedicationsSection(data) {
+
+    if (!data) {
+      return null;
+    }
+
+
+    if (
+      !data.none_current &&
+      !hasItems(data)
+    ) {
+
+      return null;
+
+    }
+
+
+    const wrapper =
+      makeSectionShell(
+        'MEDICAL INFORMATION',
+        'Current medications',
+        'Only medication information the caregiver chose to share appears here.'
+      );
+
+
+    if (data.none_current) {
+
+      const noneCard =
+        makeCard(
+          'Medications',
+          'No current medications reported'
+        );
+
+
+      if (noneCard) {
+
+        noneCard.style.margin =
+          '0';
+
+        wrapper.appendChild(
+          noneCard
+        );
+
+      }
+
+
+      return wrapper;
+
+    }
+
+
+    const grid =
+      makeGrid();
+
+
+    data.items.forEach(item => {
+
+      if (
+        !hasValue(
+          item.medication_name
+        )
+      ) {
+        return;
+      }
+
+
+      const details = [];
+
+
+      if (hasValue(item.dose)) {
+
+        details.push(
+          `Dose: ${item.dose}`
+        );
+
+      }
+
+
+      if (hasValue(item.route)) {
+
+        details.push(
+          `Route: ${item.route}`
+        );
+
+      }
+
+
+      if (hasValue(item.frequency)) {
+
+        details.push(
+          `Frequency: ${item.frequency}`
+        );
+
+      }
+
+
+      if (hasValue(item.purpose)) {
+
+        details.push(
+          `Purpose: ${item.purpose}`
+        );
+
+      }
+
+
+      if (hasValue(item.medication_notes)) {
+
+        details.push(
+          `Notes: ${item.medication_notes}`
+        );
+
+      }
+
+
+      const card =
+        makeListItemCard(
+          item.medication_name,
+          details
+        );
+
+
+      grid.appendChild(
+        card
+      );
+
+    });
+
+
+    if (!grid.children.length) {
+      return null;
+    }
+
+
+    wrapper.appendChild(
+      grid
+    );
+
+
+    return wrapper;
+
+  }
+
+
+  function makeAllergiesSection(data) {
+
+    if (!data) {
+      return null;
+    }
+
+
+    if (
+      !data.none_known &&
+      !hasItems(data)
+    ) {
+
+      return null;
+
+    }
+
+
+    const wrapper =
+      makeSectionShell(
+        'MEDICAL INFORMATION',
+        'Allergies',
+        'Only allergy information the caregiver chose to share appears here.'
+      );
+
+
+    if (data.none_known) {
+
+      const noneCard =
+        makeCard(
+          'Allergies',
+          'No known allergies reported'
+        );
+
+
+      if (noneCard) {
+
+        noneCard.style.margin =
+          '0';
+
+        wrapper.appendChild(
+          noneCard
+        );
+
+      }
+
+
+      return wrapper;
+
+    }
+
+
+    const grid =
+      makeGrid();
+
+
+    data.items.forEach(item => {
+
+      if (
+        !hasValue(
+          item.allergen
+        )
+      ) {
+        return;
+      }
+
+
+      const details = [];
+
+
+      if (
+        hasValue(
+          item.allergy_type
+        )
+      ) {
+
+        details.push(
+          `Type: ${item.allergy_type}`
+        );
+
+      }
+
+
+      if (
+        hasValue(
+          item.reaction
+        )
+      ) {
+
+        details.push(
+          `Reaction: ${item.reaction}`
+        );
+
+      }
+
+
+      if (
+        hasValue(
+          item.severity
+        )
+      ) {
+
+        details.push(
+          `Severity: ${item.severity}`
+        );
+
+      }
+
+
+      if (
+        hasValue(
+          item.allergy_notes
+        )
+      ) {
+
+        details.push(
+          `Notes: ${item.allergy_notes}`
+        );
+
+      }
+
+
+      const card =
+        makeListItemCard(
+          item.allergen,
+          details
+        );
+
+
+      if (
+        hasValue(
+          item.severity
+        ) &&
+        String(
+          item.severity
+        )
+          .toLowerCase()
+          .includes('severe')
+      ) {
+
+        card.style.border =
+          '2px solid #b91c1c';
+
+        card.style.background =
+          '#fff1f2';
+
+      }
+
+
+      grid.appendChild(
+        card
+      );
+
+    });
+
+
+    if (!grid.children.length) {
+      return null;
+    }
+
+
+    wrapper.appendChild(
+      grid
     );
 
 
@@ -1237,7 +2099,9 @@
 
     const caregiverButton =
       makeActionButton(
-        hasValue(profileData.emergency_contact_name)
+        hasValue(
+          profileData.emergency_contact_name
+        )
           ? `Call caregiver · ${profileData.emergency_contact_name}`
           : 'Call caregiver',
         profileData.emergency_contact_phone
@@ -1255,7 +2119,9 @@
 
     const alternateButton =
       makeActionButton(
-        hasValue(profileData.alternate_contact_name)
+        hasValue(
+          profileData.alternate_contact_name
+        )
           ? `Call alternate · ${profileData.alternate_contact_name}`
           : 'Call alternate contact',
         profileData.alternate_contact_phone,
@@ -1334,7 +2200,10 @@
 
     const response =
       await fetch(
-        `/api/emergency-profile?id=${encodeURIComponent(id)}`
+        `/api/emergency-profile?id=${encodeURIComponent(id)}`,
+        {
+          cache: 'no-store'
+        }
       );
 
 
@@ -1371,7 +2240,58 @@
       '';
 
 
-    /* RESPONDER PRIORITY */
+    /*
+      PARTICIPANT IDENTIFICATION
+    */
+
+    const primaryPhoto =
+      makePrimaryPhotoSection(
+        p.participant_photo
+      );
+
+
+    if (primaryPhoto) {
+
+      cards.appendChild(
+        primaryPhoto
+      );
+
+    }
+
+
+    const additionalPhotos =
+      makeAdditionalPhotosSection(
+        p.additional_photos
+      );
+
+
+    if (additionalPhotos) {
+
+      cards.appendChild(
+        additionalPhotos
+      );
+
+    }
+
+
+    const physicalDescription =
+      makePhysicalDescriptionSection(
+        p.physical_description
+      );
+
+
+    if (physicalDescription) {
+
+      cards.appendChild(
+        physicalDescription
+      );
+
+    }
+
+
+    /*
+      RESPONDER PRIORITY
+    */
 
     if (
       hasValue(
@@ -1390,9 +2310,13 @@
         );
 
 
-      cards.appendChild(
-        card
-      );
+      if (card) {
+
+        cards.appendChild(
+          card
+        );
+
+      }
 
     }
 
@@ -1413,7 +2337,9 @@
     }
 
 
-    /* AT A GLANCE */
+    /*
+      AT A GLANCE
+    */
 
     const atAGlance =
       makeAtAGlance(p);
@@ -1428,7 +2354,9 @@
     }
 
 
-    /* SAFETY */
+    /*
+      SAFETY
+    */
 
     const safetySection =
       makeSafetySection(p);
@@ -1443,7 +2371,9 @@
     }
 
 
-    /* SUPPORT */
+    /*
+      COMMUNICATION & SUPPORT
+    */
 
     const supportSection =
       makeSupportSection(p);
@@ -1458,7 +2388,58 @@
     }
 
 
-    /* RESPONDER ACTIONS */
+    /*
+      MEDICAL INFORMATION
+    */
+
+    const diagnosesSection =
+      makeDiagnosesSection(
+        p.diagnoses
+      );
+
+
+    if (diagnosesSection) {
+
+      cards.appendChild(
+        diagnosesSection
+      );
+
+    }
+
+
+    const medicationsSection =
+      makeMedicationsSection(
+        p.medications
+      );
+
+
+    if (medicationsSection) {
+
+      cards.appendChild(
+        medicationsSection
+      );
+
+    }
+
+
+    const allergiesSection =
+      makeAllergiesSection(
+        p.allergies
+      );
+
+
+    if (allergiesSection) {
+
+      cards.appendChild(
+        allergiesSection
+      );
+
+    }
+
+
+    /*
+      RESPONDER ACTIONS
+    */
 
     const responderActions =
       makeResponderActions(p);
@@ -1469,17 +2450,29 @@
     );
 
 
-    /* EMERGENCY CONTACTS */
+    /*
+      EMERGENCY CONTACTS
+    */
 
     const hasPrimary =
-      hasValue(p.emergency_contact_name) ||
-      hasValue(p.emergency_contact_relationship) ||
-      hasValue(p.emergency_contact_phone);
+      hasValue(
+        p.emergency_contact_name
+      ) ||
+      hasValue(
+        p.emergency_contact_relationship
+      ) ||
+      hasValue(
+        p.emergency_contact_phone
+      );
 
 
     const hasAlternate =
-      hasValue(p.alternate_contact_name) ||
-      hasValue(p.alternate_contact_phone);
+      hasValue(
+        p.alternate_contact_name
+      ) ||
+      hasValue(
+        p.alternate_contact_phone
+      );
 
 
     if (
@@ -1540,7 +2533,9 @@
       false;
 
 
-  } catch (err) {
+  } catch (error) {
+
+    console.error(error);
 
     loading.hidden =
       true;
