@@ -1,26 +1,33 @@
 const json = (body, status = 200) =>
-  new Response(JSON.stringify(body), {
-    status,
-    headers: {
-      'Content-Type': 'application/json',
-      'Cache-Control': 'no-store'
+  new Response(
+    JSON.stringify(body),
+    {
+      status,
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store'
+      }
     }
-  });
+  );
 
 
-const hex = (buf) =>
-  [...new Uint8Array(buf)]
-    .map(b => b.toString(16).padStart(2, '0'))
+const hex = buffer =>
+  [...new Uint8Array(buffer)]
+    .map(byte =>
+      byte.toString(16).padStart(2, '0')
+    )
     .join('');
 
 
 async function hash(value) {
+
   return hex(
     await crypto.subtle.digest(
       'SHA-256',
       new TextEncoder().encode(value)
     )
   );
+
 }
 
 
@@ -29,17 +36,22 @@ function cookieValue(request, name) {
   const raw =
     request.headers.get('Cookie') || '';
 
+
   for (const part of raw.split(';')) {
 
     const [key, ...value] =
       part.trim().split('=');
 
+
     if (key === name) {
       return value.join('=');
     }
+
   }
 
+
   return '';
+
 }
 
 
@@ -53,6 +65,7 @@ function adminEmails(env) {
       value.trim().toLowerCase()
     )
     .filter(Boolean);
+
 }
 
 
@@ -67,6 +80,7 @@ async function requireAdmin(
       'oneprofile_admin_session'
     );
 
+
   if (!token) {
     return null;
   }
@@ -75,19 +89,23 @@ async function requireAdmin(
   const tokenHash =
     await hash(token);
 
+
   const now =
-    Math.floor(Date.now() / 1000);
+    Math.floor(
+      Date.now() / 1000
+    );
 
 
   const session =
-    await env.ONEPROFILE_DB.prepare(`
-      SELECT
-        staff_email,
-        expires_at
-      FROM oneprofile_admin_sessions
-      WHERE token_hash = ?
-      LIMIT 1
-    `)
+    await env.ONEPROFILE_DB
+      .prepare(`
+        SELECT
+          staff_email,
+          expires_at
+        FROM oneprofile_admin_sessions
+        WHERE token_hash = ?
+        LIMIT 1
+      `)
       .bind(tokenHash)
       .first();
 
@@ -112,20 +130,77 @@ async function requireAdmin(
     !adminEmails(env).includes(email)
   ) {
 
-    await env.ONEPROFILE_DB.prepare(`
-      DELETE FROM oneprofile_admin_sessions
-      WHERE token_hash = ?
-    `)
+    await env.ONEPROFILE_DB
+      .prepare(`
+        DELETE FROM oneprofile_admin_sessions
+        WHERE token_hash = ?
+      `)
       .bind(tokenHash)
       .run();
 
+
     return null;
+
   }
 
 
   return {
     email
   };
+
+}
+
+
+function formatProductType(
+  productType
+) {
+
+  const labels = {
+    digital_qr:
+      'Digital QR',
+
+    lifepatch:
+      'LifePatch™',
+
+    lifeband:
+      'LifeBand™',
+
+    lifecard:
+      'LifeCard™',
+
+    lifetag:
+      'LifeTag™'
+  };
+
+
+  return labels[
+    String(productType || '')
+      .trim()
+      .toLowerCase()
+  ] || productType || 'Identifier';
+
+}
+
+
+function statusAction(status) {
+
+  if (status === 'active') {
+    return 'identifier_reactivated';
+  }
+
+
+  if (status === 'inactive') {
+    return 'identifier_deactivated';
+  }
+
+
+  if (status === 'archived') {
+    return 'identifier_archived';
+  }
+
+
+  return 'identifier_status_changed';
+
 }
 
 
@@ -146,6 +221,7 @@ export async function onRequestPost({
         },
         503
       );
+
     }
 
 
@@ -161,10 +237,12 @@ export async function onRequestPost({
       return json(
         {
           authenticated: false,
-          error: 'Unauthorized.'
+          error:
+            'Unauthorized.'
         },
         401
       );
+
     }
 
 
@@ -208,6 +286,7 @@ export async function onRequestPost({
         },
         400
       );
+
     }
 
 
@@ -224,38 +303,54 @@ export async function onRequestPost({
         },
         400
       );
+
     }
 
 
+    const allowedStatuses =
+      new Set([
+        'active',
+        'inactive',
+        'archived'
+      ]);
+
+
     if (
-      requestedStatus !== 'active' &&
-      requestedStatus !== 'inactive'
+      !allowedStatuses.has(
+        requestedStatus
+      )
     ) {
 
       return json(
         {
           authenticated: true,
           error:
-            'Identifier status must be active or inactive.'
+            'Identifier status must be active, inactive, or archived.'
         },
         400
       );
+
     }
 
 
     const identifier =
-      await env.ONEPROFILE_DB.prepare(`
-        SELECT
-          id,
-          enrollment_id,
-          product_type,
-          label,
-          status
-        FROM oneprofile_identifiers
-        WHERE id = ?
-          AND enrollment_id = ?
-        LIMIT 1
-      `)
+      await env.ONEPROFILE_DB
+        .prepare(`
+          SELECT
+            id,
+            enrollment_id,
+            product_type,
+            label,
+            status,
+            scan_count,
+            last_scanned_at,
+            created_at,
+            updated_at
+          FROM oneprofile_identifiers
+          WHERE id = ?
+            AND enrollment_id = ?
+          LIMIT 1
+        `)
         .bind(
           identifierId,
           enrollmentId
@@ -273,6 +368,7 @@ export async function onRequestPost({
         },
         404
       );
+
     }
 
 
@@ -289,32 +385,54 @@ export async function onRequestPost({
     ) {
 
       return json({
-        authenticated: true,
-        ok: true,
-        changed: false,
+
+        authenticated:
+          true,
+
+        ok:
+          true,
+
+        changed:
+          false,
 
         identifier: {
+
           id:
             Number(identifier.id),
 
           enrollment_id:
             identifier.enrollment_id,
 
+          product_type:
+            identifier.product_type,
+
+          product_name:
+            formatProductType(
+              identifier.product_type
+            ),
+
+          label:
+            identifier.label || null,
+
           status:
             oldStatus
+
         }
+
       });
+
     }
 
 
     const action =
-      requestedStatus === 'active'
-        ? 'identifier_reactivated'
-        : 'identifier_deactivated';
+      statusAction(
+        requestedStatus
+      );
 
 
     const details =
       JSON.stringify({
+
         previous_status:
           oldStatus,
 
@@ -324,21 +442,39 @@ export async function onRequestPost({
         product_type:
           identifier.product_type || null,
 
+        product_name:
+          formatProductType(
+            identifier.product_type
+          ),
+
         label:
-          identifier.label || null
+          identifier.label || null,
+
+        scan_count:
+          Number(
+            identifier.scan_count || 0
+          ),
+
+        last_scanned_at:
+          identifier.last_scanned_at || null,
+
+        changed_by:
+          'ratios_staff'
+
       });
 
 
     await env.ONEPROFILE_DB.batch([
 
-      env.ONEPROFILE_DB.prepare(`
-        UPDATE oneprofile_identifiers
-        SET
-          status = ?,
-          updated_at = datetime('now')
-        WHERE id = ?
-          AND enrollment_id = ?
-      `)
+      env.ONEPROFILE_DB
+        .prepare(`
+          UPDATE oneprofile_identifiers
+          SET
+            status = ?,
+            updated_at = datetime('now')
+          WHERE id = ?
+            AND enrollment_id = ?
+        `)
         .bind(
           requestedStatus,
           identifierId,
@@ -346,16 +482,17 @@ export async function onRequestPost({
         ),
 
 
-      env.ONEPROFILE_DB.prepare(`
-        INSERT INTO oneprofile_admin_audit_log (
-          staff_email,
-          action,
-          enrollment_id,
-          identifier_id,
-          details
-        )
-        VALUES (?, ?, ?, ?, ?)
-      `)
+      env.ONEPROFILE_DB
+        .prepare(`
+          INSERT INTO oneprofile_admin_audit_log (
+            staff_email,
+            action,
+            enrollment_id,
+            identifier_id,
+            details
+          )
+          VALUES (?, ?, ?, ?, ?)
+        `)
         .bind(
           admin.email,
           action,
@@ -368,20 +505,43 @@ export async function onRequestPost({
 
 
     return json({
-      authenticated: true,
-      ok: true,
-      changed: true,
+
+      authenticated:
+        true,
+
+      ok:
+        true,
+
+      changed:
+        true,
 
       identifier: {
+
         id:
           Number(identifier.id),
 
         enrollment_id:
           enrollmentId,
 
+        product_type:
+          identifier.product_type,
+
+        product_name:
+          formatProductType(
+            identifier.product_type
+          ),
+
+        label:
+          identifier.label || null,
+
+        previous_status:
+          oldStatus,
+
         status:
           requestedStatus
+
       }
+
     });
 
 
@@ -400,7 +560,9 @@ export async function onRequestPost({
       },
       500
     );
+
   }
+
 }
 
 
@@ -417,8 +579,12 @@ export async function onRequest(context) {
       },
       405
     );
+
   }
 
 
-  return onRequestPost(context);
+  return onRequestPost(
+    context
+  );
+
 }
