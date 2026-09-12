@@ -147,6 +147,19 @@ function randomToken() {
 }
 
 
+function formatProductType(value) {
+
+  const labels = {
+    lifepatch: 'LifePatch™',
+    lifeband: 'LifeBand™',
+    lifecard: 'LifeCard™',
+    lifetag: 'LifeTag™'
+  };
+
+  return labels[value] || 'OneProfile™ identifier';
+}
+
+
 export async function onRequestPost({
   request,
   env
@@ -231,7 +244,6 @@ export async function onRequestPost({
 
 
     const allowedProducts = [
-      'digital_qr',
       'lifepatch',
       'lifeband',
       'lifecard',
@@ -249,7 +261,7 @@ export async function onRequestPost({
         {
           authenticated: true,
           error:
-            'A valid identifier type is required.'
+            'RATIOS staff may issue only LifePatch™, LifeBand™, LifeCard™, or LifeTag™ identifiers.'
         },
         400
       );
@@ -383,16 +395,28 @@ export async function onRequestPost({
     }
 
 
+    const productName =
+      formatProductType(
+        productType
+      );
+
+
     const details =
       JSON.stringify({
         product_type:
           productType,
 
+        product_name:
+          productName,
+
         label:
           label || null,
 
         status:
-          'active'
+          'active',
+
+        issued_by:
+          'ratios_staff'
       });
 
 
@@ -453,11 +477,17 @@ export async function onRequestPost({
           product_type:
             productType,
 
+          product_name:
+            productName,
+
           label:
             label || null,
 
           status:
-            'active'
+            'active',
+
+          issued_by:
+            'ratios_staff'
         },
 
         scan_url:
@@ -477,6 +507,7 @@ export async function onRequestPost({
 
     return json(
       {
+        authenticated: true,
         error:
           'Unable to issue the identifier.'
       },
