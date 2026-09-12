@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 
@@ -139,6 +140,15 @@
       margin-top:8px;
     }
 
+    .idm-field-note {
+      display:block;
+      margin-top:8px;
+      color:#617388;
+      font-size:.9rem;
+      font-weight:400;
+      line-height:1.5;
+    }
+
     .idm-primary {
       min-height:52px;
       margin-top:20px;
@@ -165,6 +175,26 @@
       justify-content:space-between;
       gap:18px;
       margin-bottom:18px;
+    }
+
+    .idm-product-note {
+      margin-top:20px;
+      padding:18px 20px;
+      border:1px solid #d9e7ef;
+      border-radius:18px;
+      background:#f8fbfd;
+    }
+
+    .idm-product-note strong {
+      display:block;
+      margin-bottom:5px;
+      color:#07172e;
+    }
+
+    .idm-product-note p {
+      margin:0;
+      color:#526980;
+      line-height:1.6;
     }
 
     .idm-footer-note {
@@ -239,10 +269,10 @@
           </h1>
 
           <p class="idm-lead">
-            Manage the scan destinations connected to this
-            OneProfile™. The QR or LifePatch™ can stay the
-            same while caregiver-approved emergency information
-            is updated behind it.
+            Manage the identifiers connected to this OneProfile™.
+            Your emergency information can be updated at any time
+            without replacing an active QR or RATIOS-issued
+            LifeProduct.
           </p>
 
         </div>
@@ -276,19 +306,17 @@
 
 
       <p class="opc-eyebrow">
-        CREATE IDENTIFIER
+        CREATE DIGITAL QR
       </p>
 
       <h2>
-        Create a scan destination
+        Create a OneProfile™ QR
       </h2>
 
       <p class="idm-helper">
-        For the current pilot, use
-        <strong>Digital QR</strong>.
-        Physical LifePatch™, LifeBand™, LifeCard™, and
-        LifeTag™ identifiers can use this same system when
-        they are issued by RATIOS.
+        Caregivers can create Digital QR identifiers for this
+        OneProfile™. Download the QR for use on an approved
+        card, document, or other personal safety material.
       </p>
 
 
@@ -305,23 +333,12 @@
               Digital QR
             </option>
 
-            <option value="lifepatch">
-              LifePatch™
-            </option>
-
-            <option value="lifeband">
-              LifeBand™
-            </option>
-
-            <option value="lifecard">
-              LifeCard™
-            </option>
-
-            <option value="lifetag">
-              LifeTag™
-            </option>
-
           </select>
+
+          <span class="idm-field-note">
+            LifePatch™, LifeBand™, LifeCard™, and LifeTag™
+            products are assigned by RATIOS staff.
+          </span>
 
         </label>
 
@@ -339,6 +356,11 @@
             placeholder="Example: Backpack card"
           >
 
+          <span class="idm-field-note">
+            Add a name that helps you remember where this QR
+            will be used.
+          </span>
+
         </label>
 
 
@@ -350,7 +372,7 @@
         class="idm-primary"
         type="button"
       >
-        Create scan destination
+        Create Digital QR
       </button>
 
 
@@ -358,6 +380,22 @@
         id="message"
         class="ev-message"
       ></p>
+
+
+      <div class="idm-product-note">
+
+        <strong>
+          Need a physical OneProfile™ identifier?
+        </strong>
+
+        <p>
+          LifePatch™, LifeBand™, LifeCard™, and LifeTag™
+          identifiers are issued and assigned by RATIOS.
+          Once assigned, the product will appear below with
+          the other identifiers connected to this profile.
+        </p>
+
+      </div>
 
 
     </section>
@@ -376,13 +414,14 @@
           </p>
 
           <h2>
-            Your scan destinations
+            Your OneProfile™ identifiers
           </h2>
 
           <p class="idm-helper">
-            View the identifiers already assigned to this
-            OneProfile™, preview their QR codes, and manage
-            whether they remain active.
+            View Digital QR identifiers and RATIOS-issued
+            LifeProducts assigned to this OneProfile™. You can
+            preview active QR codes and manage whether an
+            identifier remains active.
           </p>
 
         </div>
@@ -407,13 +446,13 @@
     <div class="idm-footer-note">
 
       <strong>
-        Stable identifier design:
+        OneProfile™ stays current:
       </strong>
 
-      Updating the caregiver-approved emergency profile does
-      not require creating a new QR destination. An active
-      identifier continues opening the current responder-facing
-      OneProfile™ information.
+      Updating caregiver-approved emergency information does
+      not require creating a new QR or replacing an assigned
+      LifeProduct. Active identifiers continue connecting to
+      the current responder-facing OneProfile™.
 
     </div>
 
