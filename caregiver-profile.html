@@ -262,20 +262,171 @@
       line-height:1.5;
     }
 
-    .opp-photo-preview-card {
-      padding:18px;
-      border:1px dashed #c8d9e4;
-      border-radius:18px;
-      background:#f8fbfd;
-      color:#51677c;
-      line-height:1.55;
-    }
-
     .opp-subheading {
       margin:22px 0 8px;
       color:#07172e;
       font-size:1.05rem;
       font-weight:800;
+    }
+
+    .opp-photo-manager {
+      margin-bottom:24px;
+      padding:20px;
+      border:1px solid #d7e5ee;
+      border-radius:20px;
+      background:#f8fbfd;
+    }
+
+    .opp-photo-manager h3 {
+      margin:0 0 5px;
+      color:#07172e;
+    }
+
+    .opp-photo-manager-copy {
+      margin:0 0 18px;
+      color:#5c7084;
+      font-size:.92rem;
+      line-height:1.55;
+    }
+
+    .opp-photo-upload {
+      display:grid;
+      grid-template-columns:1.3fr 1fr;
+      gap:16px;
+      align-items:end;
+      margin-bottom:14px;
+    }
+
+    .opp-photo-upload input[type="file"] {
+      padding:10px;
+      background:#ffffff;
+      border:1px solid #cbdbe5;
+      border-radius:12px;
+    }
+
+    .opp-photo-upload-options {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .opp-photo-upload-options input {
+      width:auto;
+      margin:0;
+    }
+
+    .opp-photo-upload-button {
+      appearance:none;
+      border:0;
+      border-radius:999px;
+      padding:12px 20px;
+      background:#07172e;
+      color:#ffffff;
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .opp-photo-upload-button:disabled {
+      opacity:.55;
+      cursor:not-allowed;
+    }
+
+    .opp-photo-message {
+      margin:12px 0;
+      padding:12px 14px;
+      border-radius:14px;
+      background:#ffffff;
+      border:1px solid #d9e7ef;
+      color:#29405a;
+    }
+
+    .opp-photo-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .opp-photo-card {
+      overflow:hidden;
+      border:1px solid #d9e5ec;
+      border-radius:18px;
+      background:#ffffff;
+    }
+
+    .opp-photo-image-wrap {
+      position:relative;
+      aspect-ratio:4/3;
+      background:#eef4f7;
+      overflow:hidden;
+    }
+
+    .opp-photo-image {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .opp-photo-badge {
+      position:absolute;
+      top:10px;
+      left:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#07172e;
+      color:#ffffff;
+      font-size:.75rem;
+      font-weight:800;
+      box-shadow:0 4px 12px rgba(7,23,46,.18);
+    }
+
+    .opp-photo-body {
+      padding:14px;
+    }
+
+    .opp-photo-caption {
+      margin:0 0 10px;
+      color:#07172e;
+      font-weight:800;
+      line-height:1.35;
+    }
+
+    .opp-photo-meta {
+      margin:0 0 12px;
+      color:#6a7d90;
+      font-size:.82rem;
+    }
+
+    .opp-photo-actions {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .opp-photo-action {
+      appearance:none;
+      border:1px solid #d4e0e8;
+      border-radius:999px;
+      padding:8px 11px;
+      background:#ffffff;
+      color:#17314b;
+      font:inherit;
+      font-size:.8rem;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .opp-photo-action.danger {
+      color:#7a2733;
+    }
+
+    .opp-photo-limit {
+      color:#60758a;
+      font-size:.84rem;
+      margin-top:8px;
     }
 
     @media (max-width:800px) {
@@ -292,6 +443,10 @@
       .opp-head .opc-button {
         width:100%;
         justify-content:center;
+      }
+
+      .opp-photo-upload {
+        grid-template-columns:1fr;
       }
 
     }
@@ -434,37 +589,14 @@
                   Select one
                 </option>
 
-                <option>
-                  Verbal speech
-                </option>
-
-                <option>
-                  Limited verbal speech
-                </option>
-
-                <option>
-                  Non-speaking / nonverbal
-                </option>
-
-                <option>
-                  AAC device
-                </option>
-
-                <option>
-                  Sign language
-                </option>
-
-                <option>
-                  Gestures / visual supports
-                </option>
-
-                <option>
-                  Text / writing
-                </option>
-
-                <option>
-                  Other
-                </option>
+                <option>Verbal speech</option>
+                <option>Limited verbal speech</option>
+                <option>Non-speaking / nonverbal</option>
+                <option>AAC device</option>
+                <option>Sign language</option>
+                <option>Gestures / visual supports</option>
+                <option>Text / writing</option>
+                <option>Other</option>
 
               </select>
 
@@ -498,28 +630,103 @@
           </p>
 
           <p class="opp-section-copy">
-            Add identifying information that could help confirm
-            a person's identity or help others recognize them
-            during a wandering or missing-person event.
+            Add current photos and identifying information that
+            could help confirm identity or help others recognize
+            the participant during a wandering or missing-person event.
           </p>
 
 
-          <div class="opp-photo-preview-card">
+          <div class="opp-photo-manager">
 
-            <strong>
-              Participant photos are coming next.
-            </strong>
+            <h3>
+              Participant photos
+            </h3>
 
-            OneProfile™ will support a primary identification
-            photo plus optional additional identifying photos.
-            We are building the private photo-storage connection
-            separately so images are not stored directly inside
-            the profile database.
+            <p class="opp-photo-manager-copy">
+              Add one primary identification photo and up to
+              three optional additional photos. Photos are stored
+              in private OneProfile™ storage and are not publicly
+              accessible by default.
+            </p>
+
+
+            <div class="opp-photo-upload">
+
+              <div>
+
+                <label>
+
+                  Select photo
+
+                  <input
+                    id="participantPhotoFile"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                  >
+
+                </label>
+
+                <div class="opp-photo-upload-options">
+
+                  <input
+                    id="participantPhotoPrimary"
+                    type="checkbox"
+                  >
+
+                  <label for="participantPhotoPrimary">
+                    Make this the primary profile photo
+                  </label>
+
+                </div>
+
+              </div>
+
+
+              <label>
+
+                Photo caption
+
+                <input
+                  id="participantPhotoCaption"
+                  maxlength="160"
+                  placeholder="Example: Current profile photo"
+                >
+
+              </label>
+
+            </div>
+
+
+            <button
+              id="uploadParticipantPhoto"
+              class="opp-photo-upload-button"
+              type="button"
+            >
+              Upload participant photo
+            </button>
+
+
+            <p class="opp-photo-limit">
+              JPEG, PNG, or WebP • maximum 5 MB each • maximum 4 active photos
+            </p>
+
+
+            <div
+              id="photoMessage"
+              class="opp-photo-message"
+              hidden
+            ></div>
+
+
+            <div
+              id="participantPhotoList"
+              class="opp-photo-grid"
+            ></div>
 
           </div>
 
 
-          <div class="opp-grid two" style="margin-top:20px;">
+          <div class="opp-grid two">
 
 
             <label>
@@ -654,7 +861,7 @@
             <textarea
               name="mobility_aids"
               rows="3"
-              placeholder="Wheelchair, walker, cane, braces, prosthetic device…"
+              placeholder="Wheelchair, walker, cane, hearing aid, braces, prosthetic device…"
             ></textarea>
 
           </label>
@@ -706,32 +913,17 @@
 
           <div class="opp-grid two">
 
-
             <label>
 
               Touch preference
 
               <select name="touch_preference">
 
-                <option value="">
-                  Select one
-                </option>
-
-                <option>
-                  Avoid unexpected touch
-                </option>
-
-                <option>
-                  Ask before touching
-                </option>
-
-                <option>
-                  Touch is generally okay
-                </option>
-
-                <option>
-                  Not sure / varies
-                </option>
+                <option value="">Select one</option>
+                <option>Avoid unexpected touch</option>
+                <option>Ask before touching</option>
+                <option>Touch is generally okay</option>
+                <option>Not sure / varies</option>
 
               </select>
 
@@ -785,7 +977,6 @@
 
           <div class="opp-grid two">
 
-
             <label>
 
               Wandering / elopement risk *
@@ -795,29 +986,12 @@
                 required
               >
 
-                <option value="">
-                  Select one
-                </option>
-
-                <option>
-                  No known wandering risk
-                </option>
-
-                <option>
-                  Low / occasional concern
-                </option>
-
-                <option>
-                  Moderate risk
-                </option>
-
-                <option>
-                  High risk
-                </option>
-
-                <option>
-                  Unknown / still assessing
-                </option>
+                <option value="">Select one</option>
+                <option>No known wandering risk</option>
+                <option>Low / occasional concern</option>
+                <option>Moderate risk</option>
+                <option>High risk</option>
+                <option>Unknown / still assessing</option>
 
               </select>
 
@@ -1049,7 +1223,6 @@
 
           <div class="opp-grid two">
 
-
             <label>
 
               Primary emergency contact name *
@@ -1108,7 +1281,6 @@
               >
 
             </label>
-
 
           </div>
 

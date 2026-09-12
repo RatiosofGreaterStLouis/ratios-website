@@ -58,6 +58,25 @@
     document.getElementById('heightInches');
 
 
+  const photoFile =
+    document.getElementById('participantPhotoFile');
+
+  const photoCaption =
+    document.getElementById('participantPhotoCaption');
+
+  const photoPrimary =
+    document.getElementById('participantPhotoPrimary');
+
+  const photoUploadButton =
+    document.getElementById('uploadParticipantPhoto');
+
+  const photoList =
+    document.getElementById('participantPhotoList');
+
+  const photoMessage =
+    document.getElementById('photoMessage');
+
+
   const coreFields = [
     'preferred_name',
     'communication_method',
@@ -121,6 +140,46 @@
   }
 
 
+  function showPhotoMessage(
+    text,
+    type = 'info'
+  ) {
+
+    photoMessage.textContent =
+      text;
+
+    photoMessage.style.color =
+      type === 'error'
+        ? '#7a2733'
+        : '#29405a';
+
+    photoMessage.hidden =
+      false;
+
+  }
+
+
+  function formatBytes(bytes) {
+
+    const value =
+      Number(bytes || 0);
+
+    if (value < 1024) {
+      return `${value} B`;
+    }
+
+    if (value < 1024 * 1024) {
+      return `${Math.round(value / 1024)} KB`;
+    }
+
+    return `${(
+      value /
+      (1024 * 1024)
+    ).toFixed(1)} MB`;
+
+  }
+
+
   function emptyState(text) {
 
     return `
@@ -132,27 +191,644 @@
   }
 
 
-  function updateRepeaterNumbers(container, label) {
+  function renderPhotoEmpty() {
 
-    const items =
-      [...container.querySelectorAll('.opp-repeat-item')];
-
-    items.forEach((item, index) => {
-
-      const title =
-        item.querySelector('.opp-repeat-title');
-
-      if (title) {
-        title.textContent =
-          `${label} ${index + 1}`;
-      }
-
-    });
+    photoList.innerHTML = `
+      <div class="opp-empty">
+        No participant photos have been uploaded yet.
+      </div>
+    `;
 
   }
 
 
-  function createDiagnosisItem(data = {}) {
+  async function loadPhotos() {
+
+    try {
+
+      const response =
+        await fetch(
+          '/api/caregiver-photos',
+          {
+            credentials:
+              'same-origin'
+          }
+        );
+
+
+      if (response.status === 401) {
+
+        location.replace(
+          'caregiver-login.html'
+        );
+
+        return;
+
+      }
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          'Unable to load participant photos.'
+        );
+
+      }
+
+
+      const photos =
+        Array.isArray(data.photos)
+          ? data.photos
+          : [];
+
+
+      if (!photos.length) {
+
+        renderPhotoEmpty();
+
+        return;
+
+      }
+
+
+      photoList.innerHTML =
+        '';
+
+
+      photos.forEach(photo => {
+
+        const card =
+          document.createElement(
+            'article'
+          );
+
+        card.className =
+          'opp-photo-card';
+
+
+        card.innerHTML = `
+
+          <div class="opp-photo-image-wrap">
+
+            <img
+              class="opp-photo-image"
+              src="${escapeHtml(photo.url)}"
+              alt="Participant identification photo"
+            >
+
+            ${
+              photo.is_primary
+                ? `
+                  <span class="opp-photo-badge">
+                    Primary photo
+                  </span>
+                `
+                : ''
+            }
+
+          </div>
+
+
+          <div class="opp-photo-body">
+
+            <p class="opp-photo-caption">
+              ${
+                escapeHtml(
+                  photo.caption ||
+                  (
+                    photo.is_primary
+                      ? 'Primary identification photo'
+                      : 'Additional identification photo'
+                  )
+                )
+              }
+            </p>
+
+            <p class="opp-photo-meta">
+              ${escapeHtml(formatBytes(photo.size_bytes))}
+            </p>
+
+
+            <div class="opp-photo-actions">
+
+              ${
+                photo.is_primary
+                  ? ''
+                  : `
+                    <button
+                      class="opp-photo-action"
+                      type="button"
+                      data-action="primary"
+                    >
+                      Make primary
+                    </button>
+                  `
+              }
+
+              <button
+                class="opp-photo-action"
+                type="button"
+                data-action="caption"
+              >
+                Edit caption
+              </button>
+
+              <button
+                class="opp-photo-action danger"
+                type="button"
+                data-action="remove"
+              >
+                Remove
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+
+        const primaryButton =
+          card.querySelector(
+            '[data-action="primary"]'
+          );
+
+
+        if (primaryButton) {
+
+          primaryButton.addEventListener(
+            'click',
+            async () => {
+
+              const confirmed =
+                confirm(
+                  'Make this the primary participant photo?'
+                );
+
+              if (!confirmed) {
+                return;
+              }
+
+              await setPrimaryPhoto(
+                photo.id
+              );
+
+            }
+          );
+
+        }
+
+
+        card
+          .querySelector(
+            '[data-action="caption"]'
+          )
+          .addEventListener(
+            'click',
+            async () => {
+
+              const caption =
+                prompt(
+                  'Enter a caption for this photo:',
+                  photo.caption || ''
+                );
+
+              if (caption === null) {
+                return;
+              }
+
+              await updatePhotoCaption(
+                photo.id,
+                caption
+              );
+
+            }
+          );
+
+
+        card
+          .querySelector(
+            '[data-action="remove"]'
+          )
+          .addEventListener(
+            'click',
+            async () => {
+
+              const confirmed =
+                confirm(
+                  photo.is_primary
+                    ? 'Remove this primary participant photo? If another photo exists, OneProfile™ will automatically make one of the remaining photos primary.'
+                    : 'Remove this participant photo?'
+                );
+
+              if (!confirmed) {
+                return;
+              }
+
+              await removePhoto(
+                photo.id
+              );
+
+            }
+          );
+
+
+        photoList.appendChild(
+          card
+        );
+
+      });
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      photoList.innerHTML =
+        emptyState(
+          'Participant photos could not be loaded.'
+        );
+
+      showPhotoMessage(
+        error.message,
+        'error'
+      );
+
+    }
+
+  }
+
+
+  async function uploadPhoto() {
+
+    const file =
+      photoFile.files?.[0];
+
+
+    if (!file) {
+
+      showPhotoMessage(
+        'Choose a photo first.',
+        'error'
+      );
+
+      return;
+
+    }
+
+
+    if (
+      file.size >
+      5 * 1024 * 1024
+    ) {
+
+      showPhotoMessage(
+        'Each photo must be 5 MB or smaller.',
+        'error'
+      );
+
+      return;
+
+    }
+
+
+    const formData =
+      new FormData();
+
+
+    formData.append(
+      'photo',
+      file
+    );
+
+
+    formData.append(
+      'caption',
+      photoCaption.value.trim()
+    );
+
+
+    formData.append(
+      'is_primary',
+      photoPrimary.checked
+        ? '1'
+        : '0'
+    );
+
+
+    photoUploadButton.disabled =
+      true;
+
+    photoUploadButton.textContent =
+      'Uploading…';
+
+    photoMessage.hidden =
+      true;
+
+
+    try {
+
+      const response =
+        await fetch(
+          '/api/caregiver-photos',
+          {
+            method:
+              'POST',
+
+            credentials:
+              'same-origin',
+
+            body:
+              formData
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          'Unable to upload participant photo.'
+        );
+
+      }
+
+
+      photoFile.value =
+        '';
+
+      photoCaption.value =
+        '';
+
+      photoPrimary.checked =
+        false;
+
+
+      showPhotoMessage(
+        data.message ||
+        'Participant photo uploaded.'
+      );
+
+
+      await loadPhotos();
+
+
+    } catch (error) {
+
+      showPhotoMessage(
+        error.message,
+        'error'
+      );
+
+    } finally {
+
+      photoUploadButton.disabled =
+        false;
+
+      photoUploadButton.textContent =
+        'Upload participant photo';
+
+    }
+
+  }
+
+
+  async function setPrimaryPhoto(
+    photoId
+  ) {
+
+    try {
+
+      const response =
+        await fetch(
+          '/api/caregiver-photos',
+          {
+            method:
+              'PATCH',
+
+            headers: {
+              'Content-Type':
+                'application/json'
+            },
+
+            credentials:
+              'same-origin',
+
+            body:
+              JSON.stringify({
+                id:
+                  photoId,
+
+                action:
+                  'set_primary'
+              })
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          'Unable to update primary photo.'
+        );
+
+      }
+
+
+      showPhotoMessage(
+        data.message ||
+        'Primary photo updated.'
+      );
+
+
+      await loadPhotos();
+
+
+    } catch (error) {
+
+      showPhotoMessage(
+        error.message,
+        'error'
+      );
+
+    }
+
+  }
+
+
+  async function updatePhotoCaption(
+    photoId,
+    caption
+  ) {
+
+    try {
+
+      const response =
+        await fetch(
+          '/api/caregiver-photos',
+          {
+            method:
+              'PATCH',
+
+            headers: {
+              'Content-Type':
+                'application/json'
+            },
+
+            credentials:
+              'same-origin',
+
+            body:
+              JSON.stringify({
+                id:
+                  photoId,
+
+                action:
+                  'update_caption',
+
+                caption:
+                  caption
+              })
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          'Unable to update photo caption.'
+        );
+
+      }
+
+
+      showPhotoMessage(
+        'Photo caption updated.'
+      );
+
+
+      await loadPhotos();
+
+
+    } catch (error) {
+
+      showPhotoMessage(
+        error.message,
+        'error'
+      );
+
+    }
+
+  }
+
+
+  async function removePhoto(
+    photoId
+  ) {
+
+    try {
+
+      const response =
+        await fetch(
+          `/api/caregiver-photos?id=${encodeURIComponent(photoId)}`,
+          {
+            method:
+              'DELETE',
+
+            credentials:
+              'same-origin'
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          'Unable to remove participant photo.'
+        );
+
+      }
+
+
+      showPhotoMessage(
+        data.message ||
+        'Participant photo removed.'
+      );
+
+
+      await loadPhotos();
+
+
+    } catch (error) {
+
+      showPhotoMessage(
+        error.message,
+        'error'
+      );
+
+    }
+
+  }
+
+
+  function updateRepeaterNumbers(
+    container,
+    label
+  ) {
+
+    const items =
+      [
+        ...container.querySelectorAll(
+          '.opp-repeat-item'
+        )
+      ];
+
+    items.forEach(
+      (item, index) => {
+
+        const title =
+          item.querySelector(
+            '.opp-repeat-title'
+          );
+
+        if (title) {
+          title.textContent =
+            `${label} ${index + 1}`;
+        }
+
+      }
+    );
+
+  }
+
+
+  function createDiagnosisItem(
+    data = {}
+  ) {
 
     const item =
       document.createElement('div');
@@ -207,6 +883,7 @@
 
     `;
 
+
     item
       .querySelector('.opp-remove')
       .addEventListener(
@@ -225,6 +902,7 @@
         }
       );
 
+
     return item;
 
   }
@@ -242,6 +920,7 @@
         '.opp-empty'
       );
 
+
     if (
       items.length === 0 &&
       !oldEmpty
@@ -253,6 +932,7 @@
         );
 
     }
+
 
     if (
       items.length > 0 &&
@@ -277,9 +957,11 @@
       oldEmpty.remove();
     }
 
+
     diagnosisList.appendChild(
       createDiagnosisItem(data)
     );
+
 
     updateRepeaterNumbers(
       diagnosisList,
@@ -289,7 +971,9 @@
   }
 
 
-  function createMedicationItem(data = {}) {
+  function createMedicationItem(
+    data = {}
+  ) {
 
     const item =
       document.createElement('div');
@@ -428,6 +1112,7 @@
         '[data-field="route"]'
       );
 
+
     if (data.route) {
 
       const matchingOption =
@@ -437,6 +1122,7 @@
               option.value ===
               data.route
           );
+
 
       if (matchingOption) {
 
@@ -486,6 +1172,7 @@
         }
       );
 
+
     return item;
 
   }
@@ -503,6 +1190,7 @@
         '.opp-empty'
       );
 
+
     if (
       items.length === 0 &&
       !oldEmpty
@@ -514,6 +1202,7 @@
         );
 
     }
+
 
     if (
       items.length > 0 &&
@@ -538,9 +1227,11 @@
       oldEmpty.remove();
     }
 
+
     medicationList.appendChild(
       createMedicationItem(data)
     );
+
 
     updateRepeaterNumbers(
       medicationList,
@@ -550,7 +1241,9 @@
   }
 
 
-  function createAllergyItem(data = {}) {
+  function createAllergyItem(
+    data = {}
+  ) {
 
     const item =
       document.createElement('div');
@@ -718,6 +1411,7 @@
         }
       );
 
+
     return item;
 
   }
@@ -735,6 +1429,7 @@
         '.opp-empty'
       );
 
+
     if (
       items.length === 0 &&
       !oldEmpty
@@ -746,6 +1441,7 @@
         );
 
     }
+
 
     if (
       items.length > 0 &&
@@ -770,9 +1466,11 @@
       oldEmpty.remove();
     }
 
+
     allergyList.appendChild(
       createAllergyItem(data)
     );
+
 
     updateRepeaterNumbers(
       allergyList,
@@ -790,10 +1488,12 @@
     const disabled =
       checkbox.checked;
 
+
     section.style.opacity =
       disabled
         ? '.45'
         : '1';
+
 
     section.style.pointerEvents =
       disabled
@@ -809,6 +1509,7 @@
       String(
         heightDisplay.value || ''
       ).trim();
+
 
     if (!value) {
 
@@ -831,6 +1532,7 @@
 
       const inches =
         Number(numbers[1]);
+
 
       if (
         Number.isFinite(feet) &&
@@ -857,6 +1559,7 @@
     const direct =
       Number(value);
 
+
     if (
       Number.isFinite(direct) &&
       direct >= 12 &&
@@ -872,16 +1575,20 @@
 
     }
 
+
     heightInches.value =
       '';
 
   }
 
 
-  function displayHeight(totalInches) {
+  function displayHeight(
+    totalInches
+  ) {
 
     const value =
       Number(totalInches);
+
 
     if (
       !Number.isFinite(value) ||
@@ -898,11 +1605,13 @@
 
     }
 
+
     const feet =
       Math.floor(value / 12);
 
     const inches =
       value % 12;
+
 
     heightDisplay.value =
       `${feet} ft ${inches} in`;
@@ -924,29 +1633,36 @@
         '.opp-repeat-item'
       )
     ]
-      .map(item => {
+      .map(
+        item => {
 
-        const result = {};
+          const result = {};
 
-        fields.forEach(field => {
 
-          const input =
-            item.querySelector(
-              `[data-field="${field}"]`
-            );
+          fields.forEach(
+            field => {
 
-          result[field] =
-            input
-              ? String(
-                  input.value || ''
-                ).trim()
-              : '';
+              const input =
+                item.querySelector(
+                  `[data-field="${field}"]`
+                );
 
-        });
 
-        return result;
+              result[field] =
+                input
+                  ? String(
+                      input.value || ''
+                    ).trim()
+                  : '';
 
-      })
+            }
+          );
+
+
+          return result;
+
+        }
+      )
       .filter(
         item =>
           item[requiredField]
@@ -1055,7 +1771,9 @@
         !!status.no_known_allergies;
 
 
-      diagnosisList.innerHTML = '';
+      diagnosisList.innerHTML =
+        '';
+
 
       if (
         Array.isArray(data.diagnoses) &&
@@ -1074,7 +1792,9 @@
       }
 
 
-      medicationList.innerHTML = '';
+      medicationList.innerHTML =
+        '';
+
 
       if (
         Array.isArray(data.medications) &&
@@ -1093,7 +1813,9 @@
       }
 
 
-      allergyList.innerHTML = '';
+      allergyList.innerHTML =
+        '';
+
 
       if (
         Array.isArray(data.allergies) &&
@@ -1128,11 +1850,15 @@
       );
 
 
+      await loadPhotos();
+
+
       loading.hidden =
         true;
 
       content.hidden =
         false;
+
 
     } catch (error) {
 
@@ -1145,6 +1871,12 @@
     }
 
   }
+
+
+  photoUploadButton.addEventListener(
+    'click',
+    uploadPhoto
+  );
 
 
   addDiagnosisButton.addEventListener(
@@ -1463,12 +2195,14 @@
           'info'
         );
 
+
       } catch (error) {
 
         showMessage(
           error.message,
           'error'
         );
+
 
       } finally {
 
