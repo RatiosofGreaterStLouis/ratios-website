@@ -81,7 +81,8 @@
             </h1>
 
             <p style="margin:0;">
-              Authorized staff view
+              Manage this participant's OneProfile™,
+              physical identifiers, and program activity.
             </p>
 
           </div>
@@ -98,9 +99,11 @@
       </div>
 
 
+
       <div id="loadingState">
         <p>Loading OneProfile™ record…</p>
       </div>
+
 
 
       <div
@@ -143,6 +146,7 @@
         </section>
 
 
+
         <section
           style="
             display:grid;
@@ -172,6 +176,7 @@
           </article>
 
 
+
           <article
             style="
               border:1px solid #d8e3ea;
@@ -193,6 +198,7 @@
         </section>
 
 
+
         <section
           style="
             border:1px solid #d8e3ea;
@@ -206,11 +212,22 @@
             IDENTIFIERS & ACTIVITY
           </p>
 
+          <p
+            style="
+              margin-top:0;
+              color:#607486;
+            "
+          >
+            Review Digital QR identifiers created by the caregiver
+            and physical LifeProducts issued by RATIOS.
+          </p>
+
           <div id="identifierSummary">
             —
           </div>
 
         </section>
+
 
 
         <section
@@ -223,13 +240,40 @@
         >
 
           <p class="op-eyebrow">
-            ISSUE NEW IDENTIFIER
+            ASSIGN PHYSICAL IDENTIFIER
           </p>
 
-          <p>
-            Create a new OneProfile™ identifier
-            for this participant.
+          <h2
+            style="
+              margin-top:0;
+              margin-bottom:8px;
+            "
+          >
+            Assign a RATIOS LifeProduct
+          </h2>
+
+          <p
+            style="
+              margin-top:0;
+              color:#607486;
+            "
+          >
+            Issue a unique OneProfile™ identifier for a
+            LifePatch™, LifeBand™, LifeCard™, or LifeTag™
+            being provided to this participant.
           </p>
+
+          <p
+            style="
+              margin-top:0;
+              margin-bottom:22px;
+              font-weight:700;
+            "
+          >
+            Digital QR identifiers are created and managed
+            by caregivers from their OneProfile™ portal.
+          </p>
+
 
 
           <form id="issueIdentifierForm">
@@ -248,7 +292,7 @@
 
                 <label for="identifierType">
                   <strong>
-                    Identifier type
+                    LifeProduct type
                   </strong>
                 </label>
 
@@ -262,11 +306,7 @@
                 >
 
                   <option value="">
-                    Select identifier type
-                  </option>
-
-                  <option value="digital_qr">
-                    Digital QR
+                    Select LifeProduct
                   </option>
 
                   <option value="lifepatch">
@@ -290,11 +330,12 @@
               </div>
 
 
+
               <div>
 
                 <label for="identifierLabel">
                   <strong>
-                    Identifier label
+                    Product label
                   </strong>
                 </label>
 
@@ -309,17 +350,30 @@
                   "
                 >
 
+                <p
+                  style="
+                    margin:7px 0 0;
+                    font-size:.92rem;
+                    color:#607486;
+                  "
+                >
+                  Optional. Use a label that helps staff
+                  and the caregiver identify this specific item.
+                </p>
+
               </div>
 
             </div>
+
 
 
             <button
               id="issueIdentifierButton"
               type="submit"
             >
-              Issue identifier
+              Assign LifeProduct identifier
             </button>
+
 
 
             <div
@@ -331,6 +385,7 @@
             ></div>
 
           </form>
+
 
 
           <div
@@ -346,6 +401,7 @@
             <p class="op-eyebrow">
               IDENTIFIER QR READY
             </p>
+
 
 
             <div
@@ -369,6 +425,7 @@
                 ></div>
 
 
+
                 <button
                   id="downloadIssuedQr"
                   type="button"
@@ -379,9 +436,11 @@
               </div>
 
 
+
               <div>
 
                 <div id="issuedIdentifierDetails"></div>
+
 
 
                 <div
@@ -390,11 +449,12 @@
                     padding:16px;
                     border:1px solid #d8e3ea;
                     border-radius:12px;
+                    background:#f8fbfd;
                   "
                 >
 
                   <strong>
-                    Staff production note
+                    RATIOS production checklist
                   </strong>
 
                   <p
@@ -403,19 +463,29 @@
                       margin-bottom:8px;
                     "
                   >
-                    Match this QR to the identifier
-                    type and label shown above before
-                    printing, engraving, or applying it
-                    to a physical RATIOS product.
+                    Confirm the participant, LifeProduct type,
+                    and product label before placing this QR
+                    on the physical item.
+                  </p>
+
+                  <p
+                    style="
+                      margin-top:0;
+                      margin-bottom:8px;
+                    "
+                  >
+                    Print, engrave, or apply this QR only to
+                    the LifePatch™, LifeBand™, LifeCard™, or
+                    LifeTag™ assigned above.
                   </p>
 
                   <p style="margin:0;">
-                    Verify the QR by scanning it before
-                    the LifePatch™, LifeBand™, LifeCard™,
-                    or LifeTag™ is distributed.
+                    Scan and verify the QR before the product
+                    is distributed to the participant or caregiver.
                   </p>
 
                 </div>
+
 
 
                 <div style="margin-top:18px;">
@@ -440,6 +510,7 @@
         </section>
 
 
+
         <section
           style="
             border:1px solid #d8e3ea;
@@ -449,7 +520,7 @@
         >
 
           <p class="op-eyebrow">
-            STAFF ACTIONS
+            STAFF ACTIVITY
           </p>
 
           <div id="staffActions">
@@ -459,6 +530,7 @@
         </section>
 
       </div>
+
 
 
       <div
@@ -487,6 +559,7 @@
     </section>
 
   </main>
+
 
 
   <script
