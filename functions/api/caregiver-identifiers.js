@@ -13,7 +13,9 @@ const json = (body, status = 200) =>
 
 const hex = buffer =>
   [...new Uint8Array(buffer)]
-    .map(x => x.toString(16).padStart(2, '0'))
+    .map(x =>
+      x.toString(16).padStart(2, '0')
+    )
     .join('');
 
 
@@ -32,17 +34,21 @@ async function hash(value) {
 function cookieValue(request, name) {
 
   for (
-    const part of (request.headers.get('Cookie') || '').split(';')
+    const part of (
+      request.headers.get('Cookie') || ''
+    ).split(';')
   ) {
 
     const [key, ...value] =
       part.trim().split('=');
+
 
     if (key === name) {
       return value.join('=');
     }
 
   }
+
 
   return '';
 
@@ -68,7 +74,9 @@ async function auth(request, env) {
 
 
   const now =
-    Math.floor(Date.now() / 1000);
+    Math.floor(
+      Date.now() / 1000
+    );
 
 
   const session =
@@ -187,6 +195,15 @@ export async function onRequestGet({
         .first();
 
 
+    /*
+      Archived identifiers are intentionally
+      excluded from the caregiver portal.
+
+      They remain stored in the database and
+      remain visible to authorized RATIOS staff
+      for historical and audit purposes.
+    */
+
     const { results } =
       await env.ONEPROFILE_DB
         .prepare(`
@@ -201,6 +218,7 @@ export async function onRequestGet({
             created_at
           FROM oneprofile_identifiers
           WHERE enrollment_id = ?
+            AND status <> 'archived'
           ORDER BY created_at DESC
         `)
         .bind(
@@ -210,53 +228,64 @@ export async function onRequestGet({
 
 
     const identifiers =
-      (results || []).map(item => {
+      (results || [])
+        .map(item => {
 
-        const digitalQr =
-          isDigitalQr(
-            item.product_type
-          );
+          const digitalQr =
+            isDigitalQr(
+              item.product_type
+            );
 
 
-        return {
+          return {
 
-          id:
-            item.id,
+            id:
+              item.id,
 
-          product_type:
-            item.product_type,
+            product_type:
+              item.product_type,
 
-          label:
-            item.label,
+            label:
+              item.label,
 
-          status:
-            item.status,
+            status:
+              item.status,
 
-          scan_count:
-            item.scan_count,
+            scan_count:
+              item.scan_count,
 
-          last_scanned_at:
-            item.last_scanned_at,
+            last_scanned_at:
+              item.last_scanned_at,
 
-          created_at:
-            item.created_at,
+            created_at:
+              item.created_at,
 
-          issued_by:
-            digitalQr
-              ? 'caregiver'
-              : 'ratios_staff',
+            issued_by:
+              digitalQr
+                ? 'caregiver'
+                : 'ratios_staff',
 
-          caregiver_managed:
-            digitalQr,
+            caregiver_managed:
+              digitalQr,
 
-          identifier_token:
-            digitalQr
-              ? item.identifier_token
-              : null
+            /*
+              Caregiver-created Digital QR tokens
+              may be returned because the caregiver
+              is allowed to view/download/copy them.
 
-        };
+              Physical RATIOS LifeProduct tokens
+              are never exposed to the caregiver
+              browser.
+            */
 
-      });
+            identifier_token:
+              digitalQr
+                ? item.identifier_token
+                : null
+
+          };
+
+        });
 
 
     return json({
@@ -348,7 +377,8 @@ export async function onRequestPost({
     if (body.action === 'create') {
 
       /*
-        Caregivers may create Digital QR identifiers only.
+        Caregivers may create Digital QR
+        identifiers only.
 
         Physical RATIOS products:
         - LifePatch™
@@ -392,7 +422,9 @@ export async function onRequestPost({
           .trim();
 
 
-      if (rawLabel.length > 80) {
+      if (
+        rawLabel.length > 80
+      ) {
 
         return json(
           {
@@ -497,7 +529,9 @@ export async function onRequestPost({
 
         } catch (error) {
 
-          if (attempt === 2) {
+          if (
+            attempt === 2
+          ) {
             throw error;
           }
 
@@ -516,7 +550,9 @@ export async function onRequestPost({
        Activate / deactivate Digital QR
        ----------------------------------------- */
 
-    if (body.action === 'status') {
+    if (
+      body.action === 'status'
+    ) {
 
       const id =
         Number(
@@ -573,6 +609,11 @@ export async function onRequestPost({
       }
 
 
+      /*
+        RATIOS-issued physical LifeProducts are
+        never caregiver-managed.
+      */
+
       if (
         !isDigitalQr(
           identifier.product_type
@@ -583,6 +624,38 @@ export async function onRequestPost({
           {
             error:
               'RATIOS-issued LifeProducts cannot be activated or deactivated from the caregiver portal.'
+          },
+          403
+        );
+
+      }
+
+
+      const currentStatus =
+        String(
+          identifier.status || ''
+        )
+          .trim()
+          .toLowerCase();
+
+
+      /*
+        Archived identifiers are historical
+        records controlled by RATIOS staff.
+
+        Even if a caregiver manually submits the
+        identifier ID to this endpoint, archived
+        records cannot be restored here.
+      */
+
+      if (
+        currentStatus === 'archived'
+      ) {
+
+        return json(
+          {
+            error:
+              'Archived identifiers can only be restored by authorized RATIOS staff.'
           },
           403
         );
@@ -605,6 +678,7 @@ export async function onRequestPost({
           WHERE id = ?
             AND enrollment_id = ?
             AND product_type = 'digital_qr'
+            AND status <> 'archived'
         `)
         .bind(
           status,
