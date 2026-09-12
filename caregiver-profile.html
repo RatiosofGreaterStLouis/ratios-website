@@ -98,6 +98,7 @@
       border-radius:18px;
       background:#f8fbfd;
       color:#29405a;
+      line-height:1.6;
     }
 
     .opp-card {
@@ -107,6 +108,11 @@
       border-radius:22px;
       background:#ffffff;
       box-shadow:0 8px 24px rgba(7,23,46,.04);
+    }
+
+    .opp-card h2 {
+      margin:0 0 6px;
+      color:#07172e;
     }
 
     .opp-card label {
@@ -149,6 +155,127 @@
       text-align:center;
       margin-top:26px;
       color:#617388;
+    }
+
+    .opp-checkbox-row {
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin:12px 0 18px;
+      padding:14px 16px;
+      border:1px solid #dfe9f2;
+      border-radius:16px;
+      background:#f8fbfd;
+    }
+
+    .opp-checkbox-row input {
+      width:auto;
+      margin:4px 0 0;
+      flex:0 0 auto;
+    }
+
+    .opp-checkbox-row label {
+      margin:0;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .opp-checkbox-copy {
+      display:block;
+      margin-top:3px;
+      color:#617388;
+      font-size:.88rem;
+      font-weight:400;
+      line-height:1.45;
+    }
+
+    .opp-repeat-list {
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .opp-repeat-item {
+      position:relative;
+      padding:18px;
+      border:1px solid #dfe9f2;
+      border-radius:18px;
+      background:#fbfdff;
+    }
+
+    .opp-repeat-title {
+      margin:0 0 14px;
+      color:#07172e;
+      font-size:1rem;
+      font-weight:800;
+    }
+
+    .opp-repeat-actions {
+      display:flex;
+      justify-content:flex-end;
+      margin-top:14px;
+    }
+
+    .opp-remove {
+      appearance:none;
+      border:1px solid #d9e2ea;
+      border-radius:999px;
+      background:#ffffff;
+      padding:8px 14px;
+      font:inherit;
+      font-size:.86rem;
+      font-weight:800;
+      color:#5b2730;
+      cursor:pointer;
+    }
+
+    .opp-add {
+      appearance:none;
+      border:1px solid #b9d4e2;
+      border-radius:999px;
+      background:#f5fbfe;
+      padding:10px 16px;
+      font:inherit;
+      font-weight:800;
+      color:#0b4261;
+      cursor:pointer;
+      margin-top:14px;
+    }
+
+    .opp-empty {
+      padding:16px;
+      border:1px dashed #cddbe4;
+      border-radius:16px;
+      color:#66798d;
+      text-align:center;
+      background:#fbfdff;
+    }
+
+    .opp-medical-note {
+      margin:14px 0 0;
+      padding:14px 16px;
+      border-radius:16px;
+      background:#fffaf0;
+      border:1px solid #eee0b9;
+      color:#5d4a1e;
+      font-size:.9rem;
+      line-height:1.5;
+    }
+
+    .opp-photo-preview-card {
+      padding:18px;
+      border:1px dashed #c8d9e4;
+      border-radius:18px;
+      background:#f8fbfd;
+      color:#51677c;
+      line-height:1.55;
+    }
+
+    .opp-subheading {
+      margin:22px 0 8px;
+      color:#07172e;
+      font-size:1.05rem;
+      font-weight:800;
     }
 
     @media (max-width:800px) {
@@ -217,9 +344,9 @@
             </h1>
 
             <p class="opc-lead">
-              Add practical emergency information for
+              Add practical identification, safety, communication,
+              and health information for
               <strong id="participantName"></strong>.
-              This page is private and caregiver controlled.
             </p>
 
           </div>
@@ -244,14 +371,16 @@
           Private by default.
         </strong>
 
-        Information entered here stays in the private
-        caregiver record unless you later choose to make
-        specific emergency information available through
-        OneProfile™ emergency sharing.
+        Information entered here is stored in the private
+        caregiver-managed OneProfile™ record.
 
-        We are not collecting diagnoses, medications,
-        Social Security numbers, insurance information,
-        or medical records in this release.
+        Saving information here does
+        <strong>not</strong>
+        automatically make it visible when a Digital QR,
+        LifePatch™, LifeBand™, LifeCard™, or LifeTag™ is scanned.
+
+        You choose what emergency responders may see separately
+        through Emergency Sharing.
 
       </div>
 
@@ -365,7 +494,207 @@
         <section class="opp-card">
 
           <p class="opc-eyebrow">
-            2 • SENSORY &amp; CALMING SUPPORT
+            2 • IDENTIFICATION &amp; PHYSICAL DESCRIPTION
+          </p>
+
+          <p class="opp-section-copy">
+            Add identifying information that could help confirm
+            a person's identity or help others recognize them
+            during a wandering or missing-person event.
+          </p>
+
+
+          <div class="opp-photo-preview-card">
+
+            <strong>
+              Participant photos are coming next.
+            </strong>
+
+            OneProfile™ will support a primary identification
+            photo plus optional additional identifying photos.
+            We are building the private photo-storage connection
+            separately so images are not stored directly inside
+            the profile database.
+
+          </div>
+
+
+          <div class="opp-grid two" style="margin-top:20px;">
+
+
+            <label>
+
+              Height
+
+              <input
+                id="heightDisplay"
+                type="text"
+                inputmode="text"
+                placeholder="Example: 5 ft 8 in"
+              >
+
+              <input
+                id="heightInches"
+                name="height_inches"
+                type="hidden"
+              >
+
+            </label>
+
+
+            <label>
+
+              Approximate weight
+
+              <input
+                name="approximate_weight_lbs"
+                type="number"
+                min="1"
+                max="1500"
+                inputmode="numeric"
+                placeholder="Weight in pounds"
+              >
+
+            </label>
+
+
+            <label>
+
+              Build / body description
+
+              <input
+                name="build_description"
+                placeholder="Slim, average, stocky, athletic…"
+              >
+
+            </label>
+
+
+            <label>
+
+              Complexion / skin description
+
+              <input
+                name="complexion"
+                placeholder="Optional identifying description"
+              >
+
+            </label>
+
+
+            <label>
+
+              Hair color
+
+              <input
+                name="hair_color"
+                placeholder="Black, brown, gray…"
+              >
+
+            </label>
+
+
+            <label>
+
+              Hair style
+
+              <input
+                name="hair_style"
+                placeholder="Short, braids, locs, bald…"
+              >
+
+            </label>
+
+
+            <label>
+
+              Eye color
+
+              <input
+                name="eye_color"
+                placeholder="Brown, blue, hazel…"
+              >
+
+            </label>
+
+
+            <div>
+
+              <div class="opp-checkbox-row">
+
+                <input
+                  id="wearsGlasses"
+                  name="wears_glasses"
+                  type="checkbox"
+                >
+
+                <label for="wearsGlasses">
+
+                  Wears glasses
+
+                  <span class="opp-checkbox-copy">
+                    Select if glasses are part of their
+                    usual appearance.
+                  </span>
+
+                </label>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <label>
+
+            Mobility aids or equipment
+
+            <textarea
+              name="mobility_aids"
+              rows="3"
+              placeholder="Wheelchair, walker, cane, braces, prosthetic device…"
+            ></textarea>
+
+          </label>
+
+
+          <label>
+
+            Identifying features
+
+            <textarea
+              name="identifying_features"
+              rows="4"
+              placeholder="Birthmarks, scars, tattoos, distinctive features, prosthetics, or other identifying characteristics."
+            ></textarea>
+
+          </label>
+
+
+          <label>
+
+            Additional physical-description notes
+
+            <textarea
+              name="description_notes"
+              rows="3"
+              placeholder="Any other description that could help identify the participant."
+            ></textarea>
+
+          </label>
+
+        </section>
+
+
+
+        <!-- 3 -->
+
+        <section class="opp-card">
+
+          <p class="opc-eyebrow">
+            3 • SENSORY &amp; CALMING SUPPORT
           </p>
 
           <p class="opp-section-copy">
@@ -440,12 +769,12 @@
 
 
 
-        <!-- 3 -->
+        <!-- 4 -->
 
         <section class="opp-card">
 
           <p class="opc-eyebrow">
-            3 • SAFETY / WANDERING INFORMATION
+            4 • SAFETY / WANDERING INFORMATION
           </p>
 
           <p class="opp-section-copy">
@@ -526,12 +855,190 @@
 
 
 
-        <!-- 4 -->
+        <!-- 5 -->
 
         <section class="opp-card">
 
           <p class="opc-eyebrow">
-            4 • EMERGENCY CONTACTS
+            5 • DIAGNOSES &amp; CONDITIONS
+          </p>
+
+          <p class="opp-section-copy">
+            Record diagnoses or health conditions that may
+            matter during an emergency. These remain private
+            unless you choose to share this section.
+          </p>
+
+
+          <div class="opp-checkbox-row">
+
+            <input
+              id="noKnownDiagnoses"
+              type="checkbox"
+            >
+
+            <label for="noKnownDiagnoses">
+
+              No known diagnoses or conditions
+
+              <span class="opp-checkbox-copy">
+                Use this only when you intentionally want to
+                indicate that no diagnoses are currently known.
+              </span>
+
+            </label>
+
+          </div>
+
+
+          <div id="diagnosisSection">
+
+            <div
+              id="diagnosisList"
+              class="opp-repeat-list"
+            ></div>
+
+            <button
+              id="addDiagnosisButton"
+              class="opp-add"
+              type="button"
+            >
+              + Add diagnosis or condition
+            </button>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- 6 -->
+
+        <section class="opp-card">
+
+          <p class="opc-eyebrow">
+            6 • MEDICATION PROFILE
+          </p>
+
+          <p class="opp-section-copy">
+            Add current medications and practical medication
+            information that may be helpful during an emergency.
+          </p>
+
+
+          <div class="opp-checkbox-row">
+
+            <input
+              id="noCurrentMedications"
+              type="checkbox"
+            >
+
+            <label for="noCurrentMedications">
+
+              No current medications
+
+              <span class="opp-checkbox-copy">
+                Select this when the participant currently
+                takes no medications.
+              </span>
+
+            </label>
+
+          </div>
+
+
+          <div id="medicationSection">
+
+            <div
+              id="medicationList"
+              class="opp-repeat-list"
+            ></div>
+
+            <button
+              id="addMedicationButton"
+              class="opp-add"
+              type="button"
+            >
+              + Add medication
+            </button>
+
+          </div>
+
+
+          <div class="opp-medical-note">
+
+            Medication information in OneProfile™ is intended
+            to support emergency communication and identification.
+            Caregivers should keep this information current.
+
+          </div>
+
+        </section>
+
+
+
+        <!-- 7 -->
+
+        <section class="opp-card">
+
+          <p class="opc-eyebrow">
+            7 • ALLERGIES
+          </p>
+
+          <p class="opp-section-copy">
+            Add known medication, food, environmental, latex,
+            or other allergies.
+          </p>
+
+
+          <div class="opp-checkbox-row">
+
+            <input
+              id="noKnownAllergies"
+              type="checkbox"
+            >
+
+            <label for="noKnownAllergies">
+
+              No known allergies
+
+              <span class="opp-checkbox-copy">
+                Select this only when no allergies are
+                currently known.
+              </span>
+
+            </label>
+
+          </div>
+
+
+          <div id="allergySection">
+
+            <div
+              id="allergyList"
+              class="opp-repeat-list"
+            ></div>
+
+            <button
+              id="addAllergyButton"
+              class="opp-add"
+              type="button"
+            >
+              + Add allergy
+            </button>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- 8 -->
+
+        <section class="opp-card">
+
+          <p class="opc-eyebrow">
+            8 • EMERGENCY CONTACTS
           </p>
 
           <p class="opp-section-copy">
@@ -609,12 +1116,12 @@
 
 
 
-        <!-- 5 -->
+        <!-- 9 -->
 
         <section class="opp-card">
 
           <p class="opc-eyebrow">
-            5 • RESPONDER NOTE
+            9 • RESPONDER NOTE
           </p>
 
           <p class="opp-section-copy">
@@ -630,7 +1137,7 @@
             <textarea
               name="responder_notes"
               rows="5"
-              placeholder="Keep this practical and concise. Do not enter detailed medical records here."
+              placeholder="Keep this practical and concise."
             ></textarea>
 
           </label>
