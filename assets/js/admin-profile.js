@@ -117,50 +117,69 @@
       lifetag: 'LifeTag™'
     };
 
-    return labels[value] || value || 'Identifier';
+    return labels[value] ||
+      value ||
+      'Identifier';
   }
 
 
   function formatAuditAction(value) {
 
     const labels = {
+
       identifier_deactivated:
         'Identifier deactivated',
 
       identifier_reactivated:
         'Identifier reactivated',
 
+      identifier_archived:
+        'Identifier archived',
+
       identifier_issued:
         'Identifier issued'
     };
 
     return labels[value] ||
-      String(value || 'Administrative action')
+      String(
+        value ||
+        'Administrative action'
+      )
         .replace(/_/g, ' ');
   }
 
 
   function safeFileName(value) {
 
-    return String(value || 'OneProfile-QR')
+    return String(
+      value ||
+      'OneProfile-QR'
+    )
       .trim()
       .replace(/[^\w\-]+/g, '-')
       .replace(/^-+|-+$/g, '')
-      .slice(0, 70) || 'OneProfile-QR';
+      .slice(0, 70) ||
+      'OneProfile-QR';
   }
 
 
   function showError(message) {
 
-    loadingState.hidden = true;
-    profileRecord.hidden = true;
-    errorState.hidden = false;
+    loadingState.hidden =
+      true;
+
+    profileRecord.hidden =
+      true;
+
+    errorState.hidden =
+      false;
 
     errorMessage.textContent =
       message ||
       'Please return to the directory and try again.';
 
-    page.style.display = '';
+    page.style.display =
+      '';
   }
 
 
@@ -171,12 +190,14 @@
     }
 
     const heading =
-      issuedIdentifierResult.querySelector(
-        '.op-eyebrow'
-      );
+      issuedIdentifierResult
+        .querySelector(
+          '.op-eyebrow'
+        );
 
     if (heading) {
-      heading.textContent = text;
+      heading.textContent =
+        text;
     }
   }
 
@@ -214,6 +235,7 @@
 
 
     currentIssuedIdentifier = {
+
       id:
         item.id,
 
@@ -257,7 +279,8 @@
         Status:
         <strong>
           ${escapeHtml(
-            item.status || 'active'
+            item.status ||
+            'active'
           )}
         </strong>
       </div>
@@ -355,9 +378,9 @@
 
       } catch {
 
-        imageUrl = '';
+        imageUrl =
+          '';
       }
-
     }
 
 
@@ -399,9 +422,10 @@
       fileName;
 
 
-    document.body.appendChild(
-      link
-    );
+    document.body
+      .appendChild(
+        link
+      );
 
 
     link.click();
@@ -421,12 +445,14 @@
         await fetch(
           '/api/admin-identifier-scan-url',
           {
-            method: 'POST',
+            method:
+              'POST',
 
             credentials:
               'same-origin',
 
             headers: {
+
               'Content-Type':
                 'application/json',
 
@@ -434,13 +460,15 @@
                 'application/json'
             },
 
-            body: JSON.stringify({
-              enrollment_id:
-                currentEnrollmentId,
+            body:
+              JSON.stringify({
 
-              identifier_id:
-                Number(identifierId)
-            })
+                enrollment_id:
+                  currentEnrollmentId,
+
+                identifier_id:
+                  Number(identifierId)
+              })
           }
         );
 
@@ -482,8 +510,11 @@
 
       issuedIdentifierResult
         ?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center'
+          behavior:
+            'smooth',
+
+          block:
+            'center'
         });
 
 
@@ -534,6 +565,7 @@
 
         let details = {};
 
+
         if (entry.details) {
 
           try {
@@ -571,6 +603,16 @@
                 details.product_type
               )
             : '';
+
+
+        const previousStatus =
+          details.previous_status ||
+          '';
+
+
+        const newStatus =
+          details.new_status ||
+          '';
 
 
         return `
@@ -622,6 +664,22 @@
                 : ''
             }
 
+            ${
+              previousStatus &&
+              newStatus
+                ? `
+                  <div>
+                    Status change:
+                    <strong>
+                      ${escapeHtml(previousStatus)}
+                      →
+                      ${escapeHtml(newStatus)}
+                    </strong>
+                  </div>
+                `
+                : ''
+            }
+
             <div>
               Staff:
               <strong>
@@ -653,7 +711,8 @@
 
     const productType =
       String(
-        identifierType?.value || ''
+        identifierType?.value ||
+        ''
       )
         .trim()
         .toLowerCase();
@@ -661,7 +720,8 @@
 
     const label =
       String(
-        identifierLabel?.value || ''
+        identifierLabel?.value ||
+        ''
       )
         .trim();
 
@@ -682,7 +742,8 @@
 
 
     const displayLabel =
-      label || productName;
+      label ||
+      productName;
 
 
     const confirmed =
@@ -698,6 +759,7 @@
 
     issueIdentifierButton.disabled =
       true;
+
 
     issueIdentifierMessage.textContent =
       'Issuing identifier…';
@@ -720,12 +782,14 @@
         await fetch(
           '/api/admin-issue-identifier',
           {
-            method: 'POST',
+            method:
+              'POST',
 
             credentials:
               'same-origin',
 
             headers: {
+
               'Content-Type':
                 'application/json',
 
@@ -733,16 +797,18 @@
                 'application/json'
             },
 
-            body: JSON.stringify({
-              enrollment_id:
-                currentEnrollmentId,
+            body:
+              JSON.stringify({
 
-              product_type:
-                productType,
+                enrollment_id:
+                  currentEnrollmentId,
 
-              label:
-                label
-            })
+                product_type:
+                  productType,
+
+                label:
+                  label
+              })
           }
         );
 
@@ -781,6 +847,7 @@
 
       identifierLabel.value =
         '';
+
 
       issueIdentifierMessage.textContent =
         'Identifier issued successfully.';
@@ -821,20 +888,58 @@
     label
   ) {
 
-    const actionWord =
-      newStatus === 'active'
-        ? 'reactivate'
-        : 'deactivate';
+    let confirmationMessage = '';
+
+
+    if (newStatus === 'active') {
+
+      confirmationMessage =
+        `Reactivate "${label}"?\n\nThis identifier will become usable again and an active scan can open the participant's emergency OneProfile™ when emergency sharing is enabled.`;
+
+    } else if (
+      newStatus === 'inactive'
+    ) {
+
+      confirmationMessage =
+        `Deactivate "${label}"?\n\nThe identifier will stop resolving to the emergency OneProfile™ until RATIOS staff reactivates it.`;
+
+    } else if (
+      newStatus === 'archived'
+    ) {
+
+      confirmationMessage =
+        `Archive "${label}"?\n\nThis identifier will stop working and will be retained only as historical OneProfile™ activity. Archive is intended for retired, test, obsolete, or replaced identifiers.`;
+
+    } else {
+
+      return;
+    }
 
 
     const confirmed =
       window.confirm(
-        `Are you sure you want to ${actionWord} "${label}"?`
+        confirmationMessage
       );
 
 
     if (!confirmed) {
       return;
+    }
+
+
+    if (
+      newStatus === 'active'
+    ) {
+
+      const secondConfirmation =
+        window.confirm(
+          `Confirm reactivation of "${label}".\n\nOnly reactivate this identifier if the physical item or QR is still under authorized control.`
+        );
+
+
+      if (!secondConfirmation) {
+        return;
+      }
     }
 
 
@@ -844,12 +949,14 @@
         await fetch(
           '/api/admin-identifier-status',
           {
-            method: 'POST',
+            method:
+              'POST',
 
             credentials:
               'same-origin',
 
             headers: {
+
               'Content-Type':
                 'application/json',
 
@@ -857,16 +964,18 @@
                 'application/json'
             },
 
-            body: JSON.stringify({
-              enrollment_id:
-                currentEnrollmentId,
+            body:
+              JSON.stringify({
 
-              identifier_id:
-                Number(identifierId),
+                enrollment_id:
+                  currentEnrollmentId,
 
-              status:
-                newStatus
-            })
+                identifier_id:
+                  Number(identifierId),
+
+                status:
+                  newStatus
+              })
           }
         );
 
@@ -904,15 +1013,20 @@
         currentIssuedIdentifier &&
         Number(
           currentIssuedIdentifier.id
-        ) === Number(identifierId) &&
+        ) ===
+        Number(identifierId) &&
         newStatus !== 'active'
       ) {
 
         currentIssuedIdentifier =
           null;
 
-        issuedIdentifierResult.hidden =
-          true;
+
+        if (issuedIdentifierResult) {
+
+          issuedIdentifierResult.hidden =
+            true;
+        }
       }
 
 
@@ -952,8 +1066,10 @@
           const identifierId =
             button.dataset.identifierId;
 
+
           const newStatus =
             button.dataset.newStatus;
+
 
           const label =
             button.dataset.label ||
@@ -1001,6 +1117,7 @@
           button.disabled =
             true;
 
+
           const originalText =
             button.textContent;
 
@@ -1029,10 +1146,14 @@
   }
 
 
-  function renderIdentifiers(identifiers) {
+  function renderIdentifiers(
+    identifiers
+  ) {
 
     const rows =
-      Array.isArray(identifiers)
+      Array.isArray(
+        identifiers
+      )
         ? identifiers
         : [];
 
@@ -1040,8 +1161,36 @@
     const activeCount =
       rows.filter(
         item =>
-          String(item.status || '')
-            .toLowerCase() === 'active'
+          String(
+            item.status || ''
+          )
+            .trim()
+            .toLowerCase() ===
+          'active'
+      ).length;
+
+
+    const inactiveCount =
+      rows.filter(
+        item =>
+          String(
+            item.status || ''
+          )
+            .trim()
+            .toLowerCase() ===
+          'inactive'
+      ).length;
+
+
+    const archivedCount =
+      rows.filter(
+        item =>
+          String(
+            item.status || ''
+          )
+            .trim()
+            .toLowerCase() ===
+          'archived'
       ).length;
 
 
@@ -1056,7 +1205,8 @@
       );
 
 
-    let latestScan = null;
+    let latestScan =
+      null;
 
 
     for (const item of rows) {
@@ -1107,6 +1257,20 @@
         </div>
 
         <div>
+          Inactive identifiers:
+          <strong>
+            ${inactiveCount}
+          </strong>
+        </div>
+
+        <div>
+          Archived identifiers:
+          <strong>
+            ${archivedCount}
+          </strong>
+        </div>
+
+        <div>
           Total identifiers:
           <strong>
             ${rows.length}
@@ -1126,7 +1290,8 @@
             ${
               latestScan
                 ? escapeHtml(
-                    latestScan.toLocaleString()
+                    latestScan
+                      .toLocaleString()
                   )
                 : 'No scans yet'
             }
@@ -1159,7 +1324,8 @@
 
         const status =
           String(
-            item.status || 'unknown'
+            item.status ||
+            'unknown'
           )
             .trim()
             .toLowerCase();
@@ -1169,16 +1335,12 @@
           status === 'active';
 
 
-        const newStatus =
-          isActive
-            ? 'inactive'
-            : 'active';
+        const isInactive =
+          status === 'inactive';
 
 
-        const buttonText =
-          isActive
-            ? 'Deactivate identifier'
-            : 'Reactivate identifier';
+        const isArchived =
+          status === 'archived';
 
 
         const label =
@@ -1188,11 +1350,88 @@
           );
 
 
+        let statusActions =
+          '';
+
+
+        if (isActive) {
+
+          statusActions = `
+            <button
+              type="button"
+              data-identifier-action
+              data-identifier-id="${escapeHtml(item.id)}"
+              data-new-status="inactive"
+              data-label="${escapeHtml(label)}"
+            >
+              Deactivate identifier
+            </button>
+
+            <button
+              type="button"
+              data-identifier-action
+              data-identifier-id="${escapeHtml(item.id)}"
+              data-new-status="archived"
+              data-label="${escapeHtml(label)}"
+            >
+              Archive identifier
+            </button>
+          `;
+
+        } else if (
+          isInactive
+        ) {
+
+          statusActions = `
+            <button
+              type="button"
+              data-identifier-action
+              data-identifier-id="${escapeHtml(item.id)}"
+              data-new-status="active"
+              data-label="${escapeHtml(label)}"
+            >
+              Reactivate identifier
+            </button>
+
+            <button
+              type="button"
+              data-identifier-action
+              data-identifier-id="${escapeHtml(item.id)}"
+              data-new-status="archived"
+              data-label="${escapeHtml(label)}"
+            >
+              Archive identifier
+            </button>
+          `;
+
+        } else if (
+          isArchived
+        ) {
+
+          statusActions = `
+            <button
+              type="button"
+              data-identifier-action
+              data-identifier-id="${escapeHtml(item.id)}"
+              data-new-status="active"
+              data-label="${escapeHtml(label)}"
+            >
+              Restore archived identifier
+            </button>
+          `;
+        }
+
+
         return `
           <div
             style="
               border-top:1px solid #d8e3ea;
               padding:16px 0;
+              ${
+                isArchived
+                  ? 'opacity:.72;'
+                  : ''
+              }
             "
           >
 
@@ -1223,7 +1462,9 @@
             <div>
               Identifier ID:
               <strong>
-                ${escapeHtml(item.id)}
+                ${escapeHtml(
+                  item.id
+                )}
               </strong>
             </div>
 
@@ -1260,6 +1501,32 @@
               </strong>
             </div>
 
+            ${
+              isArchived
+                ? `
+                  <div
+                    style="
+                      margin-top:10px;
+                      padding:10px 12px;
+                      border:1px solid #d8e3ea;
+                      border-radius:10px;
+                      background:#f7f9fa;
+                    "
+                  >
+                    <strong>
+                      Archived record
+                    </strong>
+                    <div>
+                      This identifier is retained
+                      for historical tracking and
+                      does not resolve to the
+                      emergency OneProfile™.
+                    </div>
+                  </div>
+                `
+                : ''
+            }
+
             <div
               style="
                 margin-top:12px;
@@ -1283,15 +1550,7 @@
                   : ''
               }
 
-              <button
-                type="button"
-                data-identifier-action
-                data-identifier-id="${escapeHtml(item.id)}"
-                data-new-status="${escapeHtml(newStatus)}"
-                data-label="${escapeHtml(label)}"
-              >
-                ${escapeHtml(buttonText)}
-              </button>
+              ${statusActions}
 
             </div>
 
@@ -1320,7 +1579,8 @@
 
       const enrollmentId =
         String(
-          params.get('id') || ''
+          params.get('id') ||
+          ''
         )
           .trim()
           .toUpperCase();
@@ -1348,7 +1608,8 @@
         await fetch(
           '/api/admin-session',
           {
-            method: 'GET',
+            method:
+              'GET',
 
             credentials:
               'same-origin',
@@ -1362,7 +1623,8 @@
 
 
       const sessionData =
-        await sessionResponse.json();
+        await sessionResponse
+          .json();
 
 
       if (
@@ -1382,7 +1644,8 @@
         await fetch(
           `/api/admin-profile-detail?id=${encodeURIComponent(enrollmentId)}`,
           {
-            method: 'GET',
+            method:
+              'GET',
 
             credentials:
               'same-origin',
