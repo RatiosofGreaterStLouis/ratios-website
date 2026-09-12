@@ -35,7 +35,8 @@ function cookieValue(request, name) {
     const part of (request.headers.get('Cookie') || '').split(';')
   ) {
 
-    const [key, ...value] = part.trim().split('=');
+    const [key, ...value] =
+      part.trim().split('=');
 
     if (key === name) {
       return value.join('=');
@@ -50,30 +51,39 @@ function cookieValue(request, name) {
 
 async function auth(request, env) {
 
-  const token = cookieValue(
-    request,
-    'oneprofile_session'
-  );
+  const token =
+    cookieValue(
+      request,
+      'oneprofile_session'
+    );
+
 
   if (!token) {
     return null;
   }
 
-  const tokenHash = await hash(token);
 
-  const now = Math.floor(Date.now() / 1000);
+  const tokenHash =
+    await hash(token);
 
-  const session = await env.ONEPROFILE_DB
-    .prepare(`
-      SELECT
-        enrollment_id,
-        expires_at
-      FROM oneprofile_sessions
-      WHERE token_hash = ?
-      LIMIT 1
-    `)
-    .bind(tokenHash)
-    .first();
+
+  const now =
+    Math.floor(Date.now() / 1000);
+
+
+  const session =
+    await env.ONEPROFILE_DB
+      .prepare(`
+        SELECT
+          enrollment_id,
+          expires_at
+        FROM oneprofile_sessions
+        WHERE token_hash = ?
+        LIMIT 1
+      `)
+      .bind(tokenHash)
+      .first();
+
 
   if (
     !session ||
@@ -82,6 +92,7 @@ async function auth(request, env) {
     return null;
   }
 
+
   return session;
 
 }
@@ -89,9 +100,12 @@ async function auth(request, env) {
 
 function makeToken() {
 
-  const bytes = new Uint8Array(18);
+  const bytes =
+    new Uint8Array(18);
+
 
   crypto.getRandomValues(bytes);
+
 
   return btoa(
     String.fromCharCode(...bytes)
@@ -99,6 +113,17 @@ function makeToken() {
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '');
+
+}
+
+
+function isDigitalQr(productType) {
+
+  return String(
+    productType || ''
+  )
+    .trim()
+    .toLowerCase() === 'digital_qr';
 
 }
 
@@ -114,10 +139,26 @@ export async function onRequestGet({
 
   try {
 
-    const session = await auth(
-      request,
-      env
-    );
+    if (!env.ONEPROFILE_DB) {
+
+      return json(
+        {
+          authenticated: false,
+          error:
+            'OneProfile™ service is temporarily unavailable.'
+        },
+        503
+      );
+
+    }
+
+
+    const session =
+      await auth(
+        request,
+        env
+      );
+
 
     if (!session) {
 
@@ -131,15 +172,19 @@ export async function onRequestGet({
     }
 
 
-    const profile = await env.ONEPROFILE_DB
-      .prepare(`
-        SELECT public_profile_enabled
-        FROM oneprofile_profiles
-        WHERE enrollment_id = ?
-        LIMIT 1
-      `)
-      .bind(session.enrollment_id)
-      .first();
+    const profile =
+      await env.ONEPROFILE_DB
+        .prepare(`
+          SELECT
+            public_profile_enabled
+          FROM oneprofile_profiles
+          WHERE enrollment_id = ?
+          LIMIT 1
+        `)
+        .bind(
+          session.enrollment_id
+        )
+        .first();
 
 
     const { results } =
@@ -158,25 +203,82 @@ export async function onRequestGet({
           WHERE enrollment_id = ?
           ORDER BY created_at DESC
         `)
-        .bind(session.enrollment_id)
+        .bind(
+          session.enrollment_id
+        )
         .all();
+
+
+    const identifiers =
+      (results || []).map(item => {
+
+        const digitalQr =
+          isDigitalQr(
+            item.product_type
+          );
+
+
+        return {
+
+          id:
+            item.id,
+
+          product_type:
+            item.product_type,
+
+          label:
+            item.label,
+
+          status:
+            item.status,
+
+          scan_count:
+            item.scan_count,
+
+          last_scanned_at:
+            item.last_scanned_at,
+
+          created_at:
+            item.created_at,
+
+          issued_by:
+            digitalQr
+              ? 'caregiver'
+              : 'ratios_staff',
+
+          caregiver_managed:
+            digitalQr,
+
+          identifier_token:
+            digitalQr
+              ? item.identifier_token
+              : null
+
+        };
+
+      });
 
 
     return json({
 
-      authenticated: true,
+      authenticated:
+        true,
 
       sharing_enabled:
         !!profile?.public_profile_enabled,
 
-      identifiers:
-        results || []
+      identifiers
 
     });
 
+
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      'Caregiver identifier load error:',
+      error
+    );
+
 
     return json(
       {
@@ -202,10 +304,26 @@ export async function onRequestPost({
 
   try {
 
-    const session = await auth(
-      request,
-      env
-    );
+    if (!env.ONEPROFILE_DB) {
+
+      return json(
+        {
+          authenticated: false,
+          error:
+            'OneProfile™ service is temporarily unavailable.'
+        },
+        503
+      );
+
+    }
+
+
+    const session =
+      await auth(
+        request,
+        env
+      );
+
 
     if (!session) {
 
@@ -219,7 +337,8 @@ export async function onRequestPost({
     }
 
 
-    const body = await request.json();
+    const body =
+      await request.json();
 
 
     /* -----------------------------------------
@@ -237,15 +356,28 @@ export async function onRequestPost({
         - LifeCard™
         - LifeTag™
 
-        must be issued through the RATIOS staff/admin workflow.
+        must be issued through the RATIOS
+        staff/admin workflow.
       */
 
-      if (body.product_type !== 'digital_qr') {
+
+      const requestedProductType =
+        String(
+          body.product_type || ''
+        )
+          .trim()
+          .toLowerCase();
+
+
+      if (
+        requestedProductType !==
+        'digital_qr'
+      ) {
 
         return json(
           {
             error:
-              'Physical OneProfile™ identifiers must be issued by RATIOS staff.'
+              'Physical OneProfile™ LifeProducts must be issued by RATIOS staff.'
           },
           403
         );
@@ -253,27 +385,49 @@ export async function onRequestPost({
       }
 
 
-      const label = String(
-        body.label || ''
-      )
-        .trim()
-        .slice(0, 80);
+      const rawLabel =
+        String(
+          body.label || ''
+        )
+          .trim();
+
+
+      if (rawLabel.length > 80) {
+
+        return json(
+          {
+            error:
+              'Identifier label must be 80 characters or fewer.'
+          },
+          400
+        );
+
+      }
+
+
+      const label =
+        rawLabel;
 
 
       const count =
         await env.ONEPROFILE_DB
           .prepare(`
-            SELECT COUNT(*) AS n
+            SELECT
+              COUNT(*) AS n
             FROM oneprofile_identifiers
             WHERE enrollment_id = ?
               AND status = 'active'
           `)
-          .bind(session.enrollment_id)
+          .bind(
+            session.enrollment_id
+          )
           .first();
 
 
       if (
-        Number(count?.n || 0) >= 10
+        Number(
+          count?.n || 0
+        ) >= 10
       ) {
 
         return json(
@@ -281,7 +435,7 @@ export async function onRequestPost({
             error:
               'This profile already has the maximum number of active identifiers.'
           },
-          400
+          409
         );
 
       }
@@ -305,38 +459,48 @@ export async function onRequestPost({
                 identifier_token,
                 enrollment_id,
                 product_type,
-                label
+                label,
+                status
               )
-              VALUES (?, ?, ?, ?)
+              VALUES (?, ?, ?, ?, 'active')
             `)
             .bind(
               identifierToken,
               session.enrollment_id,
               'digital_qr',
-              label
+              label || null
             )
             .run();
 
 
-          return json({
+          return json(
+            {
 
-            ok: true,
+              ok:
+                true,
 
-            identifier_token:
-              identifierToken,
+              product_type:
+                'digital_qr',
 
-            url:
-              `/scan.html?code=${encodeURIComponent(
-                identifierToken
-              )}`
+              identifier_token:
+                identifierToken,
 
-          });
+              url:
+                `/scan.html?code=${encodeURIComponent(
+                  identifierToken
+                )}`
+
+            },
+            201
+          );
+
 
         } catch (error) {
 
           if (attempt === 2) {
             throw error;
           }
+
 
           identifierToken =
             makeToken();
@@ -349,12 +513,16 @@ export async function onRequestPost({
 
 
     /* -----------------------------------------
-       Activate / deactivate identifier
+       Activate / deactivate Digital QR
        ----------------------------------------- */
 
     if (body.action === 'status') {
 
-      const id = Number(body.id);
+      const id =
+        Number(
+          body.id
+        );
+
 
       if (
         !Number.isInteger(id) ||
@@ -367,6 +535,56 @@ export async function onRequestPost({
               'Invalid identifier.'
           },
           400
+        );
+
+      }
+
+
+      const identifier =
+        await env.ONEPROFILE_DB
+          .prepare(`
+            SELECT
+              id,
+              product_type,
+              label,
+              status
+            FROM oneprofile_identifiers
+            WHERE id = ?
+              AND enrollment_id = ?
+            LIMIT 1
+          `)
+          .bind(
+            id,
+            session.enrollment_id
+          )
+          .first();
+
+
+      if (!identifier) {
+
+        return json(
+          {
+            error:
+              'This identifier could not be found.'
+          },
+          404
+        );
+
+      }
+
+
+      if (
+        !isDigitalQr(
+          identifier.product_type
+        )
+      ) {
+
+        return json(
+          {
+            error:
+              'RATIOS-issued LifeProducts cannot be activated or deactivated from the caregiver portal.'
+          },
+          403
         );
 
       }
@@ -386,6 +604,7 @@ export async function onRequestPost({
             updated_at = datetime('now')
           WHERE id = ?
             AND enrollment_id = ?
+            AND product_type = 'digital_qr'
         `)
         .bind(
           status,
@@ -397,7 +616,8 @@ export async function onRequestPost({
 
       return json({
 
-        ok: true,
+        ok:
+          true,
 
         status
 
@@ -414,9 +634,14 @@ export async function onRequestPost({
       400
     );
 
+
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      'Caregiver identifier update error:',
+      error
+    );
+
 
     return json(
       {
@@ -440,14 +665,24 @@ export async function onRequest(context) {
   if (
     context.request.method === 'GET'
   ) {
-    return onRequestGet(context);
+
+    return onRequestGet(
+      context
+    );
+
   }
+
 
   if (
     context.request.method === 'POST'
   ) {
-    return onRequestPost(context);
+
+    return onRequestPost(
+      context
+    );
+
   }
+
 
   return json(
     {
