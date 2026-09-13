@@ -732,14 +732,14 @@
 
     const wrapper = makeSectionShell(
       hasHighRisk
-        ? '⚠ MEDICAL ALERT'
+        ? 'MEDICAL ALERT'
         : 'MEDICAL INFORMATION',
       'Allergies',
       hasHighRisk
         ? 'Important allergy information. Review before providing food, medication, treatment, or emergency care.'
         : 'Only allergy information the caregiver chose to share appears here.',
       {
-        icon: '!',
+        icon: '✚',
         iconBackground: COLORS.red,
         iconColor: COLORS.white,
         background: COLORS.paleRed,
