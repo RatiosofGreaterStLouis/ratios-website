@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
+  <title>
+    LifeProduct Support | OneProfile™ | RATIOS
+  </title>
+
+  <link
+    rel="icon"
+    href="assets/images/favicon-32.png"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/styles.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile-portal.css"
+  >
+
+
+  <style>
+
+    .lps-shell {
+      max-width:1100px;
+      margin:0 auto;
+      padding:36px 24px 60px;
+    }
+
+    .lps-head {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:24px;
+      margin-bottom:26px;
+    }
+
+    .lps-brand {
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+
+    .lps-logo {
+      width:72px;
+      height:72px;
+      object-fit:contain;
+      padding:7px;
+      box-sizing:border-box;
+      border:1px solid #dfe9f2;
+      border-radius:18px;
+      background:#ffffff;
+    }
+
+    .lps-head h1 {
+      margin:0;
+      color:#07172e;
+      font-size:clamp(2rem,4vw,3.4rem);
+      line-height:1.05;
+    }
+
+    .lps-intro {
+      margin-bottom:22px;
+      padding:18px 20px;
+      border:1px solid #d7e6ef;
+      border-radius:18px;
+      background:#f8fbfd;
+      color:#29405a;
+      line-height:1.6;
+    }
+
+    .lps-grid {
+      display:grid;
+      grid-template-columns:
+        minmax(0,1fr)
+        minmax(320px,.75fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .lps-card {
+      padding:24px;
+      border:1px solid #dfe9f2;
+      border-radius:22px;
+      background:#ffffff;
+      box-shadow:0 8px 24px rgba(7,23,46,.04);
+    }
+
+    .lps-card h2,
+    .lps-card h3 {
+      margin-top:0;
+      color:#07172e;
+    }
+
+    .lps-field {
+      display:block;
+      margin-bottom:18px;
+      color:#07172e;
+      font-weight:800;
+    }
+
+    .lps-field select,
+    .lps-field textarea {
+      width:100%;
+      margin-top:8px;
+      box-sizing:border-box;
+    }
+
+    .lps-field textarea {
+      min-height:130px;
+      resize:vertical;
+    }
+
+    .lps-helper {
+      margin-top:6px;
+      color:#62758a;
+      font-size:.9rem;
+      line-height:1.45;
+      font-weight:500;
+    }
+
+    .lps-alert {
+      margin-bottom:18px;
+      padding:14px 16px;
+      border-radius:15px;
+      border:1px solid #f2d28a;
+      background:#fff8e7;
+      color:#624b12;
+      line-height:1.5;
+    }
+
+    .lps-actions {
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+
+    .lps-actions .opc-button {
+      min-height:50px;
+      padding:12px 22px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:800;
+    }
+
+    .lps-list {
+      display:grid;
+      gap:14px;
+    }
+
+    .lps-request {
+      padding:16px;
+      border:1px solid #e0e8ef;
+      border-radius:16px;
+      background:#fbfdff;
+    }
+
+    .lps-request-top {
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      margin-bottom:8px;
+    }
+
+    .lps-request-title {
+      color:#07172e;
+      font-weight:900;
+    }
+
+    .lps-status {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:.78rem;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      white-space:nowrap;
+    }
+
+    .lps-status.open {
+      background:#fff3cd;
+      color:#6d5100;
+    }
+
+    .lps-status.reviewed {
+      background:#e8f2ff;
+      color:#174a83;
+    }
+
+    .lps-status.resolved {
+      background:#e8f7ee;
+      color:#176238;
+    }
+
+    .lps-empty {
+      padding:18px;
+      border:1px dashed #cfdbe5;
+      border-radius:16px;
+      color:#62758a;
+      background:#fafcfe;
+      line-height:1.5;
+    }
+
+    .lps-footer {
+      margin-top:26px;
+      text-align:center;
+      color:#6d7d8e;
+      font-size:.9rem;
+    }
+
+    @media (max-width:850px) {
+
+      .lps-shell {
+        padding-left:16px;
+        padding-right:16px;
+      }
+
+      .lps-head {
+        flex-direction:column;
+      }
+
+      .lps-grid {
+        grid-template-columns:1fr;
+      }
+
+      .lps-head .opc-button {
+        width:100%;
+        justify-content:center;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body class="opc-body">
+
+
+  <main class="lps-shell">
+
+
+    <div
+      id="lifeProductLoading"
+      class="opc-loading"
+    >
+      Loading LifeProduct™ support…
+    </div>
+
+
+    <section
+      id="lifeProductContent"
+      hidden
+    >
+
+
+      <div class="lps-head">
+
+
+        <div class="lps-brand">
+
+          <img
+            class="lps-logo"
+            src="assets/images/ratios-official-logo.png"
+            alt="RATIOS"
+          >
+
+          <div>
+
+            <p class="opc-eyebrow">
+              ONEPROFILE™ LIFEPRODUCT SUPPORT
+            </p>
+
+            <h1>
+              Report a LifeProduct issue.
+            </h1>
+
+            <p class="opc-lead">
+              Request help with a RATIOS-issued
+              LifePatch™, LifeBand™, LifeCard™,
+              or LifeTag™.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <a
+          class="opc-button opc-secondary"
+          href="caregiver-dashboard.html"
+        >
+          Back to dashboard
+        </a>
+
+
+      </div>
+
+
+
+      <div class="lps-intro">
+
+        <strong>
+          Reporting a problem does not automatically change your identifier.
+        </strong>
+
+        RATIOS staff reviews LifeProduct requests before
+        deactivating, replacing, archiving, or issuing a new
+        physical identifier.
+
+      </div>
+
+
+
+      <div class="lps-grid">
+
+
+        <!-- Request form -->
+
+        <section class="lps-card">
+
+          <p class="opc-eyebrow">
+            SUBMIT A REQUEST
+          </p>
+
+          <h2>
+            How can RATIOS help?
+          </h2>
+
+
+          <div
+            id="noPhysicalProducts"
+            class="lps-alert"
+            hidden
+          >
+            No active RATIOS-issued physical LifeProducts
+            are currently available for support.
+          </div>
+
+
+          <form id="lifeProductRequestForm">
+
+
+            <label class="lps-field">
+
+              LifeProduct
+
+              <select
+                id="identifierId"
+                name="identifier_id"
+                required
+              >
+
+                <option value="">
+                  Select a LifeProduct
+                </option>
+
+              </select>
+
+              <div class="lps-helper">
+                Only RATIOS-issued physical LifeProducts
+                appear here. Digital QR identifiers are
+                managed separately.
+              </div>
+
+            </label>
+
+
+
+            <label class="lps-field">
+
+              What happened?
+
+              <select
+                id="requestType"
+                name="request_type"
+                required
+              >
+
+                <option value="">
+                  Select a reason
+                </option>
+
+                <option value="lost">
+                  Lost
+                </option>
+
+                <option value="damaged">
+                  Damaged
+                </option>
+
+                <option value="not_scanning">
+                  QR code is not scanning
+                </option>
+
+                <option value="fit_or_usability">
+                  No longer fits or is usable
+                </option>
+
+                <option value="replacement_requested">
+                  Replacement requested
+                </option>
+
+                <option value="other">
+                  Other
+                </option>
+
+              </select>
+
+            </label>
+
+
+
+            <label class="lps-field">
+
+              Additional details
+
+              <textarea
+                id="caregiverNote"
+                name="caregiver_note"
+                maxlength="1000"
+                placeholder="Tell RATIOS what happened, when you noticed the problem, or anything staff should know."
+              ></textarea>
+
+              <div class="lps-helper">
+                Please do not include sensitive information
+                that is unrelated to the LifeProduct issue.
+              </div>
+
+            </label>
+
+
+
+            <div
+              id="requestMessage"
+              class="opc-alert info"
+              hidden
+            ></div>
+
+
+
+            <div class="lps-actions">
+
+              <button
+                id="submitRequestButton"
+                class="opc-button opc-primary"
+                type="submit"
+              >
+                Submit request
+              </button>
+
+              <a
+                class="opc-button opc-secondary"
+                href="identifier-manager.html"
+              >
+                Manage identifiers
+              </a>
+
+            </div>
+
+
+          </form>
+
+        </section>
+
+
+
+        <!-- Existing requests -->
+
+        <aside class="lps-card">
+
+          <p class="opc-eyebrow">
+            REQUEST HISTORY
+          </p>
+
+          <h3>
+            Previous LifeProduct requests
+          </h3>
+
+          <p class="opc-small">
+            You can review the status of requests
+            previously submitted for this OneProfile™.
+          </p>
+
+
+          <div
+            id="requestList"
+            class="lps-list"
+          >
+
+            <div class="lps-empty">
+              Loading requests…
+            </div>
+
+          </div>
+
+        </aside>
+
+
+      </div>
+
+
+
+      <p class="lps-footer">
+        OneProfile™ by RATIOS
+        • Recognized. Protected. Connected.
+      </p>
+
+
+    </section>
+
+  </main>
+
+
+  <script
+    src="assets/js/lifeproduct-support.js?v=1"
+  ></script>
+
+
+</body>
+
+</html>
