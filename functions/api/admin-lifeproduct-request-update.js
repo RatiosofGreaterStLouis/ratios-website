@@ -1,22 +1,17 @@
 const json = (body, status = 200) =>
-  new Response(
-    JSON.stringify(body),
-    {
-      status,
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-store'
-      }
+  new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-store'
     }
-  );
+  });
 
 
-const hex = buffer =>
-  [...new Uint8Array(buffer)]
-    .map(value =>
-      value
-        .toString(16)
-        .padStart(2, '0')
+const hex = (buf) =>
+  [...new Uint8Array(buf)]
+    .map(b =>
+      b.toString(16).padStart(2, '0')
     )
     .join('');
 
@@ -34,15 +29,13 @@ async function hash(value) {
 
 function cookieValue(request, name) {
 
-  const cookieHeader =
+  const raw =
     request.headers.get('Cookie') || '';
 
-  for (const part of cookieHeader.split(';')) {
+  for (const part of raw.split(';')) {
 
-    const [
-      key,
-      ...value
-    ] = part.trim().split('=');
+    const [key, ...value] =
+      part.trim().split('=');
 
     if (key === name) {
       return value.join('=');
@@ -50,6 +43,19 @@ function cookieValue(request, name) {
   }
 
   return '';
+}
+
+
+function adminEmails(env) {
+
+  return String(
+    env.ONEPROFILE_ADMIN_EMAILS || ''
+  )
+    .split(',')
+    .map(value =>
+      value.trim().toLowerCase()
+    )
+    .filter(Boolean);
 }
 
 
@@ -62,212 +68,184 @@ async function authenticateAdmin(
     cookieValue(
       request,
       'oneprofile_admin_session'
-    ) ||
-    cookieValue(
-      request,
-      'oneprofile_staff_session'
     );
 
   if (!token) {
     return null;
   }
 
-  const tokenHash =
-    await hash(token);
 
   const now =
     Math.floor(Date.now() / 1000);
 
+  const tokenHash =
+    await hash(token);
 
-  const attempts = [
 
-    {
-      sql: `
+  const session =
+    await env.ONEPROFILE_DB
+      .prepare(`
         SELECT
-          s.staff_id,
-          s.expires_at,
-          a.email
-        FROM oneprofile_admin_sessions s
-        LEFT JOIN oneprofile_admin_users a
-          ON a.id = s.staff_id
-        WHERE s.token_hash = ?
+          staff_email,
+          expires_at
+        FROM oneprofile_admin_sessions
+        WHERE token_hash = ?
         LIMIT 1
-      `
-    },
-
-    {
-      sql: `
-        SELECT
-          s.staff_id,
-          s.expires_at,
-          a.email
-        FROM oneprofile_staff_sessions s
-        LEFT JOIN oneprofile_staff a
-          ON a.id = s.staff_id
-        WHERE s.token_hash = ?
-        LIMIT 1
-      `
-    }
-
-  ];
+      `)
+      .bind(tokenHash)
+      .first();
 
 
-  for (const attempt of attempts) {
-
-    try {
-
-      const session =
-        await env.ONEPROFILE_DB
-          .prepare(attempt.sql)
-          .bind(tokenHash)
-          .first();
-
-      if (
-        session &&
-        Number(session.expires_at) >= now
-      ) {
-        return session;
-      }
-
-    } catch (error) {
-      // Alternate schema may not exist.
-    }
+  if (
+    !session ||
+    Number(session.expires_at) < now
+  ) {
+    return null;
   }
 
-  return null;
+
+  const email =
+    String(
+      session.staff_email || ''
+    ).toLowerCase();
+
+
+  const allowed =
+    adminEmails(env);
+
+
+  if (!allowed.includes(email)) {
+
+    await env.ONEPROFILE_DB
+      .prepare(`
+        DELETE FROM oneprofile_admin_sessions
+        WHERE token_hash = ?
+      `)
+      .bind(tokenHash)
+      .run();
+
+    return null;
+  }
+
+
+  return {
+    email
+  };
 }
 
 
-export async function onRequest(context) {
-
-  const {
-    request,
-    env
-  } = context;
-
-
-  if (!env.ONEPROFILE_DB) {
-
-    return json(
-      {
-        error:
-          'Database binding unavailable.'
-      },
-      500
-    );
-  }
-
-
-  if (request.method !== 'POST') {
-
-    return json(
-      {
-        error:
-          'Method not allowed.'
-      },
-      405
-    );
-  }
-
-
-  const staff =
-    await authenticateAdmin(
-      request,
-      env
-    );
-
-
-  if (!staff) {
-
-    return json(
-      {
-        authenticated: false,
-        error:
-          'Staff authentication required.'
-      },
-      401
-    );
-  }
-
-
-  let body;
+export async function onRequestPost({
+  request,
+  env
+}) {
 
   try {
 
-    body =
-      await request.json();
+    if (!env.ONEPROFILE_DB) {
 
-  } catch (error) {
-
-    return json(
-      {
-        error:
-          'Invalid request.'
-      },
-      400
-    );
-  }
+      return json(
+        {
+          authenticated: false,
+          error:
+            'Database binding unavailable.'
+        },
+        503
+      );
+    }
 
 
-  const requestId =
-    Number(body.request_id);
-
-  const action =
-    String(
-      body.action || ''
-    )
-      .trim()
-      .toLowerCase();
-
-  const staffNote =
-    String(
-      body.staff_note || ''
-    ).trim();
+    const staff =
+      await authenticateAdmin(
+        request,
+        env
+      );
 
 
-  if (
-    !Number.isInteger(requestId) ||
-    requestId <= 0
-  ) {
+    if (!staff) {
 
-    return json(
-      {
-        error:
-          'Invalid support request ID.'
-      },
-      400
-    );
-  }
+      return json(
+        {
+          authenticated: false,
+          error:
+            'Staff authentication required.'
+        },
+        401
+      );
+    }
 
 
-  if (
-    action !== 'review' &&
-    action !== 'resolve'
-  ) {
+    let body;
 
-    return json(
-      {
-        error:
-          'Invalid request action.'
-      },
-      400
-    );
-  }
-
-
-  if (staffNote.length > 1500) {
-
-    return json(
-      {
-        error:
-          'Staff note must be 1,500 characters or fewer.'
-      },
-      400
-    );
-  }
+    try {
+      body = await request.json();
+    } catch {
+      return json(
+        {
+          error:
+            'Invalid request.'
+        },
+        400
+      );
+    }
 
 
-  try {
+    const requestId =
+      Number(body.request_id);
+
+    const action =
+      String(
+        body.action || ''
+      )
+        .trim()
+        .toLowerCase();
+
+    const staffNote =
+      String(
+        body.staff_note || ''
+      ).trim();
+
+
+    if (
+      !Number.isInteger(requestId) ||
+      requestId <= 0
+    ) {
+
+      return json(
+        {
+          error:
+            'Invalid support request ID.'
+        },
+        400
+      );
+    }
+
+
+    if (
+      action !== 'review' &&
+      action !== 'resolve'
+    ) {
+
+      return json(
+        {
+          error:
+            'Invalid request action.'
+        },
+        400
+      );
+    }
+
+
+    if (staffNote.length > 1500) {
+
+      return json(
+        {
+          error:
+            'Staff note must be 1,500 characters or fewer.'
+        },
+        400
+      );
+    }
+
 
     const existing =
       await env.ONEPROFILE_DB
@@ -329,14 +307,6 @@ export async function onRequest(context) {
     }
 
 
-    const staffIdentity =
-      String(
-        staff.email ||
-        staff.staff_id ||
-        'RATIOS staff'
-      );
-
-
     if (action === 'review') {
 
       await env.ONEPROFILE_DB
@@ -358,13 +328,14 @@ export async function onRequest(context) {
         `)
         .bind(
           staffNote || null,
-          staffIdentity,
+          staff.email,
           requestId
         )
         .run();
 
 
       return json({
+        authenticated: true,
         success: true,
         request_id: requestId,
         request_status: 'reviewed'
@@ -396,13 +367,14 @@ export async function onRequest(context) {
       `)
       .bind(
         staffNote || null,
-        staffIdentity,
+        staff.email,
         requestId
       )
       .run();
 
 
     return json({
+      authenticated: true,
       success: true,
       request_id: requestId,
       request_status: 'resolved'
@@ -424,4 +396,21 @@ export async function onRequest(context) {
       500
     );
   }
+}
+
+
+export async function onRequest(context) {
+
+  if (context.request.method !== 'POST') {
+
+    return json(
+      {
+        error:
+          'Method not allowed.'
+      },
+      405
+    );
+  }
+
+  return onRequestPost(context);
 }
