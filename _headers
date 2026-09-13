@@ -8,12 +8,13 @@
   Pragma: no-cache
   Expires: 0
 
-/api/identifier-profile
-  Cache-Control: no-store
+/emergency.html
+  Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
+  X-Robots-Tag: noindex, nofollow
 
-/api/identifier-photo
-  Cache-Control: private, no-store, max-age=0
+/assets/js/emergency-view.js
+  Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0

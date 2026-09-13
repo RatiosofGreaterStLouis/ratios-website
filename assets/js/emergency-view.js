@@ -1,5 +1,4 @@
 (async () => {
-
   const id =
     new URLSearchParams(location.search).get('id') || '';
 
@@ -15,67 +14,141 @@
   const cards =
     document.getElementById('cards');
 
+  const COLORS = {
+    navy: '#07172e',
+    text: '#29405a',
+    muted: '#617388',
+    teal: '#14869a',
+    tealSoft: '#eef9fb',
+    tealBorder: '#cfe7ec',
+    blueSoft: '#f4f8fc',
+    blueBorder: '#d7e4ee',
+    white: '#ffffff',
+    red: '#b42318',
+    redDark: '#8f1710',
+    redSoft: '#fff1f0',
+    redSofter: '#fff7f6',
+    redBorder: '#efb5b0',
+    redStrongBorder: '#dc6b63',
+    green: '#247a4b',
+    greenSoft: '#f1faf5',
+    greenBorder: '#bfe2cc'
+  };
+
 
   function hasValue(value) {
-
-    return value !== null &&
-           value !== undefined &&
-           String(value).trim() !== '';
-
+    return (
+      value !== null &&
+      value !== undefined &&
+      String(value).trim() !== ''
+    );
   }
 
 
   function hasItems(value) {
-
     return (
       value &&
       Array.isArray(value.items) &&
       value.items.length > 0
     );
-
   }
 
 
   function cleanPhone(phone) {
-
     return String(phone || '')
       .replace(/[^\d+]/g, '');
-
   }
 
 
   function formatPhone(phone) {
-
     const digits =
       String(phone || '')
         .replace(/\D/g, '');
 
     if (digits.length === 10) {
-
-      return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
-
+      return (
+        `(${digits.slice(0, 3)}) ` +
+        `${digits.slice(3, 6)}-` +
+        `${digits.slice(6)}`
+      );
     }
 
     if (
       digits.length === 11 &&
       digits.startsWith('1')
     ) {
-
-      return `(${digits.slice(1,4)}) ${digits.slice(4,7)}-${digits.slice(7)}`;
-
+      return (
+        `(${digits.slice(1, 4)}) ` +
+        `${digits.slice(4, 7)}-` +
+        `${digits.slice(7)}`
+      );
     }
 
     return String(phone || '');
+  }
 
+
+  function normalizeDisplayValue(value) {
+    if (!hasValue(value)) {
+      return '';
+    }
+
+    const normalized =
+      String(value)
+        .trim()
+        .replace(/_/g, ' ')
+        .replace(/\s+/g, ' ');
+
+    if (
+      normalized.toLowerCase() ===
+      'life threatening'
+    ) {
+      return 'Life-threatening';
+    }
+
+    return normalized
+      .split(' ')
+      .map(word => {
+        if (!word) {
+          return '';
+        }
+
+        return (
+          word.charAt(0).toUpperCase() +
+          word.slice(1)
+        );
+      })
+      .join(' ');
+  }
+
+
+  function isHighRiskAllergy(item) {
+    const severity =
+      String(item?.severity || '')
+        .replace(/_/g, ' ')
+        .toLowerCase();
+
+    const reaction =
+      String(item?.reaction || '')
+        .replace(/_/g, ' ')
+        .toLowerCase();
+
+    return (
+      severity.includes('life threatening') ||
+      severity.includes('severe') ||
+      severity.includes('critical') ||
+      severity.includes('anaphyl') ||
+      reaction.includes('anaphyl')
+    );
   }
 
 
   function makeSectionShell(
     eyebrowText,
     titleText,
-    introText = ''
+    introText = '',
+    options = {}
   ) {
-
     const wrapper =
       document.createElement('section');
 
@@ -86,17 +159,89 @@
       '24px 0 4px';
 
     wrapper.style.padding =
-      '20px';
+      options.padding || '20px';
 
     wrapper.style.border =
-      '1px solid #d7e2ea';
+      options.border ||
+      `1px solid ${COLORS.blueBorder}`;
 
     wrapper.style.borderRadius =
-      '18px';
+      '20px';
 
     wrapper.style.background =
-      '#f8fafc';
+      options.background ||
+      COLORS.blueSoft;
 
+    if (options.shadow) {
+      wrapper.style.boxShadow =
+        options.shadow;
+    }
+
+    const header =
+      document.createElement('div');
+
+    header.style.display =
+      'flex';
+
+    header.style.alignItems =
+      'flex-start';
+
+    header.style.gap =
+      '13px';
+
+    const icon =
+      document.createElement('div');
+
+    icon.textContent =
+      options.icon || '✚';
+
+    icon.style.flex =
+      '0 0 auto';
+
+    icon.style.display =
+      'flex';
+
+    icon.style.alignItems =
+      'center';
+
+    icon.style.justifyContent =
+      'center';
+
+    icon.style.width =
+      options.iconSize || '38px';
+
+    icon.style.height =
+      options.iconSize || '38px';
+
+    icon.style.borderRadius =
+      '50%';
+
+    icon.style.background =
+      options.iconBackground ||
+      COLORS.tealSoft;
+
+    icon.style.color =
+      options.iconColor ||
+      COLORS.teal;
+
+    icon.style.fontSize =
+      options.iconFontSize ||
+      '1.1rem';
+
+    icon.style.fontWeight =
+      '900';
+
+    icon.style.lineHeight =
+      '1';
+
+    const headingWrap =
+      document.createElement('div');
+
+    headingWrap.style.minWidth =
+      '0';
+
+    headingWrap.style.flex =
+      '1';
 
     const eyebrow =
       document.createElement('div');
@@ -105,20 +250,20 @@
       eyebrowText;
 
     eyebrow.style.marginBottom =
-      '6px';
+      '5px';
 
     eyebrow.style.color =
-      '#14869a';
+      options.eyebrowColor ||
+      COLORS.teal;
 
     eyebrow.style.fontSize =
-      '.75rem';
+      '.74rem';
 
     eyebrow.style.fontWeight =
       '900';
 
     eyebrow.style.letterSpacing =
       '.1em';
-
 
     const title =
       document.createElement('h2');
@@ -128,24 +273,25 @@
 
     title.style.margin =
       introText
-        ? '0 0 8px'
-        : '0 0 16px';
+        ? '0 0 7px'
+        : '0';
 
     title.style.color =
-      '#07172e';
+      options.titleColor ||
+      COLORS.navy;
 
     title.style.fontSize =
       '1.2rem';
 
+    title.style.lineHeight =
+      '1.25';
 
-    wrapper.append(
+    headingWrap.append(
       eyebrow,
       title
     );
 
-
     if (introText) {
-
       const intro =
         document.createElement('p');
 
@@ -153,44 +299,50 @@
         introText;
 
       intro.style.margin =
-        '0 0 16px';
+        '0';
 
       intro.style.color =
+        options.introColor ||
         '#526174';
 
       intro.style.lineHeight =
         '1.5';
 
+      intro.style.fontSize =
+        '.95rem';
 
-      wrapper.appendChild(
+      headingWrap.appendChild(
         intro
       );
-
     }
 
+    header.append(
+      icon,
+      headingWrap
+    );
+
+    wrapper.appendChild(
+      header
+    );
 
     return wrapper;
-
   }
 
 
   function makeGrid() {
-
-    const grid =
+    const sectionGrid =
       document.createElement('div');
 
-    grid.style.display =
+    sectionGrid.style.display =
       'grid';
 
-    grid.style.gridTemplateColumns =
+    sectionGrid.style.gridTemplateColumns =
       'repeat(auto-fit, minmax(230px, 1fr))';
 
-    grid.style.gap =
+    sectionGrid.style.gap =
       '12px';
 
-
-    return grid;
-
+    return sectionGrid;
   }
 
 
@@ -199,11 +351,9 @@
     value,
     options = {}
   ) {
-
     if (!hasValue(value)) {
       return null;
     }
-
 
     const card =
       document.createElement('div');
@@ -211,25 +361,18 @@
     card.className =
       'em-card';
 
-
     if (options.fullWidth) {
-
       card.style.gridColumn =
         '1 / -1';
-
     }
 
-
     if (options.urgent) {
-
       card.style.border =
         '2px solid #d97706';
 
       card.style.background =
         '#fffaf0';
-
     }
-
 
     const heading =
       document.createElement('span');
@@ -237,22 +380,18 @@
     heading.textContent =
       label;
 
-
     const strong =
       document.createElement('strong');
 
     strong.textContent =
       value;
 
-
     card.append(
       heading,
       strong
     );
 
-
     return card;
-
   }
 
 
@@ -260,11 +399,9 @@
     name,
     phone
   ) {
-
     if (!hasValue(phone)) {
       return null;
     }
-
 
     const wrapper =
       document.createElement('div');
@@ -275,19 +412,16 @@
     wrapper.style.margin =
       '4px 0 8px';
 
-
     const button =
       document.createElement('a');
 
     button.href =
       `tel:${cleanPhone(phone)}`;
 
-
     button.textContent =
       hasValue(name)
         ? `Contact caregiver · ${name}`
         : 'Contact caregiver';
-
 
     button.style.display =
       'flex';
@@ -308,10 +442,10 @@
       '14px 18px';
 
     button.style.background =
-      '#07172e';
+      COLORS.navy;
 
     button.style.color =
-      '#ffffff';
+      COLORS.white;
 
     button.style.borderRadius =
       '999px';
@@ -328,46 +462,326 @@
     button.style.textAlign =
       'center';
 
-
     wrapper.appendChild(
       button
     );
 
-
     return wrapper;
-
   }
 
 
-  function makePrimaryPhotoSection(photo) {
+  function makeGlanceItem(
+    label,
+    value
+  ) {
+    if (!hasValue(value)) {
+      return null;
+    }
 
+    const item =
+      document.createElement('div');
+
+    item.style.padding =
+      '14px 16px';
+
+    item.style.border =
+      '1px solid #d8e5ec';
+
+    item.style.borderRadius =
+      '14px';
+
+    item.style.background =
+      COLORS.white;
+
+    const small =
+      document.createElement('div');
+
+    small.textContent =
+      label;
+
+    small.style.marginBottom =
+      '5px';
+
+    small.style.color =
+      COLORS.muted;
+
+    small.style.fontSize =
+      '.76rem';
+
+    small.style.fontWeight =
+      '800';
+
+    small.style.textTransform =
+      'uppercase';
+
+    small.style.letterSpacing =
+      '.06em';
+
+    const strong =
+      document.createElement('div');
+
+    strong.textContent =
+      value;
+
+    strong.style.color =
+      COLORS.navy;
+
+    strong.style.fontWeight =
+      '800';
+
+    strong.style.lineHeight =
+      '1.4';
+
+    item.append(
+      small,
+      strong
+    );
+
+    return item;
+  }
+
+
+  function makeAtAGlance(
+    profileData
+  ) {
+    const values = [
+      [
+        'Communication',
+        profileData.communication_method
+      ],
+      [
+        'Safety risk',
+        profileData.safety_risk_level
+      ],
+      [
+        'Touch preference',
+        profileData.touch_preference
+      ]
+    ];
+
+    const valid =
+      values.filter(
+        ([, value]) =>
+          hasValue(value)
+      );
+
+    if (!valid.length) {
+      return null;
+    }
+
+    const wrapper =
+      makeSectionShell(
+        'QUICK INFORMATION',
+        'At a glance',
+        'Key information that may help with the first moments of contact.',
+        {
+          icon: 'i',
+          iconBackground:
+            COLORS.tealSoft,
+          iconColor:
+            COLORS.teal
+        }
+      );
+
+    const sectionGrid =
+      makeGrid();
+
+    sectionGrid.style.marginTop =
+      '16px';
+
+    valid.forEach(
+      ([label, value]) => {
+        const item =
+          makeGlanceItem(
+            label,
+            value
+          );
+
+        if (item) {
+          sectionGrid.appendChild(
+            item
+          );
+        }
+      }
+    );
+
+    wrapper.appendChild(
+      sectionGrid
+    );
+
+    return wrapper;
+  }
+
+
+  function makeSafetySection(
+    profileData
+  ) {
+    const values = [
+      [
+        'Known destinations',
+        profileData.known_destinations
+      ],
+      [
+        'Safe approach',
+        profileData.safe_approach
+      ]
+    ];
+
+    const valid =
+      values.filter(
+        ([, value]) =>
+          hasValue(value)
+      );
+
+    if (!valid.length) {
+      return null;
+    }
+
+    const wrapper =
+      makeSectionShell(
+        'SAFETY & WANDERING',
+        'Safety information',
+        'Use these details to support a calm and safe approach.',
+        {
+          icon: '⌖',
+          iconBackground:
+            COLORS.tealSoft,
+          iconColor:
+            COLORS.teal
+        }
+      );
+
+    const sectionGrid =
+      makeGrid();
+
+    sectionGrid.style.marginTop =
+      '16px';
+
+    valid.forEach(
+      ([label, value]) => {
+        const item =
+          makeCard(
+            label,
+            value
+          );
+
+        if (item) {
+          sectionGrid.appendChild(
+            item
+          );
+        }
+      }
+    );
+
+    wrapper.appendChild(
+      sectionGrid
+    );
+
+    return wrapper;
+  }
+
+
+  function makeSupportSection(
+    profileData
+  ) {
+    const values = [
+      [
+        'Communication notes',
+        profileData.communication_notes
+      ],
+      [
+        'Sensory triggers',
+        profileData.sensory_triggers
+      ],
+      [
+        'Calming supports',
+        profileData.calming_supports
+      ]
+    ];
+
+    const valid =
+      values.filter(
+        ([, value]) =>
+          hasValue(value)
+      );
+
+    if (!valid.length) {
+      return null;
+    }
+
+    const wrapper =
+      makeSectionShell(
+        'COMMUNICATION & SUPPORT',
+        'How to help',
+        'These caregiver-approved details may help make communication and interaction safer.',
+        {
+          icon: '♥',
+          iconBackground:
+            COLORS.tealSoft,
+          iconColor:
+            COLORS.teal
+        }
+      );
+
+    const sectionGrid =
+      makeGrid();
+
+    sectionGrid.style.marginTop =
+      '16px';
+
+    valid.forEach(
+      ([label, value]) => {
+        const item =
+          makeCard(
+            label,
+            value
+          );
+
+        if (item) {
+          sectionGrid.appendChild(
+            item
+          );
+        }
+      }
+    );
+
+    wrapper.appendChild(
+      sectionGrid
+    );
+
+    return wrapper;
+  }
+
+
+  function makePrimaryPhotoSection(
+    photo
+  ) {
     if (
       !photo ||
       !hasValue(photo.url)
     ) {
-
       return null;
-
     }
-
 
     const wrapper =
       makeSectionShell(
-        'IDENTIFICATION',
-        'Participant identification photo',
-        'Use this caregiver-approved photo to help confirm the participant’s identity.'
+        'PARTICIPANT IDENTIFICATION',
+        'Primary identification photo',
+        'Use this caregiver-approved photo to help confirm identity.',
+        {
+          icon: '●',
+          iconBackground:
+            COLORS.tealSoft,
+          iconColor:
+            COLORS.teal
+        }
       );
-
-
-    wrapper.style.background =
-      '#f4fafc';
-
-    wrapper.style.border =
-      '1px solid #cfe3ea';
-
 
     const photoWrap =
       document.createElement('div');
+
+    photoWrap.style.marginTop =
+      '16px';
 
     photoWrap.style.display =
       'flex';
@@ -376,11 +790,10 @@
       'column';
 
     photoWrap.style.alignItems =
-      'center';
+      'flex-start';
 
     photoWrap.style.gap =
       '10px';
-
 
     const image =
       document.createElement('img');
@@ -389,136 +802,136 @@
       photo.url;
 
     image.alt =
-      'Participant identification photo';
+      hasValue(photo.caption)
+        ? photo.caption
+        : 'Participant identification photo';
 
     image.loading =
       'eager';
+
+    image.style.display =
+      'block';
 
     image.style.width =
       '100%';
 
     image.style.maxWidth =
-      '420px';
+      '360px';
 
     image.style.maxHeight =
-      '480px';
+      '420px';
 
     image.style.objectFit =
       'cover';
 
     image.style.borderRadius =
-      '20px';
+      '18px';
 
     image.style.border =
-      '1px solid #d6e4ea';
+      '1px solid #d7e2ea';
 
     image.style.background =
-      '#ffffff';
+      COLORS.white;
 
-
-    photoWrap.appendChild(
-      image
-    );
-
-
-    if (
-      hasValue(photo.caption)
-    ) {
-
+    if (hasValue(photo.caption)) {
       const caption =
-        document.createElement('p');
+        document.createElement('div');
 
       caption.textContent =
         photo.caption;
 
-      caption.style.margin =
-        '0';
-
       caption.style.color =
-        '#526174';
+        COLORS.muted;
 
       caption.style.fontSize =
         '.9rem';
 
-      caption.style.textAlign =
-        'center';
+      caption.style.fontWeight =
+        '700';
 
-
-      photoWrap.appendChild(
+      photoWrap.append(
+        image,
         caption
       );
-
+    } else {
+      photoWrap.appendChild(
+        image
+      );
     }
-
 
     wrapper.appendChild(
       photoWrap
     );
 
-
     return wrapper;
-
   }
 
 
-  function makeAdditionalPhotosSection(photos) {
-
+  function makeAdditionalPhotosSection(
+    photos
+  ) {
     if (
       !Array.isArray(photos) ||
       !photos.length
     ) {
-
       return null;
-
     }
 
+    const valid =
+      photos.filter(
+        photo =>
+          photo &&
+          hasValue(photo.url)
+      );
+
+    if (!valid.length) {
+      return null;
+    }
 
     const wrapper =
       makeSectionShell(
         'ADDITIONAL IDENTIFICATION',
         'Additional identifying photos',
-        'These optional caregiver-approved photos may help responders recognize the participant from different views.'
+        'These caregiver-approved photos may help confirm identity from different views.',
+        {
+          icon: '●',
+          iconBackground:
+            COLORS.tealSoft,
+          iconColor:
+            COLORS.teal
+        }
       );
 
-
-    const grid =
+    const photoGrid =
       document.createElement('div');
 
-    grid.style.display =
+    photoGrid.style.display =
       'grid';
 
-    grid.style.gridTemplateColumns =
+    photoGrid.style.gridTemplateColumns =
       'repeat(auto-fit, minmax(180px, 1fr))';
 
-    grid.style.gap =
+    photoGrid.style.gap =
       '12px';
 
+    photoGrid.style.marginTop =
+      '16px';
 
-    photos.forEach((photo) => {
-
-      if (
-        !photo ||
-        !hasValue(photo.url)
-      ) {
-        return;
-      }
-
-
-      const item =
+    valid.forEach(photo => {
+      const card =
         document.createElement('div');
 
-      item.style.border =
-        '1px solid #dbe5ec';
-
-      item.style.borderRadius =
-        '16px';
-
-      item.style.padding =
+      card.style.padding =
         '10px';
 
-      item.style.background =
-        '#ffffff';
+      card.style.border =
+        '1px solid #d7e2ea';
 
+      card.style.borderRadius =
+        '16px';
+
+      card.style.background =
+        COLORS.white;
 
       const image =
         document.createElement('img');
@@ -527,7 +940,9 @@
         photo.url;
 
       image.alt =
-        'Additional participant identification photo';
+        hasValue(photo.caption)
+          ? photo.caption
+          : 'Additional participant identification photo';
 
       image.loading =
         'lazy';
@@ -547,1220 +962,996 @@
       image.style.borderRadius =
         '12px';
 
-
-      item.appendChild(
-        image
-      );
-
-
-      if (
-        hasValue(photo.caption)
-      ) {
-
+      if (hasValue(photo.caption)) {
         const caption =
-          document.createElement('p');
+          document.createElement('div');
 
         caption.textContent =
           photo.caption;
 
-        caption.style.margin =
-          '8px 2px 2px';
+        caption.style.marginTop =
+          '8px';
 
         caption.style.color =
-          '#526174';
+          COLORS.muted;
 
         caption.style.fontSize =
-          '.85rem';
+          '.86rem';
 
-        caption.style.lineHeight =
-          '1.4';
+        caption.style.fontWeight =
+          '700';
 
-
-        item.appendChild(
+        card.append(
+          image,
           caption
         );
-
+      } else {
+        card.appendChild(
+          image
+        );
       }
 
-
-      grid.appendChild(
-        item
+      photoGrid.appendChild(
+        card
       );
-
     });
 
-
-    if (!grid.children.length) {
-      return null;
-    }
-
-
     wrapper.appendChild(
-      grid
+      photoGrid
     );
-
 
     return wrapper;
-
   }
 
 
-  function heightText(inches) {
+  function makePhysicalDescriptionSection(
+    description
+  ) {
+    if (
+      !description ||
+      typeof description !== 'object'
+    ) {
+      return null;
+    }
 
-    const total =
-      Number(inches);
+    const height =
+      Number(
+        description.height_inches
+      );
+
+    let heightText = '';
 
     if (
-      !Number.isFinite(total) ||
-      total <= 0
+      Number.isFinite(height) &&
+      height > 0
     ) {
+      const feet =
+        Math.floor(height / 12);
 
-      return '';
+      const inches =
+        height % 12;
 
+      heightText =
+        `${feet} ft ${inches} in`;
     }
 
+    const weight =
+      Number(
+        description.approximate_weight_lbs
+      );
 
-    const feet =
-      Math.floor(total / 12);
+    const weightText =
+      Number.isFinite(weight) &&
+      weight > 0
+        ? `${weight} lb`
+        : '';
 
-    const remaining =
-      total % 12;
+    const glasses =
+      description.wears_glasses === true
+        ? 'Yes'
+        : description.wears_glasses === false
+          ? 'No'
+          : '';
 
-
-    return `${feet} ft ${remaining} in`;
-
-  }
-
-
-  function makePhysicalDescriptionSection(data) {
-
-    if (!data) {
-      return null;
-    }
-
-
-    const values = [
-
+    const fields = [
+      ['Height', heightText],
       [
-        'Height',
-        heightText(
-          data.height_inches
-        )
+        'Approximate weight',
+        weightText
       ],
-
-      [
-        'Approx. weight',
-        data.approximate_weight_lbs
-          ? `${data.approximate_weight_lbs} lb`
-          : ''
-      ],
-
       [
         'Build',
-        data.build_description
+        description.build_description
       ],
-
       [
         'Complexion',
-        data.complexion
+        description.complexion
       ],
-
       [
         'Hair color',
-        data.hair_color
+        description.hair_color
       ],
-
       [
         'Hair style',
-        data.hair_style
+        description.hair_style
       ],
-
       [
         'Eye color',
-        data.eye_color
+        description.eye_color
       ],
-
       [
-        'Glasses',
-        data.wears_glasses
-          ? 'Yes'
-          : ''
+        'Wears glasses',
+        glasses
       ],
-
       [
         'Mobility / assistive aids',
-        data.mobility_aids
+        description.mobility_aids
       ],
-
       [
         'Identifying features',
-        data.identifying_features
+        description.identifying_features
       ],
-
       [
         'Additional description',
-        data.description_notes
+        description.description_notes
       ]
+    ];
 
-    ].filter(
-      ([, value]) =>
-        hasValue(value)
-    );
+    const valid =
+      fields.filter(
+        ([, value]) =>
+          hasValue(value)
+      );
 
-
-    if (!values.length) {
+    if (!valid.length) {
       return null;
     }
-
 
     const wrapper =
       makeSectionShell(
         'IDENTIFYING DESCRIPTION',
         'Physical description',
-        'Caregiver-approved identifying details that may help confirm identity or locate the participant.'
+        'Caregiver-approved identifying details that may help responders confirm identity.',
+        {
+          icon: '⌖',
+          iconBackground:
+            COLORS.tealSoft,
+          iconColor:
+            COLORS.teal
+        }
       );
 
-
-    const grid =
+    const sectionGrid =
       makeGrid();
 
+    sectionGrid.style.marginTop =
+      '16px';
 
-    values.forEach(
+    valid.forEach(
       ([label, value]) => {
-
-        const card =
+        const item =
           makeCard(
             label,
             value
           );
 
-
-        if (card) {
-
-          card.style.margin =
-            '0';
-
-          grid.appendChild(
-            card
+        if (item) {
+          sectionGrid.appendChild(
+            item
           );
-
         }
-
       }
     );
-
-
-    wrapper.appendChild(
-      grid
-    );
-
-
-    return wrapper;
-
-  }
-
-
-  function makeGlanceItem(
-    label,
-    value
-  ) {
-
-    if (!hasValue(value)) {
-      return null;
-    }
-
-
-    const item =
-      document.createElement('div');
-
-    item.style.padding =
-      '14px 16px';
-
-    item.style.border =
-      '1px solid #d8e5ec';
-
-    item.style.borderRadius =
-      '14px';
-
-    item.style.background =
-      '#ffffff';
-
-
-    const labelElement =
-      document.createElement('span');
-
-    labelElement.textContent =
-      label;
-
-    labelElement.style.display =
-      'block';
-
-    labelElement.style.marginBottom =
-      '5px';
-
-    labelElement.style.color =
-      '#14869a';
-
-    labelElement.style.fontSize =
-      '.72rem';
-
-    labelElement.style.fontWeight =
-      '900';
-
-    labelElement.style.letterSpacing =
-      '.08em';
-
-    labelElement.style.textTransform =
-      'uppercase';
-
-
-    const valueElement =
-      document.createElement('strong');
-
-    valueElement.textContent =
-      value;
-
-    valueElement.style.display =
-      'block';
-
-    valueElement.style.color =
-      '#07172e';
-
-    valueElement.style.fontSize =
-      '1rem';
-
-    valueElement.style.lineHeight =
-      '1.4';
-
-
-    item.append(
-      labelElement,
-      valueElement
-    );
-
-
-    return item;
-
-  }
-
-
-  function makeAtAGlance(profileData) {
-
-    const items = [
-
-      {
-        label: 'Communication',
-        value: profileData.communication_method
-      },
-
-      {
-        label: 'Safest approach',
-        value: profileData.safe_approach
-      },
-
-      {
-        label: 'Touch',
-        value: profileData.touch_preference
-      },
-
-      {
-        label: 'Sensory triggers',
-        value: profileData.sensory_triggers
-      }
-
-    ].filter(
-      item =>
-        hasValue(item.value)
-    );
-
-
-    if (!items.length) {
-      return null;
-    }
-
-
-    const wrapper =
-      document.createElement('section');
-
-    wrapper.style.gridColumn =
-      '1 / -1';
-
-    wrapper.style.margin =
-      '12px 0 4px';
-
-    wrapper.style.padding =
-      '20px';
-
-    wrapper.style.border =
-      '1px solid #cfe3ea';
-
-    wrapper.style.borderRadius =
-      '18px';
-
-    wrapper.style.background =
-      '#f4fafc';
-
-
-    const eyebrow =
-      document.createElement('div');
-
-    eyebrow.textContent =
-      'AT A GLANCE';
-
-    eyebrow.style.marginBottom =
-      '6px';
-
-    eyebrow.style.color =
-      '#14869a';
-
-    eyebrow.style.fontSize =
-      '.75rem';
-
-    eyebrow.style.fontWeight =
-      '900';
-
-    eyebrow.style.letterSpacing =
-      '.1em';
-
-
-    const title =
-      document.createElement('h2');
-
-    title.textContent =
-      'How to interact safely';
-
-    title.style.margin =
-      '0 0 14px';
-
-    title.style.color =
-      '#07172e';
-
-    title.style.fontSize =
-      '1.2rem';
-
-
-    const itemGrid =
-      makeGrid();
-
-
-    items.forEach(item => {
-
-      const glanceItem =
-        makeGlanceItem(
-          item.label,
-          item.value
-        );
-
-
-      if (glanceItem) {
-
-        itemGrid.appendChild(
-          glanceItem
-        );
-
-      }
-
-    });
-
-
-    wrapper.append(
-      eyebrow,
-      title,
-      itemGrid
-    );
-
-
-    return wrapper;
-
-  }
-
-
-  function makeRiskCard(value) {
-
-    if (!hasValue(value)) {
-      return null;
-    }
-
-
-    const riskCard =
-      document.createElement('div');
-
-    riskCard.className =
-      'em-card';
-
-    riskCard.style.margin =
-      '0';
-
-
-    const heading =
-      document.createElement('span');
-
-    heading.textContent =
-      'Wandering / elopement risk';
-
-
-    const riskBadge =
-      document.createElement('strong');
-
-
-    const riskValue =
-      String(value).trim();
-
-
-    const normalizedRisk =
-      riskValue.toLowerCase();
-
-
-    if (
-      normalizedRisk.includes('unknown') ||
-      normalizedRisk.includes('assessing') ||
-      normalizedRisk.includes('not assessed')
-    ) {
-
-      riskBadge.textContent =
-        'Risk level not specified';
-
-    } else {
-
-      riskBadge.textContent =
-        riskValue;
-
-    }
-
-
-    riskBadge.style.display =
-      'inline-flex';
-
-    riskBadge.style.alignItems =
-      'center';
-
-    riskBadge.style.justifyContent =
-      'center';
-
-    riskBadge.style.width =
-      'fit-content';
-
-    riskBadge.style.marginTop =
-      '8px';
-
-    riskBadge.style.padding =
-      '8px 14px';
-
-    riskBadge.style.borderRadius =
-      '999px';
-
-    riskBadge.style.fontWeight =
-      '800';
-
-    riskBadge.style.fontSize =
-      '1rem';
-
-
-    if (
-      normalizedRisk.includes('high')
-    ) {
-
-      riskCard.style.border =
-        '2px solid #b91c1c';
-
-      riskCard.style.background =
-        '#fff1f2';
-
-      riskBadge.style.background =
-        '#b91c1c';
-
-      riskBadge.style.color =
-        '#ffffff';
-
-
-    } else if (
-      normalizedRisk.includes('moderate') ||
-      normalizedRisk.includes('medium')
-    ) {
-
-      riskCard.style.border =
-        '2px solid #d97706';
-
-      riskCard.style.background =
-        '#fffaf0';
-
-      riskBadge.style.background =
-        '#f59e0b';
-
-      riskBadge.style.color =
-        '#07172e';
-
-
-    } else if (
-      normalizedRisk.includes('low')
-    ) {
-
-      riskCard.style.border =
-        '2px solid #15803d';
-
-      riskCard.style.background =
-        '#f0fdf4';
-
-      riskBadge.style.background =
-        '#15803d';
-
-      riskBadge.style.color =
-        '#ffffff';
-
-
-    } else {
-
-      riskCard.style.border =
-        '1px solid #d8e0e8';
-
-      riskCard.style.background =
-        '#f8fafc';
-
-      riskBadge.style.background =
-        '#e5e7eb';
-
-      riskBadge.style.color =
-        '#07172e';
-
-    }
-
-
-    riskCard.append(
-      heading,
-      riskBadge
-    );
-
-
-    return riskCard;
-
-  }
-
-
-  function makeSafetySection(profileData) {
-
-    const hasSafetyInfo =
-      hasValue(profileData.safety_risk_level) ||
-      hasValue(profileData.known_destinations);
-
-
-    if (!hasSafetyInfo) {
-      return null;
-    }
-
-
-    const wrapper =
-      makeSectionShell(
-        'SAFETY INFORMATION',
-        'Safety & wandering information',
-        'Use this information to help reduce distress, support safe redirection, and assist with reunification.'
-      );
-
-
-    const sectionGrid =
-      makeGrid();
-
-
-    const riskCard =
-      makeRiskCard(
-        profileData.safety_risk_level
-      );
-
-
-    if (riskCard) {
-
-      riskCard.style.gridColumn =
-        '1 / -1';
-
-      sectionGrid.appendChild(
-        riskCard
-      );
-
-    }
-
-
-    const destinations =
-      makeCard(
-        'Places I may try to go',
-        profileData.known_destinations
-      );
-
-
-    if (destinations) {
-
-      destinations.style.margin =
-        '0';
-
-      sectionGrid.appendChild(
-        destinations
-      );
-
-    }
-
 
     wrapper.appendChild(
       sectionGrid
     );
 
-
     return wrapper;
-
   }
 
 
-  function makeSupportSection(profileData) {
-
-    const hasSupportInfo =
-      hasValue(profileData.communication_notes) ||
-      hasValue(profileData.calming_supports);
-
-
-    if (!hasSupportInfo) {
-      return null;
-    }
-
-
-    const wrapper =
-      makeSectionShell(
-        'SUPPORT INFORMATION',
-        'Communication & support',
-        'These caregiver-provided details may help support communication, reduce distress, and create a calmer interaction.'
-      );
-
-
-    wrapper.style.border =
-      '1px solid #cfe3ea';
-
-    wrapper.style.background =
-      '#f4fafc';
-
-
-    const sectionGrid =
-      makeGrid();
-
-
-    const communicationInstructions =
-      makeCard(
-        'Communication instructions',
-        profileData.communication_notes
-      );
-
-
-    if (communicationInstructions) {
-
-      communicationInstructions.style.margin =
-        '0';
-
-      sectionGrid.appendChild(
-        communicationInstructions
-      );
-
-    }
-
-
-    const calmingSupports =
-      makeCard(
-        'What helps me feel safe / calm',
-        profileData.calming_supports
-      );
-
-
-    if (calmingSupports) {
-
-      calmingSupports.style.margin =
-        '0';
-
-      sectionGrid.appendChild(
-        calmingSupports
-      );
-
-    }
-
-
-    wrapper.appendChild(
-      sectionGrid
-    );
-
-
-    return wrapper;
-
-  }
-
-
-  function makeListItemCard(
+  function makeMedicalItemCard(
     title,
-    lines = []
+    rows = [],
+    notes = '',
+    options = {}
   ) {
-
     const card =
       document.createElement('div');
 
-    card.className =
-      'em-card';
+    card.style.padding =
+      options.padding || '17px';
 
-    card.style.margin =
-      '0';
+    card.style.border =
+      options.border ||
+      `1px solid ${COLORS.blueBorder}`;
 
+    card.style.borderRadius =
+      '16px';
+
+    card.style.background =
+      options.background ||
+      COLORS.white;
+
+    const titleRow =
+      document.createElement('div');
+
+    titleRow.style.display =
+      'flex';
+
+    titleRow.style.alignItems =
+      'center';
+
+    titleRow.style.gap =
+      '10px';
+
+    titleRow.style.marginBottom =
+      '13px';
+
+    if (options.icon) {
+      const icon =
+        document.createElement('div');
+
+      icon.textContent =
+        options.icon;
+
+      icon.style.display =
+        'flex';
+
+      icon.style.alignItems =
+        'center';
+
+      icon.style.justifyContent =
+        'center';
+
+      icon.style.flex =
+        '0 0 auto';
+
+      icon.style.width =
+        '32px';
+
+      icon.style.height =
+        '32px';
+
+      icon.style.borderRadius =
+        '50%';
+
+      icon.style.background =
+        options.iconBackground ||
+        COLORS.tealSoft;
+
+      icon.style.color =
+        options.iconColor ||
+        COLORS.teal;
+
+      icon.style.fontWeight =
+        '900';
+
+      icon.style.lineHeight =
+        '1';
+
+      titleRow.appendChild(
+        icon
+      );
+    }
 
     const heading =
-      document.createElement('strong');
+      document.createElement('div');
 
     heading.textContent =
       title;
 
+    heading.style.color =
+      options.titleColor ||
+      COLORS.navy;
+
     heading.style.fontSize =
-      '1.05rem';
+      '1.03rem';
 
-    heading.style.marginBottom =
-      '8px';
+    heading.style.fontWeight =
+      '900';
 
+    heading.style.lineHeight =
+      '1.3';
 
-    card.appendChild(
+    titleRow.appendChild(
       heading
     );
 
+    card.appendChild(
+      titleRow
+    );
 
-    lines
-      .filter(
-        line =>
-          hasValue(line)
-      )
-      .forEach(line => {
+    const validRows =
+      rows.filter(
+        row =>
+          row &&
+          hasValue(row.value)
+      );
 
-        const p =
-          document.createElement('p');
+    if (validRows.length) {
+      const details =
+        document.createElement('div');
 
-        p.textContent =
-          line;
+      details.style.display =
+        'grid';
 
-        p.style.margin =
-          '4px 0';
+      details.style.gridTemplateColumns =
+        'repeat(auto-fit, minmax(150px, 1fr))';
 
-        p.style.color =
-          '#526174';
+      details.style.gap =
+        '10px';
 
-        p.style.lineHeight =
-          '1.45';
+      validRows.forEach(row => {
+        const field =
+          document.createElement('div');
 
+        field.style.padding =
+          '10px 12px';
 
-        card.appendChild(
-          p
+        field.style.borderRadius =
+          '12px';
+
+        field.style.background =
+          row.alert
+            ? '#fff5f4'
+            : '#f8fafc';
+
+        const label =
+          document.createElement('div');
+
+        label.textContent =
+          row.label;
+
+        label.style.marginBottom =
+          '4px';
+
+        label.style.color =
+          row.alert
+            ? COLORS.red
+            : COLORS.muted;
+
+        label.style.fontSize =
+          '.73rem';
+
+        label.style.fontWeight =
+          '900';
+
+        label.style.textTransform =
+          'uppercase';
+
+        label.style.letterSpacing =
+          '.05em';
+
+        const value =
+          document.createElement('div');
+
+        value.textContent =
+          row.value;
+
+        value.style.color =
+          row.alert
+            ? COLORS.red
+            : COLORS.navy;
+
+        value.style.fontWeight =
+          row.alert
+            ? '900'
+            : '800';
+
+        value.style.lineHeight =
+          '1.4';
+
+        field.append(
+          label,
+          value
         );
 
+        details.appendChild(
+          field
+        );
       });
 
+      card.appendChild(
+        details
+      );
+    }
+
+    if (hasValue(notes)) {
+      const note =
+        document.createElement('div');
+
+      note.textContent =
+        notes;
+
+      note.style.marginTop =
+        '13px';
+
+      note.style.paddingTop =
+        '12px';
+
+      note.style.borderTop =
+        options.noteBorder ||
+        '1px solid #e3eaf0';
+
+      note.style.color =
+        COLORS.text;
+
+      note.style.lineHeight =
+        '1.5';
+
+      note.style.fontSize =
+        '.93rem';
+
+      card.appendChild(
+        note
+      );
+    }
 
     return card;
-
   }
 
 
-  function makeDiagnosesSection(data) {
+  function makeNoneKnownBox(
+    text,
+    options = {}
+  ) {
+    const box =
+      document.createElement('div');
 
-    if (!data) {
-      return null;
-    }
+    box.style.marginTop =
+      '16px';
+
+    box.style.padding =
+      '15px 16px';
+
+    box.style.border =
+      `1px solid ${
+        options.border ||
+        COLORS.greenBorder
+      }`;
+
+    box.style.borderRadius =
+      '14px';
+
+    box.style.background =
+      options.background ||
+      COLORS.greenSoft;
+
+    box.style.display =
+      'flex';
+
+    box.style.alignItems =
+      'center';
+
+    box.style.gap =
+      '10px';
+
+    const icon =
+      document.createElement('div');
+
+    icon.textContent =
+      '✓';
+
+    icon.style.display =
+      'flex';
+
+    icon.style.alignItems =
+      'center';
+
+    icon.style.justifyContent =
+      'center';
+
+    icon.style.flex =
+      '0 0 auto';
+
+    icon.style.width =
+      '30px';
+
+    icon.style.height =
+      '30px';
+
+    icon.style.borderRadius =
+      '50%';
+
+    icon.style.background =
+      COLORS.green;
+
+    icon.style.color =
+      COLORS.white;
+
+    icon.style.fontWeight =
+      '900';
+
+    const copy =
+      document.createElement('div');
+
+    copy.textContent =
+      text;
+
+    copy.style.color =
+      COLORS.navy;
+
+    copy.style.fontWeight =
+      '800';
+
+    copy.style.lineHeight =
+      '1.4';
+
+    box.append(
+      icon,
+      copy
+    );
+
+    return box;
+  }
 
 
+  function makeDiagnosesSection(
+    diagnoses
+  ) {
     if (
-      !data.none_known &&
-      !hasItems(data)
+      !diagnoses ||
+      (
+        !diagnoses.none_known &&
+        !hasItems(diagnoses)
+      )
     ) {
-
       return null;
-
     }
-
 
     const wrapper =
       makeSectionShell(
         'MEDICAL INFORMATION',
         'Diagnoses & conditions',
-        'Only diagnoses the caregiver chose to share appear here.'
+        'Caregiver-provided diagnoses or conditions that may be important during an emergency response.',
+        {
+          icon: '✚',
+          iconBackground:
+            '#e8f4fb',
+          iconColor:
+            '#1f6f96',
+          background:
+            '#f7fbfe',
+          border:
+            '1px solid #cfe3ee'
+        }
       );
 
-
-    if (data.none_known) {
-
-      const noneCard =
-        makeCard(
-          'Diagnoses',
-          'No known diagnoses reported'
-        );
-
-
-      if (noneCard) {
-
-        noneCard.style.margin =
-          '0';
-
-        wrapper.appendChild(
-          noneCard
-        );
-
-      }
-
+    if (
+      diagnoses.none_known &&
+      !hasItems(diagnoses)
+    ) {
+      wrapper.appendChild(
+        makeNoneKnownBox(
+          'No known diagnoses or conditions reported.'
+        )
+      );
 
       return wrapper;
-
     }
 
+    const list =
+      document.createElement('div');
 
-    const grid =
-      makeGrid();
+    list.style.display =
+      'grid';
 
+    list.style.gap =
+      '12px';
 
-    data.items.forEach(item => {
+    list.style.marginTop =
+      '16px';
 
-      if (
-        !hasValue(
-          item.diagnosis_name
-        )
-      ) {
-        return;
-      }
+    diagnoses.items.forEach(
+      item => {
+        if (
+          !item ||
+          !hasValue(
+            item.diagnosis_name
+          )
+        ) {
+          return;
+        }
 
+        const card =
+          makeMedicalItemCard(
+            item.diagnosis_name,
+            [],
+            item.diagnosis_notes || '',
+            {
+              icon: '✚',
+              iconBackground:
+                '#e8f4fb',
+              iconColor:
+                '#1f6f96',
+              border:
+                '1px solid #d5e6ef'
+            }
+          );
 
-      const card =
-        makeListItemCard(
-          item.diagnosis_name,
-          [
-            item.diagnosis_notes
-          ]
+        list.appendChild(
+          card
         );
-
-
-      grid.appendChild(
-        card
-      );
-
-    });
-
-
-    if (!grid.children.length) {
-      return null;
-    }
-
-
-    wrapper.appendChild(
-      grid
+      }
     );
 
+    if (!list.children.length) {
+      return diagnoses.none_known
+        ? wrapper
+        : null;
+    }
+
+    wrapper.appendChild(
+      list
+    );
 
     return wrapper;
-
   }
 
 
-  function makeMedicationsSection(data) {
-
-    if (!data) {
-      return null;
-    }
-
-
+  function makeMedicationsSection(
+    medications
+  ) {
     if (
-      !data.none_current &&
-      !hasItems(data)
+      !medications ||
+      (
+        !medications.none_current &&
+        !hasItems(medications)
+      )
     ) {
-
       return null;
-
     }
-
 
     const wrapper =
       makeSectionShell(
         'MEDICAL INFORMATION',
         'Current medications',
-        'Only medication information the caregiver chose to share appears here.'
+        'Caregiver-provided medication information that may be relevant during emergency care.',
+        {
+          icon: '✚',
+          iconBackground:
+            '#e8f4fb',
+          iconColor:
+            '#1f6f96',
+          background:
+            '#f7fbfe',
+          border:
+            '1px solid #cfe3ee'
+        }
       );
 
-
-    if (data.none_current) {
-
-      const noneCard =
-        makeCard(
-          'Medications',
-          'No current medications reported'
-        );
-
-
-      if (noneCard) {
-
-        noneCard.style.margin =
-          '0';
-
-        wrapper.appendChild(
-          noneCard
-        );
-
-      }
-
+    if (
+      medications.none_current &&
+      !hasItems(medications)
+    ) {
+      wrapper.appendChild(
+        makeNoneKnownBox(
+          'No current medications reported.'
+        )
+      );
 
       return wrapper;
-
     }
 
+    const list =
+      document.createElement('div');
 
-    const grid =
-      makeGrid();
+    list.style.display =
+      'grid';
 
+    list.style.gap =
+      '12px';
 
-    data.items.forEach(item => {
+    list.style.marginTop =
+      '16px';
 
-      if (
-        !hasValue(
-          item.medication_name
-        )
-      ) {
-        return;
-      }
+    medications.items.forEach(
+      item => {
+        if (
+          !item ||
+          !hasValue(
+            item.medication_name
+          )
+        ) {
+          return;
+        }
 
+        const rows = [
+          {
+            label: 'Dose',
+            value:
+              item.dose
+          },
+          {
+            label: 'Route',
+            value:
+              normalizeDisplayValue(
+                item.route
+              )
+          },
+          {
+            label: 'Frequency',
+            value:
+              item.frequency
+          },
+          {
+            label: 'Purpose',
+            value:
+              item.purpose
+          }
+        ];
 
-      const details = [];
+        const card =
+          makeMedicalItemCard(
+            item.medication_name,
+            rows,
+            item.medication_notes || '',
+            {
+              icon: '✚',
+              iconBackground:
+                '#e8f4fb',
+              iconColor:
+                '#1f6f96',
+              border:
+                '1px solid #d5e6ef'
+            }
+          );
 
-
-      if (hasValue(item.dose)) {
-
-        details.push(
-          `Dose: ${item.dose}`
+        list.appendChild(
+          card
         );
-
       }
-
-
-      if (hasValue(item.route)) {
-
-        details.push(
-          `Route: ${item.route}`
-        );
-
-      }
-
-
-      if (hasValue(item.frequency)) {
-
-        details.push(
-          `Frequency: ${item.frequency}`
-        );
-
-      }
-
-
-      if (hasValue(item.purpose)) {
-
-        details.push(
-          `Purpose: ${item.purpose}`
-        );
-
-      }
-
-
-      if (hasValue(item.medication_notes)) {
-
-        details.push(
-          `Notes: ${item.medication_notes}`
-        );
-
-      }
-
-
-      const card =
-        makeListItemCard(
-          item.medication_name,
-          details
-        );
-
-
-      grid.appendChild(
-        card
-      );
-
-    });
-
-
-    if (!grid.children.length) {
-      return null;
-    }
-
-
-    wrapper.appendChild(
-      grid
     );
 
+    if (!list.children.length) {
+      return medications.none_current
+        ? wrapper
+        : null;
+    }
+
+    wrapper.appendChild(
+      list
+    );
 
     return wrapper;
-
   }
 
 
-  function makeAllergiesSection(data) {
-
-    if (!data) {
+  function makeAllergiesSection(
+    allergies
+  ) {
+    if (
+      !allergies ||
+      (
+        !allergies.none_known &&
+        !hasItems(allergies)
+      )
+    ) {
       return null;
     }
-
 
     if (
-      !data.none_known &&
-      !hasItems(data)
+      allergies.none_known &&
+      !hasItems(allergies)
     ) {
+      const wrapper =
+        makeSectionShell(
+          'MEDICAL INFORMATION',
+          'Allergies',
+          'Caregiver-provided allergy information.',
+          {
+            icon: '✓',
+            iconBackground:
+              COLORS.green,
+            iconColor:
+              COLORS.white,
+            background:
+              COLORS.greenSoft,
+            border:
+              `1px solid ${COLORS.greenBorder}`,
+            eyebrowColor:
+              COLORS.green
+          }
+        );
 
-      return null;
+      wrapper.appendChild(
+        makeNoneKnownBox(
+          'No known allergies reported.'
+        )
+      );
 
+      return wrapper;
     }
 
+    const hasHighRisk =
+      allergies.items.some(
+        item =>
+          isHighRiskAllergy(item)
+      );
 
     const wrapper =
       makeSectionShell(
-        'MEDICAL INFORMATION',
+        hasHighRisk
+          ? 'MEDICAL ALERT'
+          : 'MEDICAL INFORMATION',
         'Allergies',
-        'Only allergy information the caregiver chose to share appears here.'
+        'Important allergy information. Review before providing food, medication, treatment, or emergency care.',
+        {
+          icon:
+            hasHighRisk
+              ? '✚'
+              : '✚',
+          iconBackground:
+            hasHighRisk
+              ? COLORS.red
+              : '#fce8e6',
+          iconColor:
+            hasHighRisk
+              ? COLORS.white
+              : COLORS.red,
+          background:
+            hasHighRisk
+              ? COLORS.redSoft
+              : COLORS.redSofter,
+          border:
+            hasHighRisk
+              ? `2px solid ${COLORS.redStrongBorder}`
+              : `1px solid ${COLORS.redBorder}`,
+          eyebrowColor:
+            COLORS.red,
+          titleColor:
+            hasHighRisk
+              ? COLORS.redDark
+              : COLORS.navy,
+          shadow:
+            hasHighRisk
+              ? '0 8px 24px rgba(180,35,24,.08)'
+              : ''
+        }
       );
 
+    const list =
+      document.createElement('div');
 
-    if (data.none_known) {
+    list.style.display =
+      'grid';
 
-      const noneCard =
-        makeCard(
-          'Allergies',
-          'No known allergies reported'
+    list.style.gap =
+      '13px';
+
+    list.style.marginTop =
+      '17px';
+
+    allergies.items.forEach(
+      item => {
+        if (
+          !item ||
+          !hasValue(
+            item.allergen
+          )
+        ) {
+          return;
+        }
+
+        const highRisk =
+          isHighRiskAllergy(item);
+
+        const rows = [
+          {
+            label: 'Type',
+            value:
+              normalizeDisplayValue(
+                item.allergy_type
+              )
+          },
+          {
+            label: 'Reaction',
+            value:
+              normalizeDisplayValue(
+                item.reaction
+              ),
+            alert:
+              highRisk &&
+              hasValue(
+                item.reaction
+              )
+          },
+          {
+            label: 'Severity',
+            value:
+              normalizeDisplayValue(
+                item.severity
+              ),
+            alert:
+              highRisk &&
+              hasValue(
+                item.severity
+              )
+          }
+        ];
+
+        const card =
+          makeMedicalItemCard(
+            item.allergen,
+            rows,
+            item.allergy_notes || '',
+            {
+              icon: '!',
+              iconBackground:
+                COLORS.red,
+              iconColor:
+                COLORS.white,
+              titleColor:
+                COLORS.redDark,
+              background:
+                COLORS.white,
+              border:
+                highRisk
+                  ? `2px solid ${COLORS.redStrongBorder}`
+                  : `1px solid ${COLORS.redBorder}`,
+              noteBorder:
+                `1px solid ${COLORS.redBorder}`
+            }
+          );
+
+        if (highRisk) {
+          const warning =
+            document.createElement('div');
+
+          warning.textContent =
+            'HIGH-RISK ALLERGY — USE IMMEDIATE CAUTION';
+
+          warning.style.marginTop =
+            '13px';
+
+          warning.style.padding =
+            '10px 12px';
+
+          warning.style.borderRadius =
+            '11px';
+
+          warning.style.background =
+            '#fde4e1';
+
+          warning.style.color =
+            COLORS.redDark;
+
+          warning.style.fontSize =
+            '.78rem';
+
+          warning.style.fontWeight =
+            '900';
+
+          warning.style.letterSpacing =
+            '.04em';
+
+          warning.style.lineHeight =
+            '1.4';
+
+          card.appendChild(
+            warning
+          );
+        }
+
+        list.appendChild(
+          card
         );
-
-
-      if (noneCard) {
-
-        noneCard.style.margin =
-          '0';
-
-        wrapper.appendChild(
-          noneCard
-        );
-
       }
-
-
-      return wrapper;
-
-    }
-
-
-    const grid =
-      makeGrid();
-
-
-    data.items.forEach(item => {
-
-      if (
-        !hasValue(
-          item.allergen
-        )
-      ) {
-        return;
-      }
-
-
-      const details = [];
-
-
-      if (
-        hasValue(
-          item.allergy_type
-        )
-      ) {
-
-        details.push(
-          `Type: ${item.allergy_type}`
-        );
-
-      }
-
-
-      if (
-        hasValue(
-          item.reaction
-        )
-      ) {
-
-        details.push(
-          `Reaction: ${item.reaction}`
-        );
-
-      }
-
-
-      if (
-        hasValue(
-          item.severity
-        )
-      ) {
-
-        details.push(
-          `Severity: ${item.severity}`
-        );
-
-      }
-
-
-      if (
-        hasValue(
-          item.allergy_notes
-        )
-      ) {
-
-        details.push(
-          `Notes: ${item.allergy_notes}`
-        );
-
-      }
-
-
-      const card =
-        makeListItemCard(
-          item.allergen,
-          details
-        );
-
-
-      if (
-        hasValue(
-          item.severity
-        ) &&
-        String(
-          item.severity
-        )
-          .toLowerCase()
-          .includes('severe')
-      ) {
-
-        card.style.border =
-          '2px solid #b91c1c';
-
-        card.style.background =
-          '#fff1f2';
-
-      }
-
-
-      grid.appendChild(
-        card
-      );
-
-    });
-
-
-    if (!grid.children.length) {
-      return null;
-    }
-
-
-    wrapper.appendChild(
-      grid
     );
 
+    if (!list.children.length) {
+      return allergies.none_known
+        ? wrapper
+        : null;
+    }
+
+    wrapper.appendChild(
+      list
+    );
 
     return wrapper;
-
   }
 
 
@@ -1770,17 +1961,13 @@
     relationship,
     phone
   ) {
-
     if (
       !hasValue(name) &&
       !hasValue(relationship) &&
       !hasValue(phone)
     ) {
-
       return null;
-
     }
-
 
     const card =
       document.createElement('div');
@@ -1788,152 +1975,99 @@
     card.className =
       'em-card';
 
-    card.style.gridColumn =
-      '1 / -1';
-
-    card.style.padding =
-      '22px';
-
-
-    const label =
+    const heading =
       document.createElement('span');
 
-    label.textContent =
+    heading.textContent =
       title;
 
-
     card.appendChild(
-      label
+      heading
     );
 
-
     if (hasValue(name)) {
-
-      const contactName =
+      const strong =
         document.createElement('strong');
 
-      contactName.textContent =
+      strong.textContent =
         name;
 
-      contactName.style.fontSize =
-        '1.35rem';
-
-
       card.appendChild(
-        contactName
+        strong
       );
-
     }
-
 
     if (hasValue(relationship)) {
+      const relationshipLine =
+        document.createElement('div');
 
-      const rel =
-        document.createElement('p');
-
-      rel.textContent =
+      relationshipLine.textContent =
         relationship;
 
-      rel.style.margin =
-        '4px 0 14px';
+      relationshipLine.style.marginTop =
+        '4px';
 
-      rel.style.color =
-        '#526174';
+      relationshipLine.style.color =
+        COLORS.muted;
 
+      relationshipLine.style.fontWeight =
+        '700';
 
       card.appendChild(
-        rel
+        relationshipLine
       );
-
     }
-
 
     if (hasValue(phone)) {
-
-      const callButton =
+      const link =
         document.createElement('a');
 
-      callButton.href =
+      link.href =
         `tel:${cleanPhone(phone)}`;
 
+      link.textContent =
+        formatPhone(phone);
 
-      callButton.textContent =
-        hasValue(name)
-          ? `Call ${name} · ${formatPhone(phone)}`
-          : `Call ${formatPhone(phone)}`;
+      link.style.display =
+        'inline-block';
 
+      link.style.marginTop =
+        '12px';
 
-      callButton.style.display =
-        'flex';
+      link.style.color =
+        COLORS.teal;
 
-      callButton.style.alignItems =
-        'center';
+      link.style.fontWeight =
+        '900';
 
-      callButton.style.justifyContent =
-        'center';
+      link.style.fontSize =
+        '1.05rem';
 
-      callButton.style.width =
-        '100%';
-
-      callButton.style.minHeight =
-        '54px';
-
-      callButton.style.marginTop =
-        '10px';
-
-      callButton.style.padding =
-        '12px 18px';
-
-      callButton.style.background =
-        '#07172e';
-
-      callButton.style.color =
-        '#ffffff';
-
-      callButton.style.borderRadius =
-        '999px';
-
-      callButton.style.fontWeight =
-        '800';
-
-      callButton.style.textDecoration =
+      link.style.textDecoration =
         'none';
 
-      callButton.style.textAlign =
-        'center';
-
-
       card.appendChild(
-        callButton
+        link
       );
-
     }
 
-
     return card;
-
   }
 
 
   function makeActionButton(
-    text,
+    label,
     phone,
     options = {}
   ) {
-
-    if (!hasValue(phone)) {
-      return null;
-    }
-
-
     const button =
       document.createElement('a');
 
+    button.textContent =
+      label;
+
     button.href =
       `tel:${cleanPhone(phone)}`;
-
-    button.textContent =
-      text;
 
     button.style.display =
       'flex';
@@ -1945,69 +2079,59 @@
       'center';
 
     button.style.minHeight =
-      '52px';
+      '50px';
 
     button.style.padding =
-      '12px 18px';
+      '12px 16px';
 
     button.style.borderRadius =
       '999px';
 
     button.style.fontWeight =
-      '800';
-
-    button.style.textDecoration =
-      'none';
+      '900';
 
     button.style.textAlign =
       'center';
 
+    button.style.textDecoration =
+      'none';
 
     if (options.emergency) {
-
       button.style.background =
         '#b91c1c';
 
       button.style.color =
-        '#ffffff';
+        COLORS.white;
 
-      button.style.border =
-        '2px solid #b91c1c';
-
-
-    } else if (options.secondary) {
-
-      button.style.background =
-        '#ffffff';
-
-      button.style.color =
-        '#07172e';
-
-      button.style.border =
-        '2px solid #07172e';
-
-
-    } else {
-
-      button.style.background =
-        '#07172e';
-
-      button.style.color =
-        '#ffffff';
-
-      button.style.border =
-        '2px solid #07172e';
-
+      return button;
     }
 
+    if (options.secondary) {
+      button.style.background =
+        COLORS.white;
+
+      button.style.color =
+        COLORS.navy;
+
+      button.style.border =
+        '1px solid #cbd9e2';
+
+      return button;
+    }
+
+    button.style.background =
+      COLORS.navy;
+
+    button.style.color =
+      COLORS.white;
 
     return button;
-
   }
 
 
-  function makeResponderActions(profileData) {
-
+  function makeResponderActions(
+    profileData
+  ) {
     const wrapper =
       document.createElement('section');
 
@@ -2029,7 +2153,6 @@
     wrapper.style.background =
       '#f8fbfd';
 
-
     const eyebrow =
       document.createElement('div');
 
@@ -2040,7 +2163,7 @@
       '6px';
 
     eyebrow.style.color =
-      '#14869a';
+      COLORS.teal;
 
     eyebrow.style.fontSize =
       '.75rem';
@@ -2050,7 +2173,6 @@
 
     eyebrow.style.letterSpacing =
       '.1em';
-
 
     const title =
       document.createElement('h2');
@@ -2062,11 +2184,10 @@
       '0 0 8px';
 
     title.style.color =
-      '#07172e';
+      COLORS.navy;
 
     title.style.fontSize =
       '1.2rem';
-
 
     const note =
       document.createElement('p');
@@ -2083,7 +2204,6 @@
     note.style.lineHeight =
       '1.55';
 
-
     const actions =
       document.createElement('div');
 
@@ -2096,7 +2216,6 @@
     actions.style.gap =
       '10px';
 
-
     const caregiverButton =
       makeActionButton(
         hasValue(
@@ -2107,15 +2226,11 @@
         profileData.emergency_contact_phone
       );
 
-
     if (caregiverButton) {
-
       actions.appendChild(
         caregiverButton
       );
-
     }
-
 
     const alternateButton =
       makeActionButton(
@@ -2130,15 +2245,11 @@
         }
       );
 
-
     if (alternateButton) {
-
       actions.appendChild(
         alternateButton
       );
-
     }
-
 
     const emergencyButton =
       makeActionButton(
@@ -2149,11 +2260,9 @@
         }
       );
 
-
     actions.appendChild(
       emergencyButton
     );
-
 
     wrapper.append(
       eyebrow,
@@ -2162,14 +2271,11 @@
       actions
     );
 
-
     return wrapper;
-
   }
 
 
   function addEmergencyContactsHeading() {
-
     const heading =
       document.createElement('h2');
 
@@ -2183,58 +2289,50 @@
       '24px 0 4px';
 
     heading.style.color =
-      '#07172e';
+      COLORS.navy;
 
     heading.style.fontSize =
       '1.25rem';
 
-
     cards.appendChild(
       heading
     );
-
   }
 
 
   try {
-
     const response =
       await fetch(
-        `/api/emergency-profile?id=${encodeURIComponent(id)}`,
+        `/api/emergency-profile?id=${encodeURIComponent(
+          id
+        )}`,
         {
           cache: 'no-store'
         }
       );
 
-
     if (!response.ok) {
       throw new Error();
     }
 
-
     const data =
       await response.json();
-
 
     if (!data.profile) {
       throw new Error();
     }
 
-
     const p =
       data.profile;
 
-
     loading.hidden =
       true;
-
 
     document
       .getElementById('name')
       .textContent =
         p.preferred_name ||
         'OneProfile™';
-
 
     cards.innerHTML =
       '';
@@ -2249,13 +2347,10 @@
         p.participant_photo
       );
 
-
     if (primaryPhoto) {
-
       cards.appendChild(
         primaryPhoto
       );
-
     }
 
 
@@ -2264,13 +2359,10 @@
         p.additional_photos
       );
 
-
     if (additionalPhotos) {
-
       cards.appendChild(
         additionalPhotos
       );
-
     }
 
 
@@ -2279,13 +2371,10 @@
         p.physical_description
       );
 
-
     if (physicalDescription) {
-
       cards.appendChild(
         physicalDescription
       );
-
     }
 
 
@@ -2298,7 +2387,6 @@
         p.responder_notes
       )
     ) {
-
       const card =
         makeCard(
           'What you should know first',
@@ -2309,15 +2397,11 @@
           }
         );
 
-
       if (card) {
-
         cards.appendChild(
           card
         );
-
       }
-
     }
 
 
@@ -2327,13 +2411,10 @@
         p.emergency_contact_phone
       );
 
-
     if (quickContact) {
-
       cards.appendChild(
         quickContact
       );
-
     }
 
 
@@ -2344,13 +2425,10 @@
     const atAGlance =
       makeAtAGlance(p);
 
-
     if (atAGlance) {
-
       cards.appendChild(
         atAGlance
       );
-
     }
 
 
@@ -2361,13 +2439,10 @@
     const safetySection =
       makeSafetySection(p);
 
-
     if (safetySection) {
-
       cards.appendChild(
         safetySection
       );
-
     }
 
 
@@ -2378,13 +2453,10 @@
     const supportSection =
       makeSupportSection(p);
 
-
     if (supportSection) {
-
       cards.appendChild(
         supportSection
       );
-
     }
 
 
@@ -2397,13 +2469,10 @@
         p.diagnoses
       );
 
-
     if (diagnosesSection) {
-
       cards.appendChild(
         diagnosesSection
       );
-
     }
 
 
@@ -2412,13 +2481,10 @@
         p.medications
       );
 
-
     if (medicationsSection) {
-
       cards.appendChild(
         medicationsSection
       );
-
     }
 
 
@@ -2427,13 +2493,10 @@
         p.allergies
       );
 
-
     if (allergiesSection) {
-
       cards.appendChild(
         allergiesSection
       );
-
     }
 
 
@@ -2443,7 +2506,6 @@
 
     const responderActions =
       makeResponderActions(p);
-
 
     cards.appendChild(
       responderActions
@@ -2465,7 +2527,6 @@
         p.emergency_contact_phone
       );
 
-
     const hasAlternate =
       hasValue(
         p.alternate_contact_name
@@ -2474,19 +2535,15 @@
         p.alternate_contact_phone
       );
 
-
     if (
       hasPrimary ||
       hasAlternate
     ) {
-
       addEmergencyContactsHeading();
-
     }
 
 
     if (hasPrimary) {
-
       const primaryCard =
         makePhoneCard(
           'Primary emergency contact',
@@ -2495,20 +2552,15 @@
           p.emergency_contact_phone
         );
 
-
       if (primaryCard) {
-
         cards.appendChild(
           primaryCard
         );
-
       }
-
     }
 
 
     if (hasAlternate) {
-
       const alternateCard =
         makePhoneCard(
           'Alternate emergency contact',
@@ -2517,24 +2569,18 @@
           p.alternate_contact_phone
         );
 
-
       if (alternateCard) {
-
         cards.appendChild(
           alternateCard
         );
-
       }
-
     }
 
 
     profile.hidden =
       false;
 
-
   } catch (error) {
-
     console.error(error);
 
     loading.hidden =
@@ -2542,7 +2588,5 @@
 
     unavailable.hidden =
       false;
-
   }
-
 })();
