@@ -12,14 +12,17 @@
   const totalScans =
     document.getElementById('totalScans');
 
+  const openSupportRequests =
+    document.getElementById('openSupportRequests');
+
   const profileList =
     document.getElementById('profileList');
 
   const profileSearch =
     document.getElementById('profileSearch');
 
-const logoutButton =
-  document.getElementById('logout');
+  const logoutButton =
+    document.getElementById('logout');
 
   const page =
     document.body;
@@ -118,11 +121,10 @@ const logoutButton =
             : 'Emergency sharing OFF';
 
         return `
-  <article
-    onclick="location.href='admin-profile.html?id=${encodeURIComponent(profile.enrollment_id)}'"
-    style="
-      cursor:pointer;
-            
+          <article
+            onclick="location.href='admin-profile.html?id=${encodeURIComponent(profile.enrollment_id)}'"
+            style="
+              cursor:pointer;
               border:1px solid #d8e3ea;
               border-radius:18px;
               padding:20px;
@@ -262,6 +264,64 @@ const logoutButton =
   }
 
 
+  async function loadSupportCount() {
+
+    if (!openSupportRequests) {
+      return;
+    }
+
+    try {
+
+      const response =
+        await fetch('/api/admin-lifeproduct-requests', {
+          method: 'GET',
+          credentials: 'same-origin',
+          cache: 'no-store',
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+      if (response.status === 401) {
+        location.replace(
+          'admin-login.html'
+        );
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          'Unable to load support requests.'
+        );
+      }
+
+      const data =
+        await response.json();
+
+      const requests =
+        Array.isArray(data.requests)
+          ? data.requests
+          : [];
+
+      openSupportRequests.textContent =
+        requests.filter(request =>
+          String(
+            request.request_status || ''
+          ).toLowerCase() === 'open'
+        ).length;
+
+    } catch (error) {
+
+      console.error(
+        'Support request count error:',
+        error
+      );
+
+      openSupportRequests.textContent = '—';
+    }
+  }
+
+
   async function loadAdminDashboard() {
 
     try {
@@ -270,6 +330,7 @@ const logoutButton =
         await fetch('/api/admin-session', {
           method: 'GET',
           credentials: 'same-origin',
+          cache: 'no-store',
           headers: {
             'Accept': 'application/json'
           }
@@ -300,6 +361,7 @@ const logoutButton =
         await fetch('/api/admin-profiles', {
           method: 'GET',
           credentials: 'same-origin',
+          cache: 'no-store',
           headers: {
             'Accept': 'application/json'
           }
@@ -349,6 +411,8 @@ const logoutButton =
 
       page.style.display = '';
 
+      await loadSupportCount();
+
     } catch (error) {
 
       console.error(
@@ -373,55 +437,59 @@ const logoutButton =
     );
   }
 
-if (logoutButton) {
 
-  logoutButton.addEventListener(
-    'click',
-    async () => {
+  if (logoutButton) {
 
-      logoutButton.disabled = true;
-      logoutButton.textContent =
-        'Signing out…';
+    logoutButton.addEventListener(
+      'click',
+      async () => {
 
-      try {
+        logoutButton.disabled = true;
+        logoutButton.textContent =
+          'Signing out…';
 
-        const response =
-          await fetch('/api/admin-logout', {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-              'Accept': 'application/json'
-            }
-          });
+        try {
 
-        if (!response.ok) {
-          throw new Error(
-            'Unable to sign out.'
+          const response =
+            await fetch('/api/admin-logout', {
+              method: 'POST',
+              credentials: 'same-origin',
+              cache: 'no-store',
+              headers: {
+                'Accept': 'application/json'
+              }
+            });
+
+          if (!response.ok) {
+            throw new Error(
+              'Unable to sign out.'
+            );
+          }
+
+          location.replace(
+            'admin-login.html'
+          );
+
+        } catch (error) {
+
+          console.error(
+            'Admin logout error:',
+            error
+          );
+
+          logoutButton.disabled = false;
+          logoutButton.textContent =
+            'Sign out';
+
+          alert(
+            'Unable to sign out. Please try again.'
           );
         }
-
-        location.replace(
-          'admin-login.html'
-        );
-
-      } catch (error) {
-
-        console.error(
-          'Admin logout error:',
-          error
-        );
-
-        logoutButton.disabled = false;
-        logoutButton.textContent =
-          'Sign out';
-
-        alert(
-          'Unable to sign out. Please try again.'
-        );
       }
-    }
-  );
-}
+    );
+  }
+
+
   loadAdminDashboard();
 
 })();

@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
+  <title>LifeProduct Support | OneProfile™ Admin</title>
+
+  <link
+    rel="stylesheet"
+    href="assets/css/oneprofile-portal.css"
+  >
+
+  <style>
+
+    .lpa-wrap {
+      max-width:1100px;
+      margin:40px auto;
+    }
+
+    .lpa-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:24px;
+      flex-wrap:wrap;
+      margin-bottom:28px;
+    }
+
+    .lpa-brand {
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .lpa-logo {
+      width:82px;
+      height:82px;
+      object-fit:contain;
+      border-radius:18px;
+      background:#ffffff;
+      padding:6px;
+      box-sizing:border-box;
+      border:1px solid #dfe9f2;
+      box-shadow:0 8px 20px rgba(7,23,46,.08);
+    }
+
+    .lpa-header-actions {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .lpa-stats {
+      display:grid;
+      grid-template-columns:
+        repeat(auto-fit,minmax(170px,1fr));
+      gap:14px;
+      margin-bottom:24px;
+    }
+
+    .lpa-stat {
+      background:#ffffff;
+      border:1px solid #dfe9f2;
+      border-radius:18px;
+      padding:20px;
+    }
+
+    .lpa-stat span {
+      display:block;
+      margin-bottom:8px;
+      font-size:.78rem;
+      font-weight:900;
+      letter-spacing:.07em;
+      text-transform:uppercase;
+      color:#1687a7;
+    }
+
+    .lpa-stat strong {
+      display:block;
+      font-size:2rem;
+      line-height:1;
+      color:#07172e;
+    }
+
+    .lpa-toolbar {
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:20px;
+      padding:20px;
+      border:1px solid #dfe9f2;
+      border-radius:18px;
+      background:#ffffff;
+    }
+
+    .lpa-filter {
+      min-width:220px;
+    }
+
+    .lpa-filter label {
+      display:block;
+      margin-bottom:7px;
+      font-weight:800;
+      color:#10243a;
+    }
+
+    .lpa-filter select {
+      width:100%;
+      min-height:50px;
+      padding:0 46px 0 15px;
+      border:1.5px solid #cfdce7;
+      border-radius:14px;
+      background-color:#ffffff;
+      color:#07172e;
+      font:inherit;
+      appearance:none;
+      -webkit-appearance:none;
+
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2310243a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+
+      background-repeat:no-repeat;
+      background-position:right 15px center;
+      background-size:18px;
+    }
+
+    .lpa-filter select:focus {
+      outline:none;
+      border-color:#1687a7;
+      box-shadow:0 0 0 4px rgba(22,135,167,.12);
+    }
+
+    .lpa-list {
+      display:grid;
+      gap:18px;
+    }
+
+    .lpa-request {
+      border:1px solid #d8e3ea;
+      border-radius:20px;
+      background:#ffffff;
+      overflow:hidden;
+      box-shadow:0 8px 24px rgba(7,23,46,.04);
+    }
+
+    .lpa-request-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:18px;
+      flex-wrap:wrap;
+      padding:22px 24px;
+      background:#f8fbfd;
+      border-bottom:1px solid #e4edf3;
+    }
+
+    .lpa-request-head h3 {
+      margin:0 0 5px;
+      color:#07172e;
+    }
+
+    .lpa-request-head p {
+      margin:0;
+      color:#607486;
+    }
+
+    .lpa-status {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:30px;
+      padding:4px 12px;
+      border-radius:999px;
+      font-size:.76rem;
+      font-weight:900;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .lpa-status-open {
+      background:#fff3cf;
+      color:#805d00;
+    }
+
+    .lpa-status-reviewed {
+      background:#e7f5fb;
+      color:#086d8d;
+    }
+
+    .lpa-status-resolved {
+      background:#e8f7ef;
+      color:#1b7048;
+    }
+
+    .lpa-request-body {
+      padding:24px;
+    }
+
+    .lpa-grid {
+      display:grid;
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+      gap:18px;
+      margin-bottom:20px;
+    }
+
+    .lpa-detail {
+      padding:16px;
+      border:1px solid #e0e9ef;
+      border-radius:15px;
+      background:#ffffff;
+    }
+
+    .lpa-detail-label {
+      display:block;
+      margin-bottom:5px;
+      color:#607486;
+      font-size:.78rem;
+      font-weight:900;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+    }
+
+    .lpa-detail-value {
+      color:#07172e;
+      font-weight:750;
+      line-height:1.5;
+      overflow-wrap:anywhere;
+    }
+
+    .lpa-note {
+      margin-top:16px;
+      padding:17px;
+      border-radius:15px;
+      background:#f6f9fb;
+      border:1px solid #e0e9ef;
+    }
+
+    .lpa-note strong {
+      display:block;
+      margin-bottom:6px;
+      color:#10243a;
+    }
+
+    .lpa-note p {
+      margin:0;
+      white-space:pre-wrap;
+      line-height:1.55;
+      color:#42596c;
+    }
+
+    .lpa-staff-area {
+      margin-top:22px;
+      padding-top:22px;
+      border-top:1px solid #e1e9ef;
+    }
+
+    .lpa-staff-area label {
+      display:block;
+      margin-bottom:7px;
+      font-weight:800;
+      color:#10243a;
+    }
+
+    .lpa-staff-area textarea {
+      width:100%;
+      min-height:110px;
+      box-sizing:border-box;
+      padding:14px 15px;
+      border:1.5px solid #cfdce7;
+      border-radius:14px;
+      background:#ffffff;
+      color:#07172e;
+      font:inherit;
+      resize:vertical;
+    }
+
+    .lpa-staff-area textarea:focus {
+      outline:none;
+      border-color:#1687a7;
+      box-shadow:0 0 0 4px rgba(22,135,167,.12);
+    }
+
+    .lpa-actions {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+
+    .lpa-message {
+      margin-top:12px;
+      min-height:20px;
+      font-weight:750;
+    }
+
+    .lpa-empty {
+      padding:36px 24px;
+      text-align:center;
+      border:1px solid #dfe9f2;
+      border-radius:20px;
+      background:#ffffff;
+      color:#607486;
+    }
+
+    @media (max-width:700px) {
+
+      .lpa-wrap {
+        margin:20px auto;
+      }
+
+      .lpa-grid {
+        grid-template-columns:1fr;
+      }
+
+      .lpa-header-actions {
+        width:100%;
+      }
+
+      .lpa-header-actions .op-button {
+        flex:1;
+      }
+
+      .lpa-filter {
+        width:100%;
+      }
+
+      .lpa-actions {
+        flex-direction:column;
+      }
+
+      .lpa-actions .op-button {
+        width:100%;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body style="display:none;">
+
+
+  <main class="op-shell">
+
+
+    <section class="op-card lpa-wrap">
+
+
+      <header class="lpa-header">
+
+
+        <div class="lpa-brand">
+
+          <img
+            src="assets/images/ratios-official-logo.png"
+            alt="RATIOS"
+            class="lpa-logo"
+          >
+
+          <div>
+
+            <p class="op-eyebrow">
+              RATIOS STAFF PORTAL
+            </p>
+
+            <h1 style="margin-bottom:8px;">
+              LifeProduct Support
+            </h1>
+
+            <p style="margin:0;">
+              Review and manage caregiver support
+              requests for RATIOS-issued LifeProducts.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="lpa-header-actions">
+
+          <a
+            class="op-button op-secondary"
+            href="admin-dashboard.html"
+          >
+            Back to admin
+          </a>
+
+        </div>
+
+
+      </header>
+
+
+
+      <section class="lpa-stats">
+
+
+        <div class="lpa-stat">
+          <span>Open</span>
+          <strong id="openCount">—</strong>
+        </div>
+
+
+        <div class="lpa-stat">
+          <span>Reviewed</span>
+          <strong id="reviewedCount">—</strong>
+        </div>
+
+
+        <div class="lpa-stat">
+          <span>Resolved</span>
+          <strong id="resolvedCount">—</strong>
+        </div>
+
+
+        <div class="lpa-stat">
+          <span>Total Requests</span>
+          <strong id="totalCount">—</strong>
+        </div>
+
+
+      </section>
+
+
+
+      <section class="lpa-toolbar">
+
+
+        <div>
+
+          <p
+            class="op-eyebrow"
+            style="margin-bottom:5px;"
+          >
+            REQUEST QUEUE
+          </p>
+
+          <h2 style="margin:0;">
+            Caregiver requests
+          </h2>
+
+        </div>
+
+
+        <div class="lpa-filter">
+
+          <label for="statusFilter">
+            Show requests
+          </label>
+
+          <select id="statusFilter">
+
+            <option value="active">
+              Open & reviewed
+            </option>
+
+            <option value="open">
+              Open only
+            </option>
+
+            <option value="reviewed">
+              Reviewed only
+            </option>
+
+            <option value="resolved">
+              Resolved only
+            </option>
+
+            <option value="all">
+              All requests
+            </option>
+
+          </select>
+
+        </div>
+
+
+      </section>
+
+
+
+      <div id="requestMessage"></div>
+
+
+      <section
+        id="requestList"
+        class="lpa-list"
+      >
+
+        <div class="lpa-empty">
+          Loading LifeProduct support requests…
+        </div>
+
+      </section>
+
+
+    </section>
+
+
+  </main>
+
+
+  <script src="assets/js/admin-lifeproduct-requests.js?v=1"></script>
+
+
+</body>
+
+</html>
