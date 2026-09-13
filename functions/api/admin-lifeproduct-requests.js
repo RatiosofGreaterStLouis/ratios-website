@@ -196,6 +196,16 @@ export async function onRequestGet({
             i.label AS identifier_label,
             i.status AS identifier_status,
 
+            rep.id AS replacement_record_id,
+            rep.replacement_identifier_id,
+            rep.replacement_reason,
+            rep.replaced_by,
+            rep.created_at AS replaced_at,
+
+            replacement.product_type AS replacement_product_type,
+            replacement.label AS replacement_identifier_label,
+            replacement.status AS replacement_identifier_status,
+
             e.participant_first_name,
             e.caregiver_first_name,
             e.caregiver_last_name,
@@ -209,6 +219,14 @@ export async function onRequestGet({
 
           INNER JOIN oneprofile_enrollments e
             ON e.enrollment_id = r.enrollment_id
+
+          LEFT JOIN oneprofile_identifier_replacements rep
+            ON rep.original_identifier_id = r.identifier_id
+           AND rep.enrollment_id = r.enrollment_id
+
+          LEFT JOIN oneprofile_identifiers replacement
+            ON replacement.id = rep.replacement_identifier_id
+           AND replacement.enrollment_id = r.enrollment_id
 
           WHERE i.product_type IN (
             'lifepatch',

@@ -359,6 +359,23 @@
         const resolved =
           currentStatus === 'resolved';
 
+        const replacementId =
+          Number(item.replacement_identifier_id || 0);
+
+        const hasReplacement =
+          Number.isInteger(replacementId) &&
+          replacementId > 0;
+
+        const originalIsActive =
+          String(item.identifier_status || '')
+            .toLowerCase() === 'active';
+
+        const replacementLabel =
+          item.replacement_identifier_label ||
+          (hasReplacement
+            ? `Replacement identifier #${replacementId}`
+            : '');
+
         return `
 
           <article
@@ -484,6 +501,27 @@
 
 
               ${
+                hasReplacement
+                  ? `
+                    <div class="lpa-note" style="background:#e8f7ef;border-color:#c8ead8;">
+                      <strong>Replacement completed</strong>
+                      <p>
+                        ${escapeHtml(replacementLabel)}<br>
+                        New identifier #${escapeHtml(replacementId)}
+                        ${item.replacement_identifier_status
+                          ? `<br>Status: ${escapeHtml(item.replacement_identifier_status)}`
+                          : ''}
+                        ${item.replaced_at
+                          ? `<br>Replaced: ${escapeHtml(formatDate(item.replaced_at))}`
+                          : ''}
+                      </p>
+                    </div>
+                  `
+                  : ''
+              }
+
+
+              ${
                 item.reviewed_at
                   ? `
                     <div class="lpa-note">
@@ -552,6 +590,24 @@
                           data-request-id="${requestId}"
                         >
                           Mark reviewed
+                        </button>
+                      `
+                      : ''
+                  }
+
+
+                  ${
+                    !resolved &&
+                    !hasReplacement &&
+                    originalIsActive
+                      ? `
+                        <button
+                          type="button"
+                          class="op-button"
+                          data-action="replace"
+                          data-request-id="${requestId}"
+                        >
+                          Replace LifeProduct
                         </button>
                       `
                       : ''
@@ -684,6 +740,125 @@
       }
 
       page.style.display = '';
+    }
+  }
+
+
+  async function replaceLifeProduct(requestId) {
+
+    const item =
+      requests.find(row => Number(row.id) === Number(requestId));
+
+    if (!item) {
+      return;
+    }
+
+    const product =
+      productName(item.product_type);
+
+    const label =
+      item.identifier_label ||
+      `Identifier #${item.identifier_id}`;
+
+    const confirmed =
+      window.confirm(
+        `Replace ${product} “${label}”?\n\nA NEW active identifier and QR will be created. The original identifier will be made inactive immediately, the replacement will be linked in OneProfile™ history, and this support request will be resolved.`
+      );
+
+    if (!confirmed) {
+      return;
+    }
+
+    const secondConfirmation =
+      window.confirm(
+        `Final confirmation: retire the current identifier #${item.identifier_id} and create its replacement now?`
+      );
+
+    if (!secondConfirmation) {
+      return;
+    }
+
+    const article =
+      document.querySelector(
+        `[data-request-id="${requestId}"]`
+      );
+
+    const buttons =
+      article
+        ? article.querySelectorAll('button[data-action]')
+        : [];
+
+    const noteField =
+      document.getElementById(`staffNote-${requestId}`);
+
+    const message =
+      document.getElementById(`message-${requestId}`);
+
+    buttons.forEach(button => {
+      button.disabled = true;
+    });
+
+    if (message) {
+      message.textContent = 'Creating replacement LifeProduct identifier…';
+      message.style.color = '#607486';
+    }
+
+    try {
+
+      const response =
+        await fetch('/api/admin-replace-lifeproduct', {
+          method: 'POST',
+          credentials: 'same-origin',
+          cache: 'no-store',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            request_id: Number(requestId),
+            staff_note: String(noteField?.value || '').trim()
+          })
+        });
+
+      if (response.status === 401) {
+        location.replace('admin-login.html');
+        return;
+      }
+
+      const data =
+        await response.json();
+
+      if (!response.ok || !data.ok) {
+        throw new Error(
+          data.error ||
+          'Unable to replace this LifeProduct.'
+        );
+      }
+
+      setMessage(
+        `${data.replacement?.product_name || product} replacement created successfully. New identifier #${data.replacement?.id || '—'} is active; the original identifier is inactive.`,
+        'success'
+      );
+
+      await loadRequests();
+
+    } catch (error) {
+
+      console.error(
+        'LifeProduct replacement error:',
+        error
+      );
+
+      if (message) {
+        message.textContent =
+          error.message ||
+          'Unable to replace this LifeProduct.';
+        message.style.color = '#8b2525';
+      }
+
+      buttons.forEach(button => {
+        button.disabled = false;
+      });
     }
   }
 
@@ -863,8 +1038,14 @@
 
         if (
           action !== 'review' &&
-          action !== 'resolve'
+          action !== 'resolve' &&
+          action !== 'replace'
         ) {
+          return;
+        }
+
+        if (action === 'replace') {
+          replaceLifeProduct(requestId);
           return;
         }
 
