@@ -42,10 +42,14 @@
 
   <style>
 
+    /* ==================================================
+       OneProfile™ LifeProduct Support
+       ================================================== */
+
     .lps-shell {
-      max-width:1100px;
+      max-width:1180px;
       margin:0 auto;
-      padding:36px 24px 60px;
+      padding:34px 24px 64px;
     }
 
     .lps-head {
@@ -53,7 +57,7 @@
       align-items:flex-start;
       justify-content:space-between;
       gap:24px;
-      margin-bottom:26px;
+      margin-bottom:30px;
     }
 
     .lps-brand {
@@ -65,46 +69,97 @@
     .lps-logo {
       width:72px;
       height:72px;
+      flex:0 0 72px;
+
       object-fit:contain;
       padding:7px;
       box-sizing:border-box;
+
       border:1px solid #dfe9f2;
       border-radius:18px;
+
       background:#ffffff;
+
+      box-shadow:
+        0 8px 20px rgba(7,23,46,.06);
     }
 
     .lps-head h1 {
       margin:0;
       color:#07172e;
-      font-size:clamp(2rem,4vw,3.4rem);
+
+      font-size:
+        clamp(2rem,4vw,3.4rem);
+
       line-height:1.05;
     }
 
-    .lps-intro {
-      margin-bottom:22px;
-      padding:18px 20px;
-      border:1px solid #d7e6ef;
-      border-radius:18px;
-      background:#f8fbfd;
-      color:#29405a;
-      line-height:1.6;
+    .lps-head .opc-lead {
+      margin-top:10px;
+      margin-bottom:0;
     }
+
+
+
+    /* ==================================================
+       Notice
+       ================================================== */
+
+    .lps-intro {
+      margin-bottom:24px;
+      padding:18px 20px;
+
+      border:
+        1px solid #cfe0ec;
+
+      border-radius:18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f9fcfe,
+          #f4f9fc
+        );
+
+      color:#29405a;
+      line-height:1.65;
+    }
+
+    .lps-intro strong {
+      color:#07172e;
+    }
+
+
+
+    /* ==================================================
+       Main layout
+       ================================================== */
 
     .lps-grid {
       display:grid;
+
       grid-template-columns:
-        minmax(0,1fr)
-        minmax(320px,.75fr);
+        minmax(0,1.15fr)
+        minmax(340px,.85fr);
+
       gap:22px;
+
       align-items:start;
     }
 
     .lps-card {
-      padding:24px;
-      border:1px solid #dfe9f2;
+      padding:26px;
+
+      border:
+        1px solid #dfe9f2;
+
       border-radius:22px;
+
       background:#ffffff;
-      box-shadow:0 8px 24px rgba(7,23,46,.04);
+
+      box-shadow:
+        0 10px 28px
+        rgba(7,23,46,.045);
     }
 
     .lps-card h2,
@@ -113,57 +168,258 @@
       color:#07172e;
     }
 
+    .lps-card h2 {
+      margin-bottom:22px;
+    }
+
+
+
+    /* ==================================================
+       Form fields
+       ================================================== */
+
     .lps-field {
       display:block;
-      margin-bottom:18px;
+      margin-bottom:22px;
+
       color:#07172e;
+
+      font-size:.96rem;
       font-weight:800;
     }
 
     .lps-field select,
     .lps-field textarea {
       width:100%;
-      margin-top:8px;
+
       box-sizing:border-box;
+
+      margin-top:9px;
+
+      border:
+        1.5px solid #cfdce7;
+
+      border-radius:14px;
+
+      background:#ffffff;
+
+      color:#07172e;
+
+      font:inherit;
+
+      font-weight:600;
+
+      outline:none;
+
+      transition:
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background-color .18s ease;
     }
+
+
+
+    /* Selects */
+
+    .lps-field select {
+      min-height:54px;
+
+      padding:
+        0 48px
+        0 16px;
+
+      appearance:none;
+      -webkit-appearance:none;
+
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2307172e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+      background-repeat:
+        no-repeat;
+
+      background-position:
+        right 16px center;
+
+      background-size:
+        18px;
+    }
+
+
+
+    /* Textarea */
 
     .lps-field textarea {
-      min-height:130px;
+      min-height:145px;
+
+      padding:15px 16px;
+
       resize:vertical;
+
+      line-height:1.55;
     }
 
-    .lps-helper {
-      margin-top:6px;
-      color:#62758a;
-      font-size:.9rem;
-      line-height:1.45;
+    .lps-field textarea::placeholder {
+      color:#728397;
+      opacity:1;
       font-weight:500;
     }
 
-    .lps-alert {
-      margin-bottom:18px;
-      padding:14px 16px;
-      border-radius:15px;
-      border:1px solid #f2d28a;
-      background:#fff8e7;
-      color:#624b12;
+
+
+    /* Focus */
+
+    .lps-field select:hover,
+    .lps-field textarea:hover {
+      border-color:#aabfce;
+    }
+
+    .lps-field select:focus,
+    .lps-field textarea:focus {
+      border-color:#1687a7;
+
+      box-shadow:
+        0 0 0 4px
+        rgba(22,135,167,.12);
+    }
+
+
+
+    /* Disabled */
+
+    .lps-field select:disabled,
+    .lps-field textarea:disabled {
+      cursor:not-allowed;
+
+      background:#f3f6f8;
+
+      color:#8a98a6;
+
+      opacity:.8;
+    }
+
+
+
+    /* ==================================================
+       Helper text
+       ================================================== */
+
+    .lps-helper {
+      margin-top:8px;
+
+      color:#62758a;
+
+      font-size:.88rem;
+      font-weight:500;
+
       line-height:1.5;
     }
 
+
+
+    /* ==================================================
+       Alerts
+       ================================================== */
+
+    .lps-alert {
+      margin-bottom:18px;
+
+      padding:14px 16px;
+
+      border:
+        1px solid #f0d28b;
+
+      border-radius:15px;
+
+      background:#fff9e8;
+
+      color:#624b12;
+
+      line-height:1.5;
+    }
+
+    #requestMessage {
+      margin-top:8px;
+      margin-bottom:18px;
+
+      padding:14px 16px;
+
+      border-radius:14px;
+
+      font-weight:700;
+      line-height:1.5;
+    }
+
+    #requestMessage.success {
+      border:
+        1px solid #b7ddc7;
+
+      background:#eef9f2;
+
+      color:#195c39;
+    }
+
+    #requestMessage.info {
+      border:
+        1px solid #c8ddec;
+
+      background:#f3f9fd;
+
+      color:#285675;
+    }
+
+
+
+    /* ==================================================
+       Buttons
+       ================================================== */
+
     .lps-actions {
       display:flex;
+
       gap:12px;
+
       flex-wrap:wrap;
-      margin-top:8px;
+
+      margin-top:6px;
     }
 
     .lps-actions .opc-button {
       min-height:50px;
-      padding:12px 22px;
+
+      display:inline-flex;
+
+      align-items:center;
+      justify-content:center;
+
+      padding:
+        12px 22px;
+
       border-radius:999px;
+
       text-decoration:none;
+
       font-weight:800;
     }
+
+    #submitRequestButton {
+      background:#f7b83b;
+      color:#07172e;
+
+      border:
+        2px solid #f7b83b;
+    }
+
+    #submitRequestButton:hover,
+    #submitRequestButton:focus-visible {
+      filter:brightness(.98);
+      transform:translateY(-1px);
+    }
+
+
+
+    /* ==================================================
+       Request history
+       ================================================== */
 
     .lps-list {
       display:grid;
@@ -171,87 +427,162 @@
     }
 
     .lps-request {
-      padding:16px;
-      border:1px solid #e0e8ef;
-      border-radius:16px;
-      background:#fbfdff;
+      padding:17px;
+
+      border:
+        1px solid #dbe6ee;
+
+      border-radius:17px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #ffffff,
+          #fbfdff
+        );
     }
 
     .lps-request-top {
       display:flex;
-      justify-content:space-between;
-      gap:12px;
+
+      justify-content:
+        space-between;
+
+      gap:14px;
+
       align-items:flex-start;
-      margin-bottom:8px;
+
+      margin-bottom:10px;
     }
 
     .lps-request-title {
       color:#07172e;
+
+      font-size:.98rem;
       font-weight:900;
+
+      line-height:1.35;
     }
 
     .lps-status {
       display:inline-flex;
+
       align-items:center;
       justify-content:center;
-      padding:6px 10px;
+
+      padding:7px 11px;
+
       border-radius:999px;
-      font-size:.78rem;
+
+      font-size:.72rem;
       font-weight:900;
+
       text-transform:uppercase;
-      letter-spacing:.06em;
+
+      letter-spacing:.08em;
+
       white-space:nowrap;
     }
 
     .lps-status.open {
-      background:#fff3cd;
-      color:#6d5100;
+      background:#fff1c8;
+      color:#765500;
     }
 
     .lps-status.reviewed {
-      background:#e8f2ff;
+      background:#e7f2ff;
       color:#174a83;
     }
 
     .lps-status.resolved {
-      background:#e8f7ee;
+      background:#e7f7ed;
       color:#176238;
     }
 
     .lps-empty {
-      padding:18px;
-      border:1px dashed #cfdbe5;
+      padding:20px;
+
+      border:
+        1px dashed #cbdbe7;
+
       border-radius:16px;
+
       color:#62758a;
-      background:#fafcfe;
-      line-height:1.5;
+
+      background:#fbfdff;
+
+      line-height:1.55;
     }
 
+
+
+    /* ==================================================
+       Footer
+       ================================================== */
+
     .lps-footer {
-      margin-top:26px;
+      margin-top:30px;
+
       text-align:center;
+
       color:#6d7d8e;
+
       font-size:.9rem;
     }
+
+
+
+    /* ==================================================
+       Responsive
+       ================================================== */
 
     @media (max-width:850px) {
 
       .lps-shell {
-        padding-left:16px;
-        padding-right:16px;
+        padding:
+          24px 16px
+          48px;
       }
 
       .lps-head {
         flex-direction:column;
       }
 
+      .lps-brand {
+        align-items:flex-start;
+      }
+
       .lps-grid {
         grid-template-columns:1fr;
       }
 
-      .lps-head .opc-button {
+      .lps-head > .opc-button {
         width:100%;
+
         justify-content:center;
+      }
+
+    }
+
+
+    @media (max-width:520px) {
+
+      .lps-logo {
+        width:60px;
+        height:60px;
+        flex-basis:60px;
+      }
+
+      .lps-card {
+        padding:20px;
+      }
+
+      .lps-actions {
+        flex-direction:column;
+      }
+
+      .lps-actions .opc-button {
+        width:100%;
       }
 
     }
@@ -280,6 +611,8 @@
       hidden
     >
 
+
+      <!-- Page heading -->
 
       <div class="lps-head">
 
@@ -325,15 +658,18 @@
 
 
 
+      <!-- Staff-control notice -->
+
       <div class="lps-intro">
 
         <strong>
-          Reporting a problem does not automatically change your identifier.
+          Reporting a problem does not automatically
+          change your identifier.
         </strong>
 
-        RATIOS staff reviews LifeProduct requests before
-        deactivating, replacing, archiving, or issuing a new
-        physical identifier.
+        RATIOS staff reviews LifeProduct requests
+        before deactivating, replacing, archiving,
+        or issuing a new physical identifier.
 
       </div>
 
@@ -346,9 +682,11 @@
 
         <section class="lps-card">
 
+
           <p class="opc-eyebrow">
             SUBMIT A REQUEST
           </p>
+
 
           <h2>
             How can RATIOS help?
@@ -363,6 +701,7 @@
             No active RATIOS-issued physical LifeProducts
             are currently available for support.
           </div>
+
 
 
           <form id="lifeProductRequestForm">
@@ -460,7 +799,6 @@
 
             <div
               id="requestMessage"
-              class="opc-alert info"
               hidden
             ></div>
 
@@ -470,7 +808,7 @@
 
               <button
                 id="submitRequestButton"
-                class="opc-button opc-primary"
+                class="opc-button"
                 type="submit"
               >
                 Submit request
@@ -492,17 +830,20 @@
 
 
 
-        <!-- Existing requests -->
+        <!-- Request history -->
 
         <aside class="lps-card">
+
 
           <p class="opc-eyebrow">
             REQUEST HISTORY
           </p>
 
+
           <h3>
             Previous LifeProduct requests
           </h3>
+
 
           <p class="opc-small">
             You can review the status of requests
@@ -521,6 +862,7 @@
 
           </div>
 
+
         </aside>
 
 
@@ -535,6 +877,7 @@
 
 
     </section>
+
 
   </main>
 
