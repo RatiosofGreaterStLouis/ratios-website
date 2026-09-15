@@ -380,6 +380,39 @@ export async function onRequestPost({
         .toLowerCase();
 
 
+    if (requestedStatus === 'active') {
+
+      const replacementRecord =
+        await env.ONEPROFILE_DB
+          .prepare(`
+            SELECT
+              replacement_identifier_id
+            FROM oneprofile_identifier_replacements
+            WHERE enrollment_id = ?
+              AND original_identifier_id = ?
+            LIMIT 1
+          `)
+          .bind(
+            enrollmentId,
+            identifierId
+          )
+          .first();
+
+
+      if (replacementRecord) {
+
+        return json(
+          {
+            authenticated: true,
+            error:
+              `This identifier was permanently retired when replacement identifier #${replacementRecord.replacement_identifier_id} was issued. Replaced identifiers cannot be reactivated.`
+          },
+          409
+        );
+      }
+    }
+
+
     if (
       oldStatus === requestedStatus
     ) {

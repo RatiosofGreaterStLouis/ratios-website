@@ -151,6 +151,19 @@
           'active';
 
 
+        const replaced =
+          !digitalQr &&
+          !!item.replacement_identifier_id;
+
+
+        const statusText =
+          replaced
+            ? 'Replaced'
+            : active
+              ? 'Active'
+              : 'Inactive';
+
+
         const typeName =
           productLabel(item);
 
@@ -199,7 +212,7 @@
                   ${active ? 'active' : 'inactive'}
                 "
               >
-                ${active ? 'Active' : 'Inactive'}
+                ${replaced ? 'Replaced' : active ? 'Active' : 'Inactive'}
                 ·
                 ${esc(scanText)}
               </p>
@@ -462,7 +475,8 @@
 
   function renderPhysicalProductDetails(
     item,
-    active
+    active,
+    replaced
   ) {
 
     const typeName =
@@ -536,7 +550,35 @@
             </strong>
           </div>
 
+          ${replaced ? `
+            <div>
+              Replaced by identifier:
+              <strong>
+                #${esc(item.replacement_identifier_id)}
+              </strong>
+            </div>
+          ` : ''}
+
+          ${item.replaces_identifier_id ? `
+            <div>
+              Replacement for identifier:
+              <strong>
+                #${esc(item.replaces_identifier_id)}
+              </strong>
+            </div>
+          ` : ''}
+
         </div>
+
+        ${replaced ? `
+          <div style="margin-bottom:14px;padding:12px 14px;border:1px solid #efcf84;border-radius:12px;background:#fff8e8;">
+            <strong>This LifeProduct has been replaced.</strong>
+            <p class="id-small" style="margin:6px 0 0;">
+              This retired identifier cannot be reactivated.
+              Use ${esc(item.replacement_identifier_label || `replacement identifier #${item.replacement_identifier_id}`)} instead.
+            </p>
+          </div>
+        ` : ''}
 
 
         <p

@@ -36,6 +36,9 @@
   const staffActions =
     document.getElementById('staffActions');
 
+  const replacementHistory =
+    document.getElementById('replacementHistory');
+
   const issueIdentifierForm =
     document.getElementById('issueIdentifierForm');
 
@@ -69,6 +72,7 @@
 
   let currentEnrollmentId = '';
   let currentIssuedIdentifier = null;
+  let currentReplacementHistory = [];
 
 
   function escapeHtml(value) {
@@ -137,7 +141,10 @@
         'Identifier archived',
 
       identifier_issued:
-        'Identifier issued'
+        'Identifier issued',
+
+      identifier_replaced:
+        'LifeProduct replaced'
     };
 
     return labels[value] ||
@@ -1146,6 +1153,86 @@
   }
 
 
+  function replacementMaps() {
+
+    const byOriginal = new Map();
+    const byReplacement = new Map();
+
+    for (const record of currentReplacementHistory) {
+      byOriginal.set(Number(record.original_identifier_id), record);
+      byReplacement.set(Number(record.replacement_identifier_id), record);
+    }
+
+    return { byOriginal, byReplacement };
+  }
+
+
+  function renderReplacementHistory(records) {
+
+    currentReplacementHistory = Array.isArray(records) ? records : [];
+
+    if (!replacementHistory) return;
+
+    if (!currentReplacementHistory.length) {
+      replacementHistory.innerHTML = `
+        <p style="margin-bottom:0;">
+          No LifeProduct replacements have been recorded for this participant.
+        </p>
+      `;
+      return;
+    }
+
+    replacementHistory.innerHTML = currentReplacementHistory.map(record => {
+      const originalLabel = record.original_identifier_label ||
+        formatProductType(record.original_product_type);
+      const replacementLabel = record.replacement_identifier_label ||
+        formatProductType(record.replacement_product_type);
+      const replacementActive = String(record.replacement_identifier_status || '')
+        .trim().toLowerCase() === 'active';
+
+      return `
+        <article style="border-top:1px solid #d8e3ea;padding:18px 0;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+            <div>
+              <p class="op-eyebrow" style="margin-bottom:6px;">RETIRED LIFEPRODUCT</p>
+              <strong>${escapeHtml(originalLabel)}</strong>
+              <div>Identifier #${escapeHtml(record.original_identifier_id)} · ${escapeHtml(record.original_identifier_status || 'inactive')}</div>
+            </div>
+            <div>
+              <p class="op-eyebrow" style="margin-bottom:6px;">REPLACEMENT</p>
+              <strong>${escapeHtml(replacementLabel)}</strong>
+              <div>Identifier #${escapeHtml(record.replacement_identifier_id)} · ${escapeHtml(record.replacement_identifier_status || 'unknown')}</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;">Replaced: <strong>${escapeHtml(formatDate(record.replaced_at))}</strong></div>
+          <div>Reason: <strong>${escapeHtml(String(record.replacement_reason || 'Not specified').replace(/_/g, ' '))}</strong></div>
+          <div>Staff: <strong>${escapeHtml(record.replaced_by || 'RATIOS staff')}</strong></div>
+
+          <div style="margin-top:14px;padding:12px 14px;border:1px solid #d8e3ea;border-radius:12px;background:#f8fbfd;">
+            <strong>Permanent replacement protection</strong>
+            <div>Identifier #${escapeHtml(record.original_identifier_id)} is recorded as replaced and cannot be reactivated.</div>
+          </div>
+
+          ${replacementActive ? `
+            <div style="margin-top:14px;">
+              <button type="button" data-identifier-qr data-identifier-id="${escapeHtml(record.replacement_identifier_id)}">
+                View / Download replacement QR
+              </button>
+            </div>
+          ` : `
+            <p style="margin-bottom:0;margin-top:14px;color:#607486;">
+              The replacement QR is available only while the replacement identifier is active.
+            </p>
+          `}
+        </article>
+      `;
+    }).join('');
+
+    bindIdentifierButtons();
+  }
+
+
   function renderIdentifiers(
     identifiers
   ) {
@@ -1156,6 +1243,9 @@
       )
         ? identifiers
         : [];
+
+
+    const { byOriginal, byReplacement } = replacementMaps();
 
 
     const activeCount =
@@ -1350,6 +1440,16 @@
           );
 
 
+        const replacementRecord =
+          byOriginal.get(Number(item.id)) || null;
+
+        const replacesRecord =
+          byReplacement.get(Number(item.id)) || null;
+
+        const isReplaced =
+          !!replacementRecord;
+
+
         let statusActions =
           '';
 
@@ -1382,43 +1482,59 @@
           isInactive
         ) {
 
-          statusActions = `
-            <button
-              type="button"
-              data-identifier-action
-              data-identifier-id="${escapeHtml(item.id)}"
-              data-new-status="active"
-              data-label="${escapeHtml(label)}"
-            >
-              Reactivate identifier
-            </button>
+          statusActions =
+            isReplaced
+              ? `
+                <button
+                  type="button"
+                  data-identifier-action
+                  data-identifier-id="${escapeHtml(item.id)}"
+                  data-new-status="archived"
+                  data-label="${escapeHtml(label)}"
+                >
+                  Archive replaced identifier
+                </button>
+              `
+              : `
+                <button
+                  type="button"
+                  data-identifier-action
+                  data-identifier-id="${escapeHtml(item.id)}"
+                  data-new-status="active"
+                  data-label="${escapeHtml(label)}"
+                >
+                  Reactivate identifier
+                </button>
 
-            <button
-              type="button"
-              data-identifier-action
-              data-identifier-id="${escapeHtml(item.id)}"
-              data-new-status="archived"
-              data-label="${escapeHtml(label)}"
-            >
-              Archive identifier
-            </button>
-          `;
+                <button
+                  type="button"
+                  data-identifier-action
+                  data-identifier-id="${escapeHtml(item.id)}"
+                  data-new-status="archived"
+                  data-label="${escapeHtml(label)}"
+                >
+                  Archive identifier
+                </button>
+              `;
 
         } else if (
           isArchived
         ) {
 
-          statusActions = `
-            <button
-              type="button"
-              data-identifier-action
-              data-identifier-id="${escapeHtml(item.id)}"
-              data-new-status="active"
-              data-label="${escapeHtml(label)}"
-            >
-              Restore archived identifier
-            </button>
-          `;
+          statusActions =
+            isReplaced
+              ? ''
+              : `
+                <button
+                  type="button"
+                  data-identifier-action
+                  data-identifier-id="${escapeHtml(item.id)}"
+                  data-new-status="active"
+                  data-label="${escapeHtml(label)}"
+                >
+                  Restore archived identifier
+                </button>
+              `;
         }
 
 
@@ -1455,9 +1571,27 @@
             <div>
               Status:
               <strong>
-                ${escapeHtml(status)}
+                ${escapeHtml(isReplaced ? 'replaced' : status)}
               </strong>
             </div>
+
+            ${isReplaced ? `
+              <div style="margin-top:10px;padding:12px 14px;border:1px solid #efcf84;border-radius:12px;background:#fff8e8;">
+                <strong>Replaced LifeProduct</strong>
+                <div>
+                  Permanently retired in favor of identifier
+                  #${escapeHtml(replacementRecord.replacement_identifier_id)}.
+                  Reactivation is blocked.
+                </div>
+              </div>
+            ` : ''}
+
+            ${replacesRecord ? `
+              <div style="margin-top:10px;padding:12px 14px;border:1px solid #b9dfc7;border-radius:12px;background:#f1fbf5;">
+                <strong>Replacement LifeProduct</strong>
+                <div>This identifier replaced #${escapeHtml(replacesRecord.original_identifier_id)}.</div>
+              </div>
+            ` : ''}
 
             <div>
               Identifier ID:
@@ -1846,8 +1980,50 @@
       `;
 
 
+      let replacementRecords = [];
+
+      try {
+
+        const replacementResponse =
+          await fetch(
+            `/api/admin-replacement-history?id=${encodeURIComponent(enrollmentId)}`,
+            {
+              method: 'GET',
+              credentials: 'same-origin',
+              headers: { 'Accept': 'application/json' }
+            }
+          );
+
+        const replacementData =
+          await replacementResponse.json();
+
+        if (
+          replacementResponse.status === 401 ||
+          !replacementData.authenticated
+        ) {
+          location.replace('admin-login.html');
+          return;
+        }
+
+        if (replacementResponse.ok) {
+          replacementRecords =
+            Array.isArray(replacementData.replacements)
+              ? replacementData.replacements
+              : [];
+        }
+
+      } catch (replacementError) {
+        console.error('Admin replacement history error:', replacementError);
+      }
+
+      currentReplacementHistory = replacementRecords;
+
       renderIdentifiers(
         data.identifiers
+      );
+
+      renderReplacementHistory(
+        replacementRecords
       );
 
 

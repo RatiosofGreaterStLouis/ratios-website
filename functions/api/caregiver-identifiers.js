@@ -208,18 +208,31 @@ export async function onRequestGet({
       await env.ONEPROFILE_DB
         .prepare(`
           SELECT
-            id,
-            identifier_token,
-            product_type,
-            label,
-            status,
-            scan_count,
-            last_scanned_at,
-            created_at
-          FROM oneprofile_identifiers
-          WHERE enrollment_id = ?
-            AND status <> 'archived'
-          ORDER BY created_at DESC
+            i.id,
+            i.identifier_token,
+            i.product_type,
+            i.label,
+            i.status,
+            i.scan_count,
+            i.last_scanned_at,
+            i.created_at,
+            original_rep.replacement_identifier_id,
+            replacement_i.label AS replacement_identifier_label,
+            replacement_i.status AS replacement_identifier_status,
+            replacement_rep.original_identifier_id AS replaces_identifier_id
+          FROM oneprofile_identifiers i
+          LEFT JOIN oneprofile_identifier_replacements original_rep
+            ON original_rep.original_identifier_id = i.id
+           AND original_rep.enrollment_id = i.enrollment_id
+          LEFT JOIN oneprofile_identifiers replacement_i
+            ON replacement_i.id = original_rep.replacement_identifier_id
+           AND replacement_i.enrollment_id = i.enrollment_id
+          LEFT JOIN oneprofile_identifier_replacements replacement_rep
+            ON replacement_rep.replacement_identifier_id = i.id
+           AND replacement_rep.enrollment_id = i.enrollment_id
+          WHERE i.enrollment_id = ?
+            AND i.status <> 'archived'
+          ORDER BY i.created_at DESC
         `)
         .bind(
           session.enrollment_id
@@ -259,6 +272,21 @@ export async function onRequestGet({
 
             created_at:
               item.created_at,
+
+            replaced:
+              !!item.replacement_identifier_id,
+
+            replacement_identifier_id:
+              item.replacement_identifier_id || null,
+
+            replacement_identifier_label:
+              item.replacement_identifier_label || null,
+
+            replacement_identifier_status:
+              item.replacement_identifier_status || null,
+
+            replaces_identifier_id:
+              item.replaces_identifier_id || null,
 
             issued_by:
               digitalQr
