@@ -47,3 +47,15 @@
  .ar-family{aspect-ratio:16/9!important}
  .ar-footer{grid-template-columns:1fr!important}.ar-copy{grid-column:auto}.ar-foot-brand b{font-size:22px!important}.ar-foot-brand small{font-size:8px!important;letter-spacing:2.4px!important}
 }
+
+/* 2026-09-16: approved About page fit correction — preserve desktop composition at 100% zoom */
+@media(min-width:981px){
+  .ar-hero{height:auto!important;min-height:335px!important;grid-template-columns:41% 59%!important;overflow:visible!important;align-items:stretch}
+  .ar-hero-copy{padding-bottom:18px!important;min-width:0}
+  .ar-hero-photo{height:auto!important;min-height:335px!important;aspect-ratio:614/336;background-size:100% 100%!important;background-position:center!important;background-repeat:no-repeat!important}
+  .ar-pillars{margin-top:2px;padding-bottom:4px}
+  .ar-pillars b{display:block!important;visibility:visible!important;line-height:1.15!important}
+  .ar-story{height:auto!important;min-height:328px!important;grid-template-columns:47% 23% 30%!important;overflow:visible!important;align-items:stretch}
+  .ar-story-copy{padding-bottom:14px!important;min-width:0}
+  .ar-story-photo{height:auto!important;min-height:328px!important;aspect-ratio:308/328;background-size:100% 100%!important;background-position:center!important;background-repeat:no-repeat!important}
+}
