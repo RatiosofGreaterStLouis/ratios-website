@@ -1,0 +1,5 @@
+Cleaned RATIOS production package
+
+Kept: production HTML pages, assets, functions, cloudflare SQL, _headers, root styles.css.
+Moved: current OneProfile setup notes to docs/setup.
+Removed: duplicate project folders, mockup/reference PNGs at repo root, old upload/readme/update packages and ZIP remnants.
