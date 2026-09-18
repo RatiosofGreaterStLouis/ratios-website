@@ -1,0 +1,14 @@
+RATIOS PROGRAMS PAGE VISUAL FIX
+
+1. Extract this ZIP.
+2. Copy everything inside the extracted folder directly into:
+   Documents > GitHub > ratios-website
+3. When Windows asks, choose “Replace the files in the destination.”
+4. Open GitHub Desktop.
+5. Commit with: Improve Programs page design
+6. Click Push origin.
+7. Wait 1–2 minutes for Cloudflare Pages.
+8. Refresh the live Programs page with Ctrl + F5.
+
+This update replaces programs.html and adds assets/css/programs-polish.css.
+It does not replace your main stylesheet, images, or JavaScript.

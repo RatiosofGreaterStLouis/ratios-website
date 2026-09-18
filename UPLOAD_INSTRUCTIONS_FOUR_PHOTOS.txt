@@ -1,0 +1,29 @@
+RATIOS READY, SET, SAVE! — FOUR INDIVIDUAL PHOTO UPDATE
+
+This ZIP contains:
+- ready-set-save.html
+- assets/images/ready-set-save-confidence.jpg
+- assets/images/ready-set-save-skills.jpg
+- assets/images/ready-set-save-active.jpg
+- assets/images/ready-set-save-practical.jpg
+
+PLACEMENT
+• “Confidence to respond...” uses the CPR-compressions photo.
+• “Skills people can use...” uses the instructor/classroom photo.
+• “Training that is active, welcoming, and practical” uses the final two photos separately.
+
+INSTALLATION
+1. Extract this ZIP.
+2. Copy ready-set-save.html and the assets folder.
+3. Paste both directly into:
+   Documents > GitHub > ratios-website
+4. Choose “Replace the files in the destination.”
+5. Open GitHub Desktop.
+6. Confirm the HTML file and four JPG files appear under Changes.
+7. Commit with:
+   Separate Ready Set Save class photos
+8. Click Push origin.
+9. After Cloudflare Pages deploys, visit:
+   https://ratiossaveslives.org/ready-set-save.html
+
+Do not paste the outer update folder into the repository. Copy its contents directly.

@@ -1,0 +1,33 @@
+RATIOS OneProfile Website Update
+
+1. Extract this ZIP file.
+2. Copy everything inside the extracted folder into:
+   C:\Users\Desirae\Documents\GitHub\ratios-website
+
+3. When Windows asks if you want to merge folders, choose YES.
+4. This will add:
+   - oneprofile.html
+   - assets/css/oneprofile.css
+   - assets/js/oneprofile.js
+   - assets/images/oneprofile/oneprofile-lifepatch-concept.png
+
+5. IMPORTANT: Add this navigation link to the header/nav on your existing pages:
+   <a href="oneprofile.html">OneProfile</a>
+
+   Recommended placement:
+   Between Safety Kits and Ready, Set, Save!
+
+6. Optional: Add this footer link anywhere your footer has Explore links:
+   <a href="oneprofile.html">OneProfile</a>
+
+7. Commit and push to GitHub.
+8. Cloudflare Pages will redeploy automatically.
+
+This page includes:
+- OneProfile™ coming soon page
+- Waitlist button
+- Request access button
+- Sample emergency profile preview
+- QR/NFC/LifePatch explanation
+- Your concept image
+- RATIOS contact information

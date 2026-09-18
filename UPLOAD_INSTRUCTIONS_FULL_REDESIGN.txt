@@ -1,0 +1,37 @@
+RATIOS READY, SET, SAVE! — FULL TAB REDESIGN
+
+This update makes the complete Ready, Set, Save! page resemble the approved design:
+- Full-width navy photographic hero
+- Gold and navy calls to action
+- Large instructor photo in the skills section
+- Two separate classroom photos in the practical-training section
+- Six polished “What You’ll Learn” cards
+- Strong branded closing section
+- Mobile-responsive layout
+
+CONTENTS
+- ready-set-save.html
+- assets/images/ready-set-save-confidence.jpg
+- assets/images/ready-set-save-skills.jpg
+- assets/images/ready-set-save-active.jpg
+- assets/images/ready-set-save-practical.jpg
+
+UPLOAD STEPS
+1. Extract this ZIP.
+2. Open the extracted folder.
+3. Copy BOTH:
+   - ready-set-save.html
+   - assets folder
+4. Paste them directly into:
+   Documents > GitHub > ratios-website
+5. Choose “Replace the files in the destination.”
+6. Open GitHub Desktop.
+7. Confirm ready-set-save.html and the four JPG files appear under Changes.
+8. Commit with:
+   Redesign Ready Set Save page
+9. Click Push origin.
+10. Verify the deployment in the BLUE Cloudflare Pages project.
+11. Visit:
+   https://ratiossaveslives.org/ready-set-save.html
+
+Do not place the outer update folder inside your repository. Copy the contents directly.

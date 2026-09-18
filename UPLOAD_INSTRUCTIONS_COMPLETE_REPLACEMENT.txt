@@ -1,0 +1,42 @@
+RATIOS READY, SET, SAVE! — COMPLETE FULL-PAGE REPLACEMENT
+
+This is not a small patch. It replaces the ENTIRE Ready, Set, Save! page so it more closely matches the approved full-page design.
+
+WHAT CHANGES
+- The normal RATIOS page header is replaced with a dedicated Ready, Set, Save! header.
+- The hero becomes a full-width split layout with the peacock mascot and class photography.
+- The skills section spans the full width of the page.
+- The training section becomes an alternating image-and-copy layout.
+- The learning topics become one compact horizontal strip.
+- A full-width statistics and call-to-action footer is added.
+- The previous narrow, centered-page layout is removed.
+
+FILES INCLUDED
+- ready-set-save.html
+- assets/images/ready-set-save-peacock-mascot.png
+- assets/images/ready-set-save-confidence.jpg
+- assets/images/ready-set-save-skills.jpg
+- assets/images/ready-set-save-active.jpg
+- assets/images/ready-set-save-practical.jpg
+
+HOW TO INSTALL
+1. Extract this ZIP.
+2. Open the extracted folder.
+3. Copy BOTH:
+   - ready-set-save.html
+   - assets folder
+4. Paste both directly into:
+   C:\Users\Desirae\Documents\GitHub\ratios-website
+5. Choose “Replace the files in the destination.”
+6. Open GitHub Desktop.
+7. Confirm ready-set-save.html and the five images are shown under Changes.
+8. Commit with:
+   Replace entire Ready Set Save page
+9. Click Push origin.
+10. Confirm a successful deployment in the BLUE Cloudflare Pages project.
+11. Open:
+   https://ratiossaveslives.org/ready-set-save.html
+
+IMPORTANT
+Do not paste the outer update folder into ratios-website.
+Copy only ready-set-save.html and the assets folder.
