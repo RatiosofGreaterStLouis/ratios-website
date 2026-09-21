@@ -1,13 +1,12 @@
-Replace the text:
-'Stripe/Zeffy donation links can be connected here when your account is ready.'
+RATIOS SAFETY KITS - APPROVED DESIGN REBUILD
 
-with the new donation section in donation-page-update.html.
+Copy ONLY these files/folders into the root of ratios-website:
+- safety-kits.html
+- assets/css/safety-kits.css
+- assets/images/safety-kit-hero-approved.png
+- assets/images/kit-product-1.png through kit-product-5.png
 
-Donation Link:
-https://www.zeffy.com/en-US/donation-form/protect-every-journey
+This package does NOT contain index.html, global styles.css, Programs, OneProfile, Cloudflare, or Functions files.
+It expects the existing website file assets/images/ratios-logo.png to remain in place.
 
-Zelle:
-RATIOS OF GREATER ST. LOUIS
-
-Cash App:
-$RatiosStl
+Before committing: open safety-kits.html locally and confirm the page. GitHub Desktop should show only the Safety Kits HTML/CSS plus the six new Safety Kits image files.
