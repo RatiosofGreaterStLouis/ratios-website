@@ -1,19 +1,9 @@
-RATIOS OneProfile Hero Fix
+ONEPROFILE FIX — replacement files only
 
-This ZIP contains ONLY the code for the approved hero visual correction.
+Copy these files into the RATIOS website root and allow matching files to overwrite:
+- oneprofile.html
+- assets/css/oneprofile.css
+- assets/images/oneprofile-geoffrey-emergency-view.png
+- assets/images/geoffrey-id.png
 
-IMPORTANT:
-- Do NOT overwrite your entire live oneprofile.html with the included HTML file.
-- Copy the hero-visuals block from oneprofile.html into the corresponding location in your existing page.
-- Copy/replace only the hero visual CSS rules from assets/css/oneprofile.css.
-- This package intentionally does NOT change the header, typography, other sections, FAQ, footer, or page content.
-- Keep your existing image assets:
-  assets/images/ratios-autism-patch.png
-  assets/images/oneprofile-emergency-view.png
-  assets/images/oneprofile-id-card.png
-
-The fix:
-1. Centers the emergency profile screenshot inside the phone.
-2. Keeps the ID card beside the phone on desktop.
-3. Keeps the ID card perfectly straight.
-4. Keeps the patch, phone, and ID card as separate layout elements.
+Do NOT delete or replace any other site files. Existing ratios-official-logo.png and ratios-autism-patch.png are reused.
