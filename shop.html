@@ -3316,59 +3316,653 @@
 
   <script>
 
-    const menuButton=document.querySelector(".menu-btn"),shopNav=document.getElementById("shopNav");
+(function () {
 
-    if(menuButton&&shopNav)menuButton.addEventListener("click",()=>{const o=shopNav.classList.toggle("open");menuButton.setAttribute("aria-expanded",o?"true":"false")});
+  "use strict";
 
  
 
-    const PRODUCTS={
+  const PRODUCTS = {
 
-      tree:{name:"RATIOS Tree Tee",adult:{standard:{priceId:"price_1UIv6kBEQmRGbpGgZw0UUlnv",cents:2400},plus:{priceId:"price_1UIv6kBEQmRGbpGgXi4mmD2W",cents:2700}},youth:{priceId:"price_1UIv6kBEQmRGbpGgJq0nnuZY",cents:2000}},
+    tree: {
 
-      unity:{name:"RATIOS Unity Tee",adult:{standard:{priceId:"price_1UIvK6BEQmRGbpGgxOFdbVuD",cents:2400},plus:{priceId:"price_1UIvK6BEQmRGbpGgP2qkUAz5",cents:2700}},youth:{priceId:"price_1UIvK6BEQmRGbpGgiY2KLRxE",cents:2000}},
+      name: "RATIOS Tree Tee",
 
-      sunset:{name:"Sunset Safety Tee",adult:{standard:{priceId:"price_1UIvP2BEQmRGbpGgUOIZ33xt",cents:2600},plus:{priceId:"price_1UIvP2BEQmRGbpGgPg1x1cft",cents:2900}},youth:{priceId:"price_1UIvP2BEQmRGbpGgO8f6ixBP",cents:2200}},
+      adult: {
 
-      book:{name:"Ready, Set, Save! Coloring Book",priceId:"price_1UIveqBEQmRGbpGg9x566pkY",cents:1200}
+        standard: { priceId: "price_1UIv6kBEQmRGbpGgZw0UUlnv", cents: 2400 },
+
+        plus: { priceId: "price_1UIv6kBEQmRGbpGgXi4mmD2W", cents: 2700 }
+
+      },
+
+      youth: { priceId: "price_1UIv6kBEQmRGbpGgJq0nnuZY", cents: 2000 }
+
+    },
+
+    unity: {
+
+      name: "RATIOS Unity Tee",
+
+      adult: {
+
+        standard: { priceId: "price_1UIvK6BEQmRGbpGgxOFdbVuD", cents: 2400 },
+
+        plus: { priceId: "price_1UIvK6BEQmRGbpGgP2qkUAz5", cents: 2700 }
+
+      },
+
+      youth: { priceId: "price_1UIvK6BEQmRGbpGgiY2KLRxE", cents: 2000 }
+
+    },
+
+    sunset: {
+
+      name: "Sunset Safety Tee",
+
+      adult: {
+
+        standard: { priceId: "price_1UIvP2BEQmRGbpGgUOIZ33xt", cents: 2600 },
+
+        plus: { priceId: "price_1UIvP2BEQmRGbpGgPg1x1cft", cents: 2900 }
+
+      },
+
+      youth: { priceId: "price_1UIvP2BEQmRGbpGgO8f6ixBP", cents: 2200 }
+
+    },
+
+    book: {
+
+      name: "Ready, Set, Save! Coloring Book",
+
+      priceId: "price_1UIveqBEQmRGbpGg9x566pkY",
+
+      cents: 1200
+
+    }
+
+  };
+
+ 
+
+  const ADULT_SIZES = ["S", "M", "L", "XL", "2XL", "3XL", "4XL"];
+
+  const YOUTH_SIZES = ["XS", "S", "M", "L", "XL"];
+
+ 
+
+  function money(cents) {
+
+    return new Intl.NumberFormat("en-US", {
+
+      style: "currency",
+
+      currency: "USD"
+
+    }).format(cents / 100);
+
+  }
+
+ 
+
+  let cart = [];
+
+  try {
+
+    const saved = localStorage.getItem("ratiosShopCart");
+
+    if (saved) {
+
+      const parsed = JSON.parse(saved);
+
+      if (Array.isArray(parsed)) cart = parsed;
+
+    }
+
+  } catch (error) {
+
+    localStorage.removeItem("ratiosShopCart");
+
+    cart = [];
+
+  }
+
+ 
+
+  const menuButton = document.querySelector(".menu-btn");
+
+  const shopNav = document.getElementById("shopNav");
+
+  if (menuButton && shopNav) {
+
+    menuButton.addEventListener("click", function () {
+
+      const open = shopNav.classList.toggle("open");
+
+      menuButton.setAttribute("aria-expanded", open ? "true" : "false");
+
+    });
+
+  }
+
+ 
+
+  function getCard(productKey) {
+
+    const button = document.querySelector('.add-product[data-product="' + productKey + '"]');
+
+    return button ? button.closest(".product-card") : null;
+
+  }
+
+ 
+
+  function updateSizes(productKey) {
+
+    const fit = document.querySelector('.fit-select[data-product="' + productKey + '"]');
+
+    const size = document.querySelector('.size-select[data-product="' + productKey + '"]');
+
+    if (!fit || !size) return;
+
+ 
+
+    const sizes = fit.value === "youth" ? YOUTH_SIZES : ADULT_SIZES;
+
+    const previous = size.value;
+
+    size.innerHTML = "";
+
+ 
+
+    sizes.forEach(function (value) {
+
+      const option = document.createElement("option");
+
+      option.value = value;
+
+      option.textContent = value;
+
+      size.appendChild(option);
+
+    });
+
+ 
+
+    if (sizes.includes(previous)) size.value = previous;
+
+    updateDisplayedPrice(productKey);
+
+  }
+
+ 
+
+  function selectedProduct(productKey) {
+
+    if (productKey === "book") {
+
+      return {
+
+        name: PRODUCTS.book.name,
+
+        priceId: PRODUCTS.book.priceId,
+
+        cents: PRODUCTS.book.cents,
+
+        fit: "Physical Copy",
+
+        size: ""
+
+      };
+
+    }
+
+ 
+
+    const fitEl = document.querySelector('.fit-select[data-product="' + productKey + '"]');
+
+    const sizeEl = document.querySelector('.size-select[data-product="' + productKey + '"]');
+
+    if (!fitEl || !sizeEl) return null;
+
+ 
+
+    const fit = fitEl.value;
+
+    const size = sizeEl.value;
+
+    const product = PRODUCTS[productKey];
+
+    let price;
+
+ 
+
+    if (fit === "youth") {
+
+      price = product.youth;
+
+    } else if (["2XL", "3XL", "4XL"].includes(size)) {
+
+      price = product.adult.plus;
+
+    } else {
+
+      price = product.adult.standard;
+
+    }
+
+ 
+
+    return {
+
+      name: product.name,
+
+      priceId: price.priceId,
+
+      cents: price.cents,
+
+      fit: fit === "youth" ? "Youth" : "Adult",
+
+      size: size
 
     };
 
-    const ADULT_SIZES=["S","M","L","XL","2XL","3XL","4XL"],YOUTH_SIZES=["XS","S","M","L","XL"];
-
-    const money=c=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c/100);
-
-    let cart=JSON.parse(localStorage.getItem("ratiosShopCart")||"[]");
+  }
 
  
 
-    document.querySelectorAll(".fit-select").forEach(s=>{const update=()=>{const z=document.querySelector('.size-select[data-product="'+s.dataset.product+'"]');z.innerHTML=(s.value==="youth"?YOUTH_SIZES:ADULT_SIZES).map(v=>'<option value="'+v+'">'+v+'</option>').join("")};s.addEventListener("change",update);update()});
+  function updateDisplayedPrice(productKey) {
 
-    function selectionFor(k){if(k==="book")return{name:PRODUCTS.book.name,priceId:PRODUCTS.book.priceId,cents:1200,fit:"Physical Copy",size:""};const f=document.querySelector('.fit-select[data-product="'+k+'"]').value,z=document.querySelector('.size-select[data-product="'+k+'"]').value,p=PRODUCTS[k];let q=f==="youth"?p.youth:(["2XL","3XL","4XL"].includes(z)?p.adult.plus:p.adult.standard);return{name:p.name,priceId:q.priceId,cents:q.cents,fit:f==="youth"?"Youth":"Adult",size:z}}
+    const item = selectedProduct(productKey);
 
-    document.querySelectorAll(".add-product").forEach(b=>b.addEventListener("click",()=>{const x=selectionFor(b.dataset.product),k=x.priceId+"|"+x.fit+"|"+x.size,e=cart.find(v=>v.key===k);e?e.quantity++:cart.push({...x,key:k,quantity:1});render();openCart()}));
+    const card = getCard(productKey);
+
+    if (!item || !card) return;
+
+    const price = card.querySelector(".price");
+
+    if (price) price.textContent = money(item.cents).replace(".00", "");
+
+  }
 
  
 
-    const drawer=document.getElementById("cartDrawer"),overlay=document.getElementById("cartOverlay");
+  ["tree", "unity", "sunset"].forEach(function (key) {
 
-    const openCart=()=>{drawer.classList.add("open");overlay.classList.add("open")},closeCart=()=>{drawer.classList.remove("open");overlay.classList.remove("open")};
+    updateSizes(key);
 
-    document.getElementById("cartLaunch").onclick=openCart;document.getElementById("cartClose").onclick=closeCart;overlay.onclick=closeCart;
+  });
 
  
 
-    function render(){localStorage.setItem("ratiosShopCart",JSON.stringify(cart));document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.quantity,0);const el=document.getElementById("cartItems");el.innerHTML=cart.length?cart.map((x,i)=>`<div class="cart-item"><div class="cart-item-top"><div><strong>${x.name}</strong><small>${x.fit}${x.size?" • Size "+x.size:""}</small></div><div class="cart-item-price">${money(x.cents*x.quantity)}</div></div><div class="cart-item-actions"><div class="qty"><button data-action="minus" data-i="${i}">−</button><strong>${x.quantity}</strong><button data-action="plus" data-i="${i}">+</button></div><button class="remove-item" data-action="remove" data-i="${i}">Remove</button></div></div>`).join(""):'<div class="empty-cart">Your cart is empty.</div>';const sub=cart.reduce((a,x)=>a+x.cents*x.quantity,0),d=document.querySelector('input[name="delivery"]:checked').value,ship=cart.length&&d==="shipping"?695:0;document.getElementById("subtotal").textContent=money(sub);document.getElementById("deliveryTotal").textContent=ship?money(ship):"FREE";document.getElementById("grandTotal").textContent=money(sub+ship);document.getElementById("checkoutBtn").disabled=!cart.length}
+  const drawer = document.getElementById("cartDrawer");
 
-    document.getElementById("cartItems").onclick=e=>{const b=e.target.closest("button[data-action]");if(!b)return;const i=+b.dataset.i;if(b.dataset.action==="plus")cart[i].quantity++;if(b.dataset.action==="minus"&&--cart[i].quantity<1)cart.splice(i,1);if(b.dataset.action==="remove")cart.splice(i,1);render()};
+  const overlay = document.getElementById("cartOverlay");
 
-    document.querySelectorAll('input[name="delivery"]').forEach(r=>r.onchange=render);
+  const cartItems = document.getElementById("cartItems");
 
-    document.getElementById("checkoutBtn").onclick=async()=>{const b=document.getElementById("checkoutBtn");b.disabled=true;b.textContent="Opening secure checkout…";try{const delivery=document.querySelector('input[name="delivery"]:checked').value,r=await fetch("/api/create-checkout-session",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({delivery,items:cart.map(x=>({priceId:x.priceId,quantity:x.quantity,fit:x.fit,size:x.size,name:x.name}))})}),d=await r.json();if(!r.ok||!d.url)throw new Error(d.error||"Checkout could not be started.");location.href=d.url}catch(e){alert(e.message||"Checkout could not be started.");b.disabled=false;b.textContent="Secure Checkout"}};
+  const cartCount = document.getElementById("cartCount");
 
-    render();
+  const checkoutBtn = document.getElementById("checkoutBtn");
 
-  </script>
+ 
+
+  function openCart() {
+
+    if (drawer) drawer.classList.add("open");
+
+    if (overlay) overlay.classList.add("open");
+
+  }
+
+ 
+
+  function closeCart() {
+
+    if (drawer) drawer.classList.remove("open");
+
+    if (overlay) overlay.classList.remove("open");
+
+  }
+
+ 
+
+  function saveCart() {
+
+    try {
+
+      localStorage.setItem("ratiosShopCart", JSON.stringify(cart));
+
+    } catch (error) {}
+
+  }
+
+ 
+
+  function renderCart() {
+
+    saveCart();
+
+ 
+
+    const count = cart.reduce(function (sum, item) {
+
+      return sum + item.quantity;
+
+    }, 0);
+
+ 
+
+    if (cartCount) cartCount.textContent = String(count);
+
+ 
+
+    if (cartItems) {
+
+      if (!cart.length) {
+
+        cartItems.innerHTML = '<div class="empty-cart">Your cart is empty.</div>';
+
+      } else {
+
+        cartItems.innerHTML = cart.map(function (item, index) {
+
+          const details = item.fit + (item.size ? " • Size " + item.size : "");
+
+          return (
+
+            '<div class="cart-item">' +
+
+              '<div class="cart-item-top">' +
+
+                '<div><strong>' + item.name + '</strong><small>' + details + '</small></div>' +
+
+                '<div class="cart-item-price">' + money(item.cents * item.quantity) + '</div>' +
+
+              '</div>' +
+
+              '<div class="cart-item-actions">' +
+
+                '<div class="qty">' +
+
+                  '<button type="button" data-cart-action="minus" data-index="' + index + '">−</button>' +
+
+                  '<strong>' + item.quantity + '</strong>' +
+
+                  '<button type="button" data-cart-action="plus" data-index="' + index + '">+</button>' +
+
+                '</div>' +
+
+                '<button class="remove-item" type="button" data-cart-action="remove" data-index="' + index + '">Remove</button>' +
+
+              '</div>' +
+
+            '</div>'
+
+          );
+
+        }).join("");
+
+      }
+
+    }
+
+ 
+
+    const subtotal = cart.reduce(function (sum, item) {
+
+      return sum + item.cents * item.quantity;
+
+    }, 0);
+
+ 
+
+    const deliveryRadio = document.querySelector('input[name="delivery"]:checked');
+
+    const delivery = deliveryRadio ? deliveryRadio.value : "shipping";
+
+    const shipping = cart.length && delivery === "shipping" ? 695 : 0;
+
+ 
+
+    const subtotalEl = document.getElementById("subtotal");
+
+    const deliveryEl = document.getElementById("deliveryTotal");
+
+    const grandEl = document.getElementById("grandTotal");
+
+ 
+
+    if (subtotalEl) subtotalEl.textContent = money(subtotal);
+
+    if (deliveryEl) deliveryEl.textContent = shipping ? money(shipping) : "FREE";
+
+    if (grandEl) grandEl.textContent = money(subtotal + shipping);
+
+    if (checkoutBtn) checkoutBtn.disabled = cart.length === 0;
+
+  }
+
+ 
+
+  document.addEventListener("change", function (event) {
+
+    const fit = event.target.closest(".fit-select");
+
+    if (fit) {
+
+      updateSizes(fit.dataset.product);
+
+      return;
+
+    }
+
+ 
+
+    const size = event.target.closest(".size-select");
+
+    if (size) {
+
+      updateDisplayedPrice(size.dataset.product);
+
+      return;
+
+    }
+
+ 
+
+    if (event.target.matches('input[name="delivery"]')) {
+
+      renderCart();
+
+    }
+
+  });
+
+ 
+
+  document.addEventListener("click", function (event) {
+
+    const addButton = event.target.closest(".add-product");
+
+    if (addButton) {
+
+      event.preventDefault();
+
+ 
+
+      const item = selectedProduct(addButton.dataset.product);
+
+      if (!item) return;
+
+ 
+
+      const key = item.priceId + "|" + item.fit + "|" + item.size;
+
+      const existing = cart.find(function (entry) {
+
+        return entry.key === key;
+
+      });
+
+ 
+
+      if (existing) {
+
+        existing.quantity += 1;
+
+      } else {
+
+        item.key = key;
+
+        item.quantity = 1;
+
+        cart.push(item);
+
+      }
+
+ 
+
+      renderCart();
+
+      openCart();
+
+      return;
+
+    }
+
+ 
+
+    const action = event.target.closest("[data-cart-action]");
+
+    if (action) {
+
+      const index = Number(action.dataset.index);
+
+      if (!Number.isInteger(index) || !cart[index]) return;
+
+ 
+
+      if (action.dataset.cartAction === "plus") cart[index].quantity += 1;
+
+      if (action.dataset.cartAction === "minus") {
+
+        cart[index].quantity -= 1;
+
+        if (cart[index].quantity < 1) cart.splice(index, 1);
+
+      }
+
+      if (action.dataset.cartAction === "remove") cart.splice(index, 1);
+
+ 
+
+      renderCart();
+
+    }
+
+  });
+
+ 
+
+  const cartLaunch = document.getElementById("cartLaunch");
+
+  const cartClose = document.getElementById("cartClose");
+
+  if (cartLaunch) cartLaunch.addEventListener("click", openCart);
+
+  if (cartClose) cartClose.addEventListener("click", closeCart);
+
+  if (overlay) overlay.addEventListener("click", closeCart);
+
+ 
+
+  if (checkoutBtn) {
+
+    checkoutBtn.addEventListener("click", async function () {
+
+      checkoutBtn.disabled = true;
+
+      checkoutBtn.textContent = "Opening secure checkout…";
+
+ 
+
+      try {
+
+        const deliveryRadio = document.querySelector('input[name="delivery"]:checked');
+
+        const delivery = deliveryRadio ? deliveryRadio.value : "shipping";
+
+ 
+
+        const response = await fetch("/api/create-checkout-session", {
+
+          method: "POST",
+
+          headers: { "Content-Type": "application/json" },
+
+          body: JSON.stringify({
+
+            delivery: delivery,
+
+            items: cart.map(function (item) {
+
+              return {
+
+                priceId: item.priceId,
+
+                quantity: item.quantity,
+
+                fit: item.fit,
+
+                size: item.size,
+
+                name: item.name
+
+              };
+
+            })
+
+          })
+
+        });
+
+ 
+
+        const data = await response.json();
+
+        if (!response.ok || !data.url) {
+
+          throw new Error(data.error || "Checkout could not be started.");
+
+        }
+
+ 
+
+        window.location.assign(data.url);
+
+      } catch (error) {
+
+        alert(error.message || "Checkout could not be started. Please try again.");
+
+        checkoutBtn.disabled = false;
+
+        checkoutBtn.textContent = "Secure Checkout";
+
+      }
+
+    });
+
+  }
+
+ 
+
+  renderCart();
+
+})();
+
+</script>
 
  
 
