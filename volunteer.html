@@ -1230,6 +1230,254 @@ textarea{
 
 /* =========================
 
+   VOLUNTEER VOICES
+
+========================= */
+
+ 
+
+.voices{
+
+  position:relative;
+
+  padding:28px 0 31px;
+
+  background:
+
+    radial-gradient(circle at 30% 30%,#fff 0,#e9fbff 55%,#dff7fd 100%);
+
+  overflow:hidden;
+
+}
+
+ 
+
+.voices:before,
+
+.voices:after{
+
+  content:"";
+
+  position:absolute;
+
+  width:220px;
+
+  height:220px;
+
+  border:1px solid #aee6ef;
+
+  border-radius:50%;
+
+  opacity:.25;
+
+}
+
+ 
+
+.voices:before{
+
+  left:-110px;
+
+  top:-120px;
+
+}
+
+ 
+
+.voices:after{
+
+  right:-100px;
+
+  bottom:-150px;
+
+}
+
+ 
+
+.voices-inner{
+
+  max-width:720px;
+
+  margin:auto;
+
+  text-align:center;
+
+  position:relative;
+
+  z-index:2;
+
+}
+
+ 
+
+.voices-kicker{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:10px;
+
+  font-size:.69rem;
+
+  font-weight:900;
+
+  color:#123a78;
+
+}
+
+ 
+
+.voices-kicker:before,
+
+.voices-kicker:after{
+
+  content:"";
+
+  width:20px;
+
+  height:2px;
+
+  background:#123a78;
+
+}
+
+ 
+
+.quote{
+
+  margin:14px auto 8px;
+
+  font-family:Georgia,serif;
+
+  font-style:italic;
+
+  font-size:1.03rem;
+
+  line-height:1.45;
+
+  color:#0c2e69;
+
+}
+
+ 
+
+.quote:before{
+
+  content:"“";
+
+  color:#0c75a0;
+
+  font-size:2rem;
+
+  font-weight:900;
+
+  margin-right:6px;
+
+}
+
+ 
+
+.quote-by{
+
+  font-size:.75rem;
+
+  font-weight:900;
+
+  color:var(--navy);
+
+}
+
+ 
+
+.voice-arrow{
+
+  position:absolute;
+
+  top:50%;
+
+  transform:translateY(-50%);
+
+  width:48px;
+
+  height:48px;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  display:grid;
+
+  place-items:center;
+
+  font-size:2rem;
+
+  color:#0a3470;
+
+  box-shadow:0 5px 20px rgba(5,43,79,.06);
+
+}
+
+ 
+
+.voice-arrow.left{
+
+  left:5%;
+
+}
+
+ 
+
+.voice-arrow.right{
+
+  right:5%;
+
+}
+
+ 
+
+.dots{
+
+  position:absolute;
+
+  right:8%;
+
+  bottom:23px;
+
+  display:flex;
+
+  gap:8px;
+
+}
+
+ 
+
+.dot{
+
+  width:11px;
+
+  height:11px;
+
+  border-radius:50%;
+
+  background:#cbd3d8;
+
+}
+
+ 
+
+.dot.active{
+
+  background:#0b3978;
+
+}
+
+ 
+
+/* =========================
+
    VOLUNTEER FORM
 
 ========================= */
@@ -1444,13 +1692,11 @@ textarea{
 
   display:grid;
 
-  grid-template-columns:190px 1fr;
+  grid-template-columns:190px 1fr auto;
 
   gap:30px;
 
   align-items:center;
-
-  padding-top:20px;
 
 }
 
@@ -1470,13 +1716,13 @@ textarea{
 
 .footer-brand img{
 
-  width:50px;
+  width:45px;
 
-  height:50px;
+  height:45px;
 
   object-fit:contain;
 
-  filter:none;
+  filter:brightness(0) invert(1);
 
 }
 
@@ -1534,15 +1780,25 @@ textarea{
 
  
 
+.social{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:17px;
+
+  font-size:1.1rem;
+
+  font-weight:800;
+
+}
+
  
 
 .copyright{
 
-  width:100%;
-
-  max-width:none;
-
-  padding:0 20px 24px;
+  padding:0 0 24px;
 
   text-align:center;
 
@@ -1727,6 +1983,14 @@ textarea{
  
 
   .footer-links{
+
+    justify-content:center;
+
+  }
+
+ 
+
+  .social{
 
     justify-content:center;
 
@@ -1918,7 +2182,29 @@ textarea{
 
   }
 
-.form-two{
+ 
+
+  .voice-arrow{
+
+    display:none;
+
+  }
+
+ 
+
+  .dots{
+
+    position:static;
+
+    justify-content:center;
+
+    margin-top:18px;
+
+  }
+
+ 
+
+  .form-two{
 
     grid-template-columns:1fr;
 
@@ -1941,6 +2227,14 @@ textarea{
 }
 
  
+
+ 
+
+/* 2026-09-24 — Donation-reference site scale */
+
+.vol-wrap{width:min(1180px,94%)}
+
+@media(min-width:1051px){.vol-nav{width:min(1180px,94%);min-height:76px;margin:0 auto;padding:8px 0}.vol-top{padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2))}}
 
 </style>
 
@@ -2914,6 +3208,108 @@ textarea{
 
  
 
+<!-- VOLUNTEER VOICES -->
+
+ 
+
+<section class="voices">
+
+ 
+
+  <button
+
+    class="voice-arrow left"
+
+    type="button"
+
+    aria-label="Previous volunteer story"
+
+  >
+
+    ‹
+
+  </button>
+
+ 
+
+  <div class="vol-wrap">
+
+ 
+
+    <div class="voices-inner">
+
+ 
+
+      <span class="voices-kicker">
+
+        VOLUNTEER VOICES
+
+      </span>
+
+ 
+
+      <p class="quote">
+
+        Volunteering with RATIOS has been one of the most rewarding
+
+        experiences of my life. Knowing that I'm helping families and
+
+        communities feel safer makes it all worthwhile.
+
+      </p>
+
+ 
+
+      <div class="quote-by">
+
+        — RATIOS Volunteer
+
+      </div>
+
+ 
+
+    </div>
+
+ 
+
+  </div>
+
+ 
+
+  <button
+
+    class="voice-arrow right"
+
+    type="button"
+
+    aria-label="Next volunteer story"
+
+  >
+
+    ›
+
+  </button>
+
+ 
+
+  <div class="dots">
+
+    <span class="dot active"></span>
+
+    <span class="dot"></span>
+
+    <span class="dot"></span>
+
+    <span class="dot"></span>
+
+  </div>
+
+ 
+
+</section>
+
+ 
+
 <!-- VOLUNTEER FORM -->
 
  
@@ -2970,7 +3366,11 @@ textarea{
 
       class="volunteer-form"
 
-      id="volunteerInterestForm"
+      name="volunteer"
+
+      method="POST"
+
+      data-netlify="true"
 
     >
 
@@ -2978,17 +3378,11 @@ textarea{
 
       <input
 
-        type="text"
+        type="hidden"
 
-        name="website"
+        name="form-name"
 
-        tabindex="-1"
-
-        autocomplete="off"
-
-        aria-hidden="true"
-
-        style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
+        value="volunteer"
 
       >
 
@@ -3009,10 +3403,6 @@ textarea{
             name="name"
 
             required
-
-            maxlength="120"
-
-            autocomplete="name"
 
             placeholder="First and last name"
 
@@ -3036,10 +3426,6 @@ textarea{
 
             required
 
-            maxlength="160"
-
-            autocomplete="email"
-
             placeholder="you@example.com"
 
           >
@@ -3056,13 +3442,7 @@ textarea{
 
           <input
 
-            type="tel"
-
             name="phone"
-
-            maxlength="40"
-
-            autocomplete="tel"
 
             placeholder="(314) 123-4567"
 
@@ -3078,19 +3458,57 @@ textarea{
 
  
 
-          <select name="interest" required>
+          <select name="interest">
 
-            <option value="Community outreach">Community outreach</option>
+ 
 
-            <option value="Program support">Program support</option>
+            <option>
 
-            <option value="Administrative support">Administrative support</option>
+              Community outreach
 
-            <option value="Special projects">Special projects</option>
+            </option>
 
-            <option value="Event support">Event support</option>
+ 
 
-            <option value="Student & group volunteering">Student &amp; group volunteering</option>
+            <option>
+
+              Program support
+
+            </option>
+
+ 
+
+            <option>
+
+              Administrative support
+
+            </option>
+
+ 
+
+            <option>
+
+              Special projects
+
+            </option>
+
+ 
+
+            <option>
+
+              Event support
+
+            </option>
+
+ 
+
+            <option>
+
+              Student &amp; group volunteering
+
+            </option>
+
+ 
 
           </select>
 
@@ -3116,41 +3534,21 @@ textarea{
 
           rows="4"
 
-          maxlength="1500"
-
           placeholder="Tell us about your interests, availability, or special skills."
 
         ></textarea>
+
+ 
 
       </label>
 
  
 
-      <button
-
-        type="submit"
-
-        id="volunteerSubmit"
-
-      >
+      <button type="submit">
 
         Submit Interest
 
       </button>
-
- 
-
-      <div
-
-        id="volunteerFormStatus"
-
-        role="status"
-
-        aria-live="polite"
-
-        style="display:none;margin-top:16px;font-size:.84rem;font-weight:700;line-height:1.5;"
-
-      ></div>
 
  
 
@@ -3282,7 +3680,29 @@ textarea{
 
     </div>
 
-</div>
+ 
+
+    <div
+
+      class="social"
+
+      aria-label="Social media"
+
+    >
+
+      <span>●</span>
+
+      <span>◎</span>
+
+      <span>in</span>
+
+      <span>▶</span>
+
+    </div>
+
+ 
+
+  </div>
 
  
 
@@ -3310,159 +3730,39 @@ const menuLinks = document.querySelector(".vol-links");
 
  
 
-if (menuButton && menuLinks) {
+if(menuButton && menuLinks){
 
-  menuButton.addEventListener("click", function () {
+ 
+
+  menuButton.addEventListener("click",function(){
+
+ 
 
     const isOpen = menuLinks.classList.toggle("open");
 
-    menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+ 
+
+    menuButton.setAttribute(
+
+      "aria-expanded",
+
+      isOpen ? "true" : "false"
+
+    );
+
+ 
 
   });
 
-}
-
  
-
-const volunteerForm = document.getElementById("volunteerInterestForm");
-
-const volunteerSubmit = document.getElementById("volunteerSubmit");
-
-const volunteerStatus = document.getElementById("volunteerFormStatus");
-
- 
-
-if (volunteerForm) {
-
-  volunteerForm.addEventListener("submit", async function (event) {
-
-    event.preventDefault();
-
- 
-
-    volunteerStatus.style.display = "none";
-
-    volunteerStatus.textContent = "";
-
-    volunteerSubmit.disabled = true;
-
-    volunteerSubmit.textContent = "Sending...";
-
- 
-
-    const formData = new FormData(volunteerForm);
-
- 
-
-    const payload = {
-
-      name: formData.get("name") || "",
-
-      email: formData.get("email") || "",
-
-      phone: formData.get("phone") || "",
-
-      interest: formData.get("interest") || "",
-
-      message: formData.get("message") || "",
-
-      website: formData.get("website") || ""
-
-    };
-
- 
-
-    try {
-
-      const response = await fetch("/api/volunteer", {
-
-        method: "POST",
-
-        headers: {
-
-          "Content-Type": "application/json"
-
-        },
-
-        body: JSON.stringify(payload)
-
-      });
-
- 
-
-      let result = {};
-
- 
-
-      try {
-
-        result = await response.json();
-
-      } catch (error) {
-
-        result = {};
-
-      }
-
- 
-
-      if (!response.ok) {
-
-        throw new Error(
-
-          result.error || "We could not send your volunteer interest form."
-
-        );
-
-      }
-
- 
-
-      volunteerStatus.style.display = "block";
-
-      volunteerStatus.style.color = "#087f9d";
-
-      volunteerStatus.textContent =
-
-        "Thank you for your interest in volunteering with RATIOS! Your information has been received. A member of our team will be in touch soon.";
-
- 
-
-      volunteerForm.reset();
-
- 
-
-    } catch (error) {
-
-      console.error("Volunteer form error:", error);
-
- 
-
-      volunteerStatus.style.display = "block";
-
-      volunteerStatus.style.color = "#b42318";
-
-      volunteerStatus.innerHTML =
-
-        'We couldn\'t submit your information right now. Please try again or email us at <a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a>.';
-
- 
-
-    } finally {
-
-      volunteerSubmit.disabled = false;
-
-      volunteerSubmit.textContent = "Submit Interest";
-
-    }
-
-  });
 
 }
 
  
 
 </script>
+
+ 
 
 </body>
 

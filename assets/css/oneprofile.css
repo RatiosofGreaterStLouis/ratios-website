@@ -1,1054 +1,2108 @@
 /* =========================================================
+
    RATIOS — ONEPROFILE
+
    CLEAN APPROVED PAGE STYLESHEET
+
    ========================================================= */
+
+ 
 
 * {
+
     box-sizing: border-box;
+
 }
+
+ 
 
 html {
+
     font-size: 16px;
+
 }
+
+ 
 
 body {
+
     margin: 0;
+
     font-family: Arial, Helvetica, sans-serif;
+
     color: #07172e;
+
     background: #ffffff;
+
 }
+
+ 
 
 a {
+
     color: inherit;
+
 }
+
+ 
 
 img {
+
     max-width: 100%;
+
 }
+
+ 
 
 label {
+
     font-weight: 900;
+
     letter-spacing: .14em;
+
     font-size: .78rem;
+
 }
+
+ 
 
 .wrap {
+
     width: min(1280px, calc(100% - 64px));
+
     margin: 0 auto;
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    TOP BAR
+
    ========================================================= */
+
+ 
 
 .top {
+
     height: 36px;
+
     background: #10334a;
+
     color: #ffffff;
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     padding: 0 max(32px, calc((100vw - 1400px) / 2));
+
     font-size: .78rem;
+
     font-weight: 700;
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    HEADER
+
    ========================================================= */
+
+ 
 
 header {
+
     width: min(1400px, calc(100% - 64px));
+
     min-height: 110px;
+
     margin: 0 auto;
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     gap: 30px;
+
     background: #ffffff;
+
 }
+
+ 
 
 .brand {
+
     display: flex;
+
     align-items: center;
+
     gap: 15px;
+
     text-decoration: none;
+
     flex: 0 0 auto;
+
 }
+
+ 
 
 .brand > img {
+
     width: 66px;
+
     height: 66px;
+
     object-fit: contain;
+
 }
+
+ 
 
 .brand span {
+
     display: grid;
+
 }
+
+ 
 
 .brand b {
+
     font-size: 1.45rem;
+
     letter-spacing: .02em;
+
 }
+
+ 
 
 .brand small {
+
     margin-top: 3px;
+
     color: #596a7d;
+
     font-size: .7rem;
+
     font-weight: 900;
+
     letter-spacing: .25em;
+
 }
+
+ 
 
 nav {
+
     display: flex;
+
     align-items: center;
+
     justify-content: flex-end;
+
     gap: 20px;
+
     font-weight: 900;
+
 }
+
+ 
 
 nav a {
+
     text-decoration: none;
+
     white-space: nowrap;
+
     font-size: .9rem;
+
 }
+
+ 
 
 .donate {
+
     padding: 15px 25px;
+
     border-radius: 999px;
+
     background: #2c91a6;
+
     color: #ffffff !important;
+
     box-shadow: 0 10px 24px rgba(44, 145, 166, .18);
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    HERO
+
    ========================================================= */
+
+ 
 
 .hero {
+
     min-height: 530px;
+
     padding: 50px max(32px, calc((100vw - 1400px) / 2));
+
     background: linear-gradient(
+
         112deg,
+
         #14232d 0%,
+
         #101d42 50%,
+
         #07556e 100%
+
     );
+
     color: #ffffff;
+
+ 
 
     display: grid;
+
     grid-template-columns: minmax(460px, 600px) minmax(620px, 720px);
+
     justify-content: center;
+
     align-items: center;
+
     gap: 55px;
 
+ 
+
     overflow: hidden;
+
 }
+
+ 
 
 .heroText {
+
     min-width: 0;
+
 }
+
+ 
 
 .heroText label {
+
     color: #ffc13d;
+
 }
+
+ 
 
 .heroText h1 {
+
     margin: 18px 0 22px;
+
     color: #ffffff;
+
     font-size: clamp(4.4rem, 5.5vw, 6rem);
+
     line-height: .9;
+
     letter-spacing: -.055em;
+
 }
+
+ 
 
 .heroText h1 sup {
+
     position: relative;
+
     top: .12em;
+
     vertical-align: top;
+
     font-size: .27em;
+
     letter-spacing: 0;
+
 }
+
+ 
 
 .heroText h2 {
+
     margin: 0 0 24px;
+
     color: #ffc13d;
+
     font-size: clamp(2rem, 2.6vw, 2.8rem);
+
     line-height: 1.04;
+
     letter-spacing: -.03em;
+
 }
+
+ 
 
 .heroText p {
+
     max-width: 600px;
+
     margin: 0 0 28px;
+
     font-size: 1.08rem;
+
     line-height: 1.55;
+
 }
+
+ 
 
 .heroText > div {
+
     display: flex;
+
     flex-wrap: wrap;
+
     gap: 14px;
+
 }
+
+ 
 
 .heroText a {
+
     display: inline-flex;
+
     align-items: center;
+
     justify-content: center;
+
     padding: 16px 25px;
+
     border-radius: 999px;
+
     text-decoration: none;
+
     font-size: .98rem;
+
     font-weight: 900;
+
 }
+
+ 
 
 .gold {
+
     background: #ffc13d;
+
     color: #07172e;
+
 }
+
+ 
 
 .white {
+
     background: #ffffff;
+
     color: #07172e;
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    HERO PRODUCT DISPLAY
+
    Patch → Phone → ID Card
+
    ========================================================= */
 
+ 
+
 .products {
+
     position: relative;
+
     width: 700px;
+
     max-width: 100%;
+
     height: 410px;
+
     margin: 0 auto;
+
 }
 
+ 
+
+ 
 
 /* PATCH */
 
+ 
+
 .patch {
+
     position: absolute;
+
     left: 0;
+
     top: 112px;
 
+ 
+
     width: 175px;
+
     height: 175px;
 
+ 
+
     object-fit: contain;
+
+ 
 
     filter: drop-shadow(0 13px 15px rgba(0, 0, 0, .28));
 
+ 
+
     z-index: 1;
+
 }
 
+ 
+
+ 
 
 /* PHONE */
 
+ 
+
 .phone {
+
     position: absolute;
 
+ 
+
     left: 190px;
+
     top: 0;
 
+ 
+
     width: 230px;
+
     height: 395px;
 
+ 
+
     border: 11px solid #0a0b0d;
+
     border-radius: 39px;
 
+ 
+
     background: #ffffff;
+
     overflow: hidden;
+
+ 
 
     box-shadow: 0 18px 28px rgba(0, 0, 0, .32);
 
+ 
+
     z-index: 3;
+
 }
 
+ 
+
 .phone .speaker {
+
     position: absolute;
 
+ 
+
     top: 0;
+
     left: 50%;
 
+ 
+
     width: 76px;
+
     height: 15px;
+
+ 
 
     transform: translateX(-50%);
 
+ 
+
     background: #0a0b0d;
+
     border-radius: 0 0 13px 13px;
 
+ 
+
     z-index: 5;
+
 }
 
+ 
+
 .phone img {
+
     position: absolute;
+
     inset: 0;
 
+ 
+
     width: 100%;
+
     height: 100%;
+
+ 
 
     display: block;
 
+ 
+
     object-fit: contain;
+
     object-position: center top;
 
+ 
+
     background: #ffffff;
+
 }
 
+ 
+
+ 
 
 /* HERO ID CARD */
 
+ 
+
 .idcard {
+
     position: absolute;
 
+ 
+
     left: 440px;
+
     top: 112px;
 
+ 
+
     width: 255px;
+
     height: auto;
+
+ 
 
     padding: 0;
 
+ 
+
     background: transparent;
+
     border-radius: 14px;
+
+ 
 
     box-shadow: 0 16px 28px rgba(0, 0, 0, .25);
 
+ 
+
     overflow: hidden;
 
+ 
+
     z-index: 2;
+
 }
+
+ 
 
 .idcard > img {
+
     display: block;
 
+ 
+
     width: 100%;
+
     height: auto;
 
+ 
+
     object-fit: contain;
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    WHAT IT IS
+
    ========================================================= */
 
+ 
+
 .intro {
+
     display: grid;
+
     grid-template-columns: 1.05fr .95fr;
+
     gap: 60px;
 
+ 
+
     padding-top: 58px;
+
     padding-bottom: 36px;
+
 }
+
+ 
 
 .intro h2,
+
 .how h2,
+
 .tools h2,
+
 .faq h2 {
+
     margin: 10px 0 18px;
 
+ 
+
     font-size: 2.35rem;
+
     line-height: 1.04;
+
     letter-spacing: -.04em;
+
 }
 
+ 
+
 .intro > div > p {
+
     max-width: 700px;
+
+ 
 
     margin-bottom: 0;
 
+ 
+
     font-size: 1.02rem;
+
     line-height: 1.58;
+
 }
+
+ 
 
 .intro aside {
+
     display: flex;
+
     gap: 14px;
 
+ 
+
     margin-top: 20px;
+
     padding: 16px 18px;
 
+ 
+
     background: #e5f8fc;
+
     border-left: 5px solid #28a3ba;
+
     border-radius: 10px;
 
+ 
+
     font-size: .9rem;
+
     line-height: 1.45;
+
 }
+
+ 
 
 .intro aside b {
+
     color: #2097ac;
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    BENEFITS
+
    ========================================================= */
 
+ 
+
 .benefits {
+
     padding: 18px 25px;
 
+ 
+
     border: 1px solid #d4e2eb;
+
     border-radius: 18px;
 
+ 
+
     box-shadow: 0 12px 30px rgba(7, 23, 46, .05);
+
 }
+
+ 
 
 .benefits p {
+
     display: flex;
+
     align-items: center;
+
     gap: 16px;
 
+ 
+
     margin: 0;
+
     padding: 11px 0;
+
 }
 
+ 
+
 .benefits i {
+
     width: 44px;
+
     height: 44px;
+
     flex: 0 0 44px;
 
+ 
+
     display: grid;
+
     place-items: center;
+
+ 
 
     border-radius: 50%;
 
+ 
+
     background: #dff7fb;
+
     color: #239eb5;
 
+ 
+
     font-size: 1.2rem;
+
     font-style: normal;
+
 }
+
+ 
 
 .benefits .heart {
+
     background: #ffe4ee;
+
     color: #ef4c80;
+
 }
+
+ 
 
 .benefits span {
+
     display: grid;
+
     gap: 3px;
+
 }
+
+ 
 
 .benefits b {
+
     font-size: 1rem;
+
 }
+
+ 
 
 .benefits small {
+
     color: #4f6479;
+
     font-size: .82rem;
+
     line-height: 1.4;
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    HOW IT WORKS
+
    ========================================================= */
 
+ 
+
 .how {
+
     padding-top: 20px;
+
     padding-bottom: 54px;
+
 }
+
+ 
 
 .grid4 {
+
     display: grid;
+
     grid-template-columns: repeat(4, minmax(0, 1fr));
+
     gap: 17px;
+
 }
+
+ 
 
 .grid4 article {
+
     min-height: 165px;
+
     padding: 19px;
 
+ 
+
     border: 1px solid #ccdce7;
+
     border-radius: 14px;
+
 }
 
+ 
+
 .grid4 i {
+
     float: left;
 
+ 
+
     width: 40px;
+
     height: 40px;
 
+ 
+
     display: grid;
+
     place-items: center;
+
+ 
 
     margin-right: 13px;
 
+ 
+
     border-radius: 10px;
 
+ 
+
     background: #2c9db2;
+
     color: #ffffff;
 
+ 
+
     font-size: 1.1rem;
+
     font-style: normal;
+
     font-weight: 900;
+
 }
+
+ 
 
 .grid4 h3 {
+
     margin: 9px 0 20px;
+
     font-size: .96rem;
+
 }
 
+ 
+
 .grid4 p {
+
     clear: both;
+
+ 
 
     margin: 0;
 
+ 
+
     font-size: .84rem;
+
     line-height: 1.5;
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    CONNECTED SAFETY TOOLS
+
    ========================================================= */
 
+ 
+
 .tools {
+
     padding: 38px 0 44px;
+
     background: #fff9ec;
 
+ 
+
     overflow: hidden;
+
 }
+
+ 
 
 .tools h2 {
+
     margin-top: 8px;
+
 }
+
+ 
 
 .grid3 {
+
     display: grid;
+
     grid-template-columns: repeat(3, minmax(0, 1fr));
+
     gap: 18px;
 
+ 
+
     margin-top: 24px;
+
 }
 
+ 
+
 .grid3 > article {
+
     min-width: 0;
+
     min-height: 150px;
 
+ 
+
     display: flex;
+
     align-items: center;
+
     gap: 20px;
+
+ 
 
     padding: 18px;
 
+ 
+
     overflow: hidden;
+
+ 
 
     background: #ffffff;
 
+ 
+
     border: 1px solid #ccdce7;
+
     border-top: 4px solid #ffc13d;
+
     border-radius: 15px;
+
 }
+
+ 
 
 .grid3 > article > section {
+
     min-width: 0;
+
     flex: 1;
+
 }
+
+ 
 
 .grid3 h3 {
+
     margin: 0 0 8px;
 
+ 
+
     font-size: 1.05rem;
+
     line-height: 1.2;
+
 }
+
+ 
 
 .grid3 p {
+
     margin: 0;
 
+ 
+
     font-size: .84rem;
+
     line-height: 1.45;
+
 }
 
+ 
+
+ 
 
 /* QR SAFETY CARD */
 
+ 
+
 .tool-id-card {
+
     width: 145px !important;
+
     height: 100px !important;
 
+ 
+
     max-width: 145px !important;
+
     max-height: 100px !important;
+
+ 
 
     flex: 0 0 145px !important;
 
+ 
+
     display: block !important;
 
+ 
+
     object-fit: contain !important;
+
     object-position: center !important;
 
+ 
+
     border-radius: 7px;
+
 }
 
+ 
+
+ 
 
 /* LIFEPATCH */
 
+ 
+
 .toolpatch {
+
     width: 105px !important;
+
     height: 105px !important;
 
+ 
+
     max-width: 105px !important;
+
     max-height: 105px !important;
+
+ 
 
     flex: 0 0 105px !important;
 
+ 
+
     display: block !important;
 
+ 
+
     object-fit: contain !important;
+
     object-position: center !important;
+
 }
 
+ 
+
+ 
 
 /* EMERGENCY SHEET */
 
+ 
+
 .emergency-sheet-img {
+
     width: 145px !important;
+
     height: 100px !important;
 
+ 
+
     max-width: 145px !important;
+
     max-height: 100px !important;
+
+ 
 
     flex: 0 0 145px !important;
 
+ 
+
     display: block !important;
 
+ 
+
     object-fit: contain !important;
+
     object-position: center !important;
 
+ 
+
     border-radius: 7px;
+
 }
 
+ 
+
+ 
 
 /* Prevent generic rules from enlarging tool images */
 
+ 
+
 .grid3 > article > img {
+
     object-fit: contain;
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    UNUSED LEGACY MINI CARD CLASSES
+
    Kept harmless in case another element references them
+
    ========================================================= */
+
+ 
 
 .sheet {
+
     width: 110px;
+
     height: 105px;
+
 }
+
+ 
 
 .miniid {
+
     width: 200px;
+
     height: 105px;
+
 }
+
+ 
 
 .mini-logo {
+
     width: 26px !important;
+
     height: 26px !important;
+
 }
+
+ 
 
 .mini-geoffrey {
+
     width: 38px !important;
+
     height: 52px !important;
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    FAQ
+
    ========================================================= */
 
+ 
+
 .faq {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     gap: 30px;
 
+ 
+
     padding-top: 30px;
+
     padding-bottom: 30px;
+
 }
+
+ 
 
 .faq h2 {
+
     margin: 4px 0 0;
+
 }
 
+ 
+
 .faq a {
+
     flex: 0 0 auto;
+
+ 
 
     padding: 14px 27px;
 
+ 
+
     background: #2c9db2;
+
     color: #ffffff;
+
+ 
 
     border-radius: 999px;
 
+ 
+
     text-decoration: none;
+
     font-weight: 900;
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    FOOTER
+
    ========================================================= */
 
+ 
+
 footer {
+
     padding: 26px 0 14px;
 
+ 
+
     background: #06294a;
+
     color: #ffffff;
+
 }
+
+ 
 
 .foot {
+
     display: grid;
+
     grid-template-columns: 1.6fr repeat(4, 1fr);
+
     gap: 38px;
 
+ 
+
     font-size: .8rem;
+
 }
+
+ 
 
 .foot > div:not(.footbrand) {
+
     display: flex;
+
     flex-direction: column;
+
     gap: 6px;
+
 }
+
+ 
 
 .foot a {
+
     color: #ffffff;
+
     text-decoration: none;
+
 }
+
+ 
 
 .foot p {
+
     margin: 6px 0;
+
     line-height: 1.45;
+
 }
+
+ 
 
 .footbrand {
+
     display: grid;
+
     grid-template-columns: 58px 1fr;
+
     align-items: start;
+
 }
 
+ 
+
 .footbrand img {
+
     width: 52px;
+
     height: 52px;
+
+ 
 
     grid-row: 1 / 3;
 
+ 
+
     object-fit: contain;
+
 }
+
+ 
 
 .footbrand > div {
+
     display: grid;
+
 }
+
+ 
 
 .footbrand b {
+
     font-size: 1.18rem;
+
 }
+
+ 
 
 .footbrand small {
+
     font-weight: 900;
+
     letter-spacing: .22em;
+
 }
 
+ 
+
 .bottom {
+
     width: min(1280px, calc(100% - 64px));
 
+ 
+
     display: flex;
+
     justify-content: space-between;
 
+ 
+
     margin: 18px auto 0;
+
     padding-top: 14px;
+
+ 
 
     border-top: 1px solid rgba(255, 255, 255, .18);
 
+ 
+
     font-size: .7rem;
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    MEDIUM DESKTOP / LAPTOP
+
    ========================================================= */
+
+ 
 
 @media (max-width: 1350px) {
 
+ 
+
     header {
+
         width: min(1200px, calc(100% - 48px));
+
     }
+
+ 
 
     nav {
+
         gap: 13px;
+
     }
+
+ 
 
     nav a {
+
         font-size: .82rem;
+
     }
+
+ 
 
     .donate {
+
         padding: 13px 20px;
+
     }
+
+ 
 
     .hero {
+
         grid-template-columns: minmax(420px, 540px) minmax(550px, 620px);
+
         gap: 35px;
+
         padding-left: 32px;
+
         padding-right: 32px;
+
     }
+
+ 
 
     .products {
+
         width: 610px;
+
         height: 390px;
+
     }
+
+ 
 
     .patch {
+
         width: 155px;
+
         height: 155px;
+
         top: 120px;
+
     }
+
+ 
 
     .phone {
+
         left: 160px;
+
         width: 215px;
+
         height: 375px;
+
     }
+
+ 
 
     .idcard {
+
         left: 390px;
+
         top: 125px;
+
         width: 215px;
+
     }
+
+ 
 
     .grid3 > article {
+
         gap: 14px;
+
         padding: 15px;
+
     }
+
+ 
 
     .tool-id-card,
+
     .emergency-sheet-img {
+
         width: 125px !important;
+
         height: 90px !important;
+
         max-width: 125px !important;
+
         max-height: 90px !important;
+
         flex-basis: 125px !important;
+
     }
+
+ 
 
     .toolpatch {
+
         width: 95px !important;
+
         height: 95px !important;
+
         max-width: 95px !important;
+
         max-height: 95px !important;
+
         flex-basis: 95px !important;
+
     }
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    TABLET
+
    ========================================================= */
+
+ 
 
 @media (max-width: 1050px) {
 
+ 
+
     .top {
+
         display: none;
+
     }
+
+ 
 
     header {
+
         min-height: 92px;
+
     }
+
+ 
 
     nav {
+
         display: none;
+
     }
+
+ 
 
     .hero {
+
         grid-template-columns: 1fr;
+
         gap: 35px;
 
+ 
+
         padding-top: 48px;
+
         padding-bottom: 45px;
+
     }
+
+ 
 
     .heroText {
+
         width: min(700px, 100%);
+
         margin: 0 auto;
+
     }
+
+ 
 
     .products {
+
         width: 610px;
+
         max-width: 100%;
+
         margin: 0 auto;
+
     }
+
+ 
 
     .intro {
+
         grid-template-columns: 1fr;
+
         gap: 30px;
+
     }
+
+ 
 
     .grid4 {
+
         grid-template-columns: repeat(2, minmax(0, 1fr));
+
     }
+
+ 
 
     .grid3 {
+
         grid-template-columns: 1fr;
+
     }
+
+ 
 
     .grid3 > article {
+
         min-height: 135px;
+
     }
+
+ 
 
     .tool-id-card,
+
     .emergency-sheet-img {
+
         width: 150px !important;
+
         height: 100px !important;
+
         max-width: 150px !important;
+
         max-height: 100px !important;
+
         flex-basis: 150px !important;
+
     }
+
+ 
 
     .toolpatch {
+
         width: 105px !important;
+
         height: 105px !important;
+
         max-width: 105px !important;
+
         max-height: 105px !important;
+
         flex-basis: 105px !important;
+
     }
+
+ 
 
     .foot {
+
         grid-template-columns: 1.5fr 1fr 1fr;
+
     }
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    MOBILE
+
    ========================================================= */
+
+ 
 
 @media (max-width: 700px) {
 
+ 
+
     .wrap {
+
         width: calc(100% - 32px);
+
     }
+
+ 
 
     header {
+
         width: calc(100% - 32px);
+
     }
+
+ 
 
     .brand > img {
+
         width: 56px;
+
         height: 56px;
+
     }
+
+ 
 
     .hero {
+
         padding: 40px 18px;
+
     }
+
+ 
 
     .heroText h1 {
+
         font-size: 3.5rem;
+
     }
+
+ 
 
     .heroText h2 {
+
         font-size: 2rem;
+
     }
+
+ 
 
     .heroText p {
+
         font-size: 1rem;
+
     }
+
+ 
 
     .products {
+
         width: 560px;
+
         height: 325px;
 
+ 
+
         transform: scale(.72);
+
         transform-origin: top left;
+
     }
+
+ 
 
     .intro h2,
+
     .how h2,
+
     .tools h2,
+
     .faq h2 {
+
         font-size: 2rem;
+
     }
+
+ 
 
     .grid4 {
+
         grid-template-columns: 1fr;
+
     }
+
+ 
 
     .grid3 > article {
+
         gap: 14px;
+
     }
+
+ 
 
     .tool-id-card,
+
     .emergency-sheet-img {
+
         width: 125px !important;
+
         height: 90px !important;
+
         max-width: 125px !important;
+
         max-height: 90px !important;
+
         flex-basis: 125px !important;
+
     }
+
+ 
 
     .toolpatch {
+
         width: 90px !important;
+
         height: 90px !important;
+
         max-width: 90px !important;
+
         max-height: 90px !important;
+
         flex-basis: 90px !important;
+
     }
+
+ 
 
     .faq {
+
         align-items: flex-start;
+
         flex-direction: column;
+
     }
+
+ 
 
     .foot {
+
         grid-template-columns: 1fr 1fr;
+
     }
+
+ 
 
     .bottom {
+
         width: calc(100% - 32px);
+
         gap: 15px;
+
         flex-direction: column;
+
     }
+
 }
 
+ 
+
+ 
 
 /* =========================================================
+
    SMALL MOBILE
+
    ========================================================= */
+
+ 
 
 @media (max-width: 480px) {
 
+ 
+
     .heroText h1 {
+
         font-size: 3rem;
+
     }
+
+ 
 
     .products {
+
         transform: scale(.56);
+
         height: 250px;
+
     }
+
+ 
 
     .grid3 > article {
+
         align-items: center;
+
     }
+
+ 
 
     .tool-id-card,
+
     .emergency-sheet-img {
+
         width: 105px !important;
+
         height: 78px !important;
+
         max-width: 105px !important;
+
         max-height: 78px !important;
+
         flex-basis: 105px !important;
+
     }
 
+ 
+
     .toolpatch {
+
         width: 80px !important;
+
         height: 80px !important;
+
         max-width: 80px !important;
+
         max-height: 80px !important;
+
         flex-basis: 80px !important;
+
     }
+
 }
+
