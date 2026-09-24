@@ -1,115 +1,61 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Donate | RATIOS</title><link rel="icon" href="assets/images/favicon-32.png"><link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;650;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/styles.css"><style id="ratios-payment-qr-size-fix">
-  .payment-card img,
-  .qr-card img,
-  img.zelle-code,
-  img[src*="zelle-ratios-greater-st-louis-qr"],
-  img[src*="zeffy-donation-qr"],
-  img[src*="cashapp-ratiosstl-qr"] {
-    display: block !important;
-    width: 100% !important;
-    max-width: 340px !important;
-    height: auto !important;
-    max-height: 420px !important;
-    object-fit: contain !important;
-    margin: 16px auto 22px !important;
-  }
+<!doctype html>
 
-  img[src*="zeffy-donation-qr"],
-  img[src*="cashapp-ratiosstl-qr"] {
-    max-width: 260px !important;
-  }
+<html lang="en">
 
-  @media (max-width: 600px) {
-    .payment-card img,
-    .qr-card img,
-    img.zelle-code,
-    img[src*="zelle-ratios-greater-st-louis-qr"],
-    img[src*="zeffy-donation-qr"],
-    img[src*="cashapp-ratiosstl-qr"] {
-      max-width: 280px !important;
-    }
-  }
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Donate | RATIOS</title>
+
+<link rel="icon" href="assets/images/favicon-32.png">
+
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{--navy:#062d52;--navy2:#083c66;--teal:#0795a8;--teal2:#10a7a8;--gold:#f7b719;--ink:#092c58;--pale:#eefaff;--line:#d8e8ef;--white:#fff}
+
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,sans-serif;color:var(--ink);background:#fff}a{text-decoration:none;color:inherit}.wrap{width:min(1180px,94%);margin:auto}.topbar{height:34px;background:var(--navy);color:#fff;display:flex;align-items:center;font-size:12px}.topbar .wrap{display:flex;justify-content:space-between;gap:20px}.navbar{height:76px;background:#fff;display:flex;align-items:center;border-bottom:1px solid #edf1f3;position:relative;z-index:5}.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:25px}.brand{display:flex;align-items:center;gap:10px;min-width:220px}.brand img{width:54px;height:54px;object-fit:contain}.brand strong{font-size:25px;letter-spacing:.5px}.brand small{display:block;font-size:11px;letter-spacing:4px;margin-top:1px}.nav-links{display:flex;align-items:center;gap:25px;font-size:13px;font-weight:700}.nav-links a{white-space:nowrap}.donate-btn{background:linear-gradient(135deg,#05899e,#10a8a5);color:#fff!important;padding:15px 34px;border-radius:30px;font-size:16px}.menu-toggle{display:none;border:0;background:none;font-weight:800;font-size:16px}
+
+.hero{min-height:505px;background:linear-gradient(90deg,#effcff 0%,#f7ffff 48%,#fff 48%);position:relative;overflow:hidden}.hero-inner{min-height:505px;display:grid;grid-template-columns:52% 48%;position:relative}.hero-copy{padding:46px 25px 24px 0;z-index:2}.eyebrow{display:flex;align-items:center;gap:12px;text-transform:uppercase;color:#087e91;font-weight:800;letter-spacing:.4px;font-size:15px}.eyebrow:before{content:"";width:38px;height:4px;background:var(--gold);border-radius:4px}.hero h1{font-size:55px;line-height:.98;margin:17px 0 15px;letter-spacing:-2px;color:#062b54}.hero .lead{font-size:20px;line-height:1.45;max-width:590px;margin:0}.hero-photo{background:url('assets/images/donation-hero-approved.jpg') center/cover no-repeat;min-height:505px}.impact-three{display:flex;gap:58px;margin-top:26px}.impact-three .item{text-align:center;font-weight:800;font-size:15px;line-height:1.18}.round-icon{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;margin:0 auto 8px;background:#ddf8ff}.round-icon.gold{background:#fff3ce}.round-icon.mint{background:#dffaf4}.round-icon svg{width:30px;height:30px;stroke:#0b3c91;fill:none;stroke-width:2.4}.round-icon.gold svg{stroke:#f5b313}.round-icon.mint svg{stroke:#078da1}.script{font-family:Caveat,cursive;font-size:35px;font-weight:700;margin:16px 0 0 48px;display:inline-block;position:relative;color:#082e5c}.script:after{content:"";position:absolute;left:20px;right:-15px;bottom:-3px;height:4px;background:var(--gold);transform:rotate(-4deg);border-radius:50%}
+
+.benefits{background:#effdff;border-top:1px solid #dff1f3;border-bottom:1px solid #dceef1}.benefits .wrap{display:grid;grid-template-columns:repeat(4,1fr)}.benefit{display:flex;align-items:center;justify-content:center;gap:16px;padding:22px 14px;border-right:1px solid #bcdbe1;font-weight:700}.benefit:last-child{border-right:0}.benefit svg{width:38px;height:38px;stroke:#087f92;fill:none;stroke-width:2.2}.benefit span{font-size:14px;line-height:1.3}
+
+.donation-area{background:linear-gradient(#fff,#f6fcff);padding:28px 0 24px}.donation-layout{display:grid;grid-template-columns:minmax(0,3fr) minmax(270px,1.12fr);gap:20px}.section-title{font-size:29px;margin:0 0 8px;display:flex;align-items:center;gap:12px;color:#082d5a}.section-title:before{content:"";width:37px;height:4px;background:var(--gold);border-radius:4px}.section-lead{font-size:16px;margin:0 0 24px}.payment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.pay-card{background:#fff;border:1px solid #dce8ee;border-radius:15px;padding:18px 18px 16px;text-align:center;box-shadow:0 4px 16px rgba(8,45,90,.04);min-height:360px;display:flex;flex-direction:column;align-items:center}.pay-card h3{font-size:23px;margin:0 0 10px}.pay-card p{margin:0 0 7px;line-height:1.35}.pay-card .handle{font-weight:800;font-size:13px}.pay-card .zelle-link{color:#a100d6;font-size:13px}.qr{width:100%;max-width:190px;height:190px;object-fit:contain;margin:14px auto 10px;image-rendering:auto}.pay-card.zelle .qr{max-width:205px}.pay-button{margin-top:auto;width:100%;border-radius:25px;padding:12px 10px;font-weight:800;border:1px solid #94a9bf;background:#fff;color:#082d5a}.pay-button.primary{border:0;background:linear-gradient(135deg,#07889d,#10a5a6);color:#fff}.donor-note{margin-top:18px;border:1px solid #cfe4ec;border-radius:15px;background:#f7fdff;padding:19px 22px;display:grid;grid-template-columns:65px 1fr;gap:15px;align-items:start}.mail-icon{width:58px;height:58px;border-radius:50%;background:#e4eaff;display:grid;place-items:center}.mail-icon svg{width:32px;stroke:#0a3a91;fill:none;stroke-width:2}.donor-note h3{margin:1px 0 5px;font-size:19px}.donor-note p{margin:0 0 13px;line-height:1.4}.donor-note .legal{border-top:1px solid #bdd5df;padding-top:13px;font-size:13px}.impact-panel{background:linear-gradient(160deg,#083d67,#052b50);border-radius:12px;color:#fff;padding:28px 25px 26px;min-height:100%}.impact-panel .gold-line{width:36px;height:4px;background:var(--gold);margin-bottom:12px}.impact-panel h2{font-size:28px;line-height:1.03;margin:0 0 20px}.impact-panel>p{font-size:16px;line-height:1.45;margin:0 0 20px}.story-point{display:grid;grid-template-columns:54px 1fr;gap:12px;margin:15px 0;align-items:center}.story-point .round-icon{margin:0;background:#ecfff9;width:52px;height:52px}.story-point strong{display:block;font-size:14px}.story-point span{display:block;font-size:12px;line-height:1.35;margin-top:2px}.impact-script{font-family:Caveat,cursive;font-size:30px;line-height:1.05;margin:42px 5px 0;text-align:center;transform:rotate(-4deg)}.impact-script:after{content:"";display:block;width:115px;height:3px;background:var(--gold);margin:8px 8px 0 auto;transform:rotate(-3deg)}
+
+.footer{background:linear-gradient(110deg,#073b61,#032845);color:#fff;padding:28px 0 14px}.footer-grid{display:grid;grid-template-columns:1.6fr .7fr .8fr 1fr 1fr;gap:25px}.footer-brand{display:flex;align-items:center;gap:12px}.footer-brand img{width:58px;height:58px;object-fit:contain}.footer-brand strong{font-size:25px}.footer-brand small{display:block;letter-spacing:4px;font-size:10px}.footer p,.footer a{font-size:12px;line-height:1.6;color:#fff}.footer h4{font-size:12px;margin:5px 0 8px}.footer-col a{display:block}.footer-slogan{border-left:1px solid rgba(255,255,255,.22);padding-left:28px}.footer-slogan:before{content:"";display:block;width:35px;height:4px;background:var(--gold);margin:7px 0 18px}.footer-slogan strong{display:block;font-size:17px;letter-spacing:1.4px;line-height:1.55}.footer-slogan .gold{color:var(--gold)}.socials{display:flex;gap:9px;margin-top:10px}.socials span{width:27px;height:27px;background:#fff;color:#0b3459;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:12px}.footer-bottom{border-top:1px solid rgba(255,255,255,.25);margin-top:22px;padding-top:15px;display:flex;justify-content:space-between;font-size:11px}
+
+@media(max-width:980px){.nav-links{gap:12px;font-size:11px}.hero h1{font-size:45px}.impact-three{gap:25px}.donation-layout{grid-template-columns:1fr}.impact-panel{min-height:auto}.footer-grid{grid-template-columns:1.5fr repeat(3,1fr)}.footer-slogan{grid-column:1/-1;border-left:0;padding-left:0}.footer-slogan strong{display:inline;margin-right:7px}}
+
+@media(max-width:760px){.topbar{height:auto;padding:8px 0}.topbar .wrap{display:block;text-align:center}.topbar span:last-child{display:none}.navbar{height:auto;padding:10px 0}.menu-toggle{display:block}.nav-links{display:none}.hero-inner{grid-template-columns:1fr}.hero-copy{padding:35px 0}.hero-photo{min-height:340px}.hero h1{font-size:43px}.impact-three{justify-content:space-between;gap:10px}.benefits .wrap{grid-template-columns:1fr 1fr}.benefit:nth-child(2){border-right:0}.payment-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.footer-brand-wrap{grid-column:1/-1}.footer-bottom{gap:20px;flex-direction:column}.script{margin-left:15px}}
+
 </style>
-</head><body><div class="topbar"><span>RATIOS • One of One</span><span>St. Louis, Missouri • Serving multicultural families, caregivers, schools & first responders</span></div>
-<nav class="navbar"><a class="brand" href="index.html"><img class="brand-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS One of One logo"><span class="brand-text"><strong>RATIOS</strong><small>One of One</small></span></a><button class="menu-toggle">Menu</button><div class="nav-links"><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile</a><a href="ready-set-save.html">Ready, Set, Save!</a><a href="shop.html">Shop</a><a href="volunteer.html">Volunteer</a><a href="news-events.html">News</a><a class="btn btn-donate" href="donate.html">Donate</a></div></nav><header class="page-hero"><div class="container"><span class="eyebrow">Protect Every Journey</span><h1>Every Journey Deserves Protection.</h1><p>Your gift helps RATIOS provide life-saving identification, safety resources, caregiver education, and community support before an emergency happens.</p><div class="button-row"><a class="btn btn-primary" href="https://www.zeffy.com/en-US/donation-form/protect-every-journey" target="_blank" rel="noopener">Donate Securely Through Zeffy</a><a class="btn btn-light" href="#payment-options">Other Ways to Give</a></div></div></header>
 
-<section class="section donation-overview">
-  <div class="container">
-    <div class="donation-intro">
-      <div>
-        <span class="eyebrow">Your Gift Creates Safer Outcomes</span>
-        <h2>Sponsor the mission</h2>
-        <p>Every contribution helps RATIOS prepare families, strengthen community response, and protect people who may be at risk of wandering or separation.</p>
-      </div>
-      <div class="campaign-chip">
-        <span>Current Campaign</span>
-        <strong>Protect Every Journey</strong>
-      </div>
-    </div>
+</head>
 
-    <div class="donation-feature-grid">
-      <div class="campaign-panel">
-        <div class="campaign-topline">
-          <div>
-            <span class="campaign-label">Campaign progress</span>
-            <strong>\$0 raised</strong>
-          </div>
-          <div class="campaign-goal">
-            <span>Goal</span>
-            <strong>$10,000</strong>
-          </div>
-        </div>
+<body>
 
-        <div class="progress progress-polished" aria-label="25 percent of campaign goal reached">
-          <span style="width:25%"></span>
-        </div>
-        <p class="progress-caption">Be the first donor to help launch RATIOS.</p>
+<div class="topbar"><div class="wrap"><span>St. Louis, Missouri • Serving multicultural families, caregivers, schools & first responders</span><span>Recognized. Protected. Connected.</span></div></div>
 
-        <div class="donation-grid donation-grid-polished">
-          <a class="donation-card donation-card-polished" href="https://www.zeffy.com/en-US/donation-form/protect-every-journey" target="_blank" rel="noopener">
-            <span class="impact-icon">ID</span>
-            <strong>$10</strong>
-            <span>Provides an Emergency LifeCard™</span>
-          </a>
-          <a class="donation-card donation-card-polished" href="https://www.zeffy.com/en-US/donation-form/protect-every-journey" target="_blank" rel="noopener">
-            <span class="impact-icon">KIT</span>
-            <strong>$25</strong>
-            <span>Equips one family with a Safety Kit</span>
-          </a>
-          <a class="donation-card donation-card-polished" href="https://www.zeffy.com/en-US/donation-form/protect-every-journey" target="_blank" rel="noopener">
-            <span class="impact-icon">HOME</span>
-            <strong>$50</strong>
-            <span>Helps protect and prepare one family</span>
-          </a>
-          <a class="donation-card donation-card-polished" href="https://www.zeffy.com/en-US/donation-form/protect-every-journey" target="_blank" rel="noopener">
-            <span class="impact-icon">OUTREACH</span>
-            <strong>$100</strong>
-            <span>Supports outreach and first responder education</span>
-          </a>
-        </div>
+<nav class="navbar"><div class="wrap nav-inner"><a class="brand" href="index.html"><img src="assets/images/ratios-official-logo.png" alt="RATIOS logo"><span><strong>RATIOS</strong><small>ONE OF ONE</small></span></a><button class="menu-toggle" type="button">Menu</button><div class="nav-links"><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile™</a><a href="ready-set-save.html">Ready, Set, Save!</a><a href="shop.html">Shop</a><a href="volunteer.html">Volunteer</a><a href="news-events.html">News</a><a class="donate-btn" href="donate.html">Donate</a></div></div></nav>
 
-        <div class="campaign-actions">
-          <a class="btn btn-primary" href="https://www.zeffy.com/en-US/donation-form/protect-every-journey" target="_blank" rel="noopener">Donate Now</a>
-          <span>Secure one-time or recurring giving through Zeffy</span>
-        </div>
-      </div>
+<header class="hero"><div class="wrap hero-inner"><div class="hero-copy"><div class="eyebrow">Protect Every Journey</div><h1>Every Journey<br>Deserves Protection.</h1><p class="lead">Your gift helps RATIOS provide life-saving identification, safety resources, caregiver education, and community support before an emergency happens.</p><div class="impact-three"><div class="item"><div class="round-icon"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20v-2c0-3 2-5 6-5s6 2 6 5v2M12 14c1-.7 2.3-1 4-1 4 0 6 2 6 5v2"/></svg></div>Stronger<br>Families</div><div class="item"><div class="round-icon gold"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 8.6-8 11-4.6-2.4-8-6-8-11V5l8-3z"/><path d="M8 12l2.5 2.5L16 9"/></svg></div>Safer<br>Communities</div><div class="item"><div class="round-icon mint"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg></div>Brighter<br>Tomorrows</div></div><div class="script">People. Purpose. Prevention.</div></div><div class="hero-photo" role="img" aria-label="Adult and child hands holding a teal heart with the message Safer Brighter Stronger Together"></div></div></header>
 
-      <aside class="mission-story-card">
-        <div class="story-accent"></div>
-        <span class="eyebrow">Why It Matters</span>
-        <h2>Seconds matter.</h2>
-        <p class="story-lead">When someone vulnerable becomes separated from their caregiver, preparation can change the outcome.</p>
-        <p>RATIOS helps families and communities prepare before a child with autism wanders, an older adult with dementia becomes lost, or a person with a developmental or communication disability goes missing.</p>
+<section class="benefits"><div class="wrap"><div class="benefit"><svg viewBox="0 0 24 24"><path d="M8 12l3 3 5-6"/><path d="M2 10l5-5 4 3 2-2 4 4 5 2-4 6-5-2-3 3-8-9z"/></svg><span>Empower<br>Caregivers</span></div><div class="benefit"><svg viewBox="0 0 24 24"><path d="M3 21V9h18v12M7 9V5h10v4M10 21v-5h4v5M6 13h2M16 13h2"/><path d="M12 2v3M10.5 3.5h3"/></svg><span>Support<br>Schools</span></div><div class="benefit"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M12 10v8M8 14h8"/></svg><span>Equip<br>First Responders</span></div><div class="benefit"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="8" r="3"/><path d="M2 20v-2c0-3 2-5 7-5s7 2 7 5v2M14 14c1-.7 2-1 3.5-1 3 0 4.5 2 4.5 5v2"/></svg><span>Build<br>Stronger Communities</span></div></div></section>
 
-        <div class="story-points">
-          <div><strong>Recognized.</strong><span>Identification resources help others know who they are.</span></div>
-          <div><strong>Protected.</strong><span>Safety planning helps families respond with confidence.</span></div>
-          <div><strong>Connected.</strong><span>Community partnerships support faster reunification.</span></div>
-        </div>
+<main class="donation-area" id="payment-options"><div class="wrap donation-layout"><div><h2 class="section-title">Choose Your Payment Method</h2><p class="section-lead">Zeffy is our preferred online donation option. You may also give through Zelle or Cash App.</p><div class="payment-grid"><article class="pay-card"><h3>Zeffy</h3><p>One-time or recurring<br>secure donations.</p><img class="qr" src="assets/images/zeffy-donation-qr.png" alt="QR code to donate through Zeffy"><a class="pay-button primary" href="https://www.zeffy.com/en-US/donation-form/protect-every-journey" target="_blank" rel="noopener">Donate Through Zeffy</a></article><article class="pay-card zelle"><h3>Zelle</h3><p class="handle">RATIOS OF GREATER ST. LOUIS</p><p class="zelle-link">Send Money with Zelle®</p><p style="font-size:11px">RATIOS OF GREATER ST. LOUIS</p><img class="qr" src="assets/images/zelle-ratios-greater-st-louis-qr.png" alt="Official Zelle QR code for RATIOS OF GREATER ST. LOUIS"><p style="font-size:12px">Open Zelle through your bank<br>and scan this code.</p></article><article class="pay-card"><h3>Cash App</h3><p class="handle" style="font-size:18px">$RatiosStl</p><img class="qr" src="assets/images/cashapp-ratiosstl-qr.png" alt="QR code for Cash App account $RatiosStl"><a class="pay-button" href="https://cash.app/$RatiosStl" target="_blank" rel="noopener">Open Cash App</a></article></div><div class="donor-note"><div class="mail-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 7 9-7"/></svg></div><div><h3>Help Us Acknowledge Your Gift</h3><p>For Zelle or Cash App donations, please include your full name and email address in the payment note.</p><div class="legal"><strong>Ratios of Greater St. Louis is a registered 501(c)(3) nonprofit organization.</strong><br>Donations may be tax-deductible as allowed by law.</div></div></div></div><aside class="impact-panel"><div class="gold-line"></div><h2>Small Gifts.<br>Big Impact.</h2><p>RATIOS helps families and communities prepare before a child with autism wanders, an older adult with dementia becomes lost, or a person with a developmental or communication disability goes missing.</p><div class="story-point"><div class="round-icon mint"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="M15 15l6 6"/></svg></div><div><strong>Recognized.</strong><span>Identification resources help others know who they are.</span></div></div><div class="story-point"><div class="round-icon gold"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 8.6-8 11-4.6-2.4-8-6-8-11V5l8-3z"/><path d="M8 12l2.5 2.5L16 9"/></svg></div><div><strong>Protected.</strong><span>Safety planning helps families respond with confidence.</span></div></div><div class="story-point"><div class="round-icon"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20v-2c0-3 2-5 6-5s6 2 6 5v2M12 14c1-.7 2.3-1 4-1 4 0 6 2 6 5v2"/></svg></div><div><strong>Connected.</strong><span>Community partnerships support faster reunification.</span></div></div><div class="impact-script">Together We Make<br>a Safer Tomorrow.</div></aside></div></main>
 
-        <a class="btn btn-gold" href="contact.html">Become a Sponsor</a>
-      </aside>
-    </div>
-  </div>
-</section>
-<section class="section section-tint" id="payment-options"><div class="container"><div class="section-head"><div><span class="eyebrow">Other Ways to Give</span><h2>Choose your payment method.</h2><p class="lead">Zeffy is our preferred online donation option. You may also give through Zelle or Cash App.</p></div></div><div class="payment-methods"><article class="payment-card"><h3>Zeffy</h3><p>One-time or recurring secure donations.</p><img src="assets/images/zeffy-donation-qr.png" alt="QR code to donate to RATIOS through Zeffy"><a class="btn btn-primary" href="https://www.zeffy.com/en-US/donation-form/protect-every-journey" target="_blank" rel="noopener">Donate Through Zeffy</a></article><article class="payment-card"><h3>Zelle</h3><p class="payment-handle">RATIOS OF GREATER ST. LOUIS</p><img class="zelle-code" src="assets/images/zelle-ratios-greater-st-louis-qr.png" alt="Official Zelle QR code for RATIOS OF GREATER ST. LOUIS" style="display:block;width:100%;max-width:340px;height:auto;margin:16px auto 22px;object-fit:contain;"><p class="small">Open Zelle through your bank and scan this code.</p></article><article class="payment-card"><h3>Cash App</h3><p class="payment-handle">$RatiosStl</p><img src="assets/images/cashapp-ratiosstl-qr.png" alt="QR code for Cash App account $RatiosStl"><a class="btn btn-light" href="https://cash.app/$RatiosStl" target="_blank" rel="noopener">Open Cash App</a></article></div><div class="donor-notice"><h3>Help us acknowledge your gift</h3><p>For Zelle or Cash App donations, please include your full name and email address in the payment note.</p><p><strong>Ratios of Greater St. Louis is a registered 501(c)(3) nonprofit organization. Donations may be tax-deductible as allowed by law.</strong></p></div></div></section><footer class="footer"><div class="container footer-grid"><div><img class="footer-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS logo"><h3>RATIOS</h3><p>One of One. Serving families throughout the Greater St. Louis Region.</p><p class="small">Some website images are illustrative representations used for awareness, education, and outreach.</p></div><div><h4>Explore</h4><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile</a><a href="shop.html">Shop</a></div><div><h4>Get involved</h4><a href="donate.html">Donate</a><a href="volunteer.html">Volunteer</a><a href="resource-request.html">Request Resources</a><a href="contact.html">Contact</a></div><div><h4>Contact</h4><p>Greater St. Louis Region</p><p><strong>Email:</strong> <a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a></p><p><strong>Phone:</strong> <a href="tel:+13143256313">(314) 325-6313</a></p></div></div><div class="footer-bottom">© 2026 RATIOS. All rights reserved.</div></footer><script src="assets/js/main.js"></script></body></html>
+<footer class="footer"><div class="wrap"><div class="footer-grid"><div class="footer-brand-wrap"><div class="footer-brand"><img src="assets/images/ratios-official-logo.png" alt="RATIOS logo"><span><strong>RATIOS</strong><small>ONE OF ONE</small></span></div><p>Serving families throughout the Greater St. Louis Region.<br>Every Person. Every Ability. Every Community.</p></div><div class="footer-col"><h4>Explore</h4><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile™</a><a href="ready-set-save.html">Ready, Set, Save!</a><a href="shop.html">Shop</a></div><div class="footer-col"><h4>Get Involved</h4><a href="donate.html">Donate</a><a href="volunteer.html">Volunteer</a><a href="resource-request.html">Request Resources</a><a href="contact.html">Contact</a><a href="news-events.html">News</a></div><div class="footer-col"><h4>Contact</h4><p>St. Louis, Missouri<br><a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a><br><a href="tel:+13143256313">(314) 325-6313</a></p><div class="socials"><span>f</span><span>◎</span><span>▶</span><span>in</span></div></div><div class="footer-slogan"><strong>EVERY PERSON.</strong><strong>EVERY ABILITY.</strong><strong class="gold">EVERY COMMUNITY.</strong></div></div><div class="footer-bottom"><span>© 2026 RATIOS. All rights reserved.</span><span>Recognized. Protected. Connected.</span></div></div></footer>
+
+<script src="assets/js/main.js"></script>
+
+</body></html>
