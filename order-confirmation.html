@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Order Confirmed | RATIOS</title>
+
+  <meta
+    name="description"
+    content="Thank you for supporting RATIOS of Greater St. Louis."
+  >
+
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --navy-light: #17375e;
+      --gold: #d6aa48;
+      --gold-light: #f4e8c7;
+      --white: #ffffff;
+      --off-white: #f8f7f3;
+      --text: #1b2a3a;
+      --muted: #657080;
+      --border: #e5e7eb;
+      --success: #2f7d5a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--off-white);
+    }
+
+    .top-bar {
+      height: 8px;
+      background: var(--navy);
+    }
+
+    .header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 24px;
+    }
+
+    .header-inner {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
+    }
+
+    main {
+      min-height: calc(100vh - 230px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px 80px;
+    }
+
+    .confirmation-card {
+      width: min(760px, 100%);
+      background: var(--white);
+      border-radius: 22px;
+      padding: 54px 48px;
+      text-align: center;
+      box-shadow: 0 18px 50px rgba(11, 31, 58, 0.10);
+      border: 1px solid rgba(11, 31, 58, 0.08);
+    }
+
+    .check-circle {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 22px rgba(11, 31, 58, 0.16);
+    }
+
+    .check-circle svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--gold);
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(34px, 6vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+    }
+
+    .lead {
+      max-width: 610px;
+      margin: 22px auto 0;
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .mission-message {
+      margin: 34px auto 0;
+      padding: 24px 28px;
+      max-width: 630px;
+      background: var(--gold-light);
+      border-radius: 14px;
+      color: var(--navy);
+      font-size: 17px;
+      line-height: 1.65;
+      font-weight: 600;
+    }
+
+    .details {
+      margin-top: 32px;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+    }
+
+    .details h2 {
+      color: var(--navy);
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .details p {
+      max-width: 590px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 26px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 800;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button-primary {
+      color: var(--white);
+      background: var(--navy);
+      box-shadow: 0 8px 18px rgba(11, 31, 58, 0.14);
+    }
+
+    .button-secondary {
+      color: var(--navy);
+      background: var(--white);
+      border: 1px solid var(--navy);
+    }
+
+    .help {
+      margin-top: 30px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .help a {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    footer {
+      background: var(--navy);
+      color: rgba(255, 255, 255, 0.82);
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    footer strong {
+      color: var(--white);
+    }
+
+    @media (max-width: 650px) {
+      .header {
+        padding: 14px 20px;
+      }
+
+      .logo {
+        width: 68px;
+        height: 68px;
+      }
+
+      main {
+        padding: 36px 16px 55px;
+      }
+
+      .confirmation-card {
+        padding: 40px 22px;
+        border-radius: 18px;
+      }
+
+      .mission-message {
+        padding: 20px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar"></div>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" aria-label="RATIOS Home">
+        <img
+          src="assets/images/ratios-official-logo.png"
+          alt="RATIOS"
+          class="logo"
+        >
+      </a>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="confirmation-card">
+
+      <div class="check-circle" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12.5l4.2 4.2L19 7"></path>
+        </svg>
+      </div>
+
+      <div class="eyebrow">RATIOS Shop</div>
+
+      <h1>Thank You for Your Order!</h1>
+
+      <p class="lead">
+        Your order has been received. A confirmation will be sent to
+        the email address you provided during checkout.
+      </p>
+
+      <div class="mission-message">
+        Thank you for supporting RATIOS. Your purchase helps us continue
+        creating safety resources, education, and support for individuals
+        and families in our community.
+      </div>
+
+      <div class="details">
+        <h2>What Happens Next?</h2>
+
+        <p>
+          If you selected shipping, your order will be prepared for
+          shipment. If you selected local pickup, RATIOS will contact you
+          using the email or phone number provided at checkout to coordinate
+          pickup details.
+        </p>
+      </div>
+
+      <div class="actions">
+        <a href="/" class="button button-primary">
+          Return to RATIOS
+        </a>
+
+        <a href="/shop.html" class="button button-secondary">
+          Continue Shopping
+        </a>
+      </div>
+
+      <p class="help">
+        Questions about your order?
+        <a href="mailto:info@ratiossaveslives.org">
+          info@ratiossaveslives.org
+        </a>
+      </p>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <strong>RATIOS of Greater St. Louis</strong><br>
+    Rescue • Awareness • Tracking • Identification • Outreach • Safety
+  </footer>
+
+  <script>
+    // Checkout was completed, so clear the saved shop cart.
+    try {
+      localStorage.removeItem("ratiosCart");
+    } catch (error) {
+      console.log("Cart storage could not be cleared.");
+    }
+  </script>
+
+</body>
+</html>
