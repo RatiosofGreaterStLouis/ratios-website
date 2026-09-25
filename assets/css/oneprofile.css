@@ -2104,21 +2104,30 @@ footer {
 
     }
 
-}\n/* 2026-09-24 FINAL SITE-SCALE STANDARD — Donation page reference */
-
-@media(min-width:981px){
-
-  .top{height:34px;padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2));font-size:.75rem}
-
-  header{width:min(1180px,94%);min-height:76px}
-
-  .brand img{width:50px;height:58px;object-fit:contain}
-
-  nav{gap:25px;font-size:12px}
-
-  .wrap,.bottom{width:min(1180px,94%)}
-
-  .hero{padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2))}
-
 }
 
+/* FINAL DESKTOP SCALE FIX — ONEPROFILE */
+
+@media (min-width:1001px){
+
+  .wrap{width:min(1180px,94%);margin-left:auto;margin-right:auto;}
+
+  .top{height:34px;min-height:34px;padding-left:max(3vw,calc((100vw - 1180px)/2));padding-right:max(3vw,calc((100vw - 1180px)/2));}
+
+  header{width:min(1180px,94%);min-height:76px;height:76px;margin-left:auto;margin-right:auto;}
+
+  header .logo img,header .brand img,.brand img{max-height:58px;width:auto;}
+
+  header nav,header .nav{font-size:14px;}
+
+  .hero{min-height:455px;}
+
+  .hero-copy h1{font-size:clamp(42px,4.25vw,66px);line-height:.98;}
+
+  .hero-copy p{font-size:clamp(16px,1.25vw,19px);}
+
+  .hero-visual,.hero-art,.hero-products{transform:scale(.88);transform-origin:center center;}
+
+  .bottom{width:min(1180px,94%);margin-left:auto;margin-right:auto;}
+
+}
