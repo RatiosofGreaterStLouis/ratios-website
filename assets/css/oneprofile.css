@@ -1,13 +1,3 @@
-/* =========================================================
-
-   RATIOS — ONEPROFILE
-
-   CLEAN APPROVED PAGE STYLESHEET
-
-   ========================================================= */
-
- 
-
 * {
 
     box-sizing: border-box;
@@ -2122,12 +2112,350 @@ footer {
 
   .hero{min-height:455px;}
 
-  .hero-copy h1{font-size:clamp(42px,4.25vw,66px);line-height:.98;}
+  .heroText h1{font-size:clamp(42px,4.25vw,66px);line-height:.98;}
 
-  .hero-copy p{font-size:clamp(16px,1.25vw,19px);}
-
-  .hero-visual,.hero-art,.hero-products{transform:scale(.88);transform-origin:center center;}
+  .heroText p{font-size:clamp(16px,1.25vw,19px);}
 
   .bottom{width:min(1180px,94%);margin-left:auto;margin-right:auto;}
+
+}
+
+ 
+
+/* =========================================================
+
+   ONEPROFILE MOBILE VIEWPORT FIX
+
+   Desktop is intentionally untouched.
+
+   ========================================================= */
+
+@media (max-width:700px){
+
+  html,body{
+
+    width:100%;
+
+    max-width:100%;
+
+    overflow-x:hidden;
+
+  }
+
+ 
+
+  header{
+
+    width:calc(100% - 28px);
+
+    margin-left:auto;
+
+    margin-right:auto;
+
+  }
+
+ 
+
+  .hero{
+
+    width:100%;
+
+    max-width:100%;
+
+    min-height:0;
+
+    padding:34px 18px 38px;
+
+    grid-template-columns:minmax(0,1fr);
+
+    gap:30px;
+
+    overflow:hidden;
+
+  }
+
+ 
+
+  .heroText{
+
+    width:100%;
+
+    max-width:100%;
+
+    min-width:0;
+
+    margin:0;
+
+  }
+
+ 
+
+  .heroText label{
+
+    display:block;
+
+    font-size:.78rem;
+
+    line-height:1.25;
+
+    letter-spacing:.08em;
+
+  }
+
+ 
+
+  .heroText h1{
+
+    margin:14px 0 18px;
+
+    font-size:clamp(3rem,14vw,4rem);
+
+    line-height:.92;
+
+    letter-spacing:-.045em;
+
+    overflow-wrap:anywhere;
+
+  }
+
+ 
+
+  .heroText h2{
+
+    margin-bottom:18px;
+
+    font-size:clamp(1.75rem,8vw,2.25rem);
+
+    line-height:1.05;
+
+  }
+
+ 
+
+  .heroText p{
+
+    width:100%;
+
+    max-width:none;
+
+    margin-bottom:22px;
+
+    font-size:1rem;
+
+    line-height:1.48;
+
+  }
+
+ 
+
+  .heroText > div{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    gap:10px;
+
+  }
+
+ 
+
+  .heroText a{
+
+    width:100%;
+
+    min-width:0;
+
+    padding:14px 10px;
+
+    font-size:.86rem;
+
+    line-height:1.15;
+
+    text-align:center;
+
+    white-space:normal;
+
+  }
+
+ 
+
+  .products{
+
+    position:relative;
+
+    width:min(350px,100%);
+
+    max-width:350px;
+
+    height:255px;
+
+    margin:0 auto;
+
+    transform:none;
+
+    overflow:visible;
+
+  }
+
+ 
+
+  .patch{
+
+    left:0;
+
+    top:82px;
+
+    width:78px;
+
+    height:78px;
+
+  }
+
+ 
+
+  .phone{
+
+    left:76px;
+
+    top:0;
+
+    width:145px;
+
+    height:250px;
+
+    border-width:7px;
+
+    border-radius:25px;
+
+  }
+
+ 
+
+  .phone .speaker{
+
+    width:48px;
+
+    height:10px;
+
+    border-radius:0 0 8px 8px;
+
+  }
+
+ 
+
+  .idcard{
+
+    left:205px;
+
+    top:86px;
+
+    width:142px;
+
+    max-width:calc(100% - 205px);
+
+    border-radius:9px;
+
+  }
+
+}
+
+ 
+
+@media (max-width:420px){
+
+  .hero{
+
+    padding-left:16px;
+
+    padding-right:16px;
+
+  }
+
+ 
+
+  .heroText h1{
+
+    font-size:clamp(2.7rem,13vw,3.35rem);
+
+  }
+
+ 
+
+  .heroText h2{
+
+    font-size:clamp(1.55rem,7.4vw,1.95rem);
+
+  }
+
+ 
+
+  .heroText > div{
+
+    grid-template-columns:1fr 1fr;
+
+  }
+
+ 
+
+  .heroText a{
+
+    padding:13px 8px;
+
+    font-size:.78rem;
+
+  }
+
+ 
+
+  .products{
+
+    width:330px;
+
+    max-width:100%;
+
+    height:240px;
+
+  }
+
+ 
+
+  .patch{
+
+    width:70px;
+
+    height:70px;
+
+    top:80px;
+
+  }
+
+ 
+
+  .phone{
+
+    left:68px;
+
+    width:138px;
+
+    height:238px;
+
+  }
+
+ 
+
+  .idcard{
+
+    left:194px;
+
+    top:82px;
+
+    width:134px;
+
+    max-width:calc(100% - 194px);
+
+  }
 
 }
