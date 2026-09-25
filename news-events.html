@@ -110,6 +110,128 @@
 
  
 
+ 
+
+<style>
+
+/* =========================================================
+
+   RATIOS NEWS — FINAL DESKTOP ALIGNMENT FIX
+
+   Pulls the logo, navigation, hero copy, feature strip,
+
+   content, signup and footer into one balanced desktop shell.
+
+   All approved content and functionality remain unchanged.
+
+   ========================================================= */
+
+@media (min-width: 901px){
+
+  .container{
+
+    width:min(1450px,94%);
+
+    margin-left:auto;
+
+    margin-right:auto;
+
+  }
+
+ 
+
+  .topbar{
+
+    height:34px;
+
+    padding-left:max(3%,calc((100vw - 1450px)/2));
+
+    padding-right:max(3%,calc((100vw - 1450px)/2));
+
+  }
+
+ 
+
+  .navbar{
+
+    height:76px;
+
+    padding-left:max(3%,calc((100vw - 1450px)/2));
+
+    padding-right:max(3%,calc((100vw - 1450px)/2));
+
+  }
+
+ 
+
+  .hero{
+
+    min-height:460px;
+
+  }
+
+ 
+
+  .hero-bg{
+
+    left:50%;
+
+  }
+
+ 
+
+  .hero-bg:before{
+
+    background:linear-gradient(90deg,#f4fbff 0%,rgba(244,251,255,.68) 12%,transparent 27%);
+
+  }
+
+ 
+
+  .hero .container{
+
+    padding-top:46px;
+
+  }
+
+ 
+
+  .hero h1{
+
+    max-width:610px;
+
+    font-size:54px;
+
+    line-height:.94;
+
+  }
+
+ 
+
+  .hero p{
+
+    max-width:520px;
+
+    font-size:16px;
+
+  }
+
+ 
+
+  .content-grid{
+
+    grid-template-columns:minmax(0,1.45fr) minmax(360px,.95fr);
+
+    gap:34px;
+
+  }
+
+}
+
+</style>
+
+ 
+
 </head>
 
  
