@@ -2096,43 +2096,123 @@ footer {
 
 }
 
-/* FINAL DESKTOP SCALE FIX — ONEPROFILE */
+ 
+
+/* =========================================================
+
+   RATIOS — FINAL ONEPROFILE DESKTOP SCALE
+
+   ========================================================= */
 
 @media (min-width:1001px){
 
-  .wrap{width:min(1180px,94%);margin-left:auto;margin-right:auto;}
+  .wrap{
 
-  .top{height:34px;min-height:34px;padding-left:max(3vw,calc((100vw - 1180px)/2));padding-right:max(3vw,calc((100vw - 1180px)/2));}
+    width:min(1180px,94%);
 
-  header{width:min(1180px,94%);min-height:76px;height:76px;margin-left:auto;margin-right:auto;}
+    margin-left:auto;
 
-  header .logo img,header .brand img,.brand img{max-height:58px;width:auto;}
+    margin-right:auto;
 
-  header nav,header .nav{font-size:14px;}
+  }
 
-  .hero{min-height:455px;}
+ 
 
-  .heroText h1{font-size:clamp(42px,4.25vw,66px);line-height:.98;}
+  .top{
 
-  .heroText p{font-size:clamp(16px,1.25vw,19px);}
+    height:34px;
 
-  .bottom{width:min(1180px,94%);margin-left:auto;margin-right:auto;}
+    min-height:34px;
+
+    padding-left:max(3vw,calc((100vw - 1180px)/2));
+
+    padding-right:max(3vw,calc((100vw - 1180px)/2));
+
+  }
+
+ 
+
+  header{
+
+    width:min(1180px,94%);
+
+    min-height:76px;
+
+    height:76px;
+
+    margin-left:auto;
+
+    margin-right:auto;
+
+  }
+
+ 
+
+  header .logo img,
+
+  header .brand img,
+
+  .brand img{
+
+    max-height:58px;
+
+    width:auto;
+
+  }
+
+ 
+
+  header nav,
+
+  header .nav{
+
+    font-size:14px;
+
+  }
+
+ 
+
+  .hero{
+
+    min-height:455px;
+
+  }
+
+ 
+
+  .bottom{
+
+    width:min(1180px,94%);
+
+    margin-left:auto;
+
+    margin-right:auto;
+
+  }
 
 }
 
  
 
+ 
+
 /* =========================================================
 
-   ONEPROFILE MOBILE VIEWPORT FIX
+   RATIOS — FINAL ONEPROFILE MOBILE FIX
 
-   Desktop is intentionally untouched.
+   Keeps all hero content inside viewport and creates a true
+
+   Patch | Phone | ID Card row with NO overlap.
 
    ========================================================= */
 
 @media (max-width:700px){
 
-  html,body{
+ 
+
+  html,
+
+  body{
 
     width:100%;
 
@@ -2144,9 +2224,21 @@ footer {
 
  
 
+  .wrap{
+
+    width:calc(100% - 32px);
+
+    max-width:100%;
+
+  }
+
+ 
+
   header{
 
     width:calc(100% - 28px);
+
+    max-width:100%;
 
     margin-left:auto;
 
@@ -2164,7 +2256,7 @@ footer {
 
     min-height:0;
 
-    padding:34px 18px 38px;
+    padding:38px 18px 42px;
 
     grid-template-columns:minmax(0,1fr);
 
@@ -2213,8 +2305,6 @@ footer {
     line-height:.92;
 
     letter-spacing:-.045em;
-
-    overflow-wrap:anywhere;
 
   }
 
@@ -2268,9 +2358,9 @@ footer {
 
     min-width:0;
 
-    padding:14px 10px;
+    padding:14px 9px;
 
-    font-size:.86rem;
+    font-size:.84rem;
 
     line-height:1.15;
 
@@ -2282,19 +2372,35 @@ footer {
 
  
 
+  /* IMPORTANT: cancel every older mobile scale/absolute rule */
+
   .products{
 
     position:relative;
 
-    width:min(350px,100%);
+    width:100%;
 
     max-width:350px;
 
-    height:255px;
+    height:auto;
 
-    margin:0 auto;
+    min-height:235px;
 
-    transform:none;
+    margin:18px auto 0;
+
+    display:grid;
+
+    grid-template-columns:56px 126px 130px;
+
+    justify-content:center;
+
+    align-items:center;
+
+    column-gap:6px;
+
+    transform:none !important;
+
+    transform-origin:center !important;
 
     overflow:visible;
 
@@ -2302,41 +2408,69 @@ footer {
 
  
 
-  .patch{
+  .products .patch,
 
-    left:0;
+  .products .phone,
 
-    top:82px;
+  .products .idcard{
 
-    width:78px;
+    position:relative;
 
-    height:78px;
+    left:auto;
+
+    right:auto;
+
+    top:auto;
+
+    bottom:auto;
+
+    margin:0;
+
+    transform:none !important;
 
   }
 
  
 
-  .phone{
+  .products .patch{
 
-    left:76px;
+    width:56px;
 
-    top:0;
+    height:56px;
 
-    width:145px;
+    max-width:56px;
 
-    height:250px;
+    object-fit:contain;
+
+    z-index:1;
+
+  }
+
+ 
+
+  .products .phone{
+
+    width:126px;
+
+    height:224px;
+
+    max-width:126px;
 
     border-width:7px;
 
     border-radius:25px;
 
+    overflow:hidden;
+
+    z-index:1;
+
   }
 
  
 
-  .phone .speaker{
+  .products .phone .speaker{
 
-    width:48px;
+    width:46px;
 
     height:10px;
 
@@ -2346,17 +2480,41 @@ footer {
 
  
 
-  .idcard{
+  .products .idcard{
 
-    left:205px;
+    width:130px;
 
-    top:86px;
+    max-width:130px;
 
-    width:142px;
+    height:auto;
 
-    max-width:calc(100% - 205px);
+    padding:0;
 
-    border-radius:9px;
+    border-radius:8px;
+
+    overflow:hidden;
+
+    z-index:1;
+
+  }
+
+ 
+
+  .products .idcard > img{
+
+    width:100%;
+
+    height:auto;
+
+    display:block;
+
+  }
+
+ 
+
+  .bottom{
+
+    width:calc(100% - 32px);
 
   }
 
@@ -2364,7 +2522,17 @@ footer {
 
  
 
+ 
+
+/* =========================================================
+
+   SMALLER PHONES
+
+   ========================================================= */
+
 @media (max-width:420px){
+
+ 
 
   .hero{
 
@@ -2392,17 +2560,9 @@ footer {
 
  
 
-  .heroText > div{
-
-    grid-template-columns:1fr 1fr;
-
-  }
-
- 
-
   .heroText a{
 
-    padding:13px 8px;
+    padding:13px 7px;
 
     font-size:.78rem;
 
@@ -2412,117 +2572,112 @@ footer {
 
   .products{
 
-    width:330px;
+    max-width:330px;
 
-    max-width:100%;
+    min-height:220px;
 
-    height:240px;
+    grid-template-columns:52px 118px 122px;
 
-  }
+    column-gap:5px;
 
- 
-
-  .patch{
-
-    width:70px;
-
-    height:70px;
-
-    top:80px;
+    transform:none !important;
 
   }
 
  
 
-  .phone{
+  .products .patch{
 
-    left:68px;
+    width:52px;
 
-    width:138px;
+    height:52px;
 
-    height:238px;
+    max-width:52px;
 
   }
 
  
 
-  .idcard{
+  .products .phone{
 
-    left:194px;
+    width:118px;
 
-    top:82px;
+    max-width:118px;
 
-    width:134px;
+    height:210px;
 
-    max-width:calc(100% - 194px);
+  }
+
+ 
+
+  .products .idcard{
+
+    width:122px;
+
+    max-width:122px;
 
   }
 
 }
-@media (max-width: 700px) {
 
-  .products {
-    position: relative;
-    width: min(360px, 100%);
-    max-width: 360px;
-    height: 245px;
-    margin: 0 auto;
-    transform: none;
-    overflow: visible;
+ 
+
+ 
+
+/* =========================================================
+
+   VERY NARROW PHONES
+
+   ========================================================= */
+
+@media (max-width:360px){
+
+ 
+
+  .products{
+
+    max-width:300px;
+
+    grid-template-columns:46px 108px 112px;
+
+    column-gap:4px;
+
+    transform:none !important;
+
   }
 
-  .patch {
-    left: 0;
-    top: 86px;
-    width: 68px;
-    height: 68px;
-    z-index: 1;
+ 
+
+  .products .patch{
+
+    width:46px;
+
+    height:46px;
+
+    max-width:46px;
+
   }
 
-  .phone {
-    left: 72px;
-    top: 0;
-    width: 132px;
-    height: 230px;
-    z-index: 2;
+ 
+
+  .products .phone{
+
+    width:108px;
+
+    max-width:108px;
+
+    height:194px;
+
   }
 
-  .idcard {
-    left: 216px;
-    top: 84px;
-    width: 138px;
-    max-width: calc(100% - 216px);
-    z-index: 1;
-  }
-}
+ 
 
+  .products .idcard{
 
-@media (max-width: 420px) {
+    width:112px;
 
-  .products {
-    width: 340px;
-    max-width: 100%;
-    height: 230px;
+    max-width:112px;
+
   }
 
-  .patch {
-    left: 0;
-    top: 82px;
-    width: 62px;
-    height: 62px;
-  }
-
-  .phone {
-    left: 66px;
-    top: 0;
-    width: 124px;
-    height: 218px;
-  }
-
-  .idcard {
-    left: 200px;
-    top: 80px;
-    width: 132px;
-    max-width: calc(100% - 200px);
-  }
 }
