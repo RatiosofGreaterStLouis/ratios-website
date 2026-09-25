@@ -120,3 +120,22 @@
 
 }
 
+\n/* 2026-09-24 FINAL SITE-SCALE STANDARD — Donation page reference */
+
+@media(min-width:981px){
+
+  .ar-top{height:34px;padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2));font-size:12px}
+
+  .ar-nav{height:76px;padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2));gap:28px}
+
+  .ar-brand img{width:50px;height:58px;object-fit:contain}
+
+  .ar-links{gap:25px;font-size:12px}
+
+  .ar-links a{padding-top:29px;padding-bottom:26px}
+
+  .ar-hero-copy,.ar-story-copy{padding-left:max(3%,calc((100vw - 1180px)/2))}
+
+  .ar-values,.ar-serve,.ar-footer{padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2))}
+
+}

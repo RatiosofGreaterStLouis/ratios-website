@@ -10,3 +10,22 @@
 
 .patch-grid figcaption span{font-size:10px;line-height:1.35;color:#587184;font-weight:600}
 
+\n/* 2026-09-24 FINAL SITE-SCALE STANDARD — Donation page reference */
+
+@media(min-width:901px){
+
+  .top{height:34px;padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2));font-size:12px}
+
+  header{height:76px;padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2))}
+
+  .brand{gap:12px}.brand img{width:50px;height:58px}.brand strong{font-size:29px}.brand small{font-size:10px;letter-spacing:4px}
+
+  nav{gap:25px}nav a{font-size:12px}.donate{padding:14px 30px}
+
+  .wrap{width:min(1180px,94%);margin-left:auto;margin-right:auto;padding-left:0;padding-right:0}
+
+  .cta{padding-left:0;padding-right:0}.cta-inner{width:min(1180px,94%);max-width:1180px}
+
+  footer{padding-left:0;padding-right:0}.footer-main,.footer-bottom{width:min(1180px,94%);margin-left:auto;margin-right:auto}
+
+}

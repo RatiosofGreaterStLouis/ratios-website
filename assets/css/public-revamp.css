@@ -59,3 +59,24 @@
  .rv-copy{display:block!important;line-height:1.7;text-align:center}
 
 }
+
+\n/* 2026-09-24 FINAL SITE-SCALE STANDARD — Donation page reference */
+
+@media(min-width:981px){
+
+  .rv-top{height:34px;padding:0 max(3%,calc((100vw - 1180px)/2));font-size:12px}
+
+  .rv-nav{height:76px;padding:0 max(3%,calc((100vw - 1180px)/2));gap:24px}
+
+  .rv-wrap{width:min(1180px,94%)}
+
+  .rv-brand img{width:50px;height:58px}
+
+  .rv-links{gap:25px;font-size:12px}
+
+  .rv-links a{padding:29px 0 26px}
+
+  .rv-donate{padding:14px 30px!important}
+
+}
+

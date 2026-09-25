@@ -124,3 +124,33 @@ header{
 
 }
 
+\n/* 2026-09-24 FINAL SITE-SCALE STANDARD — Donation page reference */
+
+@media(min-width:981px){
+
+  .top{height:34px;padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2));font-size:12px}
+
+  header{height:76px;padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2));gap:28px}
+
+  .logo{width:50px;height:58px}
+
+  .brand{min-width:220px;gap:12px}
+
+  .brand-words strong{font-size:29px}
+
+  .brand-words small{font-size:10px;letter-spacing:4px;margin-top:7px}
+
+  .nav{gap:25px;font-size:12px}
+
+  .nav a{padding:29px 0 26px}
+
+  .donate{min-width:0;padding:14px 30px!important}
+
+  .programs{padding-left:3%;padding-right:3%}
+
+  .grid{max-width:1180px}
+
+  .cta{padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2))}
+
+}
+
