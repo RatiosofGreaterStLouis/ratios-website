@@ -1,12 +1,24 @@
 <!doctype html>
 
+ 
+
 <html lang="en">
+
+ 
 
 <head>
 
+ 
+
 <meta charset="utf-8">
 
+ 
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
+ 
+
+ 
 
  
 
@@ -14,15 +26,31 @@
 
  
 
+ 
+
+ 
+
 <link rel="icon" href="assets/images/favicon-32.png">
+
+ 
 
 <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
 
  
 
+ 
+
+ 
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
+ 
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+ 
+
+ 
 
  
 
@@ -30,1791 +58,3087 @@
 
  
 
+ 
+
+ 
+
 <style>
+
+ 
+
+ 
 
  
 
 :root{
 
+ 
+
   --navy:#061f55;
+
+ 
 
   --navy2:#074779;
 
+ 
+
   --teal:#079eaf;
+
+ 
 
   --teal2:#0fb8c4;
 
+ 
+
   --gold:#ffb927;
+
+ 
 
   --cream:#fffaf0;
 
+ 
+
   --light:#eefbff;
+
+ 
 
   --ink:#071d4f;
 
+ 
+
   --muted:#415675;
+
+ 
 
   --line:#cdeaf1;
 
+ 
+
   --white:#fff;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 *{
 
+ 
+
   box-sizing:border-box;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 html{
 
+ 
+
   scroll-behavior:smooth;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 body{
 
+ 
+
   margin:0;
+
+ 
 
   font-family:Inter,Arial,sans-serif;
 
+ 
+
   color:var(--ink);
+
+ 
 
   background:#fff;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 a{
 
+ 
+
   color:inherit;
+
+ 
 
   text-decoration:none;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 img{
 
+ 
+
   display:block;
+
+ 
 
   max-width:100%;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 button,
 
+ 
+
 input,
+
+ 
 
 select,
 
+ 
+
 textarea{
+
+ 
 
   font:inherit;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-wrap{
 
+ 
+
   width:min(1180px,calc(100% - 44px));
 
+ 
+
   margin:auto;
+
+ 
 
 }
 
  
 
+ 
+
+ 
+
 /* =========================
+
+ 
 
    TOP BAR
 
+ 
+
 ========================= */
+
+ 
+
+ 
 
  
 
 .vol-top{
 
+ 
+
   height:25px;
+
+ 
 
   background:linear-gradient(90deg,#064b7e,#07598b);
 
+ 
+
   color:#fff;
+
+ 
 
   display:flex;
 
+ 
+
   align-items:center;
+
+ 
 
   justify-content:flex-end;
 
+ 
+
   padding:0 38px;
+
+ 
 
   font-size:.61rem;
 
+ 
+
   font-weight:600;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-top span{
 
+ 
+
   opacity:.96;
+
+ 
 
 }
 
  
 
+ 
+
+ 
+
 /* =========================
+
+ 
 
    HEADER / NAV
 
+ 
+
 ========================= */
+
+ 
+
+ 
 
  
 
 .vol-nav{
 
+ 
+
   min-height:80px;
+
+ 
 
   padding:8px 48px;
 
+ 
+
   display:grid;
+
+ 
 
   grid-template-columns:225px 1fr;
 
+ 
+
   gap:25px;
+
+ 
 
   align-items:center;
 
+ 
+
   background:#fff;
+
+ 
 
   border-bottom:1px solid #e8edf2;
 
+ 
+
   position:relative;
+
+ 
 
   z-index:50;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-brand{
 
+ 
+
   display:flex;
+
+ 
 
   align-items:center;
 
+ 
+
   gap:10px;
+
+ 
 
   width:max-content;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-brand img{
 
+ 
+
   width:50px;
+
+ 
 
   height:50px;
 
+ 
+
   object-fit:contain;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-brand span{
 
+ 
+
   display:flex;
+
+ 
 
   flex-direction:column;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-brand b{
 
+ 
+
   color:var(--navy);
+
+ 
 
   font-size:1.75rem;
 
+ 
+
   line-height:1;
+
+ 
 
   letter-spacing:.02em;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-brand small{
 
+ 
+
   margin-top:6px;
+
+ 
 
   color:var(--navy);
 
+ 
+
   font-size:.62rem;
+
+ 
 
   font-weight:900;
 
+ 
+
   letter-spacing:.35em;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-links{
 
+ 
+
   display:flex;
+
+ 
 
   align-items:center;
 
+ 
+
   justify-content:flex-end;
+
+ 
 
   gap:29px;
 
+ 
+
   font-size:.78rem;
+
+ 
 
   font-weight:800;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-links > a{
 
+ 
+
   position:relative;
+
+ 
 
   white-space:nowrap;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-links > a:not(.vol-donate):after{
 
+ 
+
   content:"";
+
+ 
 
   position:absolute;
 
+ 
+
   left:0;
+
+ 
 
   right:0;
 
+ 
+
   bottom:-14px;
+
+ 
 
   height:2px;
 
+ 
+
   background:transparent;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-links > a.active:after{
 
+ 
+
   background:var(--gold);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-donate{
 
+ 
+
   display:inline-flex;
+
+ 
 
   align-items:center;
 
+ 
+
   justify-content:center;
+
+ 
 
   min-width:112px;
 
+ 
+
   min-height:48px;
+
+ 
 
   padding:12px 23px;
 
+ 
+
   border-radius:24px;
+
+ 
 
   background:var(--gold);
 
+ 
+
   color:#071d4f;
+
+ 
 
   font-weight:900;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-menu{
 
+ 
+
   display:none;
+
+ 
 
 }
 
  
 
+ 
+
+ 
+
 /* =========================
+
+ 
 
    HERO
 
+ 
+
 ========================= */
+
+ 
+
+ 
 
  
 
 .vol-hero{
 
+ 
+
   background:#fffaf2;
+
+ 
 
   overflow:hidden;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .hero-layout{
 
+ 
+
   display:grid;
+
+ 
 
   grid-template-columns:43% 57%;
 
+ 
+
   min-height:455px;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .hero-copy{
 
+ 
+
   position:relative;
+
+ 
 
   z-index:2;
 
+ 
+
   padding:48px 25px 42px 0;
+
+ 
 
   display:flex;
 
+ 
+
   flex-direction:column;
+
+ 
 
   justify-content:center;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-pill{
 
+ 
+
   display:flex;
+
+ 
 
   align-items:center;
 
+ 
+
   gap:10px;
+
+ 
 
   color:#e7a00a;
 
+ 
+
   font-size:.78rem;
+
+ 
 
   font-weight:800;
 
+ 
+
   letter-spacing:.04em;
+
+ 
 
   margin-bottom:16px;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .vol-pill:before,
 
+ 
+
 .vol-pill:after{
+
+ 
 
   content:"";
 
+ 
+
   width:17px;
+
+ 
 
   height:2px;
 
+ 
+
   background:#e7a00a;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .hero-copy h1{
 
+ 
+
   margin:0;
+
+ 
 
   color:var(--navy);
 
+ 
+
   font-size:4rem;
+
+ 
 
   line-height:.88;
 
+ 
+
   letter-spacing:-.055em;
+
+ 
 
   font-weight:900;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .hero-copy h1 em{
 
+ 
+
   display:block;
+
+ 
 
   color:var(--teal);
 
+ 
+
   font-style:normal;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .hero-copy h2{
 
+ 
+
   margin:15px 0 14px;
+
+ 
 
   font-size:1.22rem;
 
+ 
+
   line-height:1.2;
+
+ 
 
   color:var(--navy);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .hero-copy p{
 
+ 
+
   max-width:475px;
+
+ 
 
   margin:0;
 
+ 
+
   font-size:.92rem;
+
+ 
 
   line-height:1.55;
 
+ 
+
   color:#15305d;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .hero-buttons{
 
+ 
+
   display:flex;
+
+ 
 
   gap:14px;
 
+ 
+
   margin-top:22px;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .btn{
 
+ 
+
   display:inline-flex;
+
+ 
 
   align-items:center;
 
+ 
+
   justify-content:center;
+
+ 
 
   min-height:48px;
 
+ 
+
   padding:12px 29px;
+
+ 
 
   border-radius:26px;
 
+ 
+
   font-size:.82rem;
+
+ 
 
   font-weight:900;
 
+ 
+
   transition:.2s ease;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .btn:hover{
 
+ 
+
   transform:translateY(-1px);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .btn-gold{
 
+ 
+
   background:var(--gold);
+
+ 
 
   color:var(--navy);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .btn-outline{
 
+ 
+
   background:#fff;
+
+ 
 
   border:1.5px solid #153d77;
 
+ 
+
   color:var(--navy);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .hero-image{
 
+ 
+
   position:relative;
+
+ 
 
   min-width:0;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .hero-image:before{
 
+ 
+
   content:"";
+
+ 
 
   position:absolute;
 
+ 
+
   z-index:2;
+
+ 
 
   left:-1px;
 
+ 
+
   top:-5%;
+
+ 
 
   width:72px;
 
+ 
+
   height:110%;
+
+ 
 
   background:#fffaf2;
 
+ 
+
   border-radius:0 100% 100% 0 / 0 50% 50% 0;
+
+ 
 
   transform:translateX(-35px);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .hero-image img{
 
+ 
+
   width:100%;
+
+ 
 
   height:100%;
 
+ 
+
   min-height:455px;
+
+ 
 
   object-fit:cover;
 
+ 
+
   object-position:center;
+
+ 
 
 }
 
  
 
+ 
+
+ 
+
 /* =========================
+
+ 
 
    IMPACT STRIP
 
+ 
+
 ========================= */
+
+ 
+
+ 
 
  
 
 .value-strip{
 
+ 
+
   background:#e7f9fd;
+
+ 
 
   border-bottom:1px solid #d9f0f5;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .value-row{
 
+ 
+
   min-height:90px;
+
+ 
 
   display:grid;
 
+ 
+
   grid-template-columns:repeat(4,1fr);
+
+ 
 
   align-items:center;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .value{
 
+ 
+
   min-height:58px;
+
+ 
 
   display:flex;
 
+ 
+
   align-items:center;
+
+ 
 
   justify-content:center;
 
+ 
+
   gap:15px;
+
+ 
 
   padding:10px 22px;
 
+ 
+
   border-right:1px solid #76d4e2;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .value:last-child{
 
+ 
+
   border-right:none;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .value-icon{
 
+ 
+
   flex:0 0 52px;
+
+ 
 
   width:52px;
 
+ 
+
   height:52px;
+
+ 
 
   border-radius:50%;
 
+ 
+
   display:grid;
+
+ 
 
   place-items:center;
 
+ 
+
   background:#c7f1f6;
+
+ 
 
   color:#08769c;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .value-icon svg{
 
+ 
+
   width:28px;
+
+ 
 
   height:28px;
 
+ 
+
   fill:none;
+
+ 
 
   stroke:currentColor;
 
+ 
+
   stroke-width:2.3;
+
+ 
 
   stroke-linecap:round;
 
+ 
+
   stroke-linejoin:round;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .value b{
 
+ 
+
   font-size:.82rem;
 
+ 
+
   line-height:1.18;
+
+ 
 
 }
 
  
 
+ 
+
+ 
+
 /* =========================
+
+ 
 
    WAYS TO VOLUNTEER
 
+ 
+
 ========================= */
+
+ 
+
+ 
 
  
 
 .ways{
 
+ 
+
   padding:33px 0 25px;
+
+ 
 
   background:
 
+ 
+
     radial-gradient(circle at 50% 0,#fff 0,#effcff 70%);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .section-heading{
 
+ 
+
   text-align:center;
+
+ 
 
   margin:0 auto 25px;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .section-heading .eyebrow{
 
+ 
+
   display:flex;
+
+ 
 
   justify-content:center;
 
+ 
+
   align-items:center;
+
+ 
 
   gap:10px;
 
+ 
+
   color:#123a78;
+
+ 
 
   font-size:.72rem;
 
+ 
+
   font-weight:900;
+
+ 
 
   letter-spacing:.05em;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .section-heading .eyebrow:before,
 
+ 
+
 .section-heading .eyebrow:after{
+
+ 
 
   content:"";
 
+ 
+
   width:18px;
+
+ 
 
   height:2px;
 
+ 
+
   background:#123a78;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .section-heading h2{
 
+ 
+
   margin:9px 0 8px;
+
+ 
 
   color:var(--navy);
 
+ 
+
   font-size:2.2rem;
+
+ 
 
   line-height:1.1;
 
+ 
+
   letter-spacing:-.035em;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .section-heading p{
 
+ 
+
   margin:0;
+
+ 
 
   font-size:.88rem;
 
+ 
+
   color:#23406b;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .opportunity-grid{
 
+ 
+
   display:grid;
+
+ 
 
   grid-template-columns:repeat(3,1fr);
 
+ 
+
   gap:14px;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .opportunity{
 
+ 
+
   min-height:122px;
+
+ 
 
   padding:18px 20px;
 
+ 
+
   border-radius:12px;
+
+ 
 
   background:#fff;
 
+ 
+
   display:grid;
+
+ 
 
   grid-template-columns:68px 1fr;
 
+ 
+
   gap:17px;
+
+ 
 
   align-items:center;
 
+ 
+
   box-shadow:0 5px 20px rgba(15,56,91,.03);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .opportunity-icon{
 
+ 
+
   width:64px;
+
+ 
 
   height:64px;
 
+ 
+
   border-radius:50%;
+
+ 
 
   display:grid;
 
+ 
+
   place-items:center;
+
+ 
 
   color:#fff;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .opportunity-icon svg{
 
+ 
+
   width:31px;
+
+ 
 
   height:31px;
 
+ 
+
   fill:none;
+
+ 
 
   stroke:currentColor;
 
+ 
+
   stroke-width:2;
+
+ 
 
   stroke-linecap:round;
 
+ 
+
   stroke-linejoin:round;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .oi-blue{
 
+ 
+
   background:linear-gradient(145deg,#0875a8,#006795);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .oi-gold{
 
+ 
+
   background:linear-gradient(145deg,#ffbf32,#ffa91b);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .oi-teal{
 
+ 
+
   background:linear-gradient(145deg,#12b7bd,#0395a5);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .oi-aqua{
 
+ 
+
   background:linear-gradient(145deg,#65d6d8,#46c4c7);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .oi-purple{
 
+ 
+
   background:linear-gradient(145deg,#9251ce,#7433b4);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .oi-red{
 
+ 
+
   background:linear-gradient(145deg,#ff6b6b,#ff4d56);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .opportunity h3{
 
+ 
+
   margin:0 0 5px;
+
+ 
 
   color:var(--navy);
 
+ 
+
   font-size:.93rem;
+
+ 
 
   line-height:1.1;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .opportunity p{
 
+ 
+
   margin:0;
+
+ 
 
   color:#183760;
 
+ 
+
   font-size:.76rem;
+
+ 
 
   line-height:1.35;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .ways-cta{
 
+ 
+
   text-align:center;
 
+ 
+
   margin-top:16px;
+
+ 
 
 }
 
  
 
+ 
+
+ 
+
 /* =========================
+
+ 
 
    IMPACT SECTION
 
+ 
+
 ========================= */
+
+ 
+
+ 
 
  
 
 .impact{
 
+ 
+
   background:#fff;
+
+ 
 
   overflow:hidden;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-layout{
 
+ 
+
   display:grid;
+
+ 
 
   grid-template-columns:50% 50%;
 
+ 
+
   min-height:330px;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-photo{
 
+ 
+
   position:relative;
+
+ 
 
   min-width:0;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-photo:after{
 
+ 
+
   content:"";
+
+ 
 
   position:absolute;
 
+ 
+
   right:-1px;
+
+ 
 
   top:0;
 
+ 
+
   width:90px;
+
+ 
 
   height:100%;
 
+ 
+
   background:#fff;
+
+ 
 
   clip-path:polygon(100% 0,100% 100%,0 100%,72% 0);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-photo img{
 
+ 
+
   width:100%;
+
+ 
 
   height:100%;
 
+ 
+
   min-height:330px;
+
+ 
 
   object-fit:cover;
 
+ 
+
   object-position:center;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-copy{
 
+ 
+
   padding:44px 40px 35px 15px;
+
+ 
 
   display:flex;
 
+ 
+
   flex-direction:column;
+
+ 
 
   justify-content:center;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-kicker{
 
+ 
+
   display:flex;
+
+ 
 
   align-items:center;
 
+ 
+
   gap:10px;
+
+ 
 
   color:#123a78;
 
+ 
+
   font-size:.72rem;
+
+ 
 
   font-weight:900;
 
+ 
+
   letter-spacing:.05em;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-kicker:before,
 
+ 
+
 .impact-kicker:after{
+
+ 
 
   content:"";
 
+ 
+
   width:20px;
+
+ 
 
   height:2px;
 
+ 
+
   background:#123a78;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-copy h2{
 
+ 
+
   margin:12px 0 10px;
+
+ 
 
   font-size:2.2rem;
 
+ 
+
   line-height:1.05;
+
+ 
 
   letter-spacing:-.04em;
 
+ 
+
   color:var(--navy);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-copy > p{
 
+ 
+
   max-width:540px;
+
+ 
 
   margin:0;
 
+ 
+
   font-size:1rem;
+
+ 
 
   line-height:1.5;
 
+ 
+
   color:#173766;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-items{
 
+ 
+
   display:grid;
+
+ 
 
   grid-template-columns:repeat(3,1fr);
 
+ 
+
   margin-top:27px;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-item{
 
+ 
+
   min-height:88px;
+
+ 
 
   text-align:center;
 
+ 
+
   display:flex;
+
+ 
 
   flex-direction:column;
 
+ 
+
   align-items:center;
+
+ 
 
   justify-content:center;
 
+ 
+
   gap:8px;
+
+ 
 
   border-right:1px solid #5bc6d4;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-item:last-child{
 
+ 
+
   border-right:none;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-item svg{
 
+ 
+
   width:45px;
+
+ 
 
   height:45px;
 
+ 
+
   fill:none;
+
+ 
 
   stroke:#05749a;
 
+ 
+
   stroke-width:2.2;
+
+ 
 
   stroke-linecap:round;
 
+ 
+
   stroke-linejoin:round;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .impact-item b{
 
+ 
+
   font-size:.8rem;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 /* =========================
 
-   VOLUNTEER VOICES
-
-========================= */
-
  
-
-.voices{
-
-  position:relative;
-
-  padding:28px 0 31px;
-
-  background:
-
-    radial-gradient(circle at 30% 30%,#fff 0,#e9fbff 55%,#dff7fd 100%);
-
-  overflow:hidden;
-
-}
-
- 
-
-.voices:before,
-
-.voices:after{
-
-  content:"";
-
-  position:absolute;
-
-  width:220px;
-
-  height:220px;
-
-  border:1px solid #aee6ef;
-
-  border-radius:50%;
-
-  opacity:.25;
-
-}
-
- 
-
-.voices:before{
-
-  left:-110px;
-
-  top:-120px;
-
-}
-
- 
-
-.voices:after{
-
-  right:-100px;
-
-  bottom:-150px;
-
-}
-
- 
-
-.voices-inner{
-
-  max-width:720px;
-
-  margin:auto;
-
-  text-align:center;
-
-  position:relative;
-
-  z-index:2;
-
-}
-
- 
-
-.voices-kicker{
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
-  gap:10px;
-
-  font-size:.69rem;
-
-  font-weight:900;
-
-  color:#123a78;
-
-}
-
- 
-
-.voices-kicker:before,
-
-.voices-kicker:after{
-
-  content:"";
-
-  width:20px;
-
-  height:2px;
-
-  background:#123a78;
-
-}
-
- 
-
-.quote{
-
-  margin:14px auto 8px;
-
-  font-family:Georgia,serif;
-
-  font-style:italic;
-
-  font-size:1.03rem;
-
-  line-height:1.45;
-
-  color:#0c2e69;
-
-}
-
- 
-
-.quote:before{
-
-  content:"“";
-
-  color:#0c75a0;
-
-  font-size:2rem;
-
-  font-weight:900;
-
-  margin-right:6px;
-
-}
-
- 
-
-.quote-by{
-
-  font-size:.75rem;
-
-  font-weight:900;
-
-  color:var(--navy);
-
-}
-
- 
-
-.voice-arrow{
-
-  position:absolute;
-
-  top:50%;
-
-  transform:translateY(-50%);
-
-  width:48px;
-
-  height:48px;
-
-  border-radius:50%;
-
-  background:#fff;
-
-  display:grid;
-
-  place-items:center;
-
-  font-size:2rem;
-
-  color:#0a3470;
-
-  box-shadow:0 5px 20px rgba(5,43,79,.06);
-
-}
-
- 
-
-.voice-arrow.left{
-
-  left:5%;
-
-}
-
- 
-
-.voice-arrow.right{
-
-  right:5%;
-
-}
-
- 
-
-.dots{
-
-  position:absolute;
-
-  right:8%;
-
-  bottom:23px;
-
-  display:flex;
-
-  gap:8px;
-
-}
-
- 
-
-.dot{
-
-  width:11px;
-
-  height:11px;
-
-  border-radius:50%;
-
-  background:#cbd3d8;
-
-}
-
- 
-
-.dot.active{
-
-  background:#0b3978;
-
-}
-
- 
-
-/* =========================
 
    VOLUNTEER FORM
 
+ 
+
 ========================= */
+
+ 
+
+ 
 
  
 
 .form-section{
 
+ 
+
   padding:62px 0;
+
+ 
 
   background:#f7fcfe;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .form-layout{
 
+ 
+
   display:grid;
+
+ 
 
   grid-template-columns:.72fr 1.28fr;
 
+ 
+
   gap:55px;
+
+ 
 
   align-items:start;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .form-intro span{
 
+ 
+
   color:#087f9d;
+
+ 
 
   font-size:.72rem;
 
+ 
+
   font-weight:900;
+
+ 
 
   letter-spacing:.07em;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .form-intro h2{
 
+ 
+
   margin:10px 0 12px;
+
+ 
 
   font-size:2.25rem;
 
+ 
+
   line-height:1.05;
+
+ 
 
   color:var(--navy);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .form-intro p{
 
+ 
+
   margin:0;
+
+ 
 
   line-height:1.55;
 
+ 
+
   color:#415675;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .volunteer-form{
 
+ 
+
   padding:28px;
+
+ 
 
   background:#fff;
 
+ 
+
   border:1px solid #dbeaf0;
+
+ 
 
   border-radius:18px;
 
+ 
+
   box-shadow:0 12px 35px rgba(5,43,79,.05);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .form-two{
 
+ 
+
   display:grid;
+
+ 
 
   grid-template-columns:1fr 1fr;
 
+ 
+
   gap:17px;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .volunteer-form label{
 
+ 
+
   display:block;
+
+ 
 
   color:#17345f;
 
+ 
+
   font-size:.78rem;
+
+ 
 
   font-weight:800;
 
+ 
+
   margin-bottom:15px;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .volunteer-form input,
 
+ 
+
 .volunteer-form select,
+
+ 
 
 .volunteer-form textarea{
 
+ 
+
   width:100%;
+
+ 
 
   margin-top:7px;
 
+ 
+
   border:1px solid #cddde5;
+
+ 
 
   border-radius:8px;
 
+ 
+
   padding:12px 13px;
+
+ 
 
   background:#fff;
 
+ 
+
   color:#17345f;
+
+ 
 
   outline:none;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .volunteer-form input:focus,
 
+ 
+
 .volunteer-form select:focus,
+
+ 
 
 .volunteer-form textarea:focus{
 
+ 
+
   border-color:#0ca4b3;
+
+ 
 
   box-shadow:0 0 0 3px rgba(12,164,179,.1);
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .volunteer-form textarea{
 
+ 
+
   resize:vertical;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .volunteer-form button{
 
+ 
+
   border:0;
+
+ 
 
   min-height:46px;
 
+ 
+
   padding:12px 25px;
+
+ 
 
   border-radius:24px;
 
+ 
+
   background:var(--gold);
+
+ 
 
   color:var(--navy);
 
+ 
+
   font-weight:900;
 
+ 
+
   cursor:pointer;
+
+ 
 
 }
 
  
 
+ 
+
+ 
+
 /* =========================
+
+ 
 
    FOOTER
 
+ 
+
 ========================= */
+
+ 
+
+ 
 
  
 
 .v-footer{
 
+ 
+
   position:relative;
+
+ 
 
   overflow:hidden;
 
+ 
+
   background:
+
+ 
 
     linear-gradient(115deg,#074c7d,#07548a 70%,#064576);
 
+ 
+
   color:#fff;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .footer-row{
 
+ 
+
   min-height:115px;
+
+ 
 
   display:grid;
 
+ 
+
   grid-template-columns:190px 1fr auto;
+
+ 
 
   gap:30px;
 
+ 
+
   align-items:center;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .footer-brand{
 
+ 
+
   display:flex;
+
+ 
 
   align-items:center;
 
+ 
+
   gap:9px;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .footer-brand img{
 
+ 
+
   width:45px;
+
+ 
 
   height:45px;
 
+ 
+
   object-fit:contain;
 
-  filter:brightness(0) invert(1);
+ 
+
+ 
+
+ 
 
 }
+
+ 
+
+ 
 
  
 
 .footer-brand span{
 
+ 
+
   display:flex;
+
+ 
 
   flex-direction:column;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .footer-brand b{
 
+ 
+
   font-size:1.5rem;
+
+ 
 
   letter-spacing:.03em;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .footer-brand small{
 
+ 
+
   font-size:.55rem;
+
+ 
 
   letter-spacing:.3em;
 
+ 
+
   font-weight:800;
+
+ 
 
   margin-top:4px;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .footer-links{
 
+ 
+
   display:flex;
+
+ 
 
   justify-content:center;
 
+ 
+
   flex-wrap:wrap;
+
+ 
 
   gap:22px;
 
+ 
+
   font-size:.66rem;
+
+ 
 
   font-weight:600;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .social{
 
+ 
+
   display:flex;
+
+ 
 
   align-items:center;
 
+ 
+
   gap:17px;
+
+ 
 
   font-size:1.1rem;
 
+ 
+
   font-weight:800;
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
 .copyright{
 
+ 
+
   padding:0 0 24px;
+
+ 
 
   text-align:center;
 
+ 
+
   font-size:.58rem;
 
+ 
+
   opacity:.95;
+
+ 
 
 }
 
  
 
+ 
+
+ 
+
 /* =========================
+
+ 
 
    MOBILE
 
+ 
+
 ========================= */
+
+ 
+
+ 
 
  
 
@@ -1822,181 +3146,363 @@ textarea{
 
  
 
+ 
+
+ 
+
   .vol-nav{
+
+ 
 
     grid-template-columns:1fr auto;
 
+ 
+
     padding:10px 24px;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .vol-menu{
 
+ 
+
     display:block;
+
+ 
 
     border:1px solid #d6e1e7;
 
+ 
+
     background:#fff;
+
+ 
 
     color:var(--navy);
 
+ 
+
     padding:10px 15px;
+
+ 
 
     border-radius:8px;
 
+ 
+
     font-weight:800;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .vol-links{
 
+ 
+
     display:none;
+
+ 
 
     grid-column:1/-1;
 
+ 
+
     flex-direction:column;
+
+ 
 
     align-items:flex-start;
 
+ 
+
     gap:0;
+
+ 
 
     padding:12px 0 5px;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .vol-links.open{
 
+ 
+
     display:flex;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .vol-links a{
 
+ 
+
     width:100%;
+
+ 
 
     padding:12px 5px;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .vol-links > a:after{
 
+ 
+
     display:none;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .vol-donate{
 
+ 
+
     margin-top:5px;
+
+ 
 
     width:auto !important;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .hero-layout{
 
+ 
+
     grid-template-columns:1fr 1fr;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .hero-copy h1{
 
+ 
+
     font-size:3.3rem;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .value-row{
 
+ 
+
     grid-template-columns:1fr 1fr;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .value:nth-child(2){
 
+ 
+
     border-right:none;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .opportunity-grid{
 
+ 
+
     grid-template-columns:1fr 1fr;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .impact-layout{
 
+ 
+
     grid-template-columns:45% 55%;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .form-layout{
 
+ 
+
     grid-template-columns:1fr;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .footer-row{
 
+ 
+
     grid-template-columns:1fr;
+
+ 
 
     padding:30px 0;
 
+ 
+
     text-align:center;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .footer-brand{
 
+ 
+
     justify-content:center;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .footer-links{
 
+ 
+
     justify-content:center;
+
+ 
 
   }
 
  
 
+ 
+
+ 
+
   .social{
+
+ 
 
     justify-content:center;
 
+ 
+
   }
 
+ 
+
 }
+
+ 
+
+ 
 
  
 
@@ -2004,227 +3510,457 @@ textarea{
 
  
 
+ 
+
+ 
+
   .vol-wrap{
+
+ 
 
     width:min(100% - 28px,1180px);
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .vol-top{
 
+ 
+
     padding:0 14px;
+
+ 
 
     font-size:.52rem;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .vol-nav{
 
+ 
+
     padding:9px 14px;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .vol-brand img{
 
+ 
+
     width:42px;
+
+ 
 
     height:42px;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .vol-brand b{
 
+ 
+
     font-size:1.4rem;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .hero-layout{
 
+ 
+
     grid-template-columns:1fr;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .hero-copy{
 
+ 
+
     padding:42px 0 35px;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .hero-copy h1{
 
+ 
+
     font-size:3.15rem;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .hero-image:before{
 
+ 
+
     display:none;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .hero-image img{
 
+ 
+
     min-height:320px;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .value-row{
 
+ 
+
     grid-template-columns:1fr;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .value{
 
+ 
+
     border-right:none;
+
+ 
 
     border-bottom:1px solid #a9e1e9;
 
+ 
+
     justify-content:flex-start;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .value:last-child{
 
+ 
+
     border-bottom:none;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .opportunity-grid{
 
+ 
+
     grid-template-columns:1fr;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .impact-layout{
 
+ 
+
     grid-template-columns:1fr;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .impact-photo:after{
 
+ 
+
     display:none;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .impact-photo img{
 
+ 
+
     min-height:300px;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .impact-copy{
 
+ 
+
     padding:35px 0;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .impact-items{
 
+ 
+
     grid-template-columns:1fr;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .impact-item{
 
+ 
+
     border-right:none;
+
+ 
 
     border-bottom:1px solid #b9e3e9;
 
+ 
+
     padding:12px;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .impact-item:last-child{
 
+ 
+
     border-bottom:none;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .voice-arrow{
 
+ 
+
     display:none;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .dots{
 
+ 
+
     position:static;
+
+ 
 
     justify-content:center;
 
+ 
+
     margin-top:18px;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .form-two{
 
+ 
+
     grid-template-columns:1fr;
+
+ 
 
     gap:0;
 
+ 
+
   }
+
+ 
+
+ 
 
  
 
   .hero-buttons{
 
+ 
+
     flex-direction:column;
 
+ 
+
     align-items:flex-start;
+
+ 
 
   }
 
  
 
+ 
+
+ 
+
 }
+
+ 
+
+ 
+
+ 
 
  
 
@@ -2232,13 +3968,25 @@ textarea{
 
 /* 2026-09-24 — Donation-reference site scale */
 
+ 
+
 .vol-wrap{width:min(1180px,94%)}
+
+ 
 
 @media(min-width:1051px){.vol-nav{width:min(1180px,94%);min-height:76px;margin:0 auto;padding:8px 0}.vol-top{padding-left:max(3%,calc((100vw - 1180px)/2));padding-right:max(3%,calc((100vw - 1180px)/2))}}
 
+ 
+
 </style>
 
+ 
+
 </head>
+
+ 
+
+ 
 
  
 
@@ -2246,15 +3994,31 @@ textarea{
 
  
 
+ 
+
+ 
+
 <!-- TOP TAGLINE -->
+
+ 
+
+ 
 
  
 
 <div class="vol-top">
 
+ 
+
   <span>Recognized. Protected. Connected.™</span>
 
+ 
+
 </div>
+
+ 
+
+ 
 
  
 
@@ -2262,7 +4026,15 @@ textarea{
 
  
 
+ 
+
+ 
+
 <nav class="vol-nav">
+
+ 
+
+ 
 
  
 
@@ -2270,23 +4042,47 @@ textarea{
 
  
 
+ 
+
+ 
+
     <img
+
+ 
 
       src="assets/images/ratios-official-logo.png"
 
+ 
+
       alt="RATIOS logo"
+
+ 
 
     >
 
  
 
+ 
+
+ 
+
     <span>
+
+ 
 
       <b>RATIOS</b>
 
+ 
+
       <small>ONE OF ONE</small>
 
+ 
+
     </span>
+
+ 
+
+ 
 
  
 
@@ -2294,21 +4090,43 @@ textarea{
 
  
 
+ 
+
+ 
+
   <button
+
+ 
 
     class="vol-menu"
 
+ 
+
     type="button"
+
+ 
 
     aria-label="Open navigation"
 
+ 
+
     aria-expanded="false"
+
+ 
 
   >
 
+ 
+
     Menu
 
+ 
+
   </button>
+
+ 
+
+ 
 
  
 
@@ -2316,7 +4134,15 @@ textarea{
 
  
 
+ 
+
+ 
+
     <a href="about.html">About</a>
+
+ 
+
+ 
 
  
 
@@ -2324,7 +4150,15 @@ textarea{
 
  
 
+ 
+
+ 
+
     <a href="safety-kits.html">Safety Kits</a>
+
+ 
+
+ 
 
  
 
@@ -2332,11 +4166,23 @@ textarea{
 
  
 
+ 
+
+ 
+
     <a href="ready-set-save.html">
+
+ 
 
       Ready, Set, Save!
 
+ 
+
     </a>
+
+ 
+
+ 
 
  
 
@@ -2344,17 +4190,35 @@ textarea{
 
  
 
+ 
+
+ 
+
     <a
+
+ 
 
       class="active"
 
+ 
+
       href="volunteer.html"
+
+ 
 
     >
 
+ 
+
       Volunteer
 
+ 
+
     </a>
+
+ 
+
+ 
 
  
 
@@ -2362,21 +4226,43 @@ textarea{
 
  
 
+ 
+
+ 
+
     <a
+
+ 
 
       class="vol-donate"
 
+ 
+
       href="donate.html"
+
+ 
 
     >
 
+ 
+
       Donate
+
+ 
 
     </a>
 
  
 
+ 
+
+ 
+
   </div>
+
+ 
+
+ 
 
  
 
@@ -2384,7 +4270,15 @@ textarea{
 
  
 
+ 
+
+ 
+
 <main>
+
+ 
+
+ 
 
  
 
@@ -2392,7 +4286,15 @@ textarea{
 
  
 
+ 
+
+ 
+
 <section class="vol-hero">
+
+ 
+
+ 
 
  
 
@@ -2400,47 +4302,95 @@ textarea{
 
  
 
+ 
+
+ 
+
     <div class="hero-copy">
+
+ 
+
+ 
 
  
 
       <span class="vol-pill">
 
+ 
+
         VOLUNTEER
+
+ 
 
       </span>
 
  
 
+ 
+
+ 
+
       <h1>
+
+ 
 
         Be the
 
+ 
+
         <em>Difference.</em>
+
+ 
 
       </h1>
 
  
 
+ 
+
+ 
+
       <h2>
 
+ 
+
         Stronger Communities. Safer Lives.
+
+ 
 
       </h2>
 
  
 
+ 
+
+ 
+
       <p>
+
+ 
 
         Volunteers help make our mission possible. Whether you
 
+ 
+
         have a few hours or a long-term commitment, your time,
+
+ 
 
         skills, and support help individuals and families feel
 
+ 
+
         safer, more supported, and more connected.
 
+ 
+
       </p>
+
+ 
+
+ 
 
  
 
@@ -2448,31 +4398,63 @@ textarea{
 
  
 
-        <a
-
-          class="btn btn-gold"
-
-          href="#volunteer-form"
-
-        >
-
-          Get Started
-
-        </a>
+ 
 
  
 
         <a
 
-          class="btn btn-outline"
+ 
 
-          href="#opportunities"
+          class="btn btn-gold"
+
+ 
+
+          href="#volunteer-form"
+
+ 
 
         >
 
-          View Opportunities
+ 
+
+          Get Started
+
+ 
 
         </a>
+
+ 
+
+ 
+
+ 
+
+        <a
+
+ 
+
+          class="btn btn-outline"
+
+ 
+
+          href="#opportunities"
+
+ 
+
+        >
+
+ 
+
+          View Opportunities
+
+ 
+
+        </a>
+
+ 
+
+ 
 
  
 
@@ -2480,7 +4462,15 @@ textarea{
 
  
 
+ 
+
+ 
+
     </div>
+
+ 
+
+ 
 
  
 
@@ -2488,13 +4478,27 @@ textarea{
 
  
 
+ 
+
+ 
+
       <img
+
+ 
 
         src="assets/images/volunteer-hero-final.png"
 
+ 
+
         alt="RATIOS volunteer materials and community resources"
 
+ 
+
       >
+
+ 
+
+ 
 
  
 
@@ -2502,11 +4506,23 @@ textarea{
 
  
 
+ 
+
+ 
+
   </div>
 
  
 
+ 
+
+ 
+
 </section>
+
+ 
+
+ 
 
  
 
@@ -2514,7 +4530,15 @@ textarea{
 
  
 
+ 
+
+ 
+
 <section class="value-strip">
+
+ 
+
+ 
 
  
 
@@ -2522,7 +4546,15 @@ textarea{
 
  
 
+ 
+
+ 
+
     <div class="value">
+
+ 
+
+ 
 
  
 
@@ -2530,17 +4562,35 @@ textarea{
 
  
 
+ 
+
+ 
+
         <svg viewBox="0 0 24 24">
+
+ 
 
           <circle cx="9" cy="8" r="3"></circle>
 
+ 
+
           <circle cx="17" cy="9" r="2.5"></circle>
+
+ 
 
           <path d="M3 19c0-4 2.5-6 6-6s6 2 6 6"></path>
 
+ 
+
           <path d="M14 14c3-.5 6 1 6 5"></path>
 
+ 
+
         </svg>
+
+ 
+
+ 
 
  
 
@@ -2548,13 +4598,27 @@ textarea{
 
  
 
+ 
+
+ 
+
       <b>
+
+ 
 
         Support<br>
 
+ 
+
         Families
 
+ 
+
       </b>
+
+ 
+
+ 
 
  
 
@@ -2562,7 +4626,15 @@ textarea{
 
  
 
+ 
+
+ 
+
     <div class="value">
+
+ 
+
+ 
 
  
 
@@ -2570,11 +4642,23 @@ textarea{
 
  
 
+ 
+
+ 
+
         <svg viewBox="0 0 24 24">
+
+ 
 
           <path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"></path>
 
+ 
+
         </svg>
+
+ 
+
+ 
 
  
 
@@ -2582,13 +4666,27 @@ textarea{
 
  
 
+ 
+
+ 
+
       <b>
+
+ 
 
         Strengthen<br>
 
+ 
+
         Communities
 
+ 
+
       </b>
+
+ 
+
+ 
 
  
 
@@ -2596,7 +4694,15 @@ textarea{
 
  
 
+ 
+
+ 
+
     <div class="value">
+
+ 
+
+ 
 
  
 
@@ -2604,11 +4710,23 @@ textarea{
 
  
 
+ 
+
+ 
+
         <svg viewBox="0 0 24 24">
+
+ 
 
           <path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path>
 
+ 
+
         </svg>
+
+ 
+
+ 
 
  
 
@@ -2616,17 +4734,35 @@ textarea{
 
  
 
+ 
+
+ 
+
       <b>
+
+ 
 
         Increase<br>
 
+ 
+
         Awareness
+
+ 
 
       </b>
 
  
 
+ 
+
+ 
+
     </div>
+
+ 
+
+ 
 
  
 
@@ -2634,19 +4770,39 @@ textarea{
 
  
 
+ 
+
+ 
+
       <div class="value-icon">
+
+ 
+
+ 
 
  
 
         <svg viewBox="0 0 24 24">
 
+ 
+
           <path d="M12 20v-8"></path>
+
+ 
 
           <path d="M12 12C8 12 6 9 6 5c4 0 6 2 6 7z"></path>
 
+ 
+
           <path d="M12 14c4 0 6-3 6-7-4 0-6 2-6 7z"></path>
 
+ 
+
         </svg>
+
+ 
+
+ 
 
  
 
@@ -2654,17 +4810,35 @@ textarea{
 
  
 
+ 
+
+ 
+
       <b>
+
+ 
 
         Create<br>
 
+ 
+
         Lasting Change
+
+ 
 
       </b>
 
  
 
+ 
+
+ 
+
     </div>
+
+ 
+
+ 
 
  
 
@@ -2672,7 +4846,15 @@ textarea{
 
  
 
+ 
+
+ 
+
 </section>
+
+ 
+
+ 
 
  
 
@@ -2680,17 +4862,35 @@ textarea{
 
  
 
+ 
+
+ 
+
 <section
+
+ 
 
   class="ways"
 
+ 
+
   id="opportunities"
+
+ 
 
 >
 
  
 
+ 
+
+ 
+
   <div class="vol-wrap">
+
+ 
+
+ 
 
  
 
@@ -2698,33 +4898,67 @@ textarea{
 
  
 
+ 
+
+ 
+
       <span class="eyebrow">
 
+ 
+
         WAYS TO VOLUNTEER
+
+ 
 
       </span>
 
  
 
+ 
+
+ 
+
       <h2>
 
+ 
+
         Find Your Way to Make an Impact
+
+ 
 
       </h2>
 
  
 
+ 
+
+ 
+
       <p>
+
+ 
 
         There are many ways to get involved. Choose the opportunity
 
+ 
+
         that fits your skills, interests, and availability.
+
+ 
 
       </p>
 
  
 
+ 
+
+ 
+
     </div>
+
+ 
+
+ 
 
  
 
@@ -2732,11 +4966,23 @@ textarea{
 
  
 
+ 
+
+ 
+
       <!-- COMMUNITY OUTREACH -->
 
  
 
+ 
+
+ 
+
       <article class="opportunity">
+
+ 
+
+ 
 
  
 
@@ -2744,41 +4990,83 @@ textarea{
 
  
 
+ 
+
+ 
+
           <svg viewBox="0 0 24 24">
+
+ 
 
             <circle cx="9" cy="8" r="3"></circle>
 
+ 
+
             <circle cx="17" cy="9" r="2.5"></circle>
+
+ 
 
             <path d="M3 19c0-4 2.5-6 6-6s6 2 6 6"></path>
 
+ 
+
             <path d="M14 14c3-.5 6 1 6 5"></path>
+
+ 
 
           </svg>
 
  
 
+ 
+
+ 
+
         </div>
+
+ 
+
+ 
 
  
 
         <div>
 
+ 
+
           <h3>Community Outreach</h3>
+
+ 
+
+ 
 
  
 
           <p>
 
+ 
+
             Help at events, resource fairs, and awareness campaigns.
 
+ 
+
           </p>
+
+ 
 
         </div>
 
  
 
+ 
+
+ 
+
       </article>
+
+ 
+
+ 
 
  
 
@@ -2786,7 +5074,15 @@ textarea{
 
  
 
+ 
+
+ 
+
       <article class="opportunity">
+
+ 
+
+ 
 
  
 
@@ -2794,37 +5090,75 @@ textarea{
 
  
 
+ 
+
+ 
+
           <svg viewBox="0 0 24 24">
 
+ 
+
             <path d="M12 3l8 9-8 9-8-9z"></path>
+
+ 
 
           </svg>
 
  
 
+ 
+
+ 
+
         </div>
+
+ 
+
+ 
 
  
 
         <div>
 
+ 
+
           <h3>Program Support</h3>
+
+ 
+
+ 
 
  
 
           <p>
 
+ 
+
             Assist with packing kits, organizing materials,
+
+ 
 
             and preparing for events.
 
+ 
+
           </p>
+
+ 
 
         </div>
 
  
 
+ 
+
+ 
+
       </article>
+
+ 
+
+ 
 
  
 
@@ -2832,7 +5166,15 @@ textarea{
 
  
 
+ 
+
+ 
+
       <article class="opportunity">
+
+ 
+
+ 
 
  
 
@@ -2840,39 +5182,79 @@ textarea{
 
  
 
+ 
+
+ 
+
           <svg viewBox="0 0 24 24">
+
+ 
 
             <path d="M5 5h14l-2 12H3z"></path>
 
+ 
+
             <path d="M2 19h18"></path>
+
+ 
 
           </svg>
 
  
 
+ 
+
+ 
+
         </div>
+
+ 
+
+ 
 
  
 
         <div>
 
+ 
+
           <h3>Administrative Support</h3>
+
+ 
+
+ 
 
  
 
           <p>
 
+ 
+
             Help with data entry, research, mailings,
+
+ 
 
             and other behind-the-scenes tasks.
 
+ 
+
           </p>
+
+ 
 
         </div>
 
  
 
+ 
+
+ 
+
       </article>
+
+ 
+
+ 
 
  
 
@@ -2880,7 +5262,15 @@ textarea{
 
  
 
+ 
+
+ 
+
       <article class="opportunity">
+
+ 
+
+ 
 
  
 
@@ -2888,37 +5278,75 @@ textarea{
 
  
 
+ 
+
+ 
+
           <svg viewBox="0 0 24 24">
 
+ 
+
             <path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path>
+
+ 
 
           </svg>
 
  
 
+ 
+
+ 
+
         </div>
+
+ 
+
+ 
 
  
 
         <div>
 
+ 
+
           <h3>Special Projects</h3>
+
+ 
+
+ 
 
  
 
           <p>
 
+ 
+
             Share your unique skills and talents to support
+
+ 
 
             specific initiatives.
 
+ 
+
           </p>
+
+ 
 
         </div>
 
  
 
+ 
+
+ 
+
       </article>
+
+ 
+
+ 
 
  
 
@@ -2926,7 +5354,15 @@ textarea{
 
  
 
+ 
+
+ 
+
       <article class="opportunity">
+
+ 
+
+ 
 
  
 
@@ -2934,39 +5370,79 @@ textarea{
 
  
 
+ 
+
+ 
+
           <svg viewBox="0 0 24 24">
+
+ 
 
             <rect x="4" y="5" width="16" height="15"></rect>
 
+ 
+
             <path d="M4 9h16"></path>
 
+ 
+
             <path d="M8 3v4M16 3v4"></path>
+
+ 
 
           </svg>
 
  
 
+ 
+
+ 
+
         </div>
+
+ 
+
+ 
 
  
 
         <div>
 
+ 
+
           <h3>Event Support</h3>
+
+ 
+
+ 
 
  
 
           <p>
 
+ 
+
             Assist with setup, registration, and on-site activities.
 
+ 
+
           </p>
+
+ 
 
         </div>
 
  
 
+ 
+
+ 
+
       </article>
+
+ 
+
+ 
 
  
 
@@ -2974,7 +5450,15 @@ textarea{
 
  
 
+ 
+
+ 
+
       <article class="opportunity">
+
+ 
+
+ 
 
  
 
@@ -2982,43 +5466,87 @@ textarea{
 
  
 
+ 
+
+ 
+
           <svg viewBox="0 0 24 24">
+
+ 
 
             <path d="M12 3v5"></path>
 
+ 
+
             <circle cx="12" cy="10" r="2"></circle>
+
+ 
 
             <path d="M8 20h8"></path>
 
+ 
+
             <path d="M9 20l1-7h4l1 7"></path>
+
+ 
 
           </svg>
 
  
 
+ 
+
+ 
+
         </div>
+
+ 
+
+ 
 
  
 
         <div>
 
+ 
+
           <h3>
+
+ 
 
             Student &amp; Group<br>
 
+ 
+
             Volunteering
+
+ 
 
           </h3>
 
  
 
+ 
+
+ 
+
           <p>
+
+ 
 
             Individuals, students, and community groups are welcome!
 
+ 
+
           </p>
 
+ 
+
         </div>
+
+ 
+
+ 
 
  
 
@@ -3026,7 +5554,15 @@ textarea{
 
  
 
+ 
+
+ 
+
     </div>
+
+ 
+
+ 
 
  
 
@@ -3034,17 +5570,35 @@ textarea{
 
  
 
+ 
+
+ 
+
       <a
+
+ 
 
         class="btn btn-gold"
 
+ 
+
         href="#volunteer-form"
+
+ 
 
       >
 
+ 
+
         Become a Volunteer
 
+ 
+
       </a>
+
+ 
+
+ 
 
  
 
@@ -3052,11 +5606,23 @@ textarea{
 
  
 
+ 
+
+ 
+
   </div>
 
  
 
+ 
+
+ 
+
 </section>
+
+ 
+
+ 
 
  
 
@@ -3064,7 +5630,15 @@ textarea{
 
  
 
+ 
+
+ 
+
 <section class="impact">
+
+ 
+
+ 
 
  
 
@@ -3072,21 +5646,43 @@ textarea{
 
  
 
+ 
+
+ 
+
     <div class="impact-photo">
+
+ 
+
+ 
 
  
 
       <img
 
+ 
+
         src="assets/images/volunteer-clipboard-final.png"
 
+ 
+
         alt="RATIOS volunteer sign-in clipboard and volunteer materials"
+
+ 
 
       >
 
  
 
+ 
+
+ 
+
     </div>
+
+ 
+
+ 
 
  
 
@@ -3094,31 +5690,63 @@ textarea{
 
  
 
+ 
+
+ 
+
       <span class="impact-kicker">
 
+ 
+
         THE IMPACT
+
+ 
 
       </span>
 
  
 
+ 
+
+ 
+
       <h2>
 
+ 
+
         Small Actions. Big Change.
+
+ 
 
       </h2>
 
  
 
+ 
+
+ 
+
       <p>
+
+ 
 
         Every hour you give helps us expand our reach,
 
+ 
+
         support more families, and create safer,
+
+ 
 
         more inclusive communities.
 
+ 
+
       </p>
+
+ 
+
+ 
 
  
 
@@ -3126,21 +5754,43 @@ textarea{
 
  
 
+ 
+
+ 
+
         <div class="impact-item">
+
+ 
+
+ 
 
  
 
           <svg viewBox="0 0 24 24">
 
+ 
+
             <circle cx="9" cy="8" r="3"></circle>
+
+ 
 
             <circle cx="17" cy="9" r="2.5"></circle>
 
+ 
+
             <path d="M3 19c0-4 2.5-6 6-6s6 2 6 6"></path>
+
+ 
 
             <path d="M14 14c3-.5 6 1 6 5"></path>
 
+ 
+
           </svg>
+
+ 
+
+ 
 
  
 
@@ -3148,7 +5798,15 @@ textarea{
 
  
 
+ 
+
+ 
+
         </div>
+
+ 
+
+ 
 
  
 
@@ -3156,11 +5814,23 @@ textarea{
 
  
 
+ 
+
+ 
+
           <svg viewBox="0 0 24 24">
+
+ 
 
             <path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"></path>
 
+ 
+
           </svg>
+
+ 
+
+ 
 
  
 
@@ -3168,7 +5838,15 @@ textarea{
 
  
 
+ 
+
+ 
+
         </div>
+
+ 
+
+ 
 
  
 
@@ -3176,11 +5854,23 @@ textarea{
 
  
 
+ 
+
+ 
+
           <svg viewBox="0 0 24 24">
+
+ 
 
             <path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path>
 
+ 
+
           </svg>
+
+ 
+
+ 
 
  
 
@@ -3188,11 +5878,23 @@ textarea{
 
  
 
+ 
+
+ 
+
         </div>
 
  
 
+ 
+
+ 
+
       </div>
+
+ 
+
+ 
 
  
 
@@ -3200,7 +5902,15 @@ textarea{
 
  
 
+ 
+
+ 
+
   </div>
+
+ 
+
+ 
 
  
 
@@ -3208,105 +5918,7 @@ textarea{
 
  
 
-<!-- VOLUNTEER VOICES -->
-
  
-
-<section class="voices">
-
- 
-
-  <button
-
-    class="voice-arrow left"
-
-    type="button"
-
-    aria-label="Previous volunteer story"
-
-  >
-
-    ‹
-
-  </button>
-
- 
-
-  <div class="vol-wrap">
-
- 
-
-    <div class="voices-inner">
-
- 
-
-      <span class="voices-kicker">
-
-        VOLUNTEER VOICES
-
-      </span>
-
- 
-
-      <p class="quote">
-
-        Volunteering with RATIOS has been one of the most rewarding
-
-        experiences of my life. Knowing that I'm helping families and
-
-        communities feel safer makes it all worthwhile.
-
-      </p>
-
- 
-
-      <div class="quote-by">
-
-        — RATIOS Volunteer
-
-      </div>
-
- 
-
-    </div>
-
- 
-
-  </div>
-
- 
-
-  <button
-
-    class="voice-arrow right"
-
-    type="button"
-
-    aria-label="Next volunteer story"
-
-  >
-
-    ›
-
-  </button>
-
- 
-
-  <div class="dots">
-
-    <span class="dot active"></span>
-
-    <span class="dot"></span>
-
-    <span class="dot"></span>
-
-    <span class="dot"></span>
-
-  </div>
-
- 
-
-</section>
 
  
 
@@ -3314,13 +5926,27 @@ textarea{
 
  
 
+ 
+
+ 
+
 <section
+
+ 
 
   class="form-section"
 
+ 
+
   id="volunteer-form"
 
+ 
+
 >
+
+ 
+
+ 
 
  
 
@@ -3328,33 +5954,67 @@ textarea{
 
  
 
+ 
+
+ 
+
     <div class="form-intro">
+
+ 
+
+ 
 
  
 
       <span>
 
+ 
+
         GET INVOLVED
+
+ 
 
       </span>
 
  
 
+ 
+
+ 
+
       <h2>
 
+ 
+
         Volunteer Interest Form
+
+ 
 
       </h2>
 
  
 
+ 
+
+ 
+
       <p>
+
+ 
 
         Tell us a little about yourself and how you'd like to help.
 
+ 
+
         We'll be in touch soon!
 
+ 
+
       </p>
+
+ 
+
+ 
 
  
 
@@ -3362,29 +6022,59 @@ textarea{
 
  
 
+ 
+
+ 
+
     <form
+
+ 
 
       class="volunteer-form"
 
+ 
+
       name="volunteer"
+
+ 
 
       method="POST"
 
+ 
+
       data-netlify="true"
+
+ 
 
     >
 
  
 
+ 
+
+ 
+
       <input
+
+ 
 
         type="hidden"
 
+ 
+
         name="form-name"
+
+ 
 
         value="volunteer"
 
+ 
+
       >
+
+ 
+
+ 
 
  
 
@@ -3392,69 +6082,139 @@ textarea{
 
  
 
+ 
+
+ 
+
         <label>
+
+ 
 
           Name *
 
  
 
+ 
+
+ 
+
           <input
+
+ 
 
             name="name"
 
+ 
+
             required
+
+ 
 
             placeholder="First and last name"
 
+ 
+
           >
+
+ 
 
         </label>
 
  
 
+ 
+
+ 
+
         <label>
+
+ 
 
           Email *
 
  
 
+ 
+
+ 
+
           <input
+
+ 
 
             type="email"
 
+ 
+
             name="email"
+
+ 
 
             required
 
+ 
+
             placeholder="you@example.com"
 
+ 
+
           >
+
+ 
 
         </label>
 
  
 
+ 
+
+ 
+
         <label>
+
+ 
 
           Phone
 
  
 
+ 
+
+ 
+
           <input
+
+ 
 
             name="phone"
 
+ 
+
             placeholder="(314) 123-4567"
 
+ 
+
           >
+
+ 
 
         </label>
 
  
 
+ 
+
+ 
+
         <label>
 
+ 
+
           Area of Interest
+
+ 
+
+ 
 
  
 
@@ -3462,51 +6222,103 @@ textarea{
 
  
 
+ 
+
+ 
+
             <option>
+
+ 
 
               Community outreach
 
+ 
+
             </option>
 
  
 
+ 
+
+ 
+
             <option>
+
+ 
 
               Program support
 
+ 
+
             </option>
 
  
 
+ 
+
+ 
+
             <option>
+
+ 
 
               Administrative support
 
+ 
+
             </option>
 
  
 
+ 
+
+ 
+
             <option>
+
+ 
 
               Special projects
 
+ 
+
             </option>
 
  
 
+ 
+
+ 
+
             <option>
+
+ 
 
               Event support
 
+ 
+
             </option>
+
+ 
+
+ 
 
  
 
             <option>
 
+ 
+
               Student &amp; group volunteering
 
+ 
+
             </option>
+
+ 
+
+ 
 
  
 
@@ -3514,7 +6326,15 @@ textarea{
 
  
 
+ 
+
+ 
+
         </label>
+
+ 
+
+ 
 
  
 
@@ -3522,21 +6342,43 @@ textarea{
 
  
 
+ 
+
+ 
+
       <label>
+
+ 
 
         Message (optional)
 
  
 
+ 
+
+ 
+
         <textarea
+
+ 
 
           name="message"
 
+ 
+
           rows="4"
+
+ 
 
           placeholder="Tell us about your interests, availability, or special skills."
 
+ 
+
         ></textarea>
+
+ 
+
+ 
 
  
 
@@ -3544,11 +6386,23 @@ textarea{
 
  
 
+ 
+
+ 
+
       <button type="submit">
+
+ 
 
         Submit Interest
 
+ 
+
       </button>
+
+ 
+
+ 
 
  
 
@@ -3556,7 +6410,15 @@ textarea{
 
  
 
+ 
+
+ 
+
   </div>
+
+ 
+
+ 
 
  
 
@@ -3564,7 +6426,15 @@ textarea{
 
  
 
+ 
+
+ 
+
 </main>
+
+ 
+
+ 
 
  
 
@@ -3572,7 +6442,15 @@ textarea{
 
  
 
+ 
+
+ 
+
 <footer class="v-footer">
+
+ 
+
+ 
 
  
 
@@ -3580,33 +6458,67 @@ textarea{
 
  
 
+ 
+
+ 
+
     <a
+
+ 
 
       class="footer-brand"
 
+ 
+
       href="index.html"
+
+ 
 
     >
 
  
 
+ 
+
+ 
+
       <img
+
+ 
 
         src="assets/images/ratios-official-logo.png"
 
+ 
+
         alt=""
+
+ 
 
       >
 
  
 
+ 
+
+ 
+
       <span>
+
+ 
 
         <b>RATIOS</b>
 
+ 
+
         <small>ONE OF ONE</small>
 
+ 
+
       </span>
+
+ 
+
+ 
 
  
 
@@ -3614,7 +6526,15 @@ textarea{
 
  
 
+ 
+
+ 
+
     <div class="footer-links">
+
+ 
+
+ 
 
  
 
@@ -3622,31 +6542,63 @@ textarea{
 
  
 
+ 
+
+ 
+
       <a href="programs.html">Programs</a>
+
+ 
+
+ 
 
  
 
       <a href="safety-kits.html">
 
+ 
+
         Safety Kits
 
+ 
+
       </a>
+
+ 
+
+ 
 
  
 
       <a href="oneprofile.html">
 
+ 
+
         OneProfile
+
+ 
 
       </a>
 
  
 
+ 
+
+ 
+
       <a href="ready-set-save.html">
+
+ 
 
         Ready, Set, Save!
 
+ 
+
       </a>
+
+ 
+
+ 
 
  
 
@@ -3654,65 +6606,131 @@ textarea{
 
  
 
+ 
+
+ 
+
       <a href="volunteer.html">
+
+ 
 
         Volunteer
 
+ 
+
       </a>
+
+ 
+
+ 
 
  
 
       <a href="news-events.html">
 
+ 
+
         News
 
+ 
+
       </a>
+
+ 
+
+ 
 
  
 
       <a href="donate.html">
 
+ 
+
         Donate
+
+ 
 
       </a>
 
  
 
+ 
+
+ 
+
     </div>
+
+ 
+
+ 
 
  
 
     <div
 
+ 
+
       class="social"
+
+ 
 
       aria-label="Social media"
 
+ 
+
     >
+
+ 
 
       <span>●</span>
 
+ 
+
       <span>◎</span>
+
+ 
 
       <span>in</span>
 
+ 
+
       <span>▶</span>
+
+ 
 
     </div>
 
  
 
+ 
+
+ 
+
   </div>
+
+ 
+
+ 
 
  
 
   <div class="vol-wrap copyright">
 
+ 
+
     © 2026 RATIOS of Greater St. Louis. All rights reserved.
+
+ 
 
     | Recognized. Protected. Connected.™
 
+ 
+
   </div>
+
+ 
+
+ 
 
  
 
@@ -3720,13 +6738,27 @@ textarea{
 
  
 
+ 
+
+ 
+
 <script>
+
+ 
+
+ 
 
  
 
 const menuButton = document.querySelector(".vol-menu");
 
+ 
+
 const menuLinks = document.querySelector(".vol-links");
+
+ 
+
+ 
 
  
 
@@ -3734,7 +6766,15 @@ if(menuButton && menuLinks){
 
  
 
+ 
+
+ 
+
   menuButton.addEventListener("click",function(){
+
+ 
+
+ 
 
  
 
@@ -3742,13 +6782,27 @@ if(menuButton && menuLinks){
 
  
 
+ 
+
+ 
+
     menuButton.setAttribute(
+
+ 
 
       "aria-expanded",
 
+ 
+
       isOpen ? "true" : "false"
 
+ 
+
     );
+
+ 
+
+ 
 
  
 
@@ -3756,7 +6810,15 @@ if(menuButton && menuLinks){
 
  
 
+ 
+
+ 
+
 }
+
+ 
+
+ 
 
  
 
@@ -3764,6 +6826,12 @@ if(menuButton && menuLinks){
 
  
 
+ 
+
+ 
+
 </body>
+
+ 
 
 </html>
