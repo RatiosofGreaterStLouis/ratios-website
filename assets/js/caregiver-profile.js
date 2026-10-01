@@ -2213,6 +2213,39 @@
         }
 
 
+        const savedParticipantFirstName =
+          String(
+            data.participant_first_name ||
+            body.participant_first_name ||
+            ''
+          ).trim();
+
+
+        if (savedParticipantFirstName) {
+
+          document
+            .getElementById(
+              'participantName'
+            )
+            .textContent =
+              savedParticipantFirstName;
+
+
+          if (
+            form.elements
+              .participant_first_name
+          ) {
+
+            form.elements
+              .participant_first_name
+              .value =
+                savedParticipantFirstName;
+
+          }
+
+        }
+
+
         showMessage(
           'Saved. Your private OneProfile™ record has been updated. Information remains private unless you choose to share it through Emergency Sharing.',
           'info'

@@ -407,19 +407,22 @@ export async function onRequestPost({
     const enrollmentId =
       a.enrollment.enrollment_id;
 
+    let requestedParticipantFirstName = null;
+
     /*
       Participant identity lives on the enrollment record.
-      Allow the authenticated caregiver to correct/update the
-      participant's first name from the private profile builder.
+      Authentication above has already verified that this session
+      belongs to this enrollment, so update the participant name by
+      the authenticated enrollment ID and then verify the saved value.
     */
     if (hasOwn(body, 'participant_first_name')) {
-      const participantFirstName =
+      requestedParticipantFirstName =
         clean(
           body.participant_first_name,
           80
         );
 
-      if (!participantFirstName) {
+      if (!requestedParticipantFirstName) {
         return json(
           {
             error:
@@ -433,23 +436,12 @@ export async function onRequestPost({
         UPDATE oneprofile_enrollments
         SET participant_first_name = ?
         WHERE enrollment_id = ?
-          AND lower(caregiver_email) = ?
       `)
         .bind(
-          participantFirstName,
-          enrollmentId,
-          String(
-            a.enrollment.caregiver_email
-          ).toLowerCase()
+          requestedParticipantFirstName,
+          enrollmentId
         )
         .run();
-
-      /*
-        Keep the enrollment object returned by this request
-        consistent with the newly saved value.
-      */
-      a.enrollment.participant_first_name =
-        participantFirstName;
     }
 
     const coreFields = [
@@ -1218,9 +1210,41 @@ export async function onRequestPost({
       .bind(enrollmentId)
       .run();
 
+    const savedEnrollment =
+      await env.ONEPROFILE_DB.prepare(`
+        SELECT participant_first_name
+        FROM oneprofile_enrollments
+        WHERE enrollment_id = ?
+        LIMIT 1
+      `)
+        .bind(enrollmentId)
+        .first();
+
+    const savedParticipantFirstName =
+      clean(
+        savedEnrollment?.participant_first_name,
+        80
+      );
+
+    if (
+      requestedParticipantFirstName !== null &&
+      savedParticipantFirstName !==
+        requestedParticipantFirstName
+    ) {
+      return json(
+        {
+          error:
+            'The participant name could not be updated. Please try again.'
+        },
+        500
+      );
+    }
+
     return json({
       ok: true,
-      status: 'in_progress'
+      status: 'in_progress',
+      participant_first_name:
+        savedParticipantFirstName
     });
   } catch (error) {
     console.error(error);
