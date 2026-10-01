@@ -407,6 +407,51 @@ export async function onRequestPost({
     const enrollmentId =
       a.enrollment.enrollment_id;
 
+    /*
+      Participant identity lives on the enrollment record.
+      Allow the authenticated caregiver to correct/update the
+      participant's first name from the private profile builder.
+    */
+    if (hasOwn(body, 'participant_first_name')) {
+      const participantFirstName =
+        clean(
+          body.participant_first_name,
+          80
+        );
+
+      if (!participantFirstName) {
+        return json(
+          {
+            error:
+              'Participant first name is required.'
+          },
+          400
+        );
+      }
+
+      await env.ONEPROFILE_DB.prepare(`
+        UPDATE oneprofile_enrollments
+        SET participant_first_name = ?
+        WHERE enrollment_id = ?
+          AND lower(caregiver_email) = ?
+      `)
+        .bind(
+          participantFirstName,
+          enrollmentId,
+          String(
+            a.enrollment.caregiver_email
+          ).toLowerCase()
+        )
+        .run();
+
+      /*
+        Keep the enrollment object returned by this request
+        consistent with the newly saved value.
+      */
+      a.enrollment.participant_first_name =
+        participantFirstName;
+    }
+
     const coreFields = [
       'preferred_name',
       'communication_method',

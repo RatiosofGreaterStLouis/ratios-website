@@ -1700,14 +1700,32 @@
         await response.json();
 
 
+      const participantFirstName =
+        data.enrollment
+          ?.participant_first_name ||
+        '';
+
+
       document
         .getElementById(
           'participantName'
         )
         .textContent =
-          data.enrollment
-            ?.participant_first_name ||
+          participantFirstName ||
           'your participant';
+
+
+      if (
+        form.elements
+          .participant_first_name
+      ) {
+
+        form.elements
+          .participant_first_name
+          .value =
+            participantFirstName;
+
+      }
 
 
       for (
@@ -2010,7 +2028,12 @@
         true;
 
 
-      const body = {};
+      const body = {
+        participant_first_name:
+          form.elements
+            .participant_first_name
+            ?.value || ''
+      };
 
 
       for (
