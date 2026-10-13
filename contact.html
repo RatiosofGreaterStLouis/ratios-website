@@ -1,2 +1,670 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact | RATIOS</title><link rel="icon" href="assets/images/favicon-32.png"><link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;650;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/styles.css"></head><body><div class="topbar"><span>RATIOS • One of One</span><span>St. Louis, Missouri • Serving multicultural families, caregivers, schools & first responders</span></div>
-<nav class="navbar"><a class="brand" href="index.html"><img class="brand-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS One of One logo"><span class="brand-text"><strong>RATIOS</strong><small>One of One</small></span></a><button class="menu-toggle">Menu</button><div class="nav-links"><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile</a><a href="ready-set-save.html">Ready, Set, Save!</a><a href="shop.html">Shop</a><a href="volunteer.html">Volunteer</a><a href="news-events.html">News</a><a class="btn btn-donate" href="donate.html">Donate</a></div></nav><header class="page-hero"><div class="container"><span class="eyebrow">Contact</span><h1>Let’s connect.</h1><p>Reach out for partnerships, presentations, safety kits, volunteer opportunities, or community events.</p></div></header><section class="section"><div class="container split"><div class="contact-card"><h2>RATIOS</h2><p>Greater St. Louis Region</p><p><strong>Email:</strong> <a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a></p><p><strong>Phone:</strong> <a href="tel:+13143256313">(314) 325-6313</a></p><p class="small">Replace with official contact details when ready.</p></div><div class="form-shell"><form class="smart-form" name="contact" method="POST" data-netlify="true"><input type="hidden" name="form-name" value="contact"><label>Name<input name="name" required></label><label>Email<input type="email" name="email" required></label><label>Message<textarea name="message" rows="6"></textarea></label><button class="btn btn-primary" type="submit">Send Message</button></form></div></div></section><footer class="footer"><div class="container footer-grid"><div><img class="footer-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS logo"><h3>RATIOS</h3><p>One of One. Serving families throughout the Greater St. Louis Region.</p><p class="small">Some website images are illustrative representations used for awareness, education, and outreach.</p></div><div><h4>Explore</h4><a href="about.html">About</a><a href="programs.html">Programs</a><a href="safety-kits.html">Safety Kits</a><a href="oneprofile.html">OneProfile</a><a href="shop.html">Shop</a></div><div><h4>Get involved</h4><a href="donate.html">Donate</a><a href="volunteer.html">Volunteer</a><a href="resource-request.html">Request Resources</a><a href="contact.html">Contact</a></div><div><h4>Contact</h4><p>Greater St. Louis Region</p><p><strong>Email:</strong> <a href="mailto:info@ratiossaveslives.org">info@ratiossaveslives.org</a></p><p><strong>Phone:</strong> <a href="tel:+13143256313">(314) 325-6313</a></p></div></div><div class="footer-bottom">© 2026 RATIOS. All rights reserved.</div></footer><script src="assets/js/main.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contact RATIOS | One of One</title>
+
+  <meta name="description"
+    content="Contact RATIOS of Greater St. Louis for general questions, community partnerships, safety resources, and first responder outreach.">
+
+  <style>
+    :root {
+      --navy: #071527;
+      --navy-light: #10283d;
+      --teal: #278d9b;
+      --blue: #347b9b;
+      --background: #f4f7fa;
+      --white: #ffffff;
+      --text: #183047;
+      --muted: #64748b;
+      --border: #d9e2ea;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 20px 5%;
+    }
+
+    .header-inner {
+      max-width: 1150px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      text-decoration: none;
+      color: var(--navy);
+    }
+
+    .brand-name {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--muted);
+    }
+
+    .navigation {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .navigation a {
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .navigation a:hover {
+      color: var(--teal);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #071527, #184d68);
+      color: white;
+      text-align: center;
+      padding: 65px 20px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(32px, 5vw, 48px);
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: #e2eef4;
+      font-size: 17px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 45px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 35px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--navy);
+    }
+
+    .intro {
+      color: var(--muted);
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font: inherit;
+      background: white;
+      color: var(--text);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid var(--teal);
+      outline-offset: 1px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 145px;
+    }
+
+    .submit-button {
+      width: 100%;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #278d9b, #347b9b);
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .submit-button:hover {
+      filter: brightness(1.07);
+    }
+
+    .submit-button:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .status {
+      display: none;
+      margin-top: 22px;
+      padding: 17px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .status.success {
+      display: block;
+      background: #e6f7ee;
+      border: 1px solid #9bd9b5;
+      color: #11633d;
+    }
+
+    .status.error {
+      display: block;
+      background: #fff0f0;
+      border: 1px solid #efb3b3;
+      color: #a01f1f;
+    }
+
+    .info-section {
+      margin-bottom: 30px;
+    }
+
+    .info-section h3 {
+      margin-bottom: 8px;
+      color: var(--navy);
+    }
+
+    .email-address {
+      font-weight: 700;
+      overflow-wrap: anywhere;
+      color: var(--blue);
+    }
+
+    .copy-button {
+      background: var(--navy);
+      color: white;
+      border: none;
+      border-radius: 9px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-weight: 700;
+      margin-top: 12px;
+    }
+
+    .copy-button:hover {
+      background: var(--navy-light);
+    }
+
+    .note {
+      background: #edf7fa;
+      border-left: 4px solid var(--teal);
+      padding: 17px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .hidden-field {
+      position: absolute;
+      left: -9999px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    footer {
+      background: var(--navy);
+      color: white;
+      margin-top: 60px;
+      padding: 45px 20px;
+    }
+
+    .footer-inner {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    footer a {
+      color: #bce5ee;
+    }
+
+    footer p {
+      margin: 8px 0;
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 25px;
+      }
+
+      .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .navigation {
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-inner">
+
+      <a class="brand" href="/">
+        <div class="brand-name">RATIOS</div>
+        <div class="brand-tagline">ONE OF ONE</div>
+      </a>
+
+      <nav class="navigation" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/resource-request.html">Request Resources</a>
+        <a href="/contact.html" aria-current="page">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Contact RATIOS</h1>
+    <p>
+      Every connection matters. Whether you're a caregiver,
+      first responder, community organization, or potential
+      partner, we're here to connect with you.
+    </p>
+  </section>
+
+  <main class="container">
+
+    <section class="card">
+
+      <h2>Send Us a Message</h2>
+
+      <p class="intro">
+        Complete the form below and your message will be sent
+        directly to the RATIOS team. No email application
+        or browser setup is required.
+      </p>
+
+      <form
+        id="ratios-contact-form"
+        action="/api/contact"
+        method="POST"
+      >
+
+        <div class="hidden-field" aria-hidden="true">
+          <label for="website">Leave this field blank</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="field">
+          <label for="name">Full Name *</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            maxlength="120"
+            autocomplete="name"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="email">Email Address *</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            maxlength="254"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone Number (Optional)</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            maxlength="40"
+            autocomplete="tel"
+          >
+        </div>
+
+        <div class="field">
+          <label for="organization">
+            Organization or Agency (Optional)
+          </label>
+          <input
+            type="text"
+            id="organization"
+            name="organization"
+            maxlength="150"
+          >
+        </div>
+
+        <div class="field">
+          <label for="topic">What Can We Help You With? *</label>
+
+          <select id="topic" name="topic" required>
+            <option value="">Select a topic</option>
+            <option value="General Inquiry">
+              General Inquiry
+            </option>
+            <option value="Caregiver or Family Support">
+              Caregiver or Family Support
+            </option>
+            <option value="OneProfile">
+              OneProfile
+            </option>
+            <option value="Safety Kits and Identification">
+              Safety Kits and Identification
+            </option>
+            <option value="First Responder Outreach">
+              First Responder Outreach
+            </option>
+            <option value="Community Partnership">
+              Community Partnership
+            </option>
+            <option value="Ready, Set, Save!">
+              Ready, Set, Save!
+            </option>
+            <option value="Donations and Sponsorships">
+              Donations and Sponsorships
+            </option>
+            <option value="Media or Press Inquiry">
+              Media or Press Inquiry
+            </option>
+            <option value="Other">
+              Other
+            </option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">Your Message *</label>
+
+          <textarea
+            id="message"
+            name="message"
+            maxlength="4000"
+            placeholder="How can RATIOS help?"
+            required
+          ></textarea>
+        </div>
+
+        <button
+          class="submit-button"
+          type="submit"
+          id="submit-button"
+        >
+          Send Message to RATIOS
+        </button>
+
+        <div
+          id="form-status"
+          class="status"
+          role="status"
+          aria-live="polite"
+        ></div>
+
+      </form>
+
+    </section>
+
+    <aside class="card">
+
+      <h2>Get in Touch</h2>
+
+      <div class="info-section">
+        <h3>Email RATIOS</h3>
+
+        <p class="email-address">
+          info@ratiossaveslives.org
+        </p>
+
+        <p>
+          You can copy our email address and paste it
+          into your preferred email service.
+        </p>
+
+        <button
+          type="button"
+          class="copy-button"
+          id="copy-email"
+        >
+          Copy Email Address
+        </button>
+
+        <p id="copy-status" role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="info-section">
+        <h3>Request Safety Resources</h3>
+
+        <p>
+          Interested in Safety Kits, identification products,
+          educational materials, or community presentations?
+        </p>
+
+        <p>
+          <a href="/resource-request.html">
+            Visit Our Resource Request Form
+          </a>
+        </p>
+      </div>
+
+      <div class="info-section">
+        <h3>Our Service Area</h3>
+
+        <p>
+          RATIOS serves families and communities throughout
+          the Greater St. Louis region.
+        </p>
+      </div>
+
+      <div class="note">
+        <strong>Important:</strong>
+        RATIOS is not an emergency response service.
+        If someone is missing, in immediate danger,
+        or experiencing an emergency, call 911.
+      </div>
+
+    </aside>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+
+      <h2 style="color:white;">RATIOS</h2>
+
+      <p>
+        One of One. Serving families throughout
+        the Greater St. Louis Region.
+      </p>
+
+      <p>
+        Rescue • Awareness • Tracking • Identification
+        • Outreach • Safety
+      </p>
+
+      <p>
+        <strong>Email:</strong>
+        info@ratiossaveslives.org
+      </p>
+
+      <p>
+        <a href="/contact.html">Contact RATIOS</a>
+        &nbsp; | &nbsp;
+        <a href="/resource-request.html">
+          Request Resources
+        </a>
+      </p>
+
+      <p style="margin-top:25px;font-size:13px;color:#a8bacb;">
+        Recognized. Protected. Connected.
+      </p>
+
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const form = document.getElementById("ratios-contact-form");
+      const button = document.getElementById("submit-button");
+      const status = document.getElementById("form-status");
+      const copyButton = document.getElementById("copy-email");
+      const copyStatus = document.getElementById("copy-status");
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        if (!form.reportValidity()) {
+          return;
+        }
+
+        button.disabled = true;
+        button.textContent = "Sending Message...";
+
+        status.className = "status";
+        status.textContent = "";
+
+        const data = Object.fromEntries(
+          new FormData(form).entries()
+        );
+
+        try {
+          const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          });
+
+          const result = await response.json();
+
+          if (!response.ok || !result.ok) {
+            throw new Error(
+              result.error || "Unable to send your message."
+            );
+          }
+
+          status.className = "status success";
+          status.textContent =
+            "Thank you! Your message was sent to RATIOS. " +
+            "Our team will review it and follow up with you.";
+
+          form.reset();
+
+        } catch (error) {
+          status.className = "status error";
+          status.textContent =
+            "Your message could not be sent. " +
+            "Please try again or contact " +
+            "info@ratiossaveslives.org.";
+
+          console.error("Contact form error:", error);
+
+        } finally {
+          button.disabled = false;
+          button.textContent = "Send Message to RATIOS";
+        }
+      });
+
+      copyButton.addEventListener("click", async function () {
+        const email = "info@ratiossaveslives.org";
+
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(email);
+          } else {
+            const input = document.createElement("textarea");
+            input.value = email;
+            input.style.position = "fixed";
+            input.style.opacity = "0";
+            document.body.appendChild(input);
+            input.select();
+
+            const copied = document.execCommand("copy");
+            input.remove();
+
+            if (!copied) {
+              throw new Error("Copy unavailable");
+            }
+          }
+
+          copyStatus.textContent = "Email address copied!";
+
+        } catch (error) {
+          copyStatus.textContent =
+            "Please select and copy the email address above.";
+        }
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
