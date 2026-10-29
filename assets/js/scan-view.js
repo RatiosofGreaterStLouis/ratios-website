@@ -1263,7 +1263,7 @@
     const response = await fetch(
       `/api/identifier-profile?code=${encodeURIComponent(
         code
-      )}`,
+      )}&view=${new URLSearchParams(location.search).get("view") === "basic" ? "basic" : "current"}`,
       {
         cache: 'no-store'
       }
@@ -1283,9 +1283,84 @@
     document
       .getElementById('displayName')
       .textContent =
-        p.preferred_name || 'OneProfile™';
+        p.participant_name || p.preferred_name || 'OneProfile™';
 
     grid.innerHTML = '';
+
+    const viewLabel = document.querySelector('.emergency-profile-label');
+    if (viewLabel) viewLabel.textContent = data.view_mode === 'basic'
+      ? 'BASIC EMERGENCY CARD' : 'CAREGIVER-APPROVED EMERGENCY PROFILE';
+    const statusCard = makeCard('Sharing mode', data.view_mode === 'basic'
+      ? 'Basic emergency card — detailed information is hidden.'
+      : 'Full emergency profile — selected details are shared.', { fullWidth: true });
+    if (statusCard) grid.appendChild(statusCard);
+    if (p.participant_name && p.preferred_name && p.participant_name !== p.preferred_name) {
+      const preferred = makeCard('Please call me', p.preferred_name, { fullWidth: true });
+      if (preferred) grid.appendChild(preferred);
+    }
+    if (hasValue(p.basic_help_note)) {
+      const help = makeCard('How to help me', p.basic_help_note, { fullWidth: true });
+      if (help) grid.appendChild(help);
+    }
+    /* EMERGENCY CONTACTS */
+
+    const hasPrimary =
+      hasValue(p.emergency_contact_name) ||
+      hasValue(
+        p.emergency_contact_relationship
+      ) ||
+      hasValue(p.emergency_contact_phone);
+
+    const hasAlternate =
+      hasValue(p.alternate_contact_name) ||
+      hasValue(p.alternate_contact_phone);
+
+    if (hasPrimary || hasAlternate) {
+      const contactHeading =
+        document.createElement('h2');
+
+      contactHeading.textContent =
+        'Emergency contacts';
+
+      contactHeading.style.gridColumn =
+        '1 / -1';
+      contactHeading.style.margin =
+        '24px 0 4px';
+      contactHeading.style.color =
+        COLORS.navy;
+      contactHeading.style.fontSize =
+        '1.25rem';
+
+      grid.appendChild(contactHeading);
+    }
+
+    if (hasPrimary) {
+      const primaryCard = makePhoneCard(
+        'Primary emergency contact',
+        p.emergency_contact_name,
+        p.emergency_contact_relationship,
+        p.emergency_contact_phone
+      );
+
+      if (primaryCard) {
+        grid.appendChild(primaryCard);
+      }
+    }
+
+    if (hasAlternate) {
+      const alternateCard = makePhoneCard(
+        'Alternate emergency contact',
+        p.alternate_contact_name,
+        '',
+        p.alternate_contact_phone
+      );
+
+      if (alternateCard) {
+        grid.appendChild(alternateCard);
+      }
+    }
+
+
 
     /* PARTICIPANT IDENTIFICATION */
 
@@ -1396,64 +1471,6 @@
       makeResponderActions(p);
 
     grid.appendChild(responderActions);
-
-    /* EMERGENCY CONTACTS */
-
-    const hasPrimary =
-      hasValue(p.emergency_contact_name) ||
-      hasValue(
-        p.emergency_contact_relationship
-      ) ||
-      hasValue(p.emergency_contact_phone);
-
-    const hasAlternate =
-      hasValue(p.alternate_contact_name) ||
-      hasValue(p.alternate_contact_phone);
-
-    if (hasPrimary || hasAlternate) {
-      const contactHeading =
-        document.createElement('h2');
-
-      contactHeading.textContent =
-        'Emergency contacts';
-
-      contactHeading.style.gridColumn =
-        '1 / -1';
-      contactHeading.style.margin =
-        '24px 0 4px';
-      contactHeading.style.color =
-        COLORS.navy;
-      contactHeading.style.fontSize =
-        '1.25rem';
-
-      grid.appendChild(contactHeading);
-    }
-
-    if (hasPrimary) {
-      const primaryCard = makePhoneCard(
-        'Primary emergency contact',
-        p.emergency_contact_name,
-        p.emergency_contact_relationship,
-        p.emergency_contact_phone
-      );
-
-      if (primaryCard) {
-        grid.appendChild(primaryCard);
-      }
-    }
-
-    if (hasAlternate) {
-      const alternateCard = makePhoneCard(
-        'Alternate emergency contact',
-        p.alternate_contact_name,
-        '',
-        p.alternate_contact_phone
-      );
-
-      if (alternateCard) {
-        grid.appendChild(alternateCard);
-      }
-    }
 
     content.hidden = false;
   } catch (err) {

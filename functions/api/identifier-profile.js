@@ -1,3 +1,5 @@
+import { accessFor, addBasicIdentity } from '../_lib/emergency-access.js';
+
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
@@ -25,33 +27,6 @@ const scalarFields = new Set([
   'alternate_contact_phone',
   'responder_notes'
 ]);
-
-const structuredFields = new Set([
-  'participant_photo',
-  'additional_photos',
-  'physical_description',
-  'diagnoses',
-  'medications',
-  'allergies'
-]);
-
-function parsePublicFields(value) {
-  try {
-    const parsed = JSON.parse(value || '[]');
-
-    if (!Array.isArray(parsed)) return new Set();
-
-    return new Set(
-      parsed.filter(
-        field =>
-          scalarFields.has(field) ||
-          structuredFields.has(field)
-      )
-    );
-  } catch {
-    return new Set();
-  }
-}
 
 function photoUrl(code, photoId) {
   return `/api/identifier-photo?code=${encodeURIComponent(
@@ -93,10 +68,10 @@ export async function onRequestGet({ request, env }) {
     const publicProfile = await env.ONEPROFILE_DB
       .prepare(`
         SELECT
-          public_fields
+          enrollment_id, public_profile_enabled, basic_card_enabled,
+          basic_photo_enabled, basic_help_note, basic_card_consented_at, public_fields
         FROM oneprofile_profiles
         WHERE enrollment_id = ?
-          AND public_profile_enabled = 1
         LIMIT 1
       `)
       .bind(identifier.enrollment_id)
@@ -120,8 +95,13 @@ export async function onRequestGet({ request, env }) {
       return json({ error: 'Profile unavailable.' }, 404);
     }
 
-    const fields = parsePublicFields(publicProfile.public_fields);
+    const access = accessFor(publicProfile, url.searchParams.get('view') === 'basic');
+    if (access.mode === 'unavailable') {
+      return json({ error: 'Profile unavailable.' }, 404);
+    }
+    const fields = access.fields;
     const profile = {};
+    await addBasicIdentity(env, publicProfile, details, profile, access);
 
     /*
      * Existing OneProfile™ responder fields
@@ -362,7 +342,7 @@ export async function onRequestGet({ request, env }) {
         profile.participant_photo = {
           id: primaryPhoto.id,
           caption:
-            primaryPhoto.caption || '',
+            access.full ? (primaryPhoto.caption || '') : '',
           url: photoUrl(
             code,
             primaryPhoto.id
@@ -419,6 +399,7 @@ export async function onRequestGet({ request, env }) {
 
     return json({
       profile,
+      view_mode: access.mode,
       identifier: {
         product_type:
           identifier.product_type

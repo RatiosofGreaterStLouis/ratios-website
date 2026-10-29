@@ -462,6 +462,9 @@
       ) === 1;
 
 
+    const basicCardEnabled = Number(p.basic_card_enabled) === 1 && Boolean(p.basic_card_consented_at);
+    const publicViewAvailable = sharingEnabled || basicCardEnabled;
+
     const identifierReady =
       Boolean(
         activeIdentifier
@@ -490,7 +493,7 @@
         details.emergency_contact_phone
       ),
 
-      sharingEnabled,
+      publicViewAvailable,
 
       identifierReady
 
@@ -550,7 +553,7 @@
 
     if (
       requiredProfileComplete &&
-      sharingEnabled &&
+      publicViewAvailable &&
       identifierReady
     ) {
 
@@ -603,12 +606,12 @@
       ) {
 
         statusMessage.textContent =
-          'Your OneProfile™ is being built. Complete the remaining emergency information, enable sharing, and make sure an active identifier is assigned.';
+          'Your OneProfile™ is being built. Complete the remaining emergency information, choose basic or full sharing, and make sure an active identifier is assigned.';
 
       } else {
 
         statusMessage.textContent =
-          'Start building the private OneProfile™ safety record. Emergency information is only shared publicly when you choose to enable sharing.';
+          'Start building the private OneProfile™ safety record. Choose a basic emergency card or full sharing to make approved information available to someone scanning.';
 
       }
 
@@ -774,7 +777,7 @@
 
 
       if (
-        sharingEnabled &&
+        publicViewAvailable &&
         hasValue(
           publicToken
         )

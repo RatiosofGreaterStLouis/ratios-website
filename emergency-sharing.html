@@ -1,449 +1,109 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1"
-  >
-
-  <meta
-    name="robots"
-    content="noindex,nofollow"
-  >
-
-  <title>
-    Emergency Sharing | OneProfile™ | RATIOS
-  </title>
-
-  <link
-    rel="icon"
-    href="assets/images/favicon-32.png"
-  >
-
-  <link
-    rel="stylesheet"
-    href="assets/css/styles.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="assets/css/oneprofile.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="assets/css/oneprofile-portal.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="assets/css/oneprofile-profile.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="assets/css/emergency-view.css"
-  >
-
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Emergency Sharing | OneProfile™ | RATIOS</title>
+  <link rel="icon" href="assets/images/favicon-32.png">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/oneprofile.css">
+  <link rel="stylesheet" href="assets/css/oneprofile-portal.css">
+  <link rel="stylesheet" href="assets/css/oneprofile-profile.css">
+  <link rel="stylesheet" href="assets/css/emergency-view.css">
   <style>
-
-    .esh-shell {
-      max-width:1100px;
-      margin:0 auto;
-      padding:48px 28px 70px;
-    }
-
-    .esh-head {
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:24px;
-      margin-bottom:24px;
-    }
-
-    .esh-brand {
-      display:flex;
-      align-items:center;
-      gap:18px;
-      flex-wrap:wrap;
-    }
-
-    .esh-logo {
-      width:82px;
-      height:82px;
-      object-fit:contain;
-      padding:7px;
-      box-sizing:border-box;
-      border:1px solid #dfe9f2;
-      border-radius:18px;
-      background:#ffffff;
-      box-shadow:0 8px 20px rgba(7,23,46,.08);
-    }
-
-    .esh-head h1 {
-      margin:0;
-      color:#07172e;
-      font-size:clamp(2.2rem,5vw,4rem);
-      line-height:1.05;
-    }
-
-    .esh-lead {
-      margin:10px 0 0;
-      max-width:760px;
-      color:#526980;
-      line-height:1.65;
-    }
-
-    .esh-card {
-      margin-top:22px;
-      padding:26px;
-      border:1px solid #dfe9f2;
-      border-radius:22px;
-      background:#ffffff;
-      box-shadow:0 8px 24px rgba(7,23,46,.04);
-    }
-
-    .esh-state {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:22px;
-      padding:20px;
-      border:1px solid #d9e7ef;
-      border-radius:18px;
-      background:#f8fbfd;
-    }
-
-    .esh-state strong {
-      display:block;
-      color:#07172e;
-      font-size:1.1rem;
-    }
-
-    .esh-state p {
-      margin:5px 0 0;
-      color:#617388;
-    }
-
-    .esh-card h2 {
-      margin:24px 0 8px;
-      color:#07172e;
-    }
-
-    .esh-helper {
-      margin:0 0 18px;
-      color:#617388;
-      line-height:1.6;
-    }
-
-    #fields.ev-checks {
-      display:grid;
-      gap:10px;
-      margin:18px 0 22px;
-    }
-
-    #fields.ev-checks label {
-      border:1px solid #e4edf3;
-      border-radius:14px;
-      background:#f8fbfd;
-    }
-
-    .esh-primary {
-      min-height:52px;
-      padding:13px 24px;
-      border:0;
-      border-radius:999px;
-      background:#07172e;
-      color:#ffffff;
-      font-weight:800;
-      cursor:pointer;
-    }
-
-    .esh-linkrow {
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      margin-top:16px;
-    }
-
-    .esh-linkrow input {
-      flex:1 1 520px;
-      min-width:0;
-      box-sizing:border-box;
-    }
-
-    .esh-linkrow button {
-      min-height:46px;
-      padding:10px 18px;
-      border:2px solid #07172e;
-      border-radius:999px;
-      background:#ffffff;
-      color:#07172e;
-      font-weight:800;
-      cursor:pointer;
-    }
-
-    .esh-preview {
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:48px;
-      margin-top:16px;
-      padding:11px 22px;
-      border-radius:999px;
-      background:#f7b83b;
-      color:#07172e;
-      text-decoration:none;
-      font-weight:800;
-    }
-
-    .esh-note {
-      margin-top:24px;
-      padding:18px 20px;
-      border:1px solid #d9e7ef;
-      border-radius:18px;
-      background:#f8fbfd;
-      color:#29405a;
-      line-height:1.6;
-    }
-
-    .esh-footer {
-      margin-top:26px;
-      text-align:center;
-      color:#617388;
-      font-size:.9rem;
-    }
-
-    @media (max-width:800px) {
-
-      .esh-shell {
-        padding-left:16px;
-        padding-right:16px;
-      }
-
-      .esh-head {
-        flex-direction:column;
-      }
-
-      .esh-head .opc-button {
-        width:100%;
-        justify-content:center;
-      }
-
-    }
-
+    [hidden]{display:none!important}
+    .esh-shell label{letter-spacing:normal;font-size:1rem}
+    .esh-shell{max-width:1100px;margin:0 auto;padding:48px 28px 70px}
+    .esh-head,.esh-brand,.esh-state{display:flex;align-items:flex-start;gap:22px}
+    .esh-head{justify-content:space-between;margin-bottom:24px}
+    .esh-logo{width:82px;height:82px;object-fit:contain;padding:7px;border:1px solid #dfe9f2;border-radius:18px;background:#fff;flex-shrink:0}
+    .esh-head h1{margin:0;color:#07172e;font-size:clamp(2rem,5vw,3.5rem);line-height:1.1}
+    .esh-lead,.esh-helper{color:#526980;line-height:1.65}
+    .esh-card{margin-top:22px;padding:26px;border:1px solid #dfe9f2;border-radius:22px;background:#fff;box-shadow:0 8px 24px rgba(7,23,46,.04)}
+    .esh-state{padding:20px;border:1px solid #cfe7ec;border-radius:18px;background:#eef9fb;border-left:5px solid #14869a}
+    .esh-state strong{display:block;color:#07172e;font-size:1.2rem}
+    .esh-state p{margin:5px 0 0;color:#526980}
+    .esh-card h2{color:#07172e;margin:0 0 8px}
+    .esh-choice{display:flex;align-items:flex-start;gap:12px;margin:20px 0;font-weight:750;color:#07172e}
+    .esh-choice input{width:22px;height:22px;flex:0 0 22px;margin-top:3px;accent-color:#14869a}
+    .esh-choice small{display:block;color:#526980;font-weight:400;margin-top:4px;line-height:1.6}
+    .esh-basic-list{padding:16px 20px 16px 40px;border-radius:16px;background:#f8fbfd;color:#29405a}
+    .esh-textarea{display:block;width:100%;box-sizing:border-box;min-height:110px;border:1px solid #b6cbd7;border-radius:14px;padding:14px;font:inherit;color:#07172e;margin-top:8px;resize:vertical}
+    .esh-field-group{padding:18px;border:1px solid #dfe9f2;border-radius:18px;margin:12px 0}
+    .esh-field-group h3{margin:0 0 12px;color:#07172e}
+    #fields label{display:flex;gap:10px;align-items:center;padding:11px;border-radius:12px;background:#f8fbfd;margin:6px 0}
+    #fields input{accent-color:#14869a;flex:0 0 20px;width:20px;height:20px}
+    .esh-primary,.esh-preview{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:12px 22px;border-radius:999px;font-family:inherit;font-size:1rem;line-height:1.4;font-weight:800;cursor:pointer;text-decoration:none}
+    .esh-primary{border:0;background:#07172e;color:#fff}
+    .esh-primary:disabled{opacity:.55;cursor:wait}
+    .esh-preview{background:#f7b83b;color:#07172e;border:0;margin:12px 10px 0 0;font-weight:800}
+    .esh-linkrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .esh-linkrow input{flex:1 1 400px;min-width:0;padding:12px;border:1px solid #b6cbd7;border-radius:12px;font:inherit}
+    .esh-linkrow button{border:2px solid #07172e;border-radius:999px;padding:10px 18px;color:#07172e;background:white;font-weight:800;cursor:pointer}
+    .esh-note{padding:18px;border:1px solid #eedcae;border-radius:18px;background:#fffaf0;color:#29405a;margin-top:18px}
+    .esh-footer{text-align:center;margin-top:26px;color:#617388;font-size:.9rem}
+    :focus-visible{outline:3px solid #14869a;outline-offset:4px}
+    @media(max-width:800px){.esh-shell{padding:28px 16px 50px}.esh-head{flex-direction:column}.esh-brand{flex-direction:column;gap:14px}.esh-card{padding:20px}.esh-preview{width:100%;box-sizing:border-box}.esh-head .opc-button{width:100%;justify-content:center}}
   </style>
-
 </head>
-
-
 <body class="opc-body">
-
-
   <main class="esh-shell">
-
-
     <div class="esh-head">
-
-
       <div class="esh-brand">
-
-        <img
-          class="esh-logo"
-          src="assets/images/ratios-official-logo.png"
-          alt="RATIOS"
-        >
-
+        <a href="index.html" aria-label="RATIOS homepage" style="display:block;flex-shrink:0"><img class="esh-logo" src="assets/images/ratios-official-logo.png" alt="RATIOS"></a>
         <div>
-
-          <p class="opc-eyebrow">
-            CAREGIVER SHARING CONTROLS
-          </p>
-
-          <h1>
-            Emergency Profile Sharing
-          </h1>
-
-          <p class="esh-lead">
-            Choose exactly what a responder may see after
-            scanning this OneProfile™. Private caregiver
-            information stays protected unless you choose
-            to share specific emergency fields.
-          </p>
-
+          <p class="opc-eyebrow">CAREGIVER SHARING CONTROLS</p>
+          <h1>Emergency Profile Sharing</h1>
+          <p class="esh-lead">Help someone recognize your loved one and reach the right person. Choose a basic emergency card, then decide whether to share additional details.</p>
         </div>
-
       </div>
-
-
-      <a
-        class="opc-button opc-secondary"
-        href="caregiver-dashboard.html"
-      >
-        Back to dashboard
-      </a>
-
+      <a class="opc-button opc-secondary" href="caregiver-dashboard.html">Back to dashboard</a>
     </div>
-
-
-
-    <section class="esh-card">
-
-
-      <div class="esh-state">
-
-        <div>
-
-          <strong id="stateTitle">
-            Emergency profile OFF
-          </strong>
-
-          <p id="stateText">
-            No public emergency profile is available.
-          </p>
-
+    <div class="esh-state" role="status">
+      <div><strong id="stateTitle">Loading sharing settings…</strong><p id="stateText">Please wait while we load your saved choices.</p></div>
+    </div>
+    <form id="settingsForm">
+      <section class="esh-card" aria-labelledby="basicTitle">
+        <p class="opc-eyebrow">01 / RECOGNIZED & CONNECTED</p>
+        <h2 id="basicTitle">Basic emergency card</h2>
+        <p class="esh-helper">When enabled, this card stays visible even when full emergency profile sharing is off.</p>
+        <label class="esh-choice"><input id="basicEnabled" type="checkbox" disabled><span>Keep my basic emergency card visible<small>Anyone with the QR code or exact link can see the saved card. They do not need to sign in or verify that they are a first responder.</small></span></label>
+        <ul class="esh-basic-list"><li>Participant’s name and preferred name</li><li>Primary emergency contact: name, relationship, and phone</li><li>Alternate emergency contact: name and phone, when provided</li></ul>
+        <p class="esh-helper">Names and contacts come from your <a href="caregiver-profile.html">saved participant profile</a>. Add or update them there. The current profile stores the participant’s first name.</p>
+        <div id="basicOptions" hidden>
+          <label class="esh-choice"><input id="basicPhoto" type="checkbox"><span>Include the primary identification photo<small>Optional. Additional photos and photo captions stay hidden in the basic view.</small></span></label>
+          <label for="basicHelp"><strong>How to help me</strong> <span class="esh-helper">(optional, up to 300 characters)</span></label>
+          <textarea id="basicHelp" class="esh-textarea" maxlength="300" placeholder="Example: Please speak calmly and allow extra time for a response." aria-describedby="helpHint"></textarea>
+          <p id="helpHint" class="esh-helper">This short note is visible on the basic card. Include only information you want anyone scanning the identifier to see.</p>
         </div>
-
-
-        <label
-          class="switch"
-          aria-label="Enable emergency profile sharing"
-        >
-
-          <input
-            id="enabled"
-            type="checkbox"
-          >
-
-          <span></span>
-
-        </label>
-
-      </div>
-
-
-
-      <h2>
-        Information responders may see
-      </h2>
-
-      <p class="esh-helper">
-        Select only the information that would be useful
-        during an emergency or community safety interaction.
-        Unselected caregiver information remains private.
-      </p>
-
-
-      <div
-        id="fields"
-        class="ev-checks"
-      ></div>
-
-
-      <button
-        id="save"
-        class="esh-primary"
-        type="button"
-      >
-        Save sharing settings
-      </button>
-
-
-      <p
-        id="message"
-        class="ev-message"
-      ></p>
-
-
+        <label id="consentRow" class="esh-choice" hidden><input id="basicConsent" type="checkbox"><span>I understand that the name, emergency contacts, and any optional photo or note above remain visible when full sharing is off.</span></label>
+      </section>
+      <section class="esh-card" aria-labelledby="fullTitle">
+        <p class="opc-eyebrow">02 / ADDITIONAL SUPPORT</p>
+        <h2 id="fullTitle">Full emergency profile</h2>
+        <label class="esh-choice"><input id="enabled" type="checkbox" disabled><span>Share my selected detailed information<small>Turn this off to hide the detailed sections. Your basic card remains visible if enabled above.</small></span></label>
+        <div id="fullOptions" hidden>
+          <p class="esh-helper">Select the additional information someone scanning may see. Basic card names and contacts are included automatically when the basic card is enabled. Medical history, medications, allergies, destinations, and other details appear only when selected here and full sharing is on.</p>
+          <div id="fields" class="ev-checks"></div>
+        </div>
+        <div class="esh-note"><strong>Need to pause everything?</strong> Turn off both the basic emergency card and full profile sharing, then save. Inactive or replaced identifiers remain unavailable regardless of these settings.</div>
+      </section>
+      <section class="esh-card">
+        <button id="save" class="esh-primary" type="submit" disabled>Save sharing settings</button>
+        <p id="message" class="ev-message" role="status" aria-live="polite">Loading…</p>
+      </section>
+    </form>
+    <section id="linkCard" class="esh-card" hidden>
+      <p class="opc-eyebrow">03 / SEE WHAT THEY SEE</p>
+      <h2>Emergency profile link</h2>
+      <p class="esh-helper">These previews show your saved settings. Save changes first. The basic preview hides detailed sections; the full preview is available when full sharing is saved as on.</p>
+      <div class="esh-linkrow"><input id="publicUrl" readonly aria-label="Saved emergency profile link"><button id="copy" type="button">Copy link</button></div>
+      <a id="preview" class="esh-preview" target="_blank" rel="noopener noreferrer">Preview saved view</a>
+      <a id="basicPreview" class="esh-preview" target="_blank" rel="noopener noreferrer">Preview basic card only</a>
     </section>
-
-
-
-    <section
-      id="linkCard"
-      class="esh-card"
-      hidden
-    >
-
-
-      <p class="opc-eyebrow">
-        LIFEPATCH™ / QR DESTINATION
-      </p>
-
-      <h2>
-        Emergency profile link
-      </h2>
-
-      <p class="esh-helper">
-        This is the secure responder-facing destination
-        connected to the participant's OneProfile™ identifier.
-        Anyone with this exact link can see only the fields
-        you selected while emergency sharing is turned on.
-      </p>
-
-
-      <div class="esh-linkrow">
-
-        <input
-          id="publicUrl"
-          readonly
-        >
-
-        <button
-          id="copy"
-          type="button"
-        >
-          Copy link
-        </button>
-
-      </div>
-
-
-      <a
-        id="preview"
-        class="esh-preview"
-        target="_blank"
-        rel="noopener"
-      >
-        Preview emergency view
-      </a>
-
-
-    </section>
-
-
-
-    <div class="esh-note">
-
-      <strong>
-        Caregiver controlled:
-      </strong>
-
-      Turning emergency sharing on does not make the
-      entire private profile public. Only the emergency
-      fields you specifically select are shown in the
-      responder-facing view.
-
-    </div>
-
-
-    <div class="esh-footer">
-      OneProfile™ by RATIOS • Recognized. Protected. Connected.
-    </div>
-
-
+    <footer class="esh-footer">OneProfile™ by RATIOS • Recognized. Protected. Connected.</footer>
   </main>
-
-
-  <script src="assets/js/emergency-sharing.js"></script>
-
-
+  <script src="assets/js/emergency-sharing.js?v=basic-card-1"></script>
 </body>
-
 </html>

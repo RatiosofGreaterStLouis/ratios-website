@@ -1,3 +1,5 @@
+import { accessFor } from '../_lib/emergency-access.js';
+
 const unavailable = () =>
   new Response(JSON.stringify({ error: 'Photo unavailable.' }), {
     status: 404,
@@ -10,15 +12,6 @@ const unavailable = () =>
       'X-Content-Type-Options': 'nosniff'
     }
   });
-
-function parsePublicFields(value) {
-  try {
-    const parsed = JSON.parse(value || '[]');
-    return Array.isArray(parsed) ? new Set(parsed) : new Set();
-  } catch {
-    return new Set();
-  }
-}
 
 export async function onRequestGet({ request, env }) {
   try {
@@ -60,15 +53,15 @@ export async function onRequestGet({ request, env }) {
     }
 
     /*
-     * The caregiver's responder profile must still be enabled.
+     * Load the caregiver's current full-profile and basic-card permissions.
      */
     const publicProfile = await env.ONEPROFILE_DB
       .prepare(`
         SELECT
-          public_fields
+          public_profile_enabled, basic_card_enabled, basic_photo_enabled,
+          basic_card_consented_at, public_fields
         FROM oneprofile_profiles
         WHERE enrollment_id = ?
-          AND public_profile_enabled = 1
         LIMIT 1
       `)
       .bind(identifier.enrollment_id)
@@ -78,9 +71,7 @@ export async function onRequestGet({ request, env }) {
       return unavailable();
     }
 
-    const fields = parsePublicFields(
-      publicProfile.public_fields
-    );
+    const fields = accessFor(publicProfile).fields;
 
     /*
      * Make sure this photo:

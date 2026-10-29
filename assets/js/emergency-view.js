@@ -2305,7 +2305,7 @@
       await fetch(
         `/api/emergency-profile?id=${encodeURIComponent(
           id
-        )}`,
+        )}&view=${new URLSearchParams(location.search).get("view") === "basic" ? "basic" : "current"}`,
         {
           cache: 'no-store'
         }
@@ -2331,11 +2331,93 @@
     document
       .getElementById('name')
       .textContent =
-        p.preferred_name ||
+        p.participant_name || p.preferred_name ||
         'OneProfile™';
 
     cards.innerHTML =
       '';
+
+    const viewLabel = document.querySelector('.emergency-profile-label');
+    if (viewLabel) viewLabel.textContent = data.view_mode === 'basic'
+      ? 'BASIC EMERGENCY CARD' : 'CAREGIVER-APPROVED EMERGENCY PROFILE';
+    const statusCard = makeCard('Sharing mode', data.view_mode === 'basic'
+      ? 'Basic emergency card — detailed information is hidden.'
+      : 'Full emergency profile — selected details are shared.', { fullWidth: true });
+    if (statusCard) cards.appendChild(statusCard);
+    if (p.participant_name && p.preferred_name && p.participant_name !== p.preferred_name) {
+      const preferred = makeCard('Please call me', p.preferred_name, { fullWidth: true });
+      if (preferred) cards.appendChild(preferred);
+    }
+    if (hasValue(p.basic_help_note)) {
+      const help = makeCard('How to help me', p.basic_help_note, { fullWidth: true });
+      if (help) cards.appendChild(help);
+    }
+    /*
+      EMERGENCY CONTACTS
+    */
+
+    const hasPrimary =
+      hasValue(
+        p.emergency_contact_name
+      ) ||
+      hasValue(
+        p.emergency_contact_relationship
+      ) ||
+      hasValue(
+        p.emergency_contact_phone
+      );
+
+    const hasAlternate =
+      hasValue(
+        p.alternate_contact_name
+      ) ||
+      hasValue(
+        p.alternate_contact_phone
+      );
+
+    if (
+      hasPrimary ||
+      hasAlternate
+    ) {
+      addEmergencyContactsHeading();
+    }
+
+
+    if (hasPrimary) {
+      const primaryCard =
+        makePhoneCard(
+          'Primary emergency contact',
+          p.emergency_contact_name,
+          p.emergency_contact_relationship,
+          p.emergency_contact_phone
+        );
+
+      if (primaryCard) {
+        cards.appendChild(
+          primaryCard
+        );
+      }
+    }
+
+
+    if (hasAlternate) {
+      const alternateCard =
+        makePhoneCard(
+          'Alternate emergency contact',
+          p.alternate_contact_name,
+          '',
+          p.alternate_contact_phone
+        );
+
+      if (alternateCard) {
+        cards.appendChild(
+          alternateCard
+        );
+      }
+    }
+
+
+
 
 
     /*
@@ -2510,71 +2592,6 @@
     cards.appendChild(
       responderActions
     );
-
-
-    /*
-      EMERGENCY CONTACTS
-    */
-
-    const hasPrimary =
-      hasValue(
-        p.emergency_contact_name
-      ) ||
-      hasValue(
-        p.emergency_contact_relationship
-      ) ||
-      hasValue(
-        p.emergency_contact_phone
-      );
-
-    const hasAlternate =
-      hasValue(
-        p.alternate_contact_name
-      ) ||
-      hasValue(
-        p.alternate_contact_phone
-      );
-
-    if (
-      hasPrimary ||
-      hasAlternate
-    ) {
-      addEmergencyContactsHeading();
-    }
-
-
-    if (hasPrimary) {
-      const primaryCard =
-        makePhoneCard(
-          'Primary emergency contact',
-          p.emergency_contact_name,
-          p.emergency_contact_relationship,
-          p.emergency_contact_phone
-        );
-
-      if (primaryCard) {
-        cards.appendChild(
-          primaryCard
-        );
-      }
-    }
-
-
-    if (hasAlternate) {
-      const alternateCard =
-        makePhoneCard(
-          'Alternate emergency contact',
-          p.alternate_contact_name,
-          '',
-          p.alternate_contact_phone
-        );
-
-      if (alternateCard) {
-        cards.appendChild(
-          alternateCard
-        );
-      }
-    }
 
 
     profile.hidden =

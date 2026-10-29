@@ -1,3 +1,5 @@
+import { accessFor, addBasicIdentity } from '../_lib/emergency-access.js';
+
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
@@ -7,46 +9,6 @@ const json = (body, status = 200) =>
       'X-Robots-Tag': 'noindex, nofollow'
     }
   });
-
-
-const allowed = new Set([
-
-  /* Identity & communication */
-  'preferred_name',
-  'communication_method',
-  'communication_notes',
-
-  /* Identification */
-  'participant_photo',
-  'additional_photos',
-  'physical_description',
-
-  /* Sensory & calming support */
-  'sensory_triggers',
-  'calming_supports',
-  'touch_preference',
-
-  /* Safety / wandering */
-  'safety_risk_level',
-  'known_destinations',
-  'safe_approach',
-
-  /* Medical */
-  'diagnoses',
-  'medications',
-  'allergies',
-
-  /* Emergency contacts */
-  'emergency_contact_name',
-  'emergency_contact_relationship',
-  'emergency_contact_phone',
-  'alternate_contact_name',
-  'alternate_contact_phone',
-
-  /* Responder note */
-  'responder_notes'
-
-]);
 
 
 const scalarFields = new Set([
@@ -72,32 +34,6 @@ const scalarFields = new Set([
   'responder_notes'
 
 ]);
-
-
-function safeFields(value) {
-
-  let parsed = [];
-
-  try {
-    parsed = JSON.parse(value || '[]');
-  } catch {
-    parsed = [];
-  }
-
-  if (!Array.isArray(parsed)) {
-    return [];
-  }
-
-  return [
-    ...new Set(
-      parsed.filter(
-        (field) =>
-          allowed.has(field)
-      )
-    )
-  ];
-
-}
 
 
 function has(fields, name) {
@@ -157,10 +93,10 @@ export async function onRequestGet({
       await env.ONEPROFILE_DB.prepare(`
         SELECT
           enrollment_id,
-          public_fields
+          public_profile_enabled, basic_card_enabled, basic_photo_enabled,
+          basic_help_note, basic_card_consented_at, public_fields
         FROM oneprofile_profiles
         WHERE public_token = ?
-          AND public_profile_enabled = 1
         LIMIT 1
       `)
         .bind(publicToken)
@@ -180,11 +116,12 @@ export async function onRequestGet({
     }
 
 
-    const fields =
-      safeFields(
-        profileSettings.public_fields
-      );
-
+    const access = accessFor(profileSettings,
+      new URL(request.url).searchParams.get('view') === 'basic');
+    if (access.mode === 'unavailable') {
+      return json({ error: 'Profile unavailable.' }, 404);
+    }
+    const fields = [...access.fields];
 
     const enrollmentId =
       profileSettings.enrollment_id;
@@ -215,6 +152,7 @@ export async function onRequestGet({
 
 
     const out = {};
+    await addBasicIdentity(env, profileSettings, details, out, access);
 
 
     /*
@@ -535,7 +473,7 @@ export async function onRequestGet({
       This only returns an authenticated/gated
       responder-photo API URL.
 
-      We will create /api/emergency-photo next.
+      /api/emergency-photo independently enforces current photo permission.
     */
 
     if (
@@ -568,7 +506,7 @@ export async function onRequestGet({
             primary.id,
 
           caption:
-            primary.caption || '',
+            access.full ? (primary.caption || '') : '',
 
           url:
             photoUrl(
@@ -637,7 +575,8 @@ export async function onRequestGet({
 
 
     return json({
-      profile: out
+      profile: out,
+      view_mode: access.mode
     });
 
 

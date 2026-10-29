@@ -32,7 +32,7 @@ export async function onRequestGet({ request, env }) {
     if (!enrollment) return json({ authenticated: false }, 401);
 
     const profile = await env.ONEPROFILE_DB.prepare(`
-      SELECT profile_status, public_profile_enabled, created_at, updated_at
+      SELECT profile_status, public_profile_enabled, basic_card_enabled, basic_card_consented_at, created_at, updated_at
       FROM oneprofile_profiles WHERE enrollment_id = ? LIMIT 1
     `).bind(session.enrollment_id).first();
 

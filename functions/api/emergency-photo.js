@@ -1,3 +1,5 @@
+import { accessFor } from '../_lib/emergency-access.js';
+
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
@@ -8,28 +10,6 @@ const json = (body, status = 200) =>
       'X-Content-Type-Options': 'nosniff'
     }
   });
-
-
-function safeFields(value) {
-
-  let parsed = [];
-
-  try {
-    parsed = JSON.parse(value || '[]');
-  } catch {
-    parsed = [];
-  }
-
-  if (!Array.isArray(parsed)) {
-    return [];
-  }
-
-  return parsed.filter(
-    (field) =>
-      typeof field === 'string'
-  );
-
-}
 
 
 function unavailable() {
@@ -60,7 +40,7 @@ export async function onRequestGet({
       somebody knows its object key or photo ID.
 
       Access requires:
-      1. A valid enabled emergency-profile token.
+      1. A valid emergency-profile token with photo permission.
       2. The photo to belong to that same enrollment.
       3. The photo to still be active.
       4. The caregiver to have explicitly authorized
@@ -118,17 +98,16 @@ export async function onRequestGet({
     /*
       Resolve the emergency token first.
 
-      The emergency profile must currently be enabled.
+      Photo access is checked against full-profile or basic-card permission.
     */
 
     const profile =
       await env.ONEPROFILE_DB.prepare(`
         SELECT
-          enrollment_id,
-          public_fields
+          enrollment_id, public_profile_enabled, basic_card_enabled,
+          basic_photo_enabled, basic_card_consented_at, public_fields
         FROM oneprofile_profiles
         WHERE public_token = ?
-          AND public_profile_enabled = 1
         LIMIT 1
       `)
         .bind(publicToken)
@@ -142,10 +121,7 @@ export async function onRequestGet({
     }
 
 
-    const fields =
-      safeFields(
-        profile.public_fields
-      );
+    const fields = [...accessFor(profile).fields];
 
 
     /*
