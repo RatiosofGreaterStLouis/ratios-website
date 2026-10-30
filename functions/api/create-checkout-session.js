@@ -1,3 +1,4 @@
+import {PRODUCTS} from '../../assets/js/identification-catalog.js';
 const ALLOWED_PRICES=new Set(["price_1UIv6kBEQmRGbpGgZw0UUlnv","price_1UIv6kBEQmRGbpGgJq0nnuZY","price_1UIv6kBEQmRGbpGgXi4mmD2W","price_1UIvK6BEQmRGbpGgxOFdbVuD","price_1UIvK6BEQmRGbpGgiY2KLRxE","price_1UIvK6BEQmRGbpGgP2qkUAz5","price_1UIvP2BEQmRGbpGgUOIZ33xt","price_1UIvP2BEQmRGbpGgO8f6ixBP","price_1UIvP2BEQmRGbpGgPg1x1cft","price_1UIveqBEQmRGbpGg9x566pkY"]);
 
  
@@ -14,17 +15,22 @@ export async function onRequestPost(context){
 
  
 
-  const body=await context.request.json(),items=Array.isArray(body.items)?body.items:[],delivery=body.delivery==="pickup"?"pickup":"shipping";
+  const raw=await context.request.text();if(raw.length>40000)return json({error:"Order is too large."},413);
+  const body=JSON.parse(raw),items=Array.isArray(body.items)?body.items:[],delivery=body.delivery==="pickup"?"pickup":"shipping";
 
  
 
-  if(!items.length)return json({error:"Your cart is empty."},400);
+  if(!items.length||items.length>40)return json({error:"Your cart is empty."},400);
 
  
 
   for(const item of items){
 
-   if(!ALLOWED_PRICES.has(item.priceId))return json({error:"Invalid product selection."},400);
+   if(item.identificationId){
+    if(!PRODUCTS.some(p=>p.id===item.identificationId))return json({error:"Invalid identification item."},400);
+    const p=item.personalization;
+    if(!p||typeof p.personName!=="string"||!p.personName.trim()||p.personName.length>80||typeof p.profileEmail!=="string"||p.profileEmail.length>150||! /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.profileEmail)||typeof p.notes!=="string"||p.notes.length>150||typeof p.color!=="string"||p.color.length>30)return json({error:"Please complete the identification personalization."},400);
+   }else if(!ALLOWED_PRICES.has(item.priceId))return json({error:"Invalid product selection."},400);
 
    if(!Number.isInteger(item.quantity)||item.quantity<1||item.quantity>20)return json({error:"Invalid quantity."},400);
 
@@ -52,11 +58,17 @@ export async function onRequestPost(context){
 
   items.forEach((item,i)=>{
 
-   form.set(`line_items[${i}][price]`,item.priceId);
+   if(item.identificationId){
+    const product=PRODUCTS.find(p=>p.id===item.identificationId),p=item.personalization;
+    form.set(`line_items[${i}][price_data][currency]`,"usd");
+    form.set(`line_items[${i}][price_data][unit_amount]`,String(product.amount));
+    form.set(`line_items[${i}][price_data][product_data][name]`,product.name);
+    form.set(`metadata[item_${i+1}]`,`For: ${p.personName.trim()} | ${p.profileEmail.trim()} | ${p.color} | ${p.notes} | Welcome kit: ${p.firstKit===true?"requested":"not requested"}`);
+   }else form.set(`line_items[${i}][price]`,item.priceId);
 
    form.set(`line_items[${i}][quantity]`,String(item.quantity));
 
-   form.set(`metadata[item_${i+1}]`,`${item.name||"Item"} | ${item.fit||""}${item.size?" | Size "+item.size:""}`.slice(0,500));
+   if(!item.identificationId)form.set(`metadata[item_${i+1}]`,`${item.name||"Item"} | ${item.fit||""}${item.size?" | Size "+item.size:""}`.slice(0,500));
 
   });
 

@@ -80,6 +80,9 @@ export async function onRequestPost({ request, env }) {
   const role = clean(input.role, 100);
   const need = clean(input.need, 100);
   const message = clean(input.message, 4000);
+  const address={};
+  for(const [key,limit] of Object.entries({individual:100,profileEmail:254,recipient:150,street:200,unit:100,city:100,state:50,zip:10}))address[key]=clean(input[key],limit);
+  if(need==='Safety Kit'&&(!address.individual||!address.recipient||!address.street||!address.city||!address.state||!/^\d{5}(-\d{4})?$/.test(address.zip)||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address.profileEmail)))return json({ok:false,error:'Please complete the OneProfile information and U.S. mailing address.'},400);
 
   if (
     !name ||
@@ -111,6 +114,7 @@ export async function onRequestPost({ request, env }) {
     `Role: ${role}`,
     `Requested resource: ${need}`,
     '',
+    ...(need==='Safety Kit'?['Welcome kit / free first ID card request',...Object.entries(address).map(([key,value])=>`${key}: ${value}`),'']:[]),
     'Message:',
     message || 'No additional message',
     '',

@@ -46,6 +46,13 @@
 
  
 
+  const ID_PRODUCTS = {"card-qr": {"id": "card-qr", "name": "Additional QR LifeCard", "amount": 800, "description": "Personalized wallet card with a personal QR code.", "image": "assets/images/identification/card.jpg", "feature": "QR"}, "card-nfc": {"id": "card-nfc", "name": "Additional NFC + QR LifeCard", "amount": 2000, "description": "Tap with a compatible phone or scan the personal QR code.", "image": "assets/images/identification/card.jpg", "feature": "NFC + QR"}, "fob": {"id": "fob", "name": "Colored NFC + QR key fob", "amount": 1800, "description": "Programmed to OneProfile, with a personal QR code.", "image": "assets/images/identification/fobs.jpg", "feature": "NFC + QR"}, "tag": {"id": "tag", "name": "Metal LifeTag", "amount": 2500, "description": "Personalized metal tag with a personal QR code.", "image": "assets/images/identification/tag.jpg", "feature": "QR"}, "band": {"id": "band", "name": "Braided LifeBand", "amount": 3000, "description": "Braided identification bracelet with a personal QR code.", "image": "assets/images/identification/band.jpg", "feature": "QR"}, "patch": {"id": "patch", "name": "LifePatch", "amount": 1500, "description": "Personalized identification patch with a personal QR code.", "image": "assets/images/identification/patch.jpg", "feature": "QR"}, "caregiver": {"id": "caregiver", "name": "Caregiver dog tag", "amount": 2000, "description": "Personalized caregiver identification.", "image": "assets/images/identification/tag.jpg", "feature": "Caregiver ID"}, "holder": {"id": "holder", "name": "AirTag holder", "amount": 1200, "description": "Holder only. AirTag not included.", "image": "assets/images/identification/holder-front.jpg", "feature": "Holder only"}, "holder-qr": {"id": "holder-qr", "name": "Personalized AirTag holder", "amount": 1800, "description": "Holder with a personal QR code linked to OneProfile. AirTag not included.", "image": "assets/images/identification/holder-back.jpg", "feature": "QR"}};
+  const escapeText=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const dialog=document.getElementById('identificationDialog'), detailForm=document.getElementById('identificationDetails');
+  let selectedID=null;
+  document.querySelectorAll('.id-add').forEach(button=>button.addEventListener('click',()=>{selectedID=button.dataset.identification;detailForm.reset();document.getElementById('identificationTitle').textContent=ID_PRODUCTS[selectedID].name;document.getElementById('fobColorLabel').hidden=selectedID!=='fob';dialog.showModal();}));
+  document.getElementById('identificationCancel').addEventListener('click',()=>dialog.close());
+  detailForm.addEventListener('submit',event=>{event.preventDefault();if(!detailForm.reportValidity()||!selectedID)return;const p=ID_PRODUCTS[selectedID];const personalization={personName:detailForm.elements.personName.value.trim(),profileEmail:detailForm.elements.profileEmail.value.trim(),notes:detailForm.elements.notes.value.trim(),color:selectedID==='fob'?detailForm.elements.color.value:'',firstKit:detailForm.elements.firstKit.checked};const itemKey='id|'+selectedID+'|'+JSON.stringify(personalization);const found=cart.find(x=>x.itemKey===itemKey);if(found){if(found.quantity>=20){alert('Maximum 20 of this personalized item per order.');return}found.quantity++}else cart.push({itemKey,productKey:'id:'+selectedID,identificationId:selectedID,name:p.name,unitPrice:p.amount/100,quantity:1,personalization});saveCart();dialog.close();openCart();});
   const ADULT_SIZES=["S","M","L","XL","2XL","3XL","4XL"];
 
   const YOUTH_SIZES=["XS","S","M","L","XL"];
@@ -234,7 +241,7 @@
 
     const found=cart.find(x=>x.itemKey===itemKey);
 
-    if(found) found.quantity+=1;
+    if(found) found.quantity=Math.min(20,found.quantity+1);
 
     else cart.push({itemKey,productKey:key,name:p.name,fit,size,priceId:price.id,unitPrice:price.amount,quantity:1});
 
@@ -268,7 +275,7 @@
 
     if(!Number.isInteger(i)||!cart[i]) return;
 
-    if(action.dataset.action==="plus") cart[i].quantity+=1;
+    if(action.dataset.action==="plus") cart[i].quantity=Math.min(20,cart[i].quantity+1);
 
     if(action.dataset.action==="minus"){
 
@@ -294,7 +301,7 @@
 
       ? '<div class="cart-empty">Your cart is empty.</div>'
 
-      : cart.map((x,i)=>`<div class="cart-item"><div><strong>${x.name}</strong><small>${x.productKey==="book"?"Physical Copy":`${x.fit==="youth"?"Youth":"Adult"} • Size ${x.size}`}</small><div class="qty-row"><button type="button" data-action="minus" data-index="${i}">−</button><span>${x.quantity}</span><button type="button" data-action="plus" data-index="${i}">+</button><button class="remove-item" type="button" data-action="remove" data-index="${i}">Remove</button></div></div><div class="cart-item-price">${money(x.unitPrice*x.quantity)}</div></div>`).join("");
+      : cart.map((x,i)=>`<div class="cart-item"><div><strong>${escapeText(x.name)}</strong><small>${x.identificationId?escapeText((x.personalization?.personName||"Personalized")+" • "+(x.personalization?.color||"")+" "+(x.personalization?.notes||"")):x.productKey==="book"?"Physical Copy":`${x.fit==="youth"?"Youth":"Adult"} • Size ${escapeText(x.size)}`}</small><div class="qty-row"><button type="button" data-action="minus" data-index="${i}">−</button><span>${x.quantity}</span><button type="button" data-action="plus" data-index="${i}">+</button><button class="remove-item" type="button" data-action="remove" data-index="${i}">Remove</button></div></div><div class="cart-item-price">${money(x.unitPrice*x.quantity)}</div></div>`).join("");
 
  
 
@@ -348,7 +355,7 @@
 
           items:cart.map(x=>({
 
-            priceId:x.priceId,quantity:x.quantity,size:x.size,
+            identificationId:x.identificationId,personalization:x.personalization,priceId:x.priceId,quantity:x.quantity,size:x.size,
 
             fit:x.fit,productKey:x.productKey,name:x.name
 
