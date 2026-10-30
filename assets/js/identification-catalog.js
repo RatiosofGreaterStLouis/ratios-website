@@ -16,14 +16,6 @@ export const PRODUCTS = [
     "feature": "NFC + QR"
   },
   {
-    "id": "fob",
-    "name": "Colored NFC + QR key fob",
-    "amount": 1800,
-    "description": "Programmed to OneProfile, with a personal QR code.",
-    "image": "assets/images/identification/fobs.jpg",
-    "feature": "NFC + QR"
-  },
-  {
     "id": "tag",
     "name": "Metal LifeTag",
     "amount": 2500,
