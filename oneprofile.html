@@ -8,6 +8,28 @@
     <title>OneProfile™ | RATIOS</title>
 
     <link rel="stylesheet" href="assets/css/oneprofile.css">
+<style>
+  .membership-included{padding:48px 0;background:#f6fbfc;color:#082b4c}
+  .membership-included .membership-intro{max-width:850px;line-height:1.6;margin:14px 0 24px}
+  .membership-included h2{font-size:clamp(25px,3vw,34px);line-height:1.2;margin:10px 0 14px}
+  .membership-included .membership-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+  .membership-included .membership-card{background:#fff;border:1px solid #d5e4ec;border-radius:18px;overflow:hidden;box-shadow:0 12px 28px rgba(8,43,76,.06)}
+  .membership-included .membership-art{padding:22px 22px 0}
+  .membership-included .membership-art img{display:block;width:100%;height:260px;object-fit:contain}
+  .membership-included .membership-copy{padding:22px 24px 26px}
+  .membership-included .membership-free{display:inline-block;padding:5px 12px;border-radius:99px;background:#e5f5f6;color:#007f91;font-size:13px;font-weight:800}
+  .membership-included h3{font-size:23px;line-height:1.25;margin:12px 0}
+  .membership-included .membership-copy p{line-height:1.6;margin:10px 0 0}
+  .membership-included .membership-help{margin-top:14px!important}
+  .membership-included .membership-request{margin:24px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;line-height:1.5}
+  .membership-included .membership-request a{display:inline-block;background:#082b4c;color:white;padding:14px 22px;border-radius:99px;font-weight:800;text-decoration:none}
+  .membership-included .membership-request a:hover{background:#007f91}
+  .membership-included a:focus-visible{outline:3px solid #f4bc00;outline-offset:4px}
+  .membership-included .membership-example{font-size:14px;color:#48627a;margin:16px 0 0}
+  @media(max-width:700px){.membership-included .membership-grid{grid-template-columns:1fr}.membership-included .membership-art img{height:auto;max-height:300px}.membership-included{padding-top:32px}}
+  .membership-included .eyebrow{font-size:13px;letter-spacing:.14em;font-weight:900;text-transform:uppercase;color:#007f91}
+  .membership-included .membership-request .membership-shop-link{background:transparent;color:#082b4c;text-decoration:underline;padding:10px 0}
+</style>
 </head>
 
 <body>
@@ -222,6 +244,35 @@
 
 </section>
 
+
+  <section id="free-membership" class="membership-included" aria-labelledby="membership-heading">
+    <div class="wrap">
+      <span class="eyebrow">Included at no cost</span>
+      <h2 id="membership-heading">What’s included with your free OneProfile™ membership</h2>
+      <p class="membership-intro">Your membership includes access to OneProfile™, your first personalized ID card, and a custom emergency fridge magnet. Both items have a personal QR code that links to your loved one’s OneProfile emergency profile. No shop purchase is required.</p>
+      <div class="membership-grid">
+        <article class="membership-card">
+          <div class="membership-art"><img src="assets/images/membership/personalized-id-card.jpg" alt="Example RATIOS personalized ID card with a QR code linking to a OneProfile emergency profile" width="1944" height="1224" loading="lazy"></div>
+          <div class="membership-copy">
+            <span class="membership-free">First card included free</span>
+            <h3>A personalized ID card to carry</h3>
+            <p>Your first ID card is personalized for the individual, with their own QR code linked to their OneProfile emergency profile. Keep it with them so support information and emergency contacts are easy to find when needed.</p>
+          </div>
+        </article>
+        <article class="membership-card">
+          <div class="membership-art"><img src="assets/images/membership/emergency-fridge-magnet.png" alt="Example RATIOS My Emergency Information fridge magnet with space for a photo, medical information, emergency contacts, communication needs, calming supports, and a OneProfile QR code" width="1536" height="1024" loading="lazy"></div>
+          <div class="membership-copy">
+            <span class="membership-free">Custom magnet included free</span>
+            <h3>A quick reference for caregivers at home</h3>
+            <p>Your custom fridge magnet includes the individual’s personal QR code. Place it somewhere easy to see so a relative, babysitter, respite worker, or other caregiver can quickly find emergency information while the primary caregiver is away.</p>
+            <p class="membership-help">They can scan the QR code to view the emergency profile without needing to manage the OneProfile account. The primary caregiver continues to manage and update the profile.</p>
+          </div>
+        </article>
+      </div>
+      <div class="membership-request"><a href="resource-request.html">Request your free welcome kit</a><span><a class="membership-shop-link" href="shop.html#identification">Shop additional identification items</a></span></div>
+      <p class="membership-example">Images show examples. Your ID card and magnet will use your individual’s own QR code.</p>
+    </div>
+  </section>
 
 <!-- HOW IT WORKS -->
 <section class="how wrap">
